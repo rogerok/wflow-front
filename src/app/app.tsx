@@ -1,4 +1,4 @@
-import './app.module.scss';
+import './app.scss';
 
 import { ReactElement } from 'react';
 
@@ -6,7 +6,7 @@ import NxWelcome from './nx-welcome';
 
 export function App(): ReactElement {
   return (
-    <div>
+    <div className={'Hello'}>
       <NxWelcome title="wflow-front" />
     </div>
   );
