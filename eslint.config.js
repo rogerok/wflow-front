@@ -22,6 +22,7 @@ module.exports = [
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
+      '@nx': ['@nx'],
     },
     rules: {
       'simple-import-sort/imports': 'error',
@@ -43,7 +44,7 @@ module.exports = [
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: [],
+          allow: ['shared/*'],
           depConstraints: [
             {
               sourceTag: '*',
