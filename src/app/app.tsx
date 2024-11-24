@@ -1,15 +1,22 @@
 import './app.scss';
 
-import { MainLayout, Shared } from '@wflow-front/shared';
+import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { ReactElement } from 'react';
 
-// https://dev.to/this-is-learning/architects-delight-enforcing-layers-and-project-boundaries-with-nx-2d8o
-// https://blog.nrwl.io/mastering-the-project-boundaries-in-nx-f095852f5bf4
+import { routeTree } from '../routeTree.gen';
+
+const router = createRouter({ routeTree });
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
+
 export function App(): ReactElement {
   return (
     <div className={'Hello'}>
-      <MainLayout />
-      <Shared />
+      <RouterProvider router={router} />
     </div>
   );
 }

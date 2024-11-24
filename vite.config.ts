@@ -18,6 +18,9 @@ export default defineConfig({
   },
   plugins: [
     react(),
+    TanStackRouterVite({
+      routesDirectory: './src/app/routes',
+    }),
     svgr({
       svgrOptions: {
         exportType: 'named',
