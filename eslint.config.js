@@ -22,7 +22,6 @@ module.exports = [
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
-      '@nx': ['@nx'],
     },
     rules: {
       'simple-import-sort/imports': 'error',
@@ -44,15 +43,11 @@ module.exports = [
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: ['shared/*'],
+          allow: [],
           depConstraints: [
             {
               sourceTag: '*',
               onlyDependOnLibsWithTags: ['*'],
-            },
-            {
-              sourceTag: 'type:ui',
-              onlyDependOnLibsWithTags: ['type:ui'],
             },
           ],
         },

@@ -14,10 +14,6 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@wflow-front/ui": ["src/shared/ui/src/index.ts"],
-      "shared/*": ["src/shared/*"]
-    }
   },
   "exclude": ["node_modules", "tmp"]
 }

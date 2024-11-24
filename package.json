@@ -11,6 +11,9 @@
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0"
   },
   "private": true,
+  "engines": {
+    "node": "20.16.0"
+  },
   "dependencies": {
     "@bem-react/classname": "^1.6.0",
     "@tanstack/react-router": "^1.82.2",
