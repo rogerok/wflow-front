@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import Entities from './entities';
+import { Entities } from './entities';
 
 describe('Entities', () => {
   it('should render successfully', () => {

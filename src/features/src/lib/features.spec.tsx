@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import Features from './features';
+import { Features } from './features';
 
 describe('Features', () => {
   it('should render successfully', () => {

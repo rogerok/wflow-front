@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import Widgets from './widgets';
+import { Widgets } from './widgets';
 
 describe('Widgets', () => {
   it('should render successfully', () => {
