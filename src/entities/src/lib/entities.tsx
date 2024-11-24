@@ -1,11 +1,14 @@
-import styles from './entities.module.scss';
+import { cn } from '@bem-react/classname';
+import { FC } from 'react';
 
-export function Entities() {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to Entities!</h1>
-    </div>
-  );
+const cnEntities = cn('Entities');
+
+interface EntitiesProps {
+  className?: string;
 }
 
-export default Entities;
+export const Entities: FC<EntitiesProps> = (props) => {
+  return (
+    <div className={cnEntities(undefined, [props.className])}>Entities</div>
+  );
+};

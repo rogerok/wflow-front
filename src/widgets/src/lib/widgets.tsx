@@ -1,11 +1,19 @@
-import styles from './widgets.module.scss';
+import { cn } from '@bem-react/classname';
+import { Features } from '@wflow-front/features';
+import { Shared } from '@wflow-front/shared';
+import { FC } from 'react';
 
-export function Widgets() {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to Widgets!</h1>
-    </div>
-  );
+const cnWidgets = cn('Widgets');
+
+interface WidgetsProps {
+  className?: string;
 }
 
-export default Widgets;
+export const Widgets: FC<WidgetsProps> = (props) => {
+  return (
+    <div className={cnWidgets(undefined, [props.className])}>
+      <Features />
+      <Shared />
+    </div>
+  );
+};

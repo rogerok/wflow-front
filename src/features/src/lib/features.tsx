@@ -1,11 +1,14 @@
-import styles from './features.module.scss';
+import { cn } from '@bem-react/classname';
+import { FC } from 'react';
 
-export function Features() {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to Features!</h1>
-    </div>
-  );
+const cnFeatures = cn('Features');
+
+interface FeaturesProps {
+  className?: string;
 }
 
-export default Features;
+export const Features: FC<FeaturesProps> = (props) => {
+  return (
+    <div className={cnFeatures(undefined, [props.className])}>Features</div>
+  );
+};

@@ -1,11 +1,12 @@
-import styles from './pages.module.scss';
+import { cn } from '@bem-react/classname';
+import { FC } from 'react';
 
-export function Pages() {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to Pages!</h1>
-    </div>
-  );
+const cnPages = cn('Pages');
+
+interface PagesProps {
+  className?: string;
 }
 
-export default Pages;
+export const Pages: FC<PagesProps> = (props) => {
+  return <div className={cnPages(undefined, [props.className])}>Pages</div>;
+};

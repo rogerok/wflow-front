@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import Shared from './shared';
+import { Shared } from './shared';
 
 describe('Shared', () => {
   it('should render successfully', () => {

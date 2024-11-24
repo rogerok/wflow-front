@@ -37,7 +37,8 @@ module.exports = [
     },
   },
   {
-    files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+    ignores: ['src/app/**/*'],
+
     rules: {
       '@nx/enforce-module-boundaries': [
         'error',
@@ -46,8 +47,33 @@ module.exports = [
           allow: [],
           depConstraints: [
             {
-              sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*'],
+              sourceTag: 'type:shared',
+              onlyDependOnLibsWithTags: ['type:shared'],
+            },
+            {
+              sourceTag: 'type:entities',
+              onlyDependOnLibsWithTags: ['type:shared'],
+            },
+            {
+              sourceTag: 'type:features',
+              onlyDependOnLibsWithTags: ['type:shared', 'type:entities'],
+            },
+            {
+              sourceTag: 'type:widgets',
+              onlyDependOnLibsWithTags: [
+                'type:shared',
+                'type:entities',
+                'type:features',
+              ],
+            },
+            {
+              sourceTag: 'type:pages',
+              onlyDependOnLibsWithTags: [
+                'type:shared',
+                'type:entities',
+                'type:features',
+                'type:widgets',
+              ],
             },
           ],
         },
