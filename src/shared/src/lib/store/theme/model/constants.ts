@@ -1,4 +1,4 @@
-export const ThemeConstants = {
+export const ThemeConstant = {
   Dark: 'dark',
-  light: 'light',
-};
+  Light: 'light',
+} as const;
