@@ -5,8 +5,8 @@ import React from 'react';
 export const Route = createRootRoute({
   component: () => (
     <>
-      <Outlet />,
-      <TanStackRouterDevtools />
+      <Outlet />
+      <TanStackRouterDevtools position={'bottom-right'} />
     </>
   ),
 });
