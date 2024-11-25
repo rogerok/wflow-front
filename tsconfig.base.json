@@ -1,0 +1,26 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@wflow-front/entities": ["src/entities/src/index.ts"],
+      "@wflow-front/features": ["src/features/src/index.ts"],
+      "@wflow-front/pages": ["src/pages/src/index.ts"],
+      "@wflow-front/shared": ["src/shared/src/index.ts"],
+      "@wflow-front/widgets": ["src/widgets/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

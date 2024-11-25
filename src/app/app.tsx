@@ -1,12 +1,22 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
+import './app.scss';
 
-import NxWelcome from './nx-welcome';
+import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { ReactElement } from 'react';
 
-export function App() {
+import { routeTree } from '../routeTree.gen';
+
+const router = createRouter({ routeTree });
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
+
+export function App(): ReactElement {
   return (
-    <div>
-      <NxWelcome title="wflow-front" />
+    <div className={'Hello'}>
+      <RouterProvider router={router} />
     </div>
   );
 }
