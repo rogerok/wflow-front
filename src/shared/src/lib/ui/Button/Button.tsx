@@ -30,7 +30,6 @@ export const Button: FC<ButtonProps> = (props) => {
     size: size,
     variant: variant,
     fullWidth: fullWidth,
-    disabled: disabled,
   };
 
   return (

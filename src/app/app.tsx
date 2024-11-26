@@ -56,11 +56,7 @@ function App(): ReactElement {
       <MainLayout
         header={
           <>
-            <Button
-              variant={'outlined'}
-              disabled
-              onClick={ThemeStore.toggleTheme}
-            >
+            <Button variant={'clear'} disabled onClick={ThemeStore.toggleTheme}>
               set theme
             </Button>
             <Button
@@ -68,6 +64,12 @@ function App(): ReactElement {
               fullWidth
               onClick={ThemeStore.toggleTheme}
             >
+              set theme
+            </Button>
+            <Button fullWidth onClick={ThemeStore.toggleTheme}>
+              set theme
+            </Button>
+            <Button disabled fullWidth onClick={ThemeStore.toggleTheme}>
               set theme
             </Button>
             <Card title="Dark header" description={''} />

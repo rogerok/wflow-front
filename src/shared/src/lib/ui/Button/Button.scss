@@ -1,11 +1,7 @@
 .Button {
   font: var(--font-s);
   font-weight: 600;
-  border-radius: 2rem;
-
-  &_disabled {
-    color: var(--basic-secondary-4)
-  }
+  border-radius: var(--border-rad-1);
 
   &_variant {
     &_clear {
@@ -20,23 +16,23 @@
       background: var(--brand-primary);
       border: none;
 
+      &:disabled {
+        color: var(--basic-accent);
+        background: var(--basic-secondary-4)
+      }
+
     }
 
     &_outlined {
       color: var(--brand-primary);
       background: var(--basic-accent);
-      border: 0.1rem solid var(--brand-primary);
+      border: var(--border-style-1) var(--brand-primary);
+
+      &:disabled {
+        color: var(--basic-secondary-4);
+        border: var(--border-style-1) var(--basic-secondary-4);
+      }
     }
-  }
-
-  &_variant_filled.Button_disabled {
-    background: var(--basic-secondary-4);
-  }
-
-  &_variant_outlined.Button_disabled {
-    color: var(--basic-secondary-4);
-    border: 0.1rem solid var(--basic-secondary-4);
-
   }
 
   &_size {
@@ -54,5 +50,29 @@
 
   &_fullWidth {
     width: 100%;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  @media (hover: hover) {
+    &:not(:disabled):hover {
+        cursor: pointer;
+        transition: var(--default-transition);
+    }
+
+    &_variant {
+      &_filled:not(:disabled):hover {
+            color: var(--brand-primary);
+            background: var(--basic-accent);
+      }
+
+      &_outlined:not(:disabled):hover  {
+            color: var(--basic-accent);
+            background: var(--brand-primary);
+            border: 0.1rem solid var(--basic-accent);
+      }
+    }
   }
 }
