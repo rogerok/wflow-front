@@ -1,5 +1,5 @@
 //ui
-export * from './lib/ui/shared';
+export * from './lib/ui/Button/Button';
 // layouts
 export * from './lib/layouts/index';
 // constants
