@@ -1,4 +1,6 @@
-import { ObjectValues } from '../../../lib/tsUtils/ObjectValues';
 import { ThemeConstant } from './constants';
+import { z } from 'zod';
 
-export type ThemesType = ObjectValues<typeof ThemeConstant>;
+export const ThemeSchema = z.nativeEnum(ThemeConstant);
+
+export type ThemesType = z.infer<typeof ThemeSchema>;
