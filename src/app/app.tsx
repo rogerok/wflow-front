@@ -3,6 +3,7 @@ import './styles/index.scss';
 import { cn } from '@bem-react/classname';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { MainLayout } from '@wflow-front/shared';
+import { ThemeStore } from '@wflow-front/shared';
 import { observer } from 'mobx-react-lite';
 import { ReactElement } from 'react';
 
@@ -49,16 +50,19 @@ const Navbar = ({
 };
 
 function App(): ReactElement {
-  const theme = 'dark';
-
   return (
     <div
       className={cnApp({
-        theme: theme,
+        theme: ThemeStore.theme,
       })}
     >
       <MainLayout
-        header={<Card title="Dark header" description={''} />}
+        header={
+          <>
+            <button onClick={ThemeStore.toggleTheme}>set theme</button>
+            <Card title="Dark header" description={''} />
+          </>
+        }
         content={<RouterProvider router={router} />}
         navbar={<Navbar title="Dark Navbar" description={''} />}
       />
