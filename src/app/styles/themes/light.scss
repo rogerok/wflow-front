@@ -1,35 +1,35 @@
-.App {
-  &_theme_light {
-    // Basics
-    --basic-primary: #0F2851;
-    --basic-accent: #FFFFFF;
-    --basic-secondary-1: #E5E6EE;
-    --basic-secondary-2: #415371;
-    --basic-secondary-3: #898D9E;
-    --basic-secondary-4: #B0B2C3;
+/* stylelint-disable selector-class-pattern */
+.light {
+  // Basics
+  --basic-primary: #0F2851;
+  --basic-accent: #FFF;
+  --basic-secondary-1: #E5E6EE;
+  --basic-secondary-2: #415371;
+  --basic-secondary-3: #898D9E;
+  --basic-secondary-4: #B0B2C3;
 
-    // Colors
-    --brand-primary: #585CE5;
-    --brand-primary-light: #A1A3F6;
-    --brand-secondary: #58C6CD;
-    --brand-secondary-light: #58C6CD;
-    --brand-accent-1: #EEC1C1;
-    --brand-accent-2: #A6D0EE;
-    --brand-accent-3: #F2D382;
+  // Colors
+  --brand-primary: #585CE5;
+  --brand-primary-light: #A1A3F6;
+  --brand-secondary: #58C6CD;
+  --brand-secondary-light: #58C6CD;
+  --brand-accent-1: #EEC1C1;
+  --brand-accent-2: #A6D0EE;
+  --brand-accent-3: #F2D382;
 
 
-    --alert: #F59C9C;
+  --alert: #F59C9C;
 
-    // TODO: add more consistency
+  // TODO: add more consistency
 
-    // Backgrounds
-    --bg-primary: #FAFAFF;
-    --bg-secondary: #F0F1F9;
-    --bg-accent-1: #D0D1FF;
-    --bg-accent-2: #C9EBED;
-    --bg-accent-3: #F5DEDE;
-    --bg-accent-4: #FBECC4;
-    --bg-accent-5: #CFEBFF;
+  // Backgrounds
+  --bg-primary: #FAFAFF;
+  --bg-secondary: #F0F1F9;
+  --bg-accent-1: #D0D1FF;
+  --bg-accent-2: #C9EBED;
+  --bg-accent-3: #F5DEDE;
+  --bg-accent-4: #FBECC4;
+  --bg-accent-5: #CFEBFF;
 
-  }
+  --navbar-bg: #FFF;
 }

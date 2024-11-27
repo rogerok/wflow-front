@@ -23,13 +23,13 @@ export default defineConfig({
     }),
     svgr({
       svgrOptions: {
-        exportType: 'named',
         ref: true,
         svgo: true,
         titleProp: true,
       },
       include: '**/*.svg',
     }),
+
     nxViteTsPaths(),
     nxCopyAssetsPlugin(['*.md']),
   ],
