@@ -1,6 +1,13 @@
-{ "rules": {
-  "selector-class-pattern": ["^[A-Z][a-zA-Z0-9]+$"],
-  "unit-allowed-list": ["rem"]
-},
-  "extends": ["stylelint-config-standard-scss", "stylelint-config-clean-order"]
+{
+  "rules": {
+    "selector-class-pattern": [
+      ""
+    ],
+    "custom-property-empty-line-before": null
+  },
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-clean-order",
+    "stylelint-config-prettier-scss"
+  ]
 }

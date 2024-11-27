@@ -2,8 +2,7 @@ import './styles/index.scss';
 
 import { cn } from '@bem-react/classname';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
-import { MainLayout } from '@wflow-front/shared';
-import { ThemeStore } from '@wflow-front/shared';
+import { Button, MainLayout, ThemeStore } from '@wflow-front/shared';
 import { observer } from 'mobx-react-lite';
 import { ReactElement } from 'react';
 
@@ -19,7 +18,7 @@ declare module '@tanstack/react-router' {
 
 const cnApp = cn('App');
 
-const Card = ({
+export const Card = ({
   title,
   description,
 }: {
@@ -34,7 +33,7 @@ const Card = ({
   );
 };
 
-const Navbar = ({
+export const Navbar = ({
   title,
   description,
 }: {
@@ -51,15 +50,28 @@ const Navbar = ({
 
 function App(): ReactElement {
   return (
-    <div
-      className={cnApp({
-        theme: ThemeStore.theme,
-      })}
-    >
+    <div className={cnApp(undefined, [ThemeStore.theme])}>
       <MainLayout
         header={
           <>
-            <button onClick={ThemeStore.toggleTheme}>set theme</button>
+            {/*<LogoIcon />*/}
+            <Button variant={'clear'} disabled onClick={ThemeStore.toggleTheme}>
+              set theme
+            </Button>
+            <Button
+              variant={'outlined'}
+              fullWidth
+              onClick={ThemeStore.toggleTheme}
+            >
+              set theme
+            </Button>
+
+            <Button fullWidth onClick={ThemeStore.toggleTheme}>
+              set theme
+            </Button>
+            <Button disabled fullWidth onClick={ThemeStore.toggleTheme}>
+              set theme
+            </Button>
             <Card title="Dark header" description={''} />
           </>
         }
