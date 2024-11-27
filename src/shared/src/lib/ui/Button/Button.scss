@@ -7,8 +7,11 @@
     &_clear {
       margin: 0;
       padding: 0;
+
+      color: var(--basic-primary);
+
       background: none;
-      border: none;
+      border: none
     }
 
     &_filled {
@@ -58,20 +61,20 @@
 
   @media (hover: hover) {
     &:not(:disabled):hover {
-        cursor: pointer;
-        transition: var(--default-transition);
+      cursor: pointer;
+      transition: var(--default-transition);
     }
 
     &_variant {
       &_filled:not(:disabled):hover {
-            color: var(--brand-primary);
-            background: var(--basic-accent);
+        color: var(--brand-primary);
+        background: var(--basic-accent);
       }
 
-      &_outlined:not(:disabled):hover  {
-            color: var(--basic-accent);
-            background: var(--brand-primary);
-            border: 0.1rem solid var(--basic-accent);
+      &_outlined:not(:disabled):hover {
+        color: var(--basic-accent);
+        background: var(--brand-primary);
+        border: 0.1rem solid var(--basic-accent);
       }
     }
   }

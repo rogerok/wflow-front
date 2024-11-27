@@ -2,9 +2,7 @@ import './styles/index.scss';
 
 import { cn } from '@bem-react/classname';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
-import { MainLayout } from '@wflow-front/shared';
-import { ThemeStore } from '@wflow-front/shared';
-import { Button } from '@wflow-front/shared';
+import { Button, MainLayout, ThemeStore } from '@wflow-front/shared';
 import { observer } from 'mobx-react-lite';
 import { ReactElement } from 'react';
 
@@ -56,6 +54,7 @@ function App(): ReactElement {
       <MainLayout
         header={
           <>
+            {/*<LogoIcon />*/}
             <Button variant={'clear'} disabled onClick={ThemeStore.toggleTheme}>
               set theme
             </Button>
@@ -66,6 +65,7 @@ function App(): ReactElement {
             >
               set theme
             </Button>
+
             <Button fullWidth onClick={ThemeStore.toggleTheme}>
               set theme
             </Button>
