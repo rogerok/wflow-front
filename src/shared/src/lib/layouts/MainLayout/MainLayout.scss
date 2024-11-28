@@ -1,11 +1,11 @@
 .MainLayout {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 
   &-Content {
-    height: calc(100vh - var(--navbar-height) - var(--header-height));
     overflow-y: auto;
+    height: calc(100vh - var(--navbar-height) - var(--header-height));
     padding: 4rem 2.4rem;
   }
 
