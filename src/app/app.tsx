@@ -2,9 +2,10 @@ import './styles/index.scss';
 
 import { cn } from '@bem-react/classname';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
-import { Button, MainLayout, ThemeStore } from '@wflow-front/shared';
+import { MainLayout, ThemeStore } from '@wflow-front/shared';
+import { Header } from '@wflow-front/widgets';
 import { observer } from 'mobx-react-lite';
-import { ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 
 import { routeTree } from '../routeTree.gen';
 
@@ -18,20 +19,22 @@ declare module '@tanstack/react-router' {
 
 const cnApp = cn('App');
 
-export const Card = ({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}): ReactElement => {
-  return (
-    <div className={'card'}>
-      <h1>{title}</h1>
-      <p>{description}</p>
-    </div>
-  );
-};
+export const Card = memo(
+  ({
+    title,
+    description,
+  }: {
+    title: string;
+    description: string;
+  }): ReactElement => {
+    return (
+      <div className={'card'}>
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </div>
+    );
+  }
+);
 
 export const Navbar = ({
   title,
@@ -52,29 +55,7 @@ function App(): ReactElement {
   return (
     <div className={cnApp(undefined, [ThemeStore.theme])}>
       <MainLayout
-        header={
-          <>
-            {/*<LogoIcon />*/}
-            <Button variant={'clear'} disabled onClick={ThemeStore.toggleTheme}>
-              set theme
-            </Button>
-            <Button
-              variant={'outlined'}
-              fullWidth
-              onClick={ThemeStore.toggleTheme}
-            >
-              set theme
-            </Button>
-
-            <Button fullWidth onClick={ThemeStore.toggleTheme}>
-              set theme
-            </Button>
-            <Button disabled fullWidth onClick={ThemeStore.toggleTheme}>
-              set theme
-            </Button>
-            <Card title="Dark header" description={''} />
-          </>
-        }
+        header={<Header />}
         content={<RouterProvider router={router} />}
         navbar={<Navbar title="Dark Navbar" description={''} />}
       />

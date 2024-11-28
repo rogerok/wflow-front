@@ -29,6 +29,10 @@ class Theme implements ThemeManager {
     return this._theme;
   }
 
+  get isDark(): boolean {
+    return this._theme === ThemeConstant.Dark;
+  }
+
   private getThemeFromLocalStorage(): string | null {
     return localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
   }
@@ -38,12 +42,12 @@ class Theme implements ThemeManager {
 
     if (this.validateTheme(storageTheme)) {
       this._theme = storageTheme;
-    } else if (this.isDarkTheme()) {
+    } else if (this.isPreferDarkTheme()) {
       this.setTheme(ThemeConstant.Dark);
     }
   };
 
-  private isDarkTheme(): boolean {
+  private isPreferDarkTheme(): boolean {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 
