@@ -54,7 +54,6 @@ function App(): ReactElement {
       <MainLayout
         header={
           <>
-            {/*<LogoIcon />*/}
             <Button variant={'clear'} disabled onClick={ThemeStore.toggleTheme}>
               set theme
             </Button>

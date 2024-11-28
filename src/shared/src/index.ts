@@ -1,5 +1,6 @@
 //ui
 export * from './lib/ui/Button/Button';
+export * from './lib/ui/IconComponent/IconComponent';
 // layouts
 export * from './lib/layouts';
 // constants
