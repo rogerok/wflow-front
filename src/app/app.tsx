@@ -2,7 +2,7 @@ import './styles/index.scss';
 
 import { cn } from '@bem-react/classname';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
-import { Flex, MainLayout, ThemeStore } from '@wflow-front/shared';
+import { MainLayout, ThemeStore } from '@wflow-front/shared';
 import { Header } from '@wflow-front/widgets';
 import { observer } from 'mobx-react-lite';
 import { memo, ReactElement } from 'react';
@@ -54,14 +54,6 @@ export const Navbar = ({
 function App(): ReactElement {
   return (
     <div className={cnApp(undefined, [ThemeStore.theme])}>
-      <Flex flexJustify={'start'}>
-        <Card title="Card 1" description="Description 1" />
-        <Card title="Card 2" description="Description 2" />
-        <Card title="Card 3" description="Description 3" />
-        <Card title="Card 4" description="Description 4" />
-        <Card title="Card 5" description="Description 5" />
-        <Card title="Card 6" description="Description 6" />
-      </Flex>
       <MainLayout
         header={<Header />}
         content={<RouterProvider router={router} />}

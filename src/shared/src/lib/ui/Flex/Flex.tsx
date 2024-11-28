@@ -1,4 +1,9 @@
-import { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  ElementType,
+  ReactElement,
+  ReactNode,
+} from 'react';
 import { cn } from '@bem-react/classname';
 import './Flex.scss';
 
@@ -10,19 +15,21 @@ export type FlexDirection = 'row' | 'column';
 export type FlexWrap = 'wrap' | 'nowrap';
 export type FlexGap = '4' | '8' | '16' | '24' | '32';
 
-export interface FlexProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export type FlexProps<T extends ElementType> = {
   align?: FlexAlign;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   direction?: FlexDirection;
   flexJustify?: FlexJustify;
   fullWidth?: boolean;
   gap?: FlexGap;
   wrap?: FlexWrap;
-}
+  as?: T;
+} & ComponentPropsWithoutRef<T>;
 
-export const Flex: FC<FlexProps> = (props) => {
+export const Flex = <T extends ElementType = 'div'>(
+  props: FlexProps<T>
+): ReactElement => {
   const {
     align = 'start',
     children,
@@ -31,12 +38,15 @@ export const Flex: FC<FlexProps> = (props) => {
     flexJustify = 'start',
     fullWidth = false,
     gap,
+    as,
     wrap = 'wrap',
     ...otherProps
   } = props;
 
+  const Component = as || 'div';
+
   return (
-    <div
+    <Component
       className={cnFlex(
         {
           align: align,
@@ -51,6 +61,6 @@ export const Flex: FC<FlexProps> = (props) => {
       {...otherProps}
     >
       {children}
-    </div>
+    </Component>
   );
 };
