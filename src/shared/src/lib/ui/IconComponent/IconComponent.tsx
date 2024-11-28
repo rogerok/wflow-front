@@ -27,6 +27,7 @@ interface IconComponentBaseProps
   name: keyof typeof Icons;
   className?: string;
   onClick?: () => void;
+  dataTestId?: string;
 }
 
 interface IconComponentWithSizeProps extends IconComponentBaseProps {
@@ -44,7 +45,16 @@ interface IconComponentNoSize extends IconComponentBaseProps {
 type IconProps = IconComponentWithSizeProps | IconComponentNoSize;
 
 export const IconComponent: FC<IconProps> = (props) => {
-  const { className, size, name, onClick, width, height, ...restProps } = props;
+  const {
+    className,
+    size,
+    name,
+    dataTestId = 'IconComponent',
+    onClick,
+    width,
+    height,
+    ...restProps
+  } = props;
 
   const sizes = size
     ? IconSizesMap[size]
@@ -66,6 +76,7 @@ export const IconComponent: FC<IconProps> = (props) => {
   if (props.onClick) {
     return (
       <button
+        data-testid={dataTestId}
         className={cnIconComponent('Button')}
         onClick={onClick}
         style={{ width: width, height: height }}
