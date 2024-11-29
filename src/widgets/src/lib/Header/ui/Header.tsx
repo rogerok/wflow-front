@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { cn } from '@bem-react/classname';
-import { IconComponent } from '@wflow-front/shared';
+import { Flex, IconComponent } from '@wflow-front/shared';
 import { ThemeSwitcher } from '@wflow-front/features';
+import './Header.scss';
 
 const cnHeader = cn('Header');
 
@@ -11,9 +12,14 @@ interface HeaderProps {
 
 export const Header: FC<HeaderProps> = (props) => {
   return (
-    <header className={cnHeader(undefined, [props.className])}>
+    <Flex
+      className={cnHeader(undefined, [props.className])}
+      as={'header'}
+      direction={'row'}
+      flexJustify={'between'}
+    >
       <IconComponent name={'LogoIcon'} width={40} height={40} />
       <ThemeSwitcher />
-    </header>
+    </Flex>
   );
 };

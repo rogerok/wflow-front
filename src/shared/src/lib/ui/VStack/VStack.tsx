@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import { Flex, FlexProps } from '../Flex/Flex';
+import React, { ComponentProps, FC } from 'react';
+import { Flex } from '../Flex/Flex';
 
-type VStackProps = Omit<FlexProps, 'direction'>;
+type VStackProps = Omit<ComponentProps<typeof Flex>, 'direction'>;
 
 export const VStack: FC<VStackProps> = (props) => {
   return <Flex direction={'column'} {...props} />;

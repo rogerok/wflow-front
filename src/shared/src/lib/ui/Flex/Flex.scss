@@ -27,6 +27,25 @@
 
 }
 
+.Flex_justify {
+  &_start {
+    justify-content: flex-start;
+  }
+
+  &_center {
+    justify-content: center;
+  }
+
+  &_between {
+    justify-content: space-between;
+  }
+
+  &_end {
+    justify-content: flex-end;
+  }
+
+}
+
 .Flex_wrap {
   &_wrap {
     flex-wrap: wrap;
