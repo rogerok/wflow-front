@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { cn } from '@bem-react/classname';
 import { Flex, IconComponent } from '@wflow-front/shared';
 import { ThemeSwitcher } from '@wflow-front/features';
+import './Header.scss';
 
 const cnHeader = cn('Header');
 

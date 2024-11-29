@@ -9,6 +9,70 @@ interface HomePageProps {
 
 export const HomePage: FC<HomePageProps> = (props) => {
   return (
-    <div className={cnHomePage(undefined, [props.className])}>HomePage</div>
+    <div className={cnHomePage(undefined, [props.className])}>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+        dasdasd
+      </div>
+    </div>
   );
 };
