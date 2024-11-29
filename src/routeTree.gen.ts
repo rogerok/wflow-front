@@ -11,20 +11,48 @@
 // Import Routes
 
 import { Route as rootRoute } from './app/routes/__root'
-import { Route as SignInImport } from './app/routes/signIn'
+import { Route as StatisticImport } from './app/routes/statistic'
+import { Route as SettingsImport } from './app/routes/settings'
+import { Route as ProfileImport } from './app/routes/profile'
 import { Route as IndexImport } from './app/routes/index'
+import { Route as authSignUpImport } from './app/routes/(auth)/signUp'
+import { Route as authSignInImport } from './app/routes/(auth)/signIn'
 
 // Create/Update Routes
 
-const SignInRoute = SignInImport.update({
-  id: '/signIn',
-  path: '/signIn',
+const StatisticRoute = StatisticImport.update({
+  id: '/statistic',
+  path: '/statistic',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SettingsRoute = SettingsImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileRoute = ProfileImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRoute,
 } as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const authSignUpRoute = authSignUpImport.update({
+  id: '/(auth)/signUp',
+  path: '/signUp',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const authSignInRoute = authSignInImport.update({
+  id: '/(auth)/signIn',
+  path: '/signIn',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +67,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/signIn': {
-      id: '/signIn'
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileImport
+      parentRoute: typeof rootRoute
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsImport
+      parentRoute: typeof rootRoute
+    }
+    '/statistic': {
+      id: '/statistic'
+      path: '/statistic'
+      fullPath: '/statistic'
+      preLoaderRoute: typeof StatisticImport
+      parentRoute: typeof rootRoute
+    }
+    '/(auth)/signIn': {
+      id: '/(auth)/signIn'
       path: '/signIn'
       fullPath: '/signIn'
-      preLoaderRoute: typeof SignInImport
+      preLoaderRoute: typeof authSignInImport
+      parentRoute: typeof rootRoute
+    }
+    '/(auth)/signUp': {
+      id: '/(auth)/signUp'
+      path: '/signUp'
+      fullPath: '/signUp'
+      preLoaderRoute: typeof authSignUpImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +109,70 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/signIn': typeof SignInRoute
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
+  '/statistic': typeof StatisticRoute
+  '/signIn': typeof authSignInRoute
+  '/signUp': typeof authSignUpRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/signIn': typeof SignInRoute
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
+  '/statistic': typeof StatisticRoute
+  '/signIn': typeof authSignInRoute
+  '/signUp': typeof authSignUpRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/signIn': typeof SignInRoute
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
+  '/statistic': typeof StatisticRoute
+  '/(auth)/signIn': typeof authSignInRoute
+  '/(auth)/signUp': typeof authSignUpRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/signIn'
+  fullPaths:
+    | '/'
+    | '/profile'
+    | '/settings'
+    | '/statistic'
+    | '/signIn'
+    | '/signUp'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/signIn'
-  id: '__root__' | '/' | '/signIn'
+  to: '/' | '/profile' | '/settings' | '/statistic' | '/signIn' | '/signUp'
+  id:
+    | '__root__'
+    | '/'
+    | '/profile'
+    | '/settings'
+    | '/statistic'
+    | '/(auth)/signIn'
+    | '/(auth)/signUp'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SignInRoute: typeof SignInRoute
+  ProfileRoute: typeof ProfileRoute
+  SettingsRoute: typeof SettingsRoute
+  StatisticRoute: typeof StatisticRoute
+  authSignInRoute: typeof authSignInRoute
+  authSignUpRoute: typeof authSignUpRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SignInRoute: SignInRoute,
+  ProfileRoute: ProfileRoute,
+  SettingsRoute: SettingsRoute,
+  StatisticRoute: StatisticRoute,
+  authSignInRoute: authSignInRoute,
+  authSignUpRoute: authSignUpRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +186,30 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/signIn"
+        "/profile",
+        "/settings",
+        "/statistic",
+        "/(auth)/signIn",
+        "/(auth)/signUp"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/signIn": {
-      "filePath": "signIn.tsx"
+    "/profile": {
+      "filePath": "profile.tsx"
+    },
+    "/settings": {
+      "filePath": "settings.tsx"
+    },
+    "/statistic": {
+      "filePath": "statistic.tsx"
+    },
+    "/(auth)/signIn": {
+      "filePath": "(auth)/signIn.tsx"
+    },
+    "/(auth)/signUp": {
+      "filePath": "(auth)/signUp.tsx"
     }
   }
 }

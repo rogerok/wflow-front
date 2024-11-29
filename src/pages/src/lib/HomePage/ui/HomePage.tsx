@@ -10,67 +10,193 @@ interface HomePageProps {
 export const HomePage: FC<HomePageProps> = (props) => {
   return (
     <div className={cnHomePage(undefined, [props.className])}>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
-      <div style={{ height: '100px', background: 'red', marginBottom: '2rem' }}>
+      <div
+        style={{
+          height: '100px',
+          background: 'lightblue',
+          marginBottom: '2rem',
+        }}
+      >
         dasdasd
       </div>
     </div>
