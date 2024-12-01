@@ -1,0 +1,13 @@
+.AppLink {
+  transition: var(--default-transition);
+
+
+  &_primary {
+    color: var(--brand-primary);
+
+    &:hover {
+      color: var(--brand-accent-2);
+    }
+  }
+
+}

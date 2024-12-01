@@ -6,7 +6,7 @@
   left: 0;
 
 
-  height: var(--navbar-height);
+
   padding: 4rem 4.5rem;
 
   color: var(--basic-primary);
@@ -19,5 +19,18 @@
   box-shadow: 0 -5px 10px rgb(0 0 0 / 30%),
   0 -8px 20px rgb(56 58 139 / 30%),
   0 -6px 20px rgb(255 200 150 / 10%);
+
+
+  &-Link {
+      color: var(--basic-secondary-4);
+
+      &:hover {
+        color: var(--brand-primary);
+      }
+
+    &.active {
+      color: var(--brand-primary)
+    }
+  }
 
 }
