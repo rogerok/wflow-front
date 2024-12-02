@@ -1,11 +1,13 @@
 .MainLayout {
-  overflow-y: auto;
+  overflow-y: hidden;
   display: grid;
   grid-template-areas:
-            "header header header"
-            "content content content"
-            "navbar navbar navbar";
-  grid-template-rows: auto  calc(100vh - var(--navbar-height) - var(--header-height))   var(--navbar-height);
+    'header'
+    'content'
+    'navbar';
+  grid-template-rows: auto calc(
+      100vh - var(--navbar-height) - var(--header-height)
+    ) var(--navbar-height);
 
   min-height: 100vh;
 
@@ -21,6 +23,4 @@
   &-Header {
     grid-area: header;
   }
-
 }
-
