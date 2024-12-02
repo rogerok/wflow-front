@@ -9,7 +9,6 @@
     auto calc(100vh - var(--navbar-height) - var(--header-height))
     var(--navbar-height);
 
-  min-height: 100vh;
 
   &-Navbar {
     position: fixed;
@@ -29,7 +28,6 @@
 
   &-Content {
     grid-area: content;
-    padding: 4rem 2.4rem;
   }
 
   &-Header {

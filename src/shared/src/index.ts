@@ -5,6 +5,7 @@ export * from './lib/ui/HStack/HStack';
 export * from './lib/ui/IconComponent/IconComponent';
 export * from './lib/ui/VStack/VStack';
 export * from './lib/ui/AppLink/AppLink';
+export * from './lib/ui/Page/Page';
 // layouts
 export * from './lib/layouts';
 // constants

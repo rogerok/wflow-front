@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { cn } from '@bem-react/classname';
+import { Page } from '@wflow-front/shared';
 
 const cnHomePage = cn('HomePage');
 
@@ -9,7 +10,7 @@ interface HomePageProps {
 
 export const HomePage: FC<HomePageProps> = (props) => {
   return (
-    <div className={cnHomePage(undefined, [props.className])}>
+    <Page className={cnHomePage(undefined, [props.className])}>
       <div
         style={{
           height: '100px',
@@ -478,6 +479,6 @@ export const HomePage: FC<HomePageProps> = (props) => {
       >
         dasdasd
       </div>
-    </div>
+    </Page>
   );
 };
