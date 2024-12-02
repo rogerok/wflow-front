@@ -40,6 +40,6 @@
     grid-template:
     'header header header' var(--header-height)
     'navbar content content' calc(100vh - var(--header-height))
-    / 20rem auto;
+    / minmax(8rem, 20rem) auto;
   }
 }
