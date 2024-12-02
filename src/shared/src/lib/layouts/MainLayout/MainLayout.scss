@@ -19,10 +19,10 @@
 
     grid-area: navbar;
 
-    //@media (min-width: $md-breakpoint) {
-    //  position: initial;
-    //  z-index: initial;
-    //}
+    @media (min-width: $md-breakpoint) {
+      position: initial;
+      z-index: initial;
+    }
   }
 
 
@@ -34,11 +34,11 @@
     grid-area: header;
   }
 
-  //@media (min-width: $md-breakpoint) {
-  //  grid-template-areas:
-  //    'header header'
-  //    'navbar content';
-  //  grid-template-columns: auto  1fr;
-  //
-  //}
+  @media (min-width: $md-breakpoint) {
+    grid-template-areas:
+      'header header'
+      'navbar content';
+    grid-template-columns: auto  1fr;
+
+  }
 }
