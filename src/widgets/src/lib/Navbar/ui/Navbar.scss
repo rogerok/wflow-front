@@ -1,9 +1,7 @@
 .Navbar {
-  position: fixed;
-  z-index: var(--z-index-navbar);
-  right: 0;
-  bottom: 0;
-  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   padding: 0.5rem 4.5rem;
 
@@ -43,6 +41,13 @@
       animation: active-bg 0.2s;
     }
   }
+
+  //
+  //@media (min-width: $md-breakpoint) {
+  //  flex-direction: column;
+  //  height: 100vh;
+  //
+  //}
 }
 
 @keyframes active-bg {

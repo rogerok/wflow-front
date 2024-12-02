@@ -1,19 +1,31 @@
 .MainLayout {
-  overflow-y: hidden;
+  overflow-y: auto;
   display: grid;
   grid-template-areas:
     'header'
     'content'
-    'navbar';
-  grid-template-rows: auto calc(
-      100vh - var(--navbar-height) - var(--header-height)
-    ) var(--navbar-height);
+    'navbar';;
+  grid-template-rows:
+    auto calc(100vh - var(--navbar-height) - var(--header-height))
+    var(--navbar-height);
 
   min-height: 100vh;
 
   &-Navbar {
+    position: fixed;
+    z-index: var(--z-index-navbar);
+    right: 0;
+    bottom: 0;
+    left: 0;
+
     grid-area: navbar;
+
+    //@media (min-width: $md-breakpoint) {
+    //  position: initial;
+    //  z-index: initial;
+    //}
   }
+
 
   &-Content {
     grid-area: content;
@@ -23,4 +35,12 @@
   &-Header {
     grid-area: header;
   }
+
+  //@media (min-width: $md-breakpoint) {
+  //  grid-template-areas:
+  //    'header header'
+  //    'navbar content';
+  //  grid-template-columns: auto  1fr;
+  //
+  //}
 }

@@ -1,4 +1,4 @@
-import React, { FC, SVGProps } from 'react';
+import React, { createElement, FC, SVGProps } from 'react';
 import { cn } from '@bem-react/classname';
 import * as Icons from '../../assets/index';
 import './IconComponent.scss';
@@ -63,15 +63,11 @@ export const IconComponent: FC<IconProps> = (props) => {
         height: props.height,
       };
 
-  const Icon = Icons[props.name];
-
-  const iconComp = (
-    <Icon
-      className={cnIconComponent(undefined, [className])}
-      {...sizes}
-      {...restProps}
-    />
-  );
+  const Icon = createElement(Icons[props.name], {
+    ...restProps,
+    ...sizes,
+    className: cnIconComponent(undefined, [className]),
+  });
 
   if (props.onClick) {
     return (
@@ -81,9 +77,9 @@ export const IconComponent: FC<IconProps> = (props) => {
         onClick={onClick}
         style={{ width: width, height: height }}
       >
-        {iconComp}
+        {Icon}
       </button>
     );
   }
-  return iconComp;
+  return Icon;
 };

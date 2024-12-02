@@ -3,6 +3,7 @@
 @use "themes/light";
 @use "variables/global";
 @use "fonts";
+@use "variables/breakpoints";
 
 html {
   font-size: 10px;

@@ -17,7 +17,7 @@ const NavLinks = [
     active: <IconComponent name={'HomeIconFilled'} size={'sm'} />,
   }),
   linkOptions({
-    to: '123',
+    to: '/',
     inActive: <IconComponent name={'TimerIcon'} size={'sm'} />,
     active: <IconComponent name={'TimerIconFilled'} size={'sm'} />,
   }),
@@ -35,17 +35,17 @@ const NavLinks = [
 
 export const Navbar: FC<NavbarProps> = (props) => {
   return (
-    <HStack
+    <nav
       className={cnNavbar(undefined, [props.className])}
-      flexJustify={'between'}
-      align={'center'}
-      as={'nav'}
+      // flexJustify={'between'}
+      // align={'center'}
+      // as={'nav'}
     >
       {NavLinks.map((link) => (
         <AppLink className={cnNavbar('Link')} to={link.to} key={link.to}>
           {({ isActive }) => (isActive ? link.active : link.inActive)}
         </AppLink>
       ))}
-    </HStack>
+    </nav>
   );
 };
