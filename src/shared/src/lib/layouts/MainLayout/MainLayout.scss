@@ -4,11 +4,12 @@
   grid-template-areas:
     'header'
     'content'
-    'navbar';;
+    'navbar';
   grid-template-rows:
     auto calc(100vh - var(--navbar-height) - var(--header-height))
     var(--navbar-height);
 
+  padding: 0 2.4rem;
 
   &-Navbar {
     position: fixed;
@@ -20,14 +21,14 @@
     grid-area: navbar;
 
     @media (min-width: $md-breakpoint) {
-      position: initial;
-      z-index: initial;
+      position: relative;
     }
   }
 
 
   &-Content {
     grid-area: content;
+    height: 100vh;
   }
 
   &-Header {
@@ -35,10 +36,10 @@
   }
 
   @media (min-width: $md-breakpoint) {
-    grid-template-areas:
-      'header header'
-      'navbar content';
-    grid-template-columns: auto  1fr;
-
+    grid-gap: 2.4rem;
+    grid-template:
+    'header header header' var(--header-height)
+    'navbar content content' calc(100vh - var(--header-height))
+    / 20rem auto;
   }
 }

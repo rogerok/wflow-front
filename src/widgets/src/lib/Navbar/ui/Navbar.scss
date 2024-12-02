@@ -42,6 +42,19 @@
     }
   }
 
+  @media (min-width: $md-breakpoint) {
+    flex-direction: column;
+
+    height: calc(100% - var(--header-height));
+    padding: 2.4rem;
+
+    border-radius: 3.2rem;
+    box-shadow: 5px 0 10px rgb(0 0 0 / 30%),
+    8px 0 20px rgb(56 58 139 / 30%),
+    0 6px 20px rgb(255 200 150 / 10%),
+    0 -6px 10px rgb(255 200 150 / 10%);
+  }
+
 }
 
 @keyframes active-bg {
