@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { cn } from '@bem-react/classname';
 import './Navbar.scss';
-import { AppLink, HStack, IconComponent, routes } from '@wflow-front/shared';
+import { IconComponent, routes } from '@wflow-front/shared';
 import { linkOptions } from '@tanstack/react-router';
+import { NavbarItem } from './NavbarItem/NavbarItem';
 
 const cnNavbar = cn('Navbar');
 
@@ -35,18 +36,19 @@ const NavLinks = [
     active: <IconComponent name={'SettingsIconFilled'} size={'sm'} />,
     label: 'Настройки',
   }),
-];
+] as const;
 
 export const Navbar: FC<NavbarProps> = (props) => {
   return (
     <nav className={cnNavbar(undefined, [props.className])}>
       {NavLinks.map((link) => (
-        <HStack align={'center'} gap={'16'}>
-          <AppLink className={cnNavbar('Link')} to={link.to} key={link.to}>
-            {({ isActive }) => (isActive ? link.active : link.inActive)}
-          </AppLink>
-          <span>{link.label}</span>
-        </HStack>
+        <NavbarItem
+          to={link.to}
+          inActive={link.inActive}
+          active={link.active}
+          label={link.label}
+          key={link.to}
+        />
       ))}
     </nav>
   );

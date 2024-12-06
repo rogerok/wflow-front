@@ -1,17 +1,17 @@
-//ui
-export * from './lib/ui/Button/Button';
-export * from './lib/ui/Flex/Flex';
-export * from './lib/ui/HStack/HStack';
-export * from './lib/ui/IconComponent/IconComponent';
-export * from './lib/ui/VStack/VStack';
-export * from './lib/ui/AppLink/AppLink';
-export * from './lib/ui/Page/Page';
+//components
+export * from './lib/elements/Button/Button';
+export * from './lib/elements/Flex/Flex';
+export * from './lib/elements/HStack/HStack';
+export * from './lib/elements/IconComponent/IconComponent';
+export * from './lib/elements/VStack/VStack';
+export * from './lib/elements/AppLink/AppLink';
+export * from './lib/elements/Page/Page';
 // layouts
 export * from './lib/layouts';
 // constants
 export * from './lib/const/localStorage';
 export * from './lib/const/router';
 // stores
-export * from './lib/store/theme/index';
+export * from './lib/store/index';
 // icons
 export * from './lib/assets';

@@ -1,0 +1,49 @@
+.NavbarItem {
+  color: var(--basic-secondary-4);
+
+  &:hover {
+    color: var(--brand-primary);
+  }
+
+  &-LinkIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 4rem;
+    height: 4rem;
+
+
+    &_active {
+      color: var(--brand-primary);
+
+      background: var(--bg-accent-1);
+      border-radius: 100%;
+
+      transition: var(--default-transition);
+      animation: active-bg 0.3s;
+    }
+  }
+
+  &-LinkLabel {
+    display: none;
+    @media (min-width: $md-breakpoint) {
+      display: block;
+    }
+  }
+}
+
+@keyframes active-bg {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.2;
+  }
+
+  100% {
+    scale: 1;
+  }
+}

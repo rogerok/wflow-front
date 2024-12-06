@@ -1,6 +1,6 @@
 .AppLink {
+  text-decoration: none;
   transition: var(--default-transition);
-
 
   &_primary {
     color: var(--brand-primary);
