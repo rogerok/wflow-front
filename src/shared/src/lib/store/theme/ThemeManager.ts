@@ -1,7 +1,7 @@
 import { ThemesType } from './type';
 
 export interface ThemeManager {
-  get theme(): ThemesType;
+  get current(): ThemesType;
   setTheme(theme: ThemesType): void;
-  toggleTheme(): void;
+  toggle(): void;
 }

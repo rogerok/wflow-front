@@ -67,13 +67,12 @@ export const IconComponent: FC<IconProps> = (props) => {
       };
 
   const iconStyles: CSSProperties = {
-    ...sizes,
     color: color ? `var(--${color})` : undefined,
   };
 
   const Icon = createElement(Icons[name], {
     ...restProps,
-    // ...sizes,
+    ...sizes,
     style: iconStyles,
     className: cnIconComponent(undefined, [className]),
   });
@@ -82,9 +81,9 @@ export const IconComponent: FC<IconProps> = (props) => {
     return (
       <button
         data-testid={dataTestId}
-        className={cnIconComponent('Button')}
+        className={cnIconComponent(undefined, [className, 'IconButton'])}
         onClick={onClick}
-        style={{ width: width, height: height }}
+        style={{ width: sizes.width, height: sizes.height }}
       >
         {Icon}
       </button>

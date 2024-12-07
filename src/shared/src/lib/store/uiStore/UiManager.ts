@@ -1,5 +1,5 @@
-interface UiManager {
+export interface UiManager {
   get isNavbarCollapsed(): boolean;
 
-  toggleNavbarCollapsed(): void;
+  toggleNavbar(): void;
 }

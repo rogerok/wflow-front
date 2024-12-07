@@ -2,9 +2,12 @@ import './styles/index.scss';
 
 import { cn } from '@bem-react/classname';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
-import { ThemeStore } from '@wflow-front/shared';
+import {
+  GlobalStoreContextProvider,
+  useGlobalStore,
+} from '@wflow-front/shared';
 import { observer } from 'mobx-react-lite';
-import React, { ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 
 import { routeTree } from '../routeTree.gen';
 
@@ -18,11 +21,21 @@ declare module '@tanstack/react-router' {
 
 const cnApp = cn('App');
 
-function App(): ReactElement {
+const WflowApp: FC = observer(() => {
+  const { theme } = useGlobalStore();
+
   return (
-    <div className={cnApp(undefined, [ThemeStore.theme])}>
+    <div className={cnApp(undefined, [theme.current])}>
       <RouterProvider router={router} />
     </div>
+  );
+});
+
+function App(): ReactElement {
+  return (
+    <GlobalStoreContextProvider>
+      <WflowApp />
+    </GlobalStoreContextProvider>
   );
 }
 

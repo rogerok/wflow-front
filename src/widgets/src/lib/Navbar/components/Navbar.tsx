@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import { cn } from '@bem-react/classname';
 import './Navbar.scss';
-import { IconComponent, routes } from '@wflow-front/shared';
+import { IconComponent, routes, useGlobalStore } from '@wflow-front/shared';
 import { linkOptions } from '@tanstack/react-router';
 import { NavbarItem } from './NavbarItem/NavbarItem';
+import { NavbarToggleButton } from './NavbarToggleButton/NavbarToggleButton';
+import { observer } from 'mobx-react-lite';
 
 const cnNavbar = cn('Navbar');
 
@@ -86,9 +88,15 @@ const NavLinks = [
   }),
 ] as const;
 
-export const Navbar: FC<NavbarProps> = (props) => {
+export const Navbar: FC<NavbarProps> = observer((props) => {
+  const { ui } = useGlobalStore();
+
   return (
-    <nav className={cnNavbar(undefined, [props.className])}>
+    <nav
+      className={cnNavbar({ collapsed: ui.isNavbarCollapsed }, [
+        props.className,
+      ])}
+    >
       {NavLinks.map((link) => (
         <NavbarItem
           to={link.to}
@@ -98,6 +106,7 @@ export const Navbar: FC<NavbarProps> = (props) => {
           key={link.to}
         />
       ))}
+      <NavbarToggleButton className={cnNavbar('ToggleButton')} />
     </nav>
   );
-};
+});

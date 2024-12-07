@@ -1,10 +1,9 @@
 .IconComponent {
   color: currentcolor;
 
-  &-Button {
+  &.IconButton {
     cursor: pointer;
 
-    margin: 0;
     padding: 0;
 
     color: currentcolor;
@@ -14,7 +13,6 @@
     outline: none;
 
     transition: var(--default-transition);
-
 
   }
 }

@@ -4,7 +4,7 @@ import { ThemeConstant } from './constants';
 import { makeAutoObservable } from 'mobx';
 import { LOCAL_STORAGE_THEME_KEY } from '../../const/localStorage';
 
-class Theme implements ThemeManager {
+export class ThemeStore implements ThemeManager {
   private _theme: ThemesType = ThemeConstant.Light;
 
   constructor() {
@@ -17,15 +17,15 @@ class Theme implements ThemeManager {
     this.saveToLocalStorage(theme);
   };
 
-  toggleTheme = (): void => {
+  toggle = (): void => {
     this.setTheme(
-      this.theme === ThemeConstant.Dark
+      this.current === ThemeConstant.Dark
         ? ThemeConstant.Light
         : ThemeConstant.Dark
     );
   };
 
-  get theme(): ThemesType {
+  get current(): ThemesType {
     return this._theme;
   }
 
@@ -59,5 +59,3 @@ class Theme implements ThemeManager {
     return ThemeSchema.safeParse(theme).success;
   };
 }
-
-export const ThemeStore = new Theme();

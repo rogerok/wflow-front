@@ -1,19 +1,18 @@
 import { makeAutoObservable } from 'mobx';
+import { UiManager } from './UiManager';
 
-class Ui implements UiManager {
-  private _isSidebarCollapsed = false;
+export class UiStore implements UiManager {
+  private _isNavbarCollapsed = false;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  toggleNavbarCollapsed = (): void => {
-    this._isSidebarCollapsed = !this._isSidebarCollapsed;
+  toggleNavbar = (): void => {
+    this._isNavbarCollapsed = !this._isNavbarCollapsed;
   };
 
   get isNavbarCollapsed(): boolean {
-    return this._isSidebarCollapsed;
+    return this._isNavbarCollapsed;
   }
 }
-
-export const UiStore = new Ui();

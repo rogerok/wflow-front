@@ -1,1 +1,5 @@
-export { ThemeStore } from './theme/ThemeStore';
+export { GlobalStore } from './global/GlobalStore';
+export {
+  GlobalStoreContextProvider,
+  useGlobalStore,
+} from './global/GlobalStoreContextProvider';

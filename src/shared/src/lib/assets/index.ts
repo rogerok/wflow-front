@@ -10,3 +10,5 @@ export { default as StatisticIcon } from './icons/menu/statistic.svg';
 export { default as StatisticIconFilled } from './icons/menu/statistic-fill.svg';
 export { default as SettingsIcon } from './icons/menu/settings.svg';
 export { default as SettingsIconFilled } from './icons/menu/settings-fill.svg';
+export { default as SidebarHideIcon } from './icons/menu/sidebar-hide.svg';
+export { default as SidebarShowIcon } from './icons/menu/sidebar-show.svg';
