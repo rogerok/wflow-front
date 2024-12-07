@@ -14,26 +14,74 @@ interface NavbarProps {
 const NavLinks = [
   linkOptions({
     to: routes.main(),
-    inActive: <IconComponent name={'HomeIcon'} size={'sm'} />,
-    active: <IconComponent name={'HomeIconFilled'} size={'sm'} />,
+    inActive: (
+      <IconComponent
+        name={'HomeIcon'}
+        size={'sm'}
+        color={'basic-secondary-4'}
+      />
+    ),
+    active: (
+      <IconComponent
+        name={'HomeIconFilled'}
+        size={'sm'}
+        color={'brand-primary'}
+      />
+    ),
     label: 'Главная',
   }),
   linkOptions({
     to: '/',
-    inActive: <IconComponent name={'TimerIcon'} size={'sm'} />,
-    active: <IconComponent name={'TimerIconFilled'} size={'sm'} />,
+    inActive: (
+      <IconComponent
+        name={'TimerIcon'}
+        size={'sm'}
+        color={'basic-secondary-4'}
+      />
+    ),
+    active: (
+      <IconComponent
+        name={'TimerIconFilled'}
+        size={'sm'}
+        color={'brand-primary'}
+      />
+    ),
     label: 'Что-нибудь',
   }),
   linkOptions({
     to: routes.statistic(),
-    inActive: <IconComponent name={'StatisticIcon'} size={'sm'} />,
-    active: <IconComponent name={'StatisticIconFilled'} size={'sm'} />,
+    inActive: (
+      <IconComponent
+        name={'StatisticIcon'}
+        size={'sm'}
+        color={'basic-secondary-4'}
+      />
+    ),
+    active: (
+      <IconComponent
+        name={'StatisticIconFilled'}
+        size={'sm'}
+        color={'brand-primary'}
+      />
+    ),
     label: 'Статистика',
   }),
   linkOptions({
     to: routes.settings(),
-    inActive: <IconComponent name={'SettingsIcon'} size={'sm'} />,
-    active: <IconComponent name={'SettingsIconFilled'} size={'sm'} />,
+    inActive: (
+      <IconComponent
+        name={'SettingsIcon'}
+        size={'sm'}
+        color={'basic-secondary-4'}
+      />
+    ),
+    active: (
+      <IconComponent
+        name={'SettingsIconFilled'}
+        size={'sm'}
+        color={'brand-primary'}
+      />
+    ),
     label: 'Настройки',
   }),
 ] as const;

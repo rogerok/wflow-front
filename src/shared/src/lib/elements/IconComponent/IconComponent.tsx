@@ -1,7 +1,8 @@
-import React, { createElement, FC, SVGProps } from 'react';
+import React, { createElement, CSSProperties, FC, SVGProps } from 'react';
 import { cn } from '@bem-react/classname';
 import * as Icons from '../../assets/index';
 import './IconComponent.scss';
+import { CssVarsMapType } from '../../store/theme/type';
 
 const cnIconComponent = cn('IconComponent');
 
@@ -28,6 +29,7 @@ interface IconComponentBaseProps
   className?: string;
   onClick?: () => void;
   dataTestId?: string;
+  color?: CssVarsMapType;
 }
 
 interface IconComponentWithSizeProps extends IconComponentBaseProps {
@@ -53,19 +55,26 @@ export const IconComponent: FC<IconProps> = (props) => {
     onClick,
     width,
     height,
+    color,
     ...restProps
   } = props;
 
   const sizes = size
     ? IconSizesMap[size]
     : {
-        width: props.width,
-        height: props.height,
+        width: width,
+        height: height,
       };
 
-  const Icon = createElement(Icons[props.name], {
-    ...restProps,
+  const iconStyles: CSSProperties = {
     ...sizes,
+    color: color ? `var(--${color})` : undefined,
+  };
+
+  const Icon = createElement(Icons[name], {
+    ...restProps,
+    // ...sizes,
+    style: iconStyles,
     className: cnIconComponent(undefined, [className]),
   });
 

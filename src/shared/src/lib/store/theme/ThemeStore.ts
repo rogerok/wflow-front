@@ -2,7 +2,7 @@ import { ThemeManager } from './ThemeManager';
 import { ThemeSchema, ThemesType } from './type';
 import { ThemeConstant } from './constants';
 import { makeAutoObservable } from 'mobx';
-import { LOCAL_STORAGE_THEME_KEY } from '../../../const/localStorage';
+import { LOCAL_STORAGE_THEME_KEY } from '../../const/localStorage';
 
 class Theme implements ThemeManager {
   private _theme: ThemesType = ThemeConstant.Light;

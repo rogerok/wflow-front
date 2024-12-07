@@ -1,5 +1,5 @@
 .NavbarItem {
-  color: var(--basic-secondary-4);
+  color: var(--basic-primary);
 
   &:hover {
     color: var(--brand-primary);
@@ -16,11 +16,8 @@
 
 
     &_active {
-      color: var(--brand-primary);
-
       background: var(--bg-accent-1);
       border-radius: 100%;
-
       transition: var(--default-transition);
       animation: active-bg 0.3s;
     }
