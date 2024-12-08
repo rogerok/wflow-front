@@ -174,6 +174,9 @@ importers:
       jsdom:
         specifier: ~22.1.0
         version: 22.1.0
+      mobx-log:
+        specifier: ^2.2.3
+        version: 2.2.3(react@18.3.1)
       nx:
         specifier: 20.0.12
         version: 20.0.12(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15))
@@ -6299,6 +6302,12 @@ packages:
 
   mlly@1.7.3:
     resolution: {integrity: sha512-xUsx5n/mN0uQf4V548PKQ+YShA4/IW0KI1dZhrNrPCLG+xizETbHTkOa1f8/xut9JRPp8kQuMnz0oqwkTiLo/A==}
+
+  mobx-log@2.2.3:
+    resolution: {integrity: sha512-xvEkJEP/8UZXon/yrHfbZ2S+OeNLEZDYuInP7u0SpyIEg9Y915RMpOHcimDXkJ+KGju6r2RTLodJYTBCKTb71Q==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
 
   mobx-react-lite@4.0.7:
     resolution: {integrity: sha512-RjwdseshK9Mg8On5tyJZHtGD+J78ZnCnRaxeQDSiciKVQDUbfZcXhmld0VMxAwvcTnPEHZySGGewm467Fcpreg==}
@@ -16112,6 +16121,10 @@ snapshots:
       pathe: 1.1.2
       pkg-types: 1.2.1
       ufo: 1.5.4
+
+  mobx-log@2.2.3(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   mobx-react-lite@4.0.7(mobx@6.13.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:

@@ -11,14 +11,14 @@ interface NavbarToggleButtonProps {
 
 export const NavbarToggleButton: FC<NavbarToggleButtonProps> = observer(
   (props) => {
-    const { ui } = useGlobalStore();
+    const { navbar } = useGlobalStore();
 
     return (
       <IconComponent
         className={cNavbarToggleButton(undefined, [props.className])}
-        name={ui.isNavbarCollapsed ? 'SidebarShowIcon' : 'SidebarHideIcon'}
-        onClick={ui.toggleNavbar}
-        color={ui.isNavbarCollapsed ? 'basic-secondary-4' : 'brand-primary'}
+        name={navbar.isNavbarCollapsed ? 'SidebarShowIcon' : 'SidebarHideIcon'}
+        onClick={navbar.toggle}
+        color={navbar.isNavbarCollapsed ? 'basic-secondary-4' : 'brand-primary'}
         size={'md'}
       />
     );

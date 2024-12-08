@@ -89,21 +89,24 @@ const NavLinks = [
 ] as const;
 
 export const Navbar: FC<NavbarProps> = observer((props) => {
-  const { ui } = useGlobalStore();
+  const { navbar } = useGlobalStore();
 
   return (
     <nav
-      className={cnNavbar({ collapsed: ui.isNavbarCollapsed }, [
-        props.className,
-      ])}
+      className={cnNavbar(
+        { collapsed: navbar.isCollapsed, expanded: !navbar.isCollapsed },
+        [props.className]
+      )}
     >
       {NavLinks.map((link) => (
         <NavbarItem
+          className={cnNavbar('Link')}
+          key={link.to}
           to={link.to}
           inActive={link.inActive}
           active={link.active}
           label={link.label}
-          key={link.to}
+          collapsed={navbar.isCollapsed}
         />
       ))}
       <NavbarToggleButton className={cnNavbar('ToggleButton')} />

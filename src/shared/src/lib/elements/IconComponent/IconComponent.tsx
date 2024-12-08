@@ -2,7 +2,7 @@ import React, { createElement, CSSProperties, FC, SVGProps } from 'react';
 import { cn } from '@bem-react/classname';
 import * as Icons from '../../assets/index';
 import './IconComponent.scss';
-import { CssVarsMapType } from '../../store/theme/type';
+import { CssVarsMapType } from '../../store/theme/types';
 
 const cnIconComponent = cn('IconComponent');
 

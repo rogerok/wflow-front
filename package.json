@@ -73,6 +73,7 @@
     "eslint-plugin-react-hooks": "5.0.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "jsdom": "~22.1.0",
+    "mobx-log": "^2.2.3",
     "nx": "20.0.12",
     "prettier": "^2.6.2",
     "sass": "^1.55.0",

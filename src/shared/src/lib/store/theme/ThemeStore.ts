@@ -1,49 +1,35 @@
-import { ThemeManager } from './ThemeManager';
-import { ThemeSchema, ThemesType } from './type';
+import { IThemeStore, ThemeSchema, ThemesType } from './types';
 import { ThemeConstant } from './constants';
 import { makeAutoObservable } from 'mobx';
 import { LOCAL_STORAGE_THEME_KEY } from '../../const/localStorage';
+import { UiBaseStore } from '../uiStore/UiBaseStore';
 
-export class ThemeStore implements ThemeManager {
-  private _theme: ThemesType = ThemeConstant.Light;
+export class ThemeStore implements IThemeStore {
+  private ui = new UiBaseStore<ThemesType>(
+    ThemeConstant.Light,
+    ThemeSchema,
+    LOCAL_STORAGE_THEME_KEY
+  );
 
   constructor() {
-    makeAutoObservable(this, {}, { autoBind: true });
-    this.initTheme();
-  }
-
-  setTheme = (theme: ThemesType): void => {
-    this._theme = theme;
-    this.saveToLocalStorage(theme);
-  };
-
-  toggle = (): void => {
-    this.setTheme(
-      this.current === ThemeConstant.Dark
-        ? ThemeConstant.Light
-        : ThemeConstant.Dark
+    makeAutoObservable(
+      this,
+      {},
+      {
+        autoBind: true,
+      }
     );
-  };
 
-  get current(): ThemesType {
-    return this._theme;
+    this.init();
   }
 
-  get isDark(): boolean {
-    return this._theme === ThemeConstant.Dark;
-  }
+  private init = (): void => {
+    const storageTheme = this.ui.getStateFromStorage();
 
-  private getThemeFromLocalStorage(): string | null {
-    return localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
-  }
-
-  private initTheme = (): void => {
-    const storageTheme = this.getThemeFromLocalStorage();
-
-    if (this.validateTheme(storageTheme)) {
-      this._theme = storageTheme;
+    if (this.ui.validateState(storageTheme)) {
+      this.ui.setState(storageTheme);
     } else if (this.isPreferDarkTheme()) {
-      this.setTheme(ThemeConstant.Dark);
+      this.ui.setState(ThemeConstant.Dark);
     }
   };
 
@@ -51,11 +37,19 @@ export class ThemeStore implements ThemeManager {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 
-  private saveToLocalStorage(theme: ThemesType): void {
-    localStorage.setItem(LOCAL_STORAGE_THEME_KEY, theme);
+  toggle = (): void => {
+    this.ui.setState(
+      this.ui.currentState === ThemeConstant.Dark
+        ? ThemeConstant.Light
+        : ThemeConstant.Dark
+    );
+  };
+
+  get isDark(): boolean {
+    return this.ui.currentState === ThemeConstant.Dark;
   }
 
-  private validateTheme = (theme: string | null): theme is ThemesType => {
-    return ThemeSchema.safeParse(theme).success;
-  };
+  get current(): ThemesType {
+    return this.ui.currentState;
+  }
 }

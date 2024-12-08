@@ -1,17 +1,20 @@
 import { ThemeStore } from '../theme/ThemeStore';
-import { UiStore } from '../uiStore/UiStore';
+import { makeAutoObservable } from 'mobx';
+import { NavbarStore } from '../navbar/NavbarStore';
 
 export class GlobalStore {
-  private _theme = new ThemeStore();
-  private _ui = new UiStore();
+  private readonly _theme: ThemeStore = new ThemeStore();
+  private readonly _navbar: NavbarStore = new NavbarStore();
 
-  // TODO: makeAutoObservable if reativity will be needed
-
-  get ui(): UiStore {
-    return this._ui;
+  constructor() {
+    makeAutoObservable(this, {}, { autoBind: true });
   }
 
   get theme(): ThemeStore {
     return this._theme;
+  }
+
+  get navbar(): NavbarStore {
+    return this._navbar;
   }
 }

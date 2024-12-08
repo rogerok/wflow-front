@@ -1,5 +1,3 @@
 export { GlobalStore } from './global/GlobalStore';
-export {
-  GlobalStoreContextProvider,
-  useGlobalStore,
-} from './global/GlobalStoreContextProvider';
+export { GlobalStoreContextProvider } from './global/GlobalStoreContextProvider';
+export { useGlobalStore } from './global/useGlobalStore';

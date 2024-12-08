@@ -1,7 +1,7 @@
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode } from 'react';
 import { GlobalStore } from './GlobalStore';
 
-const GlobalStoreContext = createContext<GlobalStore | null>(null);
+export const GlobalStoreContext = createContext<GlobalStore | null>(null);
 
 export const GlobalStoreContextProvider = (props: { children: ReactNode }) => {
   return (
@@ -9,14 +9,4 @@ export const GlobalStoreContextProvider = (props: { children: ReactNode }) => {
       {props.children}
     </GlobalStoreContext.Provider>
   );
-};
-
-export const useGlobalStore = (): GlobalStore => {
-  const store = useContext(GlobalStoreContext);
-
-  if (store === null) {
-    throw new Error('GlobalStore store is not provided');
-  }
-
-  return store;
 };
