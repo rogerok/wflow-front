@@ -8,7 +8,6 @@ export * from './lib/elements/AppLink/AppLink';
 export * from './lib/elements/Page/Page';
 
 // configs
-export * from './lib/config/storybook/RouterDecorator';
 
 // layouts
 export * from './lib/layouts';
