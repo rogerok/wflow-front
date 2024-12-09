@@ -8,7 +8,7 @@ import {
 } from '../../lib/localStorage/utils';
 
 export class UiBaseStore<T> implements IUiBaseStore<T> {
-  readonly _storageKey: null | string;
+  private readonly _storageKey: null | string;
   private _state: T;
   private _validationSchema: ZodSchema;
 
@@ -30,18 +30,22 @@ export class UiBaseStore<T> implements IUiBaseStore<T> {
     const storedState = this.getStateFromStorage();
 
     if (this.validateState(storedState)) {
-      this._state = storedState;
+      this.setState(storedState);
     } else {
-      this.setState(this._state);
+      this.saveStateToStorage();
     }
   }
 
   setState = (state: T): void => {
     this._state = state;
-    this.saveToStorage();
   };
 
-  saveToStorage(): void {
+  setStateAndSaveToStorage = (state: T) => {
+    this.setState(state);
+    this.saveStateToStorage();
+  };
+
+  saveStateToStorage(): void {
     if (this._storageKey) {
       setLocalStorageItem<T>(this._storageKey, this._state);
     }

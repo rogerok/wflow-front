@@ -29,7 +29,7 @@ export class ThemeStore implements IThemeStore {
     if (this.ui.validateState(storageTheme)) {
       this.ui.setState(storageTheme);
     } else if (this.isPreferDarkTheme()) {
-      this.ui.setState(ThemeConstant.Dark);
+      this.ui.setStateAndSaveToStorage(ThemeConstant.Dark);
     }
   };
 
@@ -38,7 +38,7 @@ export class ThemeStore implements IThemeStore {
   }
 
   toggle = (): void => {
-    this.ui.setState(
+    this.ui.setStateAndSaveToStorage(
       this.ui.currentState === ThemeConstant.Dark
         ? ThemeConstant.Light
         : ThemeConstant.Dark
