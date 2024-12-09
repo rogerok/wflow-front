@@ -39,6 +39,14 @@ export class Screen {
   get upXl(): boolean {
     return this.isWidthMatchMinByValue(BreakpointsInPxConstant.Xl);
   }
+
+  preventScroll = (): void => {
+    document.body.style.overflow = 'hidden';
+  };
+
+  enableScroll = (): void => {
+    document.body.style.overflow = 'auto';
+  };
 }
 
 export const ScreenStore = new Screen();

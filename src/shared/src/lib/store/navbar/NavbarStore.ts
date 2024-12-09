@@ -13,8 +13,6 @@ export class NavbarStore {
     LOCAL_STORAGE_NAVBAR_COLLAPSED_KEY
   );
 
-  isNavbarCollapsed = true;
-
   constructor() {
     makeAutoObservable(
       this,
@@ -49,6 +47,12 @@ export class NavbarStore {
       this._ui.setStateAndSaveToStorage(newState);
     } else {
       this._ui.setState(newState);
+
+      if (this.isCollapsed) {
+        ScreenStore.enableScroll();
+      } else {
+        ScreenStore.preventScroll();
+      }
     }
   };
 

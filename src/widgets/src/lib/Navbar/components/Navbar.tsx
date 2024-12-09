@@ -109,7 +109,11 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
           collapsed={navbar.isCollapsed}
         />
       ))}
-      <NavbarToggleButton className={cnNavbar('ToggleButton')} />
+      <NavbarToggleButton
+        className={cnNavbar('ToggleButton', {
+          expanded: !navbar.isCollapsed,
+        })}
+      />
     </nav>
   );
 });
