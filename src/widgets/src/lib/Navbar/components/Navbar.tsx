@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { cn } from '@bem-react/classname';
 import './Navbar.scss';
-import { IconComponent, routes, useGlobalStore } from '@wflow-front/shared';
-import { linkOptions } from '@tanstack/react-router';
+import { NavbarLinksType, Overlay, useGlobalStore } from '@wflow-front/shared';
 import { NavbarItem } from './NavbarItem/NavbarItem';
 import { NavbarToggleButton } from './NavbarToggleButton/NavbarToggleButton';
 import { observer } from 'mobx-react-lite';
@@ -10,110 +9,37 @@ import { observer } from 'mobx-react-lite';
 const cnNavbar = cn('Navbar');
 
 interface NavbarProps {
-  className?: string;
+  links: NavbarLinksType[];
 }
 
-const NavLinks = [
-  linkOptions({
-    to: routes.main(),
-    inActive: (
-      <IconComponent
-        name={'HomeIcon'}
-        size={'sm'}
-        color={'basic-secondary-4'}
-      />
-    ),
-    active: (
-      <IconComponent
-        name={'HomeIconFilled'}
-        size={'sm'}
-        color={'brand-primary'}
-      />
-    ),
-    label: 'Главная',
-  }),
-  linkOptions({
-    to: '/',
-    inActive: (
-      <IconComponent
-        name={'TimerIcon'}
-        size={'sm'}
-        color={'basic-secondary-4'}
-      />
-    ),
-    active: (
-      <IconComponent
-        name={'TimerIconFilled'}
-        size={'sm'}
-        color={'brand-primary'}
-      />
-    ),
-    label: 'Что-нибудь',
-  }),
-  linkOptions({
-    to: routes.statistic(),
-    inActive: (
-      <IconComponent
-        name={'StatisticIcon'}
-        size={'sm'}
-        color={'basic-secondary-4'}
-      />
-    ),
-    active: (
-      <IconComponent
-        name={'StatisticIconFilled'}
-        size={'sm'}
-        color={'brand-primary'}
-      />
-    ),
-    label: 'Статистика',
-  }),
-  linkOptions({
-    to: routes.settings(),
-    inActive: (
-      <IconComponent
-        name={'SettingsIcon'}
-        size={'sm'}
-        color={'basic-secondary-4'}
-      />
-    ),
-    active: (
-      <IconComponent
-        name={'SettingsIconFilled'}
-        size={'sm'}
-        color={'brand-primary'}
-      />
-    ),
-    label: 'Настройки',
-  }),
-] as const;
-
 export const Navbar: FC<NavbarProps> = observer((props) => {
-  const { navbar } = useGlobalStore();
+  const { navbar, screen } = useGlobalStore();
 
   return (
-    <nav
-      className={cnNavbar(
-        { collapsed: navbar.isCollapsed, expanded: !navbar.isCollapsed },
-        [props.className]
+    <>
+      {!navbar.isCollapsed && screen.downMd && (
+        <Overlay className={cnNavbar('Overlay')} onClick={navbar.toggle} />
       )}
-    >
-      {NavLinks.map((link) => (
-        <NavbarItem
-          className={cnNavbar('Link')}
-          key={link.to}
-          to={link.to}
-          inActive={link.inActive}
-          active={link.active}
-          label={link.label}
-          collapsed={navbar.isCollapsed}
+      <nav
+        className={cnNavbar(
+          { collapsed: navbar.isCollapsed, expanded: !navbar.isCollapsed },
+          []
+        )}
+      >
+        {props.links.map((link) => (
+          <NavbarItem
+            className={cnNavbar('Link')}
+            key={link.to}
+            link={link}
+            collapsed={navbar.isCollapsed}
+          />
+        ))}
+        <NavbarToggleButton
+          className={cnNavbar('ToggleButton', {
+            expanded: !navbar.isCollapsed,
+          })}
         />
-      ))}
-      <NavbarToggleButton
-        className={cnNavbar('ToggleButton', {
-          expanded: !navbar.isCollapsed,
-        })}
-      />
-    </nav>
+      </nav>
+    </>
   );
 });

@@ -6,6 +6,8 @@ export * from './lib/elements/IconComponent/IconComponent';
 export * from './lib/elements/VStack/VStack';
 export * from './lib/elements/AppLink/AppLink';
 export * from './lib/elements/Page/Page';
+export * from './lib/elements/Portal/Portal';
+export * from './lib/elements/Overlay/Overlay';
 
 // configs
 

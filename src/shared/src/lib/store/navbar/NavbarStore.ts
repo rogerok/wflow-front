@@ -13,7 +13,9 @@ export class NavbarStore {
     LOCAL_STORAGE_NAVBAR_COLLAPSED_KEY
   );
 
-  constructor() {
+  private readonly _screenStore: ScreenStore;
+
+  constructor(screenStore: ScreenStore) {
     makeAutoObservable(
       this,
       {},
@@ -21,14 +23,14 @@ export class NavbarStore {
         autoBind: true,
       }
     );
+    this._screenStore = screenStore;
 
     this.init();
-
     makeLoggable(this);
   }
 
   init(): void {
-    const shouldRestoreState = ScreenStore.upMd;
+    const shouldRestoreState = this._screenStore.upMd;
 
     if (shouldRestoreState) {
       this._ui.init();
@@ -43,16 +45,10 @@ export class NavbarStore {
         ? NavbarCollapsedConstant.Expanded
         : NavbarCollapsedConstant.Collapsed;
 
-    if (ScreenStore.upMd) {
+    if (this._screenStore.upMd) {
       this._ui.setStateAndSaveToStorage(newState);
     } else {
       this._ui.setState(newState);
-
-      if (this.isCollapsed) {
-        ScreenStore.enableScroll();
-      } else {
-        ScreenStore.preventScroll();
-      }
     }
   };
 

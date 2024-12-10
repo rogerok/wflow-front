@@ -11,13 +11,17 @@ const BreakpointsInPxConstant = {
 
 export type BreakpointsInPxType = ObjectValues<typeof BreakpointsInPxConstant>;
 
-export class Screen {
+export class ScreenStore {
   constructor() {
     makeAutoObservable(this);
   }
 
   isWidthMatchMinByValue = (value: BreakpointsInPxType): boolean => {
     return window.matchMedia(`(min-width: ${value}px)`).matches;
+  };
+
+  isWidthMatchMaxByValue = (value: BreakpointsInPxType): boolean => {
+    return window.matchMedia(`(max-width: ${value}px)`).matches;
   };
 
   get upXs(): boolean {
@@ -40,13 +44,23 @@ export class Screen {
     return this.isWidthMatchMinByValue(BreakpointsInPxConstant.Xl);
   }
 
-  preventScroll = (): void => {
-    document.body.style.overflow = 'hidden';
-  };
+  get downXs(): boolean {
+    return this.isWidthMatchMaxByValue(BreakpointsInPxConstant.Xs);
+  }
 
-  enableScroll = (): void => {
-    document.body.style.overflow = 'auto';
-  };
+  get downSm(): boolean {
+    return this.isWidthMatchMaxByValue(BreakpointsInPxConstant.Sm);
+  }
+
+  get downMd(): boolean {
+    return this.isWidthMatchMaxByValue(BreakpointsInPxConstant.Md);
+  }
+
+  get downLg(): boolean {
+    return this.isWidthMatchMaxByValue(BreakpointsInPxConstant.Lg);
+  }
+
+  get downXl(): boolean {
+    return this.isWidthMatchMaxByValue(BreakpointsInPxConstant.Xl);
+  }
 }
-
-export const ScreenStore = new Screen();
