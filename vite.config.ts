@@ -1,3 +1,5 @@
+import * as path from 'node:path';
+
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
@@ -50,10 +52,18 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         api: 'modern-compiler',
+        additionalData: `
+        @use "src/app/styles/variables/breakpoints.scss" as *;
+        @use "src/app/styles/mixins/mixins.scss" as *;
+        `,
       },
     },
   },
-
+  resolve: {
+    alias: {
+      src: path.resolve(__dirname, 'src'),
+    },
+  },
   test: {
     watch: false,
     globals: true,

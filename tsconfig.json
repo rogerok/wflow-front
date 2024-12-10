@@ -5,7 +5,15 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "types": ["vite/client", "vitest"]
+    "sourceMap": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
+    "allowUnreachableCode": false,
+    "noFallthroughCasesInSwitch": true,
+    "types": [
+      "vite/client",
+      "vitest"
+    ]
   },
   "files": [],
   "include": [],

@@ -1,0 +1,104 @@
+.Navbar {
+  display: flex;
+  flex-direction: row;
+  gap: 1.6rem;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 60vh;
+  padding: 0.5rem 4.5rem;
+
+  color: var(--basic-primary);
+  text-align: center;
+
+  background: var(--navbar-bg);
+  border-top-left-radius: 3.2rem;
+  border-top-right-radius: 3.2rem;
+  box-shadow: 0 -5px 10px rgb(0 0 0 / 30%), 0 -8px 20px rgb(56 58 139 / 30%),
+  0 -6px 20px rgb(255 200 150 / 10%);
+
+  transition: var(--default-transition);
+
+  /* Toggle Button */
+  &-ToggleButton {
+    transform: rotate(-45deg);
+
+    &_expanded {
+      grid-column-start: 2;
+      margin-left: auto;
+    }
+
+    @media (min-width: $md-breakpoint) {
+      transform: rotate(0);
+
+      display: inherit;
+      align-self: center;
+
+      margin-top: auto;
+      margin-left: unset;
+    }
+  }
+
+  /* Collapsed State */
+  &_collapsed {
+    align-items: flex-start;
+    width: 100%;
+    height: var(--navbar-collapsed-height);
+
+    @media (min-width: $md-breakpoint) {
+      width: 8rem;
+      height: auto;
+      animation: navbar-collapse 0.3s ease-in-out;
+    }
+  }
+
+  /* Expanded State */
+  &_expanded {
+    position: relative;
+    z-index: var(--navbar-z-index);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+
+    @media (min-width: $md-breakpoint) {
+      display: flex;
+      width: 100%;
+      transition: var(--default-transition);
+
+      .Navbar-Link {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
+      }
+    }
+  }
+
+
+  /* Desktop Styles */
+  @media (min-width: $md-breakpoint) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    height: calc(100% - var(--header-height));
+    padding: 2.4rem;
+
+    border-radius: 3.2rem;
+    box-shadow: 5px 0 10px rgb(0 0 0 / 30%), 8px 0 20px rgb(56 58 139 / 30%),
+    0 6px 20px rgb(255 200 150 / 10%), 0 -6px 10px rgb(255 200 150 / 10%);
+  }
+}
+
+@keyframes navbar-collapse {
+  0% {
+    width: 100%;
+  }
+
+  50% {
+    width: 50%;
+  }
+
+  100% {
+    width: 8rem;
+  }
+}

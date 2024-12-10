@@ -1,0 +1,18 @@
+.IconComponent {
+  color: currentcolor;
+
+  &.IconButton {
+    cursor: pointer;
+
+    padding: 0;
+
+    color: currentcolor;
+
+    background: none;
+    border: none;
+    outline: none;
+
+    transition: var(--default-transition);
+
+  }
+}

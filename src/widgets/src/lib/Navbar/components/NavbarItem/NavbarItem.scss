@@ -1,0 +1,70 @@
+.NavbarItem {
+  color: var(--basic-primary);
+
+  &:hover {
+    color: var(--brand-primary);
+  }
+
+  &-Icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 4rem;
+    height: 4rem;
+
+    &_active {
+      background: var(--bg-accent-1);
+      border-radius: 100%;
+      transition: var(--default-transition);
+      animation: active-bg 0.3s;
+    }
+  }
+
+  &-Label {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+
+    &_expanded {
+      width: fit-content;
+      height: fit-content;
+
+      visibility: visible;
+      opacity: 1;
+
+      transition: opacity 0.2s ease-in-out, visibility 0s linear 0.3s;
+    }
+
+    &_collapsed {
+      width: 0;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    @media (min-width: $md-breakpoint) {
+      &:has(:not(&_collapsed)) {
+        width: fit-content;
+        height: fit-content;
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@keyframes active-bg {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.2;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
