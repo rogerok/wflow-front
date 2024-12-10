@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { cn } from '@bem-react/classname';
-import { Page } from '@wflow-front/shared';
+import { Input, Page, TextField } from '@wflow-front/shared';
 
 const cnHomePage = cn('HomePage');
 
@@ -11,6 +11,11 @@ interface HomePageProps {
 export const HomePage: FC<HomePageProps> = (props) => {
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
+      <form>
+        <Input field={new TextField('')} />
+        <Input field={new TextField('321')} />
+      </form>
+
       <div
         style={{
           height: '100px',

@@ -8,6 +8,7 @@ export * from './lib/elements/AppLink/AppLink';
 export * from './lib/elements/Page/Page';
 export * from './lib/elements/Portal/Portal';
 export * from './lib/elements/Overlay/Overlay';
+export * from './lib/elements/Input/Input';
 
 // configs
 
@@ -17,6 +18,7 @@ export * from './lib/layouts';
 // lib
 
 export * from './lib/lib/tsUtils/ObjectValues';
+export * from './lib/lib/form/index';
 
 // constants
 export * from './lib/const/localStorage';
