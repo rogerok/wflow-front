@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { cn } from '@bem-react/classname';
-import { Input, Page, TextField } from '@wflow-front/shared';
+import { Input, Page, FormField, FormStore } from '@wflow-front/shared';
+import { z } from 'zod';
 
 const cnHomePage = cn('HomePage');
 
@@ -8,12 +9,30 @@ interface HomePageProps {
   className?: string;
 }
 
+const schema = z.object({
+  name: z.string(),
+  description: z.string(),
+});
+
+type Schem = z.infer<typeof schema>;
+
 export const HomePage: FC<HomePageProps> = (props) => {
+  const formConfig = new FormStore<Schem>({
+    fields: {
+      name: new FormField(''),
+      description: new FormField('123'),
+    },
+    defaultValues: {
+      name: '',
+      description: '123',
+    },
+  });
+
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
       <form>
-        <Input field={new TextField('')} />
-        <Input field={new TextField('321')} />
+        {/*<Input name={'firstField'} field={new FormField('')} />*/}
+        {/*<Input field={new FormField('321')} />*/}
       </form>
 
       <div
