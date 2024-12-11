@@ -34,14 +34,14 @@ export class FormField<TField>
 
   validator: Validator<TField> | undefined = undefined;
 
-  constructor(value: TField, schema?: ZodSchema) {
+  constructor(name: string, value: TField) {
     makeAutoObservable(this, {}, { autoBind: true });
 
     this.initialValue = value;
     this.value = value;
-    if (schema) {
-      this.validator = new Validator<TField>(schema);
-    }
+    // if (schema) {
+    //   this.validator = new Validator<TField>(schema);
+    // }
   }
 
   private setValue(value: TField): void {

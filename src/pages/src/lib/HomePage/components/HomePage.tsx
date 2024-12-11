@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { cn } from '@bem-react/classname';
 import { Input, Page, FormField, FormStore } from '@wflow-front/shared';
 import { z } from 'zod';
+import { observer } from 'mobx-react-lite';
+import { toJS } from 'mobx';
 
 const cnHomePage = cn('HomePage');
 
@@ -16,23 +18,22 @@ const schema = z.object({
 
 type Schem = z.infer<typeof schema>;
 
-export const HomePage: FC<HomePageProps> = (props) => {
-  const formConfig = new FormStore<Schem>({
-    fields: {
-      name: new FormField(''),
-      description: new FormField('123'),
-    },
-    defaultValues: {
-      name: '',
-      description: '123',
-    },
-  });
+const formConfig = new FormStore<Schem>({
+  schema: schema,
+  defaultValues: {
+    name: '',
+    description: '123',
+  },
+});
+
+export const HomePage: FC<HomePageProps> = observer((props) => {
+  console.log(toJS(formConfig));
 
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
       <form>
         {/*<Input name={'firstField'} field={new FormField('')} />*/}
-        {/*<Input field={new FormField('321')} />*/}
+        <Input field={formConfig.fields.name} />
       </form>
 
       <div
@@ -505,4 +506,4 @@ export const HomePage: FC<HomePageProps> = (props) => {
       </div>
     </Page>
   );
-};
+});

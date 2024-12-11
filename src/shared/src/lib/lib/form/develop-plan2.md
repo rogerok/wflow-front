@@ -124,3 +124,88 @@ Allow fields to be added or removed dynamically.
     - [ ] Prepare the library for release on NPM.
 
 ---
+
+# Step-by-Step Plan for Building the Form Library
+
+## Step 1: Basic FormField Class
+
+- [x] **Create the `FormField` class**:
+    - [x] Add a `value` property to store the field's current value.
+    - [x] Add an `onChange` method to update the value.
+    - [x] Use `MobX` to make the class observable.
+
+## Step 2: Multi-Step Forms
+
+### Functionality:
+
+Add support for multi-step forms by introducing navigation and validation for step-specific fields.
+
+### Steps:
+
+- [ ] **Add `steps` and `currentStep` properties to `Form`:**
+    - [ ] Define a `steps` array property in the `Form` class.
+    - [ ] Add a `currentStep` property initialized to 0.
+    - [ ] Ensure `currentStep` represents the index of the current form step.
+
+- [ ] **Implement navigation methods:**
+    - [ ] Create a `nextStep` method to increment `currentStep`:
+        - Ensure `nextStep` cannot exceed the last index of `steps`.
+        - Optionally, validate the current step before moving to the next.
+    - [ ] Create a `prevStep` method to decrement `currentStep`:
+        - Ensure `prevStep` cannot go below 0.
+    - [ ] Create a `goToStep` method to navigate to a specific step:
+        - Validate the provided step index to ensure it is within bounds.
+
+- [ ] **Validate step-specific fields:**
+    - [ ] Extend the `Form` class to associate fields with specific steps:
+        - Add metadata to each field indicating the step it belongs to.
+    - [ ] Modify the validation logic to validate only fields belonging to the current step:
+        - Use the `metadata.step` property of each field.
+        - Ensure `isStepValid` returns `true` only if all fields in the current step are valid.
+
+## Step 3: Dynamic Fields
+
+### Functionality:
+
+Allow the addition and removal of fields dynamically in the `Form` class.
+
+### Steps:
+
+- [ ] **Add `addField` method to `Form`:**
+    - [ ] Accept `fieldName` and `FormField` instance as parameters.
+    - [ ] Add the new field to the `fields` object.
+    - [ ] Ensure the new field is observable by `MobX`.
+
+- [ ] **Add `removeField` method to `Form`:**
+    - [ ] Accept `fieldName` as a parameter.
+    - [ ] Remove the field from the `fields` object.
+    - [ ] Ensure dependent validations and state updates handle the removal correctly.
+
+- [ ] **Handle validation for dynamic fields:**
+    - [ ] Update `validateAll` to loop through the updated `fields` object.
+    - [ ] Ensure adding or removing a field dynamically triggers proper re-evaluation of form validity.
+
+## Step 4: Observer Notifications (onChange Functionality)
+
+### Functionality:
+
+Notify observers when a field's value changes. This serves as a placeholder for future extensibility.
+
+### Steps:
+
+- [ ] **Implement observer registration:**
+    - [ ] Add an `observers` array property to `FormField` to store callback functions.
+    - [ ] Create an `addObserver` method to register a callback:
+        - Ensure callbacks are type-safe and accept the field's new value as a parameter.
+
+- [ ] **Notify observers on change:**
+    - [ ] Extend the `setValue` method to call all registered callbacks with the updated value.
+    - [ ] Test that observers are notified correctly when the field value updates.
+
+## Step 5: Field Arrays
+
+### Functionality:
+
+Manage arrays of fields as a single unit, enabling validation and dynamic manipulation.
+
+... (The remaining steps are unchanged)

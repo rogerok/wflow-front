@@ -23,8 +23,6 @@ export const Input: FC<InputProps> = observer((props) => {
     onChange(e.target.value);
   };
 
-  console.log(value);
-
   return (
     <input
       className={cnInput(undefined, [className])}
