@@ -2,33 +2,20 @@ import { makeAutoObservable } from 'mobx';
 import { FormField } from './FormField';
 import { ZodSchema } from 'zod';
 
-// interface FormConstructor<T> {
-//   fields: Record<keyof T, FormField<unknown>>;
-//   defaultValues: Record<keyof T, unknown>;
-// }
-
-interface FormFieldOptionConfig<T> {
-  value: T;
-  name: string;
-  placeholder?: string;
-  errorMsg?: string;
-  disabled?: boolean;
-}
-
 interface FormStoreConstructor<T> {
   defaultValues: T;
   schema: ZodSchema;
 }
 
-type MapByFields<TFormValues> = {
+type FieldsMapper<TFormValues> = {
   [Property in keyof TFormValues]: FormField<TFormValues[Property]>;
 };
 
 export class FormStore<TFormValues> {
   defaultValues: TFormValues;
-  schema: ZodSchema;
+  schema: ZodSchema<TFormValues>;
 
-  fields: MapByFields<TFormValues> = {} as MapByFields<TFormValues>;
+  fields: FieldsMapper<TFormValues> = {} as FieldsMapper<TFormValues>;
 
   constructor(options: FormStoreConstructor<TFormValues>) {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -39,14 +26,8 @@ export class FormStore<TFormValues> {
   }
 
   initFields() {
-    console.log('init');
-
     for (const field in this.defaultValues) {
-      Object.defineProperty(
-        this.fields,
-        field,
-        this.initField(field, this.defaultValues[field])
-      );
+      this.fields[field] = this.initField(field, this.defaultValues[field]);
     }
   }
 
@@ -54,8 +35,16 @@ export class FormStore<TFormValues> {
     path: Key,
     data: TFormValues[Key]
   ): FormField<TFormValues[Key]> {
-    console.log();
-
     return new FormField<TFormValues[Key]>(String(path), data);
+  }
+
+  get values(): TFormValues {
+    const values = {} as TFormValues;
+
+    for (const field in this.fields) {
+      values[field] = this.fields[field].value;
+    }
+
+    return values;
   }
 }

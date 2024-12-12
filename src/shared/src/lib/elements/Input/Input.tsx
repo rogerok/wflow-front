@@ -16,12 +16,14 @@ interface InputProps extends HTMLInputProps {
 }
 
 export const Input: FC<InputProps> = observer((props) => {
-  const { className, field } = props;
-  const { value, onChange, error, ...restProps } = field;
+  const { className, field, ...restProps } = props;
+  const { value, onChange, error } = field;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     onChange(e.target.value);
   };
+
+  console.log(value);
 
   return (
     <input

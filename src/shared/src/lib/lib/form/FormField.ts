@@ -30,8 +30,8 @@ export class FormField<TField>
   isTouched = false;
   isDisabled = false;
   value: TField;
+  name: string;
   error: undefined | string = undefined;
-
   validator: Validator<TField> | undefined = undefined;
 
   constructor(name: string, value: TField) {
@@ -39,9 +39,7 @@ export class FormField<TField>
 
     this.initialValue = value;
     this.value = value;
-    // if (schema) {
-    //   this.validator = new Validator<TField>(schema);
-    // }
+    this.name = name;
   }
 
   private setValue(value: TField): void {

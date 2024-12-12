@@ -1,9 +1,8 @@
-import { FC } from 'react';
+import { FC, FormEvent } from 'react';
 import { cn } from '@bem-react/classname';
-import { Input, Page, FormField, FormStore } from '@wflow-front/shared';
+import { Input, Page, FormField, FormStore, Button } from '@wflow-front/shared';
 import { z } from 'zod';
 import { observer } from 'mobx-react-lite';
-import { toJS } from 'mobx';
 
 const cnHomePage = cn('HomePage');
 
@@ -18,22 +17,32 @@ const schema = z.object({
 
 type Schem = z.infer<typeof schema>;
 
-const formConfig = new FormStore<Schem>({
-  schema: schema,
-  defaultValues: {
-    name: '',
-    description: '123',
-  },
-});
-
 export const HomePage: FC<HomePageProps> = observer((props) => {
-  console.log(toJS(formConfig));
+  const formConfig = new FormStore<Schem>({
+    schema: schema,
+    defaultValues: {
+      name: '',
+      description: '123',
+    },
+  });
+
+  console.log(
+    schema.safeParse({
+      name: 321,
+      description: [],
+    }).error?.issues
+  );
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    console.log(formConfig.values);
+  };
 
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
-      <form>
-        {/*<Input name={'firstField'} field={new FormField('')} />*/}
-        <Input field={formConfig.fields.name} />
+      <form onSubmit={handleSubmit}>
+        <Input name={'firstField'} field={formConfig.fields.name} />
+        <Input field={formConfig.fields.description} />
+        <Button type={'submit'}>Submit</Button>
       </form>
 
       <div
