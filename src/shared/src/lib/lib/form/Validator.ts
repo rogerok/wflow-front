@@ -1,4 +1,4 @@
-import { ZodSchema } from 'zod';
+import { ZodIssue, ZodSchema } from 'zod';
 
 type ValidationResult<Values> =
   | { isSuccess: true; errorList: null }
@@ -11,7 +11,7 @@ type ValidatorErrorModel<Values> = {
 
 type ValidationErrorsListModel<Values> = ValidatorErrorModel<Values>[];
 
-type ValuesType<Values> = Values extends object ? ValuesType<Values> : never;
+type BaseValuesType<T> = T extends object ? T : never;
 
 abstract class BaseValidator<Values, SchemaType> {
   schema: SchemaType;
@@ -54,22 +54,25 @@ class ZodValidator<Values> extends BaseValidator<Values, ZodSchema<Values>> {
       const errors = result.error.errors;
       this.setErrors({
         isSuccess: result.success,
-        errorList: [],
+        errorList: this.prepareErrorsList(errors, values),
       });
     }
   }
 
-  // private prepareErrorsList(
-  //   errors: ZodIssue[],
-  //   values: Values
-  // ): ValidationErrorsListModel<Values> {
-  //   return errors.map((err) => {
-  //     const path = err.path[0];
-  //     if (typeof values === 'object' && values && path in values) {
-  //       return { path: err.path[0], error: err.message };
-  //     }
-  //   });
-  // }
+  private prepareErrorsList(
+    errors: ZodIssue[],
+    values: Values
+  ): ValidationErrorsListModel<Values> {
+    return errors.reduce<ValidationErrorsListModel<Values>>((acc, err) => {
+      if (values && typeof values === 'object' && err.path[0] in values) {
+        acc.push({
+          path: String(err.path[0]) as keyof Values,
+          error: err.message,
+        });
+      }
+      return acc;
+    }, []);
+  }
 }
 
 class NoOpValidator<Values> extends BaseValidator<Values, null> {
