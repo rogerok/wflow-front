@@ -12,7 +12,7 @@ type HTMLInputProps = Omit<
 
 interface InputProps extends HTMLInputProps {
   className?: string;
-  field: FormField<string>;
+  field: FormField<unknown>;
 }
 
 export const Input: FC<InputProps> = observer((props) => {
@@ -23,13 +23,12 @@ export const Input: FC<InputProps> = observer((props) => {
     onChange(e.target.value);
   };
 
-  // console.log(value);
-
   return (
     <input
       className={cnInput(undefined, [className])}
       onChange={handleChange}
-      value={value}
+      // TODO: FIXME
+      value={value as string}
       {...restProps}
     />
   );

@@ -12,7 +12,7 @@ type FieldsMapper<TFormValues> = {
   [Property in keyof TFormValues]: FormField<TFormValues[Property]>;
 };
 
-export class FormStore<TFormValues> {
+export class FormStore<TFormValues extends Record<string | number, unknown>> {
   defaultValues: TFormValues;
   validator: Validator<TFormValues>;
 
@@ -20,6 +20,7 @@ export class FormStore<TFormValues> {
 
   constructor(options: FormStoreConstructor<TFormValues>) {
     makeAutoObservable(this, {}, { autoBind: true });
+
     this.defaultValues = options.defaultValues;
     this.validator = new Validator(options.schema);
 
@@ -47,5 +48,13 @@ export class FormStore<TFormValues> {
     }
 
     return values;
+  }
+
+  validate(): void {
+    this.validator.validate(this.values);
+  }
+
+  get errorList() {
+    return this.validator.errors.errorList;
   }
 }

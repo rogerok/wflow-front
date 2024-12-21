@@ -11,8 +11,8 @@ interface HomePageProps {
 }
 
 const schema = z.object({
-  name: z.string(),
-  description: z.string(),
+  name: z.string().min(10),
+  description: z.string().min(10),
 });
 
 type Schem = z.infer<typeof schema>;
@@ -26,23 +26,13 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
     },
   });
 
-  // console.log(
-  //   schema.safeParse({
-  //     name: 321,
-  //     description: [],
-  //   }).error?.issues
-  // );
-
-  // formConfig.validator.validate({
-  //   name: {},
-  //   description: [],
-  // });
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    formConfig.validate();
     console.log(formConfig.values);
   };
+
+  console.log(formConfig.validator.errors);
 
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
