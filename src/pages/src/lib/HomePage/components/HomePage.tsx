@@ -1,6 +1,6 @@
 import { FC, FormEvent } from 'react';
 import { cn } from '@bem-react/classname';
-import { Input, Page, FormField, FormStore, Button } from '@wflow-front/shared';
+import { Button, FormStore, Input, Page } from '@wflow-front/shared';
 import { z } from 'zod';
 import { observer } from 'mobx-react-lite';
 
@@ -26,14 +26,21 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
     },
   });
 
-  console.log(
-    schema.safeParse({
-      name: 321,
-      description: [],
-    }).error?.issues
-  );
+  // console.log(
+  //   schema.safeParse({
+  //     name: 321,
+  //     description: [],
+  //   }).error?.issues
+  // );
+
+  // formConfig.validator.validate({
+  //   name: {},
+  //   description: [],
+  // });
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     console.log(formConfig.values);
   };
 

@@ -1,28 +1,32 @@
 import { ZodSchema } from 'zod';
 
-type ValidationResult =
+type ValidationResult<Values> =
   | { isSuccess: true; errorList: null }
-  | { isSuccess: false; errorList: ValidatorErrorSchema[] };
+  | { isSuccess: false; errorList: ValidationErrorsListModel<Values> };
 
-type ValidatorErrorSchema = {
-  path: string;
+type ValidatorErrorModel<Values> = {
+  path: keyof Values;
   error: string;
 };
 
-abstract class BaseValidator<Values, SchemaType> {
-  protected constructor(private readonly validationSchema: SchemaType) {
-    this.schema = validationSchema;
-    this.isSuccess = false;
-  }
+type ValidationErrorsListModel<Values> = ValidatorErrorModel<Values>[];
 
-  private schema: SchemaType;
+type ValuesType<Values> = Values extends object ? ValuesType<Values> : never;
+
+abstract class BaseValidator<Values, SchemaType> {
+  schema: SchemaType;
   private isSuccess: boolean;
-  private readonly err: ValidationResult = {
+  private readonly err: ValidationResult<Values> = {
     errorList: [],
     isSuccess: false,
   };
 
-  abstract validate(data: Values): ValidationResult;
+  constructor(private readonly validationSchema: SchemaType) {
+    this.schema = validationSchema;
+    this.isSuccess = false;
+  }
+
+  abstract validate(data: Values): void;
 
   get success(): boolean {
     return this.isSuccess;
@@ -32,44 +36,69 @@ abstract class BaseValidator<Values, SchemaType> {
     this.isSuccess = value;
   }
 
-  get errors(): ValidationResult {
+  get errors(): ValidationResult<Values> {
     return this.err;
   }
 
-  setErrors(errors: ValidationResult): void {
+  setErrors(errors: ValidationResult<Values>): void {
     this.err.errorList = errors.errorList;
     this.isSuccess = errors.isSuccess;
   }
 }
 
 class ZodValidator<Values> extends BaseValidator<Values, ZodSchema<Values>> {
-  constructor(schema: ZodSchema<Values>) {
-    super(schema);
+  validate(values: Values) {
+    const result = this.schema.safeParse(values);
+
+    if (!result.success) {
+      const errors = result.error.errors;
+      this.setErrors({
+        isSuccess: result.success,
+        errorList: [],
+      });
+    }
   }
 
-  validate(values: Values): ValidationResult {
+  // private prepareErrorsList(
+  //   errors: ZodIssue[],
+  //   values: Values
+  // ): ValidationErrorsListModel<Values> {
+  //   return errors.map((err) => {
+  //     const path = err.path[0];
+  //     if (typeof values === 'object' && values && path in values) {
+  //       return { path: err.path[0], error: err.message };
+  //     }
+  //   });
+  // }
+}
+
+class NoOpValidator<Values> extends BaseValidator<Values, null> {
+  constructor() {
+    super(null);
+  }
+
+  validate(): ValidationResult<Values> {
     return {
-      isSuccess: false,
-      errorList: [],
+      isSuccess: true,
+      errorList: null,
     };
   }
 }
 
-// export class Validator<Values> implements IValidator<Values> {
-//   private schema: ZodSchema;
-//   private success = false;
-//   private error: ValidatorErrorSchema[] | null = null;
-//
-//   constructor(options: ValidatorConstructor<Values>) {
-//     this._schema = options.schema;
-//   }
-//
-//   validate(data: Values) {
-//     const parseResult = this._schema.safeParse(data);
-//
-//     if (parseResult.error) {
-//       const err = parseResult.error.errors;
-//       console.log(console.log(err));
-//     }
-//   }
-// }
+type SupportedValidators<Values> = ZodValidator<Values> | NoOpValidator<Values>;
+
+export class Validator<Values> {
+  validator: SupportedValidators<Values>;
+
+  constructor(schema?: unknown) {
+    if (schema instanceof ZodSchema) {
+      this.validator = new ZodValidator<Values>(schema);
+    } else {
+      this.validator = new NoOpValidator<Values>();
+    }
+  }
+
+  validate(values: Values): void {
+    this.validator.validate(values);
+  }
+}

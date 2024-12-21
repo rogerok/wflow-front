@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { FormField } from './FormField';
 import { ZodSchema } from 'zod';
+import { Validator } from './Validator';
 
 interface FormStoreConstructor<T> {
   defaultValues: T;
@@ -13,14 +14,14 @@ type FieldsMapper<TFormValues> = {
 
 export class FormStore<TFormValues> {
   defaultValues: TFormValues;
-  schema: ZodSchema<TFormValues>;
+  validator: Validator<TFormValues>;
 
   fields: FieldsMapper<TFormValues> = {} as FieldsMapper<TFormValues>;
 
   constructor(options: FormStoreConstructor<TFormValues>) {
     makeAutoObservable(this, {}, { autoBind: true });
     this.defaultValues = options.defaultValues;
-    this.schema = options.schema;
+    this.validator = new Validator(options.schema);
 
     this.initFields();
   }
