@@ -3,7 +3,6 @@ import { cn } from '@bem-react/classname';
 import { Button, FormStore, Page, TextField } from '@wflow-front/shared';
 import { z } from 'zod';
 import { observer } from 'mobx-react-lite';
-import { toJS } from 'mobx';
 
 const cnHomePage = cn('HomePage');
 
@@ -33,11 +32,10 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await formConfig.submit();
-    formConfig.validate();
-    // console.log(toJS(formConfig.errors));
+    console.log(formConfig.isSubmitting);
   };
 
-  console.log(toJS(formConfig.errors));
+  console.log(formConfig.isSubmitting);
 
   return (
     <Page className={cnHomePage(undefined, [props.className])}>

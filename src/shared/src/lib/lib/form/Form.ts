@@ -31,6 +31,7 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
   constructor(options: FormStoreConstructor<TFormValues>) {
     this.defaultValues = options.defaultValues;
     this.validator = new Validator(options.schema);
+    this.handleSubmit = options.handleSubmit;
 
     this.initFields();
 
@@ -77,9 +78,11 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
 
         this.validate();
 
-        if (this.errors.isSuccess) {
-          await this.handleSubmit(this.values);
-        }
+        // if (this.errors.isSuccess) {
+        //   await this.handleSubmit(this.values);
+        // }
+
+        await this.handleSubmit(this.values);
       } catch (err: unknown) {
         this.submitError = err;
       } finally {
@@ -88,6 +91,7 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
       }
     }
   }
+
   reset(): void {
     for (const field in this.fields) {
       this.fields[field].reset();
