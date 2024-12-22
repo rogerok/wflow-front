@@ -1,4 +1,4 @@
-import { computed, makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { FormField } from './FormField';
 import { ZodSchema } from 'zod';
 import { Validator } from './Validator';
@@ -26,22 +26,14 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
   isSubmitting = false;
   isSubmitted = false;
   submitError: unknown;
-  handleSubmit: FormHandleSubmitType<TFormValues> | undefined = undefined;
 
   constructor(options: FormStoreConstructor<TFormValues>) {
     this.defaultValues = options.defaultValues;
     this.validator = new Validator(options.schema);
-    this.handleSubmit = options.handleSubmit;
 
     this.initFields();
 
-    makeAutoObservable(
-      this,
-      {
-        errors: computed,
-      },
-      { autoBind: true }
-    );
+    makeAutoObservable(this, {}, { autoBind: true });
 
     makeLoggable(this);
   }
@@ -71,24 +63,18 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
     this.isSubmitted = isSubmitted;
   }
 
-  async submit(): Promise<void> {
-    if (this.handleSubmit) {
-      try {
-        this.setIsSubmitting(true);
+  async submit(handleSubmit: FormHandleSubmitType<TFormValues>): Promise<void> {
+    try {
+      this.setIsSubmitting(true);
 
-        this.validate();
+      this.validate();
 
-        // if (this.errors.isSuccess) {
-        //   await this.handleSubmit(this.values);
-        // }
-
-        await this.handleSubmit(this.values);
-      } catch (err: unknown) {
-        this.submitError = err;
-      } finally {
-        this.setIsSubmitting(false);
-        this.setIsSubmitted(true);
-      }
+      await handleSubmit(this.values);
+    } catch (err: unknown) {
+      this.submitError = err;
+    } finally {
+      this.setIsSubmitting(false);
+      this.setIsSubmitted(true);
     }
   }
 

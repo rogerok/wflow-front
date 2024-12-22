@@ -1,4 +1,4 @@
-import { FC, FormEvent } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { cn } from '@bem-react/classname';
 import { Button, FormStore, Page, TextField } from '@wflow-front/shared';
 import { z } from 'zod';
@@ -18,34 +18,32 @@ const schema = z.object({
 type Schem = z.infer<typeof schema>;
 
 export const HomePage: FC<HomePageProps> = observer((props) => {
-  const formConfig = new FormStore<Schem>({
-    schema: schema,
-    defaultValues: {
-      name: '',
-      description: '123',
-    },
-    handleSubmit: async (values: Schem): Promise<void> => {
-      console.log(values);
-    },
-  });
+  const [form] = useState(
+    () =>
+      new FormStore<Schem>({
+        schema: schema,
+        defaultValues: {
+          name: '',
+          description: '123',
+        },
+      })
+  );
+  const handleSubmit2 = async (values: Schem): Promise<void> => {
+    console.log(values);
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await formConfig.submit();
-    console.log(formConfig.isSubmitting);
+    await form.submit(handleSubmit2);
   };
-
-  console.log(formConfig.isSubmitting);
 
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
       <form onSubmit={handleSubmit}>
-        <TextField name={'firstField'} field={formConfig.fields.name} />
-        <TextField field={formConfig.fields.description} />
+        <TextField name={'firstField'} field={form.fields.name} />
+        <TextField field={form.fields.description} />
         <Button type={'submit'}>Submit</Button>
-        <div>
-          {formConfig.errors.errorList?.map((err) => 'i error' + err.error)}
-        </div>
+        <div>{form.errors.errorList?.map((err) => 'i error' + err.error)}</div>
       </form>
 
       <div
