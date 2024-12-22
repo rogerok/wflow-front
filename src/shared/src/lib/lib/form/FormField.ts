@@ -1,5 +1,4 @@
 import { makeAutoObservable } from 'mobx';
-import { ZodSchema } from 'zod';
 
 interface FieldWithValue<T> {
   value: T;
@@ -8,17 +7,11 @@ interface FieldWithValue<T> {
 
 interface TouchableField {
   isTouched: boolean;
-  touch: () => void;
+  touch: (isTouched: boolean) => void;
 }
 
 interface FieldWithError {
   error?: string;
-}
-
-interface FormFieldConstructor<T> {
-  name: string;
-  initialValue?: T;
-  schema?: ZodSchema;
 }
 
 export class FormField<TField>
@@ -31,7 +24,6 @@ export class FormField<TField>
   value: TField;
   name: string;
   error: undefined | string = undefined;
-  // validator: Validator<TField> | undefined = undefined;
 
   constructor(name: string, value: TField) {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -45,25 +37,17 @@ export class FormField<TField>
     this.value = value;
   }
 
-  // private validateValue(value: TField): void {
-  //   if (this.validator) {
-  //     this.validator.validate(value);
-  //   }
-  // }
-
   onChange(value: TField): void {
-    this.isTouched = true;
+    this.touch(true);
     this.setValue(value);
-    // this.validateValue(value);
   }
 
-  touch(): void {
-    console.log('touch');
+  touch(isTouched: boolean): void {
+    this.isTouched = isTouched;
   }
 
   reset(): void {
-    this.isTouched = false;
+    this.touch(false);
     this.setValue(this.initialValue);
-    console.log('reset');
   }
 }

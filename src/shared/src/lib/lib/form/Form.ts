@@ -1,11 +1,16 @@
-import { makeAutoObservable } from 'mobx';
+import { computed, makeAutoObservable } from 'mobx';
 import { FormField } from './FormField';
 import { ZodSchema } from 'zod';
 import { Validator } from './Validator';
+import { makeLoggable } from 'mobx-log';
+import { ValidationResult } from './validators/types';
 
-interface FormStoreConstructor<T> {
-  defaultValues: T;
+type FormHandleSubmitType<TFormValues> = (values: TFormValues) => Promise<void>;
+
+interface FormStoreConstructor<TFormValues> {
+  defaultValues: TFormValues;
   schema: ZodSchema;
+  handleSubmit?: FormHandleSubmitType<TFormValues>;
 }
 
 type FieldsMapper<TFormValues> = {
@@ -18,13 +23,26 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
 
   fields: FieldsMapper<TFormValues> = {} as FieldsMapper<TFormValues>;
 
-  constructor(options: FormStoreConstructor<TFormValues>) {
-    makeAutoObservable(this, {}, { autoBind: true });
+  isSubmitting = false;
+  isSubmitted = false;
+  submitError: unknown;
+  handleSubmit: FormHandleSubmitType<TFormValues> | undefined = undefined;
 
+  constructor(options: FormStoreConstructor<TFormValues>) {
     this.defaultValues = options.defaultValues;
     this.validator = new Validator(options.schema);
 
     this.initFields();
+
+    makeAutoObservable(
+      this,
+      {
+        errors: computed,
+      },
+      { autoBind: true }
+    );
+
+    makeLoggable(this);
   }
 
   initFields() {
@@ -40,6 +58,46 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
     return new FormField<TFormValues[Key]>(String(path), data);
   }
 
+  get errors(): ValidationResult<TFormValues> {
+    return this.validator.errors;
+  }
+
+  setIsSubmitting(isSubmitting: boolean): void {
+    this.isSubmitting = isSubmitting;
+  }
+
+  setIsSubmitted(isSubmitted: boolean): void {
+    this.isSubmitted = isSubmitted;
+  }
+
+  async submit(): Promise<void> {
+    if (this.handleSubmit) {
+      try {
+        this.setIsSubmitting(true);
+
+        this.validate();
+
+        if (this.errors.isSuccess) {
+          await this.handleSubmit(this.values);
+        }
+      } catch (err: unknown) {
+        this.submitError = err;
+      } finally {
+        this.setIsSubmitting(false);
+        this.setIsSubmitted(true);
+      }
+    }
+  }
+  reset(): void {
+    for (const field in this.fields) {
+      this.fields[field].reset();
+    }
+
+    this.setIsSubmitting(false);
+    this.setIsSubmitted(false);
+    this.validator.reset();
+  }
+
   get values(): TFormValues {
     const values = {} as TFormValues;
 
@@ -52,9 +110,5 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
 
   validate(): void {
     this.validator.validate(this.values);
-  }
-
-  get errorList() {
-    return this.validator.errors.errorList;
   }
 }

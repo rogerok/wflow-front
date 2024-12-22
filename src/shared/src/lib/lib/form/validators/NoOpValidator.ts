@@ -1,4 +1,3 @@
-import { ValidationResult } from './types';
 import { BaseValidator } from './BaseValidator';
 
 export class NoOpValidator<Values> extends BaseValidator<Values, null> {
@@ -6,10 +5,10 @@ export class NoOpValidator<Values> extends BaseValidator<Values, null> {
     super(null);
   }
 
-  validate(): ValidationResult<Values> {
-    return {
+  validate(): void {
+    this.setErrors({
       isSuccess: true,
       errorList: null,
-    };
+    });
   }
 }

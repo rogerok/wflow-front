@@ -1,8 +1,9 @@
 import { FC, FormEvent } from 'react';
 import { cn } from '@bem-react/classname';
-import { Button, FormStore, Input, Page } from '@wflow-front/shared';
+import { Button, FormStore, Page, TextField } from '@wflow-front/shared';
 import { z } from 'zod';
 import { observer } from 'mobx-react-lite';
+import { toJS } from 'mobx';
 
 const cnHomePage = cn('HomePage');
 
@@ -24,22 +25,29 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
       name: '',
       description: '123',
     },
+    handleSubmit: async (values: Schem): Promise<void> => {
+      console.log(values);
+    },
   });
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    await formConfig.submit();
     formConfig.validate();
-    console.log(formConfig.values);
+    // console.log(toJS(formConfig.errors));
   };
 
-  console.log(formConfig.validator.errors);
+  console.log(toJS(formConfig.errors));
 
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
       <form onSubmit={handleSubmit}>
-        <Input name={'firstField'} field={formConfig.fields.name} />
-        <Input field={formConfig.fields.description} />
+        <TextField name={'firstField'} field={formConfig.fields.name} />
+        <TextField field={formConfig.fields.description} />
         <Button type={'submit'}>Submit</Button>
+        <div>
+          {formConfig.errors.errorList?.map((err) => 'i error' + err.error)}
+        </div>
       </form>
 
       <div

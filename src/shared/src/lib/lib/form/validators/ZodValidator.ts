@@ -14,6 +14,11 @@ export class ZodValidator<
         isSuccess: result.success,
         errorList: this.prepareErrorsList(errors, values),
       });
+    } else {
+      this.setErrors({
+        isSuccess: result.success,
+        errorList: null,
+      });
     }
   }
 

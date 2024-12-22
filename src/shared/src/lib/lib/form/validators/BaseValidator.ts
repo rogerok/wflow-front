@@ -1,5 +1,5 @@
 import { ValidationResult } from './types';
-import { action, makeObservable, observable, toJS } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 
 export abstract class BaseValidator<Values, SchemaType> {
   schema: SchemaType;
@@ -9,12 +9,13 @@ export abstract class BaseValidator<Values, SchemaType> {
     isSuccess: false,
   };
 
-  protected constructor(private readonly validationSchema: SchemaType) {
+  constructor(private readonly validationSchema: SchemaType) {
     this.schema = validationSchema;
 
     makeObservable(this, {
       validate: action,
       errors: observable,
+      setErrors: action,
     });
   }
 
@@ -22,6 +23,5 @@ export abstract class BaseValidator<Values, SchemaType> {
 
   setErrors(errors: ValidationResult<Values>): void {
     this.errors = errors;
-    console.log(toJS(this.errors));
   }
 }

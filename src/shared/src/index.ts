@@ -8,7 +8,7 @@ export * from './lib/elements/AppLink/AppLink';
 export * from './lib/elements/Page/Page';
 export * from './lib/elements/Portal/Portal';
 export * from './lib/elements/Overlay/Overlay';
-export * from './lib/elements/Input/Input';
+export * from './lib/elements/Input/TextField';
 
 // configs
 

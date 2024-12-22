@@ -3,19 +3,19 @@ import { cn } from '@bem-react/classname';
 import { FormField } from '../../lib/form';
 import { observer } from 'mobx-react-lite';
 
-const cnInput = cn('Input');
+const cnInput = cn('TextField');
 
 type HTMLInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'value' | 'onChange' | 'readOnly' | 'size'
 >;
 
-interface InputProps extends HTMLInputProps {
+interface TextFieldProps extends HTMLInputProps {
   className?: string;
-  field: FormField<unknown>;
+  field: FormField<string>;
 }
 
-export const Input: FC<InputProps> = observer((props) => {
+export const TextField: FC<TextFieldProps> = observer((props) => {
   const { className, field, ...restProps } = props;
   const { value, onChange, error } = field;
 
@@ -27,8 +27,7 @@ export const Input: FC<InputProps> = observer((props) => {
     <input
       className={cnInput(undefined, [className])}
       onChange={handleChange}
-      // TODO: FIXME
-      value={value as string}
+      value={value}
       {...restProps}
     />
   );
