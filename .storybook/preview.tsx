@@ -8,7 +8,7 @@ import { GlobalStoreContextProvider } from '@wflow-front/shared';
 import { JSX } from 'react';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { SbDecorator } from '../src/shared/src/lib/config/storybook/RouterDecorator';
+import { SbDecorator } from '../src/shared/config/storybook/RouterDecorator';
 
 const preview: Preview = {
   tags: ['autodocs'],

@@ -7,12 +7,14 @@ module.exports = [
   {
     ignores: ['**/dist'],
   },
+
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
       '@nx/enforce-module-boundaries': [
-        'error',
+        'off',
         {
+          allowCircularSelfDependency: true,
           enforceBuildableLibDependency: true,
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
           depConstraints: [

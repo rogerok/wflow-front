@@ -1,7 +1,7 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
-import { MainLayout, NavbarLinks } from '@wflow-front/shared';
-import { Header, Navbar } from '@wflow-front/widgets';
 import React from 'react';
+import { MainLayout, NavbarLinks } from '@shared';
+import { Header, Navbar } from '@widgets';
 
 export const Route = createRootRoute({
   component: () => (

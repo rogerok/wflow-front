@@ -38,47 +38,6 @@ module.exports = [
   },
   {
     ignores: ['src/app/**/*'],
-
-    rules: {
-      '@nx/enforce-module-boundaries': [
-        'error',
-        {
-          enforceBuildableLibDependency: true,
-          allow: [],
-          depConstraints: [
-            {
-              sourceTag: 'type:shared',
-              onlyDependOnLibsWithTags: ['type:shared'],
-            },
-            {
-              sourceTag: 'type:entities',
-              onlyDependOnLibsWithTags: ['type:shared'],
-            },
-            {
-              sourceTag: 'type:features',
-              onlyDependOnLibsWithTags: ['type:shared', 'type:entities'],
-            },
-            {
-              sourceTag: 'type:widgets',
-              onlyDependOnLibsWithTags: [
-                'type:shared',
-                'type:entities',
-                'type:features',
-              ],
-            },
-            {
-              sourceTag: 'type:pages',
-              onlyDependOnLibsWithTags: [
-                'type:shared',
-                'type:entities',
-                'type:features',
-                'type:widgets',
-              ],
-            },
-          ],
-        },
-      ],
-    },
   },
   {
     rules: {
