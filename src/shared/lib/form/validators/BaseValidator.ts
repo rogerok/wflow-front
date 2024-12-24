@@ -1,11 +1,16 @@
-import { ValidationResult } from './types';
 import { action, makeObservable, observable } from 'mobx';
+
+import {
+  ValidationResult,
+  ValidationResultItemPath,
+  ValidationResultMap,
+} from './types';
 
 export abstract class BaseValidator<Values, SchemaType> {
   schema: SchemaType;
 
   errors: ValidationResult<Values> = {
-    errorList: [],
+    errorMap: new Map() as ValidationResultMap<Values>,
     isSuccess: false,
   };
 
@@ -23,5 +28,9 @@ export abstract class BaseValidator<Values, SchemaType> {
 
   setErrors(errors: ValidationResult<Values>): void {
     this.errors = errors;
+  }
+
+  setError(path: ValidationResultItemPath<Values>, error: string): void {
+    this.errors.errorMap?.set(path, error);
   }
 }

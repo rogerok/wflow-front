@@ -1,7 +1,7 @@
 import { ZodIssue, ZodSchema } from 'zod';
 
+import { Path } from '../types/utils';
 import { BaseValidator } from './BaseValidator';
-import { ErrorPathType, ValidationErrorsListModel } from './types';
 
 export class ZodValidator<
   Values extends Record<string | number, unknown>
@@ -9,29 +9,18 @@ export class ZodValidator<
   validate(values: Values): void {
     const result = this.schema.safeParse(values);
 
+    this.errors.isSuccess = result.success;
+
     if (!result.success) {
-      const errors = result.error.errors;
-      this.setErrors({
-        isSuccess: result.success,
-        errorList: this.prepareErrorsList(errors),
-      });
+      this.prepareErrorsMap(result.error.errors);
     } else {
-      this.setErrors({
-        isSuccess: result.success,
-        errorList: null,
-      });
+      this.errors.errorMap = null;
     }
   }
 
-  private prepareErrorsList(
-    errors: ZodIssue[]
-  ): ValidationErrorsListModel<Values> {
-    return errors.reduce<ValidationErrorsListModel<Values>>((acc, err) => {
-      acc.push({
-        path: err.path as ErrorPathType<Values>,
-        error: err.message,
-      });
-      return acc;
-    }, []);
+  private prepareErrorsMap(errors: ZodIssue[]): void {
+    errors.forEach((error) => {
+      this.setError(error.path.join('.') as Path<Values>, error.message);
+    });
   }
 }

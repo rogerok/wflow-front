@@ -25,13 +25,12 @@ export class Validator<Values extends Record<string | number, unknown>> {
   }
 
   get errors(): ValidationResult<Values> {
-    // Make this a computed property that reflects handler's observable errors
     return this.handler.errors;
   }
 
   reset(): void {
     this.handler.setErrors({
-      errorList: [],
+      errorMap: new Map(),
       isSuccess: false,
     });
   }

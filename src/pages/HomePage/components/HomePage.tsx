@@ -15,6 +15,7 @@ interface HomePageProps {
 const schema = z.object({
   name: z.string().min(10),
   description: z.string().min(10),
+  testArr: z.array(z.object({ name: z.string().min(10) })),
 });
 
 type Schem = z.infer<typeof schema>;
@@ -27,6 +28,7 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
         defaultValues: {
           name: '',
           description: '123',
+          testArr: [{ name: '123' }],
         },
       })
   );
@@ -34,7 +36,7 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
     console.log(values);
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     await form.submit(handleSubmit2);
   };
@@ -45,7 +47,11 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
         <TextField name={'firstField'} field={form.fields.name} />
         <TextField field={form.fields.description} />
         <Button type={'submit'}>Submit</Button>
-        <div>{form.errors.errorList?.map((err) => 'i error' + err.error)}</div>
+        <div>
+          {Array.from(form.errors.errorMap?.values() ?? [])?.map(
+            (err) => 'i error' + err
+          )}
+        </div>
       </form>
 
       <div

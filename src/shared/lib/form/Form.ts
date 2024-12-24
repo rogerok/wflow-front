@@ -4,7 +4,7 @@ import { ZodSchema } from 'zod';
 
 import { FormField } from './FormField';
 import { Validator } from './Validator';
-import { ValidationResult } from './validators/types';
+import { ValidationResult, ValidationResultMap } from './validators/types';
 
 type FormHandleSubmitType<TFormValues> = (values: TFormValues) => Promise<void>;
 

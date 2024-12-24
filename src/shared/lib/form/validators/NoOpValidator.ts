@@ -8,7 +8,7 @@ export class NoOpValidator<Values> extends BaseValidator<Values, null> {
   validate(): void {
     this.setErrors({
       isSuccess: true,
-      errorList: null,
+      errorMap: null,
     });
   }
 }
