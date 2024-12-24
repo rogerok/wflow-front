@@ -4,8 +4,6 @@ const config: StorybookConfig = {
   stories: [
     '../src/app/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
     '../src/shared/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
-    '../src/features/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
-    '../src/entities/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
     '../src/widgets/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
     '../src/pages/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
   ],

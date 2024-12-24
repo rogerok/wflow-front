@@ -2,14 +2,12 @@ import './styles/index.scss';
 
 import { cn } from '@bem-react/classname';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
-import {
-  GlobalStoreContextProvider,
-  useGlobalStore,
-} from '@wflow-front/shared';
+
 import { observer } from 'mobx-react-lite';
 import React, { FC, ReactElement } from 'react';
 
 import { routeTree } from '../routeTree.gen';
+import { GlobalStoreContextProvider, useGlobalStore } from '@shared';
 
 const router = createRouter({ routeTree });
 
