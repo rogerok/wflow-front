@@ -1,7 +1,8 @@
-import { ChangeEvent, FC, InputHTMLAttributes } from 'react';
 import { cn } from '@bem-react/classname';
-import { FormField } from '../../lib/form';
 import { observer } from 'mobx-react-lite';
+import { ChangeEvent, FC, InputHTMLAttributes } from 'react';
+
+import { FormField } from '../../lib/form';
 
 const cnInput = cn('TextField');
 

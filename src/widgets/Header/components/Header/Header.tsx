@@ -4,7 +4,7 @@ import { cn } from '@bem-react/classname';
 import { Flex, IconComponent } from '@shared';
 import { FC } from 'react';
 
-import { ThemeSwitcher } from './ThemeSwitcher/components/ThemeSwitcher';
+import { ThemeSwitcher } from '../ThemeSwitcher/components/ThemeSwitcher';
 
 const cnHeader = cn('Header');
 

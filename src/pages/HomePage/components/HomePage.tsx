@@ -1,10 +1,10 @@
-import { FC, FormEvent, useState } from 'react';
 import { cn } from '@bem-react/classname';
-import { Button, FormStore, Page, TextField } from '@wflow-front/shared';
-import { z } from 'zod';
+import { Button, FormStore, Page } from '@shared';
 import { observer } from 'mobx-react-lite';
-import { Page } from '@shared';
-import { FC } from 'react';
+import { FC, FormEvent, useState } from 'react';
+import { z } from 'zod';
+
+import { TextField } from '../../../shared/elements/Input/TextField';
 
 const cnHomePage = cn('HomePage');
 

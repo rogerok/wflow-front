@@ -16,8 +16,8 @@ export * from './layouts';
 
 // lib
 
+export * from './lib/form';
 export * from './lib/tsUtils/ObjectValues';
-
 // constants
 export * from './const/localStorage';
 export * from './const/router';

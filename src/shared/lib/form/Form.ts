@@ -1,8 +1,9 @@
 import { makeAutoObservable } from 'mobx';
-import { FormField } from './FormField';
-import { ZodSchema } from 'zod';
-import { Validator } from './Validator';
 import { makeLoggable } from 'mobx-log';
+import { ZodSchema } from 'zod';
+
+import { FormField } from './FormField';
+import { Validator } from './Validator';
 import { ValidationResult } from './validators/types';
 
 type FormHandleSubmitType<TFormValues> = (values: TFormValues) => Promise<void>;
@@ -38,7 +39,7 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
     makeLoggable(this);
   }
 
-  initFields() {
+  initFields(): void {
     for (const field in this.defaultValues) {
       this.fields[field] = this.initField(field, this.defaultValues[field]);
     }
@@ -69,7 +70,9 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
 
       this.validate();
 
-      await handleSubmit(this.values);
+      if (this.errors.isSuccess) {
+        await handleSubmit(this.values);
+      }
     } catch (err: unknown) {
       this.submitError = err;
     } finally {
