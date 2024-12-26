@@ -15,10 +15,13 @@ export abstract class BaseField<T> {
   _placeholder?: string;
   _error: string | null = null;
   options: BaseFieldConstructor | undefined = undefined;
+  _name: string;
 
-  constructor(defaultValue: T, options?: BaseFieldConstructor) {
+  constructor(defaultValue: T, name: string, options?: BaseFieldConstructor) {
     this._defaultValue = defaultValue;
     this._value = defaultValue;
+    this._name = name;
+
     if (options) {
       this._disabled = !!options.disabled;
       this._label = options.label;
