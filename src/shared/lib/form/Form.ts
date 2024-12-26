@@ -76,7 +76,7 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
     try {
       this.setIsSubmitting(true);
 
-      this.validate();
+      // this.validate();
 
       if (this.errors.isSuccess) {
         // await handleSubmit(this.values);
@@ -109,7 +109,7 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
   //   return values;
   // }
 
-  validate(): void {
-    this.validator.validate(this.values);
-  }
+  // validate(): void {
+  //   this.validator.validate(this.values);
+  // }
 }

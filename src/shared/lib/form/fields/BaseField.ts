@@ -6,13 +6,21 @@ type BaseFieldConstructor = {
   disabled?: boolean;
 };
 
-export interface IField<T> {
+export type IField<T> = {
+  disabled: boolean;
+  error: string | undefined;
+  initialValue: T;
+  name: string;
+  touched: boolean;
   value: T;
 
-  setValue(value: T): void;
-
+  isDisabled(): boolean;
+  isTouched(): boolean;
   reset(): void;
-}
+  setValue(value: T): void;
+  touch(): void;
+  unTouch(): void;
+};
 
 export abstract class BaseField<T> {
   _defaultValue: T;

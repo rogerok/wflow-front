@@ -9,7 +9,7 @@ export interface IFieldFactory {
 export class FieldFactory implements IFieldFactory {
   createField<T>(name: string, data: T): FieldType<T> {
     if (typeof data === 'string') {
-      return new TextField(data, name) as unknown as FieldType<T>;
+      return new TextField(name, data) as unknown as FieldType<T>;
     }
 
     if (typeof data === 'boolean') {

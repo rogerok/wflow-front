@@ -35,7 +35,7 @@ export type FieldTypeFlatList = 'flatList';
 // };
 
 export type FieldType<T> = T extends string
-  ? TextField
+  ? TextField<T>
   : T extends boolean
   ? BooleanField
   : never;
