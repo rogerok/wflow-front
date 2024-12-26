@@ -1,10 +1,9 @@
 import { cn } from '@bem-react/classname';
 import { Button, FormStore, Page } from '@shared';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { FC, FormEvent, useState } from 'react';
 import { z } from 'zod';
-
-import { TextField } from '../../../shared/elements/Input/TextField';
 
 const cnHomePage = cn('HomePage');
 
@@ -15,7 +14,8 @@ interface HomePageProps {
 const schema = z.object({
   name: z.string().min(10),
   description: z.string().min(10),
-  testArr: z.array(z.object({ name: z.string().min(10) })),
+  // testArr: z.array(z.object({ name: z.string().min(10) })),
+  bool: z.boolean(),
 });
 
 type Schem = z.infer<typeof schema>;
@@ -28,7 +28,8 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
         defaultValues: {
           name: '',
           description: '123',
-          testArr: [{ name: '123' }],
+          bool: true,
+          // testArr: [{ name: '123' }],
         },
       })
   );
@@ -36,7 +37,9 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
     console.log(values);
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
     await form.submit(handleSubmit2);
   };
@@ -44,8 +47,8 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
       <form onSubmit={handleSubmit}>
-        <TextField name={'firstField'} field={form.fields.name} />
-        <TextField field={form.fields.description} />
+        {/*<TextField name={'firstField'} field={form.fields.name} />*/}
+        {/*<TextField field={form.fields.description} />*/}
         <Button type={'submit'}>Submit</Button>
         <div>
           {Array.from(form.errors.errorMap?.values() ?? [])?.map(

@@ -2,9 +2,11 @@ import { makeAutoObservable } from 'mobx';
 import { makeLoggable } from 'mobx-log';
 import { ZodSchema } from 'zod';
 
+import { FieldFactory } from './fields/FieldFactory';
+import { FieldType } from './fields/types';
 import { FormField } from './FormField';
 import { Validator } from './Validator';
-import { ValidationResult, ValidationResultMap } from './validators/types';
+import { ValidationResult } from './validators/types';
 
 type FormHandleSubmitType<TFormValues> = (values: TFormValues) => Promise<void>;
 
@@ -18,11 +20,12 @@ type FieldsMapper<TFormValues> = {
   [Property in keyof TFormValues]: FormField<TFormValues[Property]>;
 };
 
-export class FormStore<TFormValues extends Record<string | number, unknown>> {
+export class FormStore<TFormValues extends Record<string | number, any>> {
   defaultValues: TFormValues;
   validator: Validator<TFormValues>;
 
-  fields: FieldsMapper<TFormValues> = {} as FieldsMapper<TFormValues>;
+  fields: { [K in keyof TFormValues]: FieldType<TFormValues[K]> };
+  fieldFactory = new FieldFactory();
 
   isSubmitting = false;
   isSubmitted = false;
@@ -31,18 +34,23 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
   constructor(options: FormStoreConstructor<TFormValues>) {
     this.defaultValues = options.defaultValues;
     this.validator = new Validator(options.schema);
-
-    this.initFields();
+    this.fields = this.initializeFields(options.defaultValues);
 
     makeAutoObservable(this, {}, { autoBind: true });
 
     makeLoggable(this);
   }
 
-  initFields(): void {
-    for (const field in this.defaultValues) {
-      this.fields[field] = this.initField(field, this.defaultValues[field]);
+  private initializeFields(defaultValues: TFormValues): {
+    [K in keyof TFormValues]: FieldType<TFormValues[K]>;
+  } {
+    const fields = {} as {
+      [K in keyof TFormValues]: FieldType<TFormValues[K]>;
+    };
+    for (const key in defaultValues) {
+      fields[key] = this.fieldFactory.createField(key, defaultValues[key]);
     }
+    return fields;
   }
 
   initField<Key extends keyof TFormValues>(
@@ -71,7 +79,7 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
       this.validate();
 
       if (this.errors.isSuccess) {
-        await handleSubmit(this.values);
+        // await handleSubmit(this.values);
       }
     } catch (err: unknown) {
       this.submitError = err;
@@ -91,15 +99,15 @@ export class FormStore<TFormValues extends Record<string | number, unknown>> {
     this.validator.reset();
   }
 
-  get values(): TFormValues {
-    const values = {} as TFormValues;
-
-    for (const field in this.fields) {
-      values[field] = this.fields[field].value;
-    }
-
-    return values;
-  }
+  // get values(): TFormValues {
+  //   const values = {} as TFormValues;
+  //
+  //   for (const field in this.fields) {
+  //     values[field] = this.fields[field].value;
+  //   }
+  //
+  //   return values;
+  // }
 
   validate(): void {
     this.validator.validate(this.values);

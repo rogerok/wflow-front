@@ -1,32 +1,21 @@
-import { BaseField } from './BaseField';
 import { BooleanField } from './BooleanField';
 import { TextField } from './TextField';
+import { FieldType } from './types';
 
-// export class FieldFactory {
-//   static create(data: string, name: string): TextField;
-//   static create(data: boolean, name: string): BooleanField;
-//
-//   static create<T>(data: unknown, name: string): BaseField<T> {
-//     switch (typeof data) {
-//       case 'string':
-//         return new TextField(data, name) as BaseField<T>;
-//       case 'boolean':
-//         return new BooleanField(data, name) as unknown as BaseField<T>;
-//       default:
-//         throw new Error(`Unknown field type: ${name}`);
-//     }
-//   }
-// }
-//
+export interface IFieldFactory {
+  createField<T>(name: string, value: T): FieldType<T>;
+}
 
-export class FieldFactory {
-  static create<T>(name: string, data: T): BaseField<T> {
+export class FieldFactory implements IFieldFactory {
+  createField<T>(name: string, data: T): FieldType<T> {
     if (typeof data === 'string') {
-      return new TextField(data, name) as BaseField<T>;
+      return new TextField(data, name) as unknown as FieldType<T>;
     }
+
     if (typeof data === 'boolean') {
-      return new BooleanField(data, name) as unknown as BaseField<T>;
+      return new BooleanField(data, name) as unknown as FieldType<T>;
     }
+
     throw new Error(`Unknown field type: ${name}`);
   }
 }
