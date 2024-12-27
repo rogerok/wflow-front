@@ -7,15 +7,16 @@ type BaseFieldConstructor = {
 };
 
 export type IField<T> = {
-  disabled: boolean;
-  error: string | undefined;
-  initialValue: T;
-  name: string;
-  touched: boolean;
-  value: T;
+  _disabled: boolean;
+  _error: string | undefined;
+  _name: string;
+  _touched: boolean;
+  _value: T;
+  _defaultValue: T;
 
-  isDisabled(): boolean;
-  isTouched(): boolean;
+  get disabled(): boolean;
+  get touched(): boolean;
+  get value(): T;
   reset(): void;
   setValue(value: T): void;
   touch(): void;

@@ -2,7 +2,10 @@ import { makeAutoObservable } from 'mobx';
 import { makeLoggable } from 'mobx-log';
 import { ZodSchema } from 'zod';
 
-import { FieldFactory } from './fields/FieldFactory';
+import { BooleanField } from './fields/BooleanField';
+import { FieldFactory,fieldFactory } from './fields/FieldFactory';
+import { ListField } from './fields/ListField';
+import { TextField } from './fields/TextField';
 import { FieldType } from './fields/types';
 import { FormField } from './FormField';
 import { Validator } from './Validator';
@@ -20,6 +23,20 @@ type FieldsMapper<TFormValues> = {
   [Property in keyof TFormValues]: FormField<TFormValues[Property]>;
 };
 
+function initializeFields<TFormValues>(defaultValues: TFormValues): {
+  [K in keyof TFormValues]: FieldType<TFormValues[K]>;
+} {
+  const fields = {} as {
+    [K in keyof TFormValues]: FieldType<TFormValues[K]>;
+  };
+
+  for (const key in defaultValues) {
+    fields[key] = fieldFactory.createField(key, defaultValues[key]);
+  }
+
+  return fields;
+}
+
 export class FormStore<TFormValues extends Record<string | number, any>> {
   defaultValues: TFormValues;
   validator: Validator<TFormValues>;
@@ -34,7 +51,7 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
   constructor(options: FormStoreConstructor<TFormValues>) {
     this.defaultValues = options.defaultValues;
     this.validator = new Validator(options.schema);
-    this.fields = this.initializeFields(options.defaultValues);
+    this.fields = initializeFields(options.defaultValues);
 
     makeAutoObservable(this, {}, { autoBind: true });
 
@@ -47,9 +64,11 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
     const fields = {} as {
       [K in keyof TFormValues]: FieldType<TFormValues[K]>;
     };
+
     for (const key in defaultValues) {
       fields[key] = this.fieldFactory.createField(key, defaultValues[key]);
     }
+
     return fields;
   }
 
@@ -99,15 +118,45 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
     this.validator.reset();
   }
 
-  // get values(): TFormValues {
-  //   const values = {} as TFormValues;
-  //
-  //   for (const field in this.fields) {
-  //     values[field] = this.fields[field].value;
-  //   }
-  //
-  //   return values;
-  // }
+  getValues<K extends keyof TFormValues>(): TFormValues {
+    const result: TFormValues = {} as TFormValues;
+
+    for (const field in this.fields) {
+      result[field as TFormValues[K]] = this.getValueFromField(
+        this.fields[field]
+      );
+    }
+    return result;
+  }
+
+  getValueFromField(field: unknown): unknown {
+    if (field instanceof TextField || field instanceof BooleanField) {
+      return field.value;
+    }
+
+    if (field instanceof ListField) {
+      return field.value.map(this.getValueFromField);
+    }
+
+    if (Array.isArray(field)) {
+      return field.map(this.getValueFromField);
+    }
+
+    if (typeof field === 'object' && field !== null) {
+      return Object.fromEntries(
+        Object.entries(field).map(([key, value]) => {
+          if (
+            value instanceof TextField ||
+            value instanceof ListField ||
+            value instanceof BooleanField
+          ) {
+            return [key, this.getValueFromField(value)];
+          }
+          return [key, value];
+        })
+      );
+    }
+  }
 
   // validate(): void {
   //   this.validator.validate(this.values);

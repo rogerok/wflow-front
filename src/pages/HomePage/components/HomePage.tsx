@@ -15,6 +15,8 @@ const schema = z.object({
   name: z.string().min(10),
   description: z.string().min(10),
   // testArr: z.array(z.object({ name: z.string().min(10) })),
+  testArr: z.array(z.object({ name: z.boolean() })),
+  // testArr: z.array(z.object({ name: z.object({ name: z.string().min(10) }) })),
   bool: z.boolean(),
 });
 
@@ -29,7 +31,18 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
           name: '',
           description: '123',
           bool: true,
-          // testArr: [{ name: '123' }],
+          // testArr: [
+          //   {
+          //     name: {
+          //       name: 'sdsd',
+          //     },
+          //   },
+          // ],
+          testArr: [
+            {
+              name: true,
+            },
+          ],
         },
       })
   );
@@ -43,6 +56,9 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
     event.preventDefault();
     await form.submit(handleSubmit2);
   };
+
+  //FIXME: не подтягиваются типы поля (BooleanField)  у вложенных объектов
+  console.log(form.fields.testArr.fields[0]);
 
   return (
     <Page className={cnHomePage(undefined, [props.className])}>

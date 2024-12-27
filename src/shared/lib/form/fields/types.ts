@@ -1,41 +1,16 @@
-import { BaseField } from './BaseField';
 import { BooleanField } from './BooleanField';
+import { ListField } from './ListField';
+import { NestedField } from './NestedField';
 import { TextField } from './TextField';
 
-export type FieldsMapper<TFormValues> = {
-  [Property in keyof TFormValues]: BaseField<TFormValues[Property]>;
-};
-
-export type FieldTypeText = 'text';
-export type FieldTypeBoolean = 'boolean';
-export type FieldTypeList = 'list';
-export type FieldTypeFlatList = 'flatList';
-
-// export type FieldType =
-//   | FieldTypeText
-//   | FieldTypeBoolean
-//   | FieldTypeList
-//   | FieldTypeFlatList;
-
-// export type FieldPrimitiveConfig<T> = {
-//   value: T;
-//   type: FieldType;
-// };
-// export type ObjectConfig<T> = {
-//   [K in keyof T]: FieldPrimitiveConfig<T[K]>;
-// };
-// export type ArrayFieldConfig<T> = {
-//   value: T[];
-//   type: FieldTypeFlatList;
-//   fields: ObjectConfig<T>;
-// };
-// export type ArrayFlatListConfig<T> = {
-//   value: T[];
-//   type: 'flat-list';
-// };
+//FIXME: неправильно подтягиваются типы, скорее всего надо рекурсивно инициализировать тип
 
 export type FieldType<T> = T extends string
   ? TextField<T>
   : T extends boolean
   ? BooleanField
+  : T extends any[]
+  ? ListField<T>
+  : T extends Record<string | number | symbol, unknown>
+  ? NestedField<T>
   : never;
