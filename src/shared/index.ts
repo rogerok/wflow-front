@@ -2,8 +2,10 @@
 export * from './elements/AppLink/AppLink';
 export * from './elements/Button/Button';
 export * from './elements/Flex/Flex';
+export * from './elements/Form/FormComponent';
 export * from './elements/HStack/HStack';
 export * from './elements/IconComponent/IconComponent';
+export * from './elements/Input/TextInput';
 export * from './elements/Overlay/Overlay';
 export * from './elements/Page/Page';
 export * from './elements/Portal/Portal';
@@ -16,8 +18,8 @@ export * from './layouts';
 
 // lib
 
+export * from './lib/form';
 export * from './lib/tsUtils/ObjectValues';
-
 // constants
 export * from './const/localStorage';
 export * from './const/router';
