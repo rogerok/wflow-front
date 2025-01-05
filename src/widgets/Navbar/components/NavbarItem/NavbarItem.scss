@@ -5,6 +5,17 @@
     color: var(--brand-primary);
   }
 
+  &-Inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: center;
+
+    @media (min-width: $md-breakpoint) {
+      flex-direction: row;
+    }
+  }
+
   &-Icon {
     display: flex;
     flex-direction: column;

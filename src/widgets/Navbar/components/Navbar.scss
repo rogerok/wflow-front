@@ -14,11 +14,11 @@
   background: var(--navbar-bg);
   border-top-left-radius: 3.2rem;
   border-top-right-radius: 3.2rem;
-  box-shadow: 0 -5px 10px rgb(0 0 0 / 30%), 0 -8px 20px rgb(56 58 139 / 30%) 0 -6px 20px rgb(255 200 150 / 10%);
+  box-shadow: 0 -5px 10px rgb(0 0 0 / 30%),
+    0 -8px 20px rgb(56 58 139 / 30%) 0 -6px 20px rgb(255 200 150 / 10%);
 
   transition: var(--default-transition);
 
-  /* Toggle Button */
   &-ToggleButton {
     transform: rotate(-45deg);
 
@@ -38,7 +38,6 @@
     }
   }
 
-  /* Collapsed State */
   &_collapsed {
     align-items: flex-start;
     width: 100%;
@@ -51,13 +50,11 @@
     }
   }
 
-  /* Expanded State */
   &_expanded {
     position: relative;
     z-index: var(--navbar-z-index);
     display: grid;
     grid-template-columns: 1fr 1fr;
-
 
     @media (min-width: $md-breakpoint) {
       display: flex;
@@ -72,7 +69,6 @@
     }
   }
 
-
   /* Desktop Styles */
   @media (min-width: $md-breakpoint) {
     flex-direction: column;
@@ -84,7 +80,7 @@
 
     border-radius: 3.2rem;
     box-shadow: 5px 0 10px rgb(0 0 0 / 30%), 8px 0 20px rgb(56 58 139 / 30%),
-    0 6px 20px rgb(255 200 150 / 10%), 0 -6px 10px rgb(255 200 150 / 10%);
+      0 6px 20px rgb(255 200 150 / 10%), 0 -6px 10px rgb(255 200 150 / 10%);
   }
 }
 

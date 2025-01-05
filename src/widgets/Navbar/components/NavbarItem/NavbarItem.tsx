@@ -1,7 +1,7 @@
 import './NavbarItem.scss';
 
 import { cn } from '@bem-react/classname';
-import { AppLink, HStack, NavbarLinksType } from '@shared';
+import { AppLink, NavbarLinksType } from '@shared';
 import { FC, memo, ReactNode } from 'react';
 
 const cnNavbarItem = cn('NavbarItem');
@@ -19,7 +19,7 @@ export const NavbarItem: FC<NavbarItemProps> = memo((props) => {
     <AppLink className={cnNavbarItem(undefined, [className])} to={link.to}>
       {({ isActive }): ReactNode => {
         return (
-          <HStack align={'center'} gap={'4'}>
+          <div className={cnNavbarItem('Inner')}>
             <div
               className={cnNavbarItem('Icon', {
                 active: isActive,
@@ -35,7 +35,7 @@ export const NavbarItem: FC<NavbarItemProps> = memo((props) => {
             >
               {link.label}
             </span>
-          </HStack>
+          </div>
         );
       }}
     </AppLink>
