@@ -1,27 +1,25 @@
 import { makeAutoObservable } from 'mobx';
 
-import { IField } from './BaseField';
 import { fieldFactory } from './FieldFactory';
-import { FieldType } from './types';
+import { BaseFieldType, FieldType } from './types';
 
-export class ListField<T> implements IField<T[]> {
+export class ListField<T> implements BaseFieldType<T[]> {
   fields: FieldType<T>[] = [];
 
   constructor(name: string, defaultValue: T[]) {
-    makeAutoObservable(this, {}, { autoBind: true });
-
+    this._name = name;
+    this._value = defaultValue;
+    this._defaultValue = this._value;
     this.fields = defaultValue.map((item, index) =>
       fieldFactory.createField(`${name}[${index}]`, item)
     );
 
-    this._name = name;
-    this._value = defaultValue;
-    this._defaultValue = this._value;
+    makeAutoObservable(this, {}, { autoBind: true });
   }
 
   _defaultValue: T[];
   _disabled = false;
-  _error: string | undefined;
+  _error: string | undefined = undefined;
   _name: string;
   _touched = false;
   _value: T[];
@@ -42,6 +40,10 @@ export class ListField<T> implements IField<T[]> {
     return this._touched;
   }
 
+  get name(): string {
+    return this._name;
+  }
+
   push(value: T): void {
     this.fields.push(
       fieldFactory.createField(`${this._name}[${this.fields.length}]`, value)
@@ -49,7 +51,9 @@ export class ListField<T> implements IField<T[]> {
   }
 
   reset(): void {
-    this._value = this._defaultValue;
+    this.unTouch();
+    this.setValue(this._defaultValue);
+    this.setError(undefined);
   }
 
   touch(): void {
@@ -58,5 +62,9 @@ export class ListField<T> implements IField<T[]> {
 
   unTouch(): void {
     this._touched = false;
+  }
+
+  setError(error: string | undefined): void {
+    this._error = error;
   }
 }

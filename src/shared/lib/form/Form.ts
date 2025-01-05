@@ -3,13 +3,13 @@ import { makeLoggable } from 'mobx-log';
 import { ZodSchema } from 'zod';
 
 import { BooleanField } from './fields/BooleanField';
-import { FieldFactory,fieldFactory } from './fields/FieldFactory';
+import { fieldFactory } from './fields/FieldFactory';
 import { ListField } from './fields/ListField';
+import { NestedField } from './fields/NestedField';
 import { TextField } from './fields/TextField';
 import { FieldType } from './fields/types';
-import { FormField } from './FormField';
-import { Validator } from './Validator';
-import { ValidationResult } from './validators/types';
+import { ValidationResult, ValidationResultMap } from './validators/types';
+import { Validator } from './validators/Validator';
 
 type FormHandleSubmitType<TFormValues> = (values: TFormValues) => Promise<void>;
 
@@ -18,10 +18,6 @@ interface FormStoreConstructor<TFormValues> {
   schema: ZodSchema;
   handleSubmit?: FormHandleSubmitType<TFormValues>;
 }
-
-type FieldsMapper<TFormValues> = {
-  [Property in keyof TFormValues]: FormField<TFormValues[Property]>;
-};
 
 function initializeFields<TFormValues>(defaultValues: TFormValues): {
   [K in keyof TFormValues]: FieldType<TFormValues[K]>;
@@ -38,11 +34,10 @@ function initializeFields<TFormValues>(defaultValues: TFormValues): {
 }
 
 export class FormStore<TFormValues extends Record<string | number, any>> {
-  defaultValues: TFormValues;
-  validator: Validator<TFormValues>;
+  private readonly defaultValues: TFormValues;
+  private validator: Validator<TFormValues>;
 
   fields: { [K in keyof TFormValues]: FieldType<TFormValues[K]> };
-  fieldFactory = new FieldFactory();
 
   isSubmitting = false;
   isSubmitted = false;
@@ -58,36 +53,15 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
     makeLoggable(this);
   }
 
-  private initializeFields(defaultValues: TFormValues): {
-    [K in keyof TFormValues]: FieldType<TFormValues[K]>;
-  } {
-    const fields = {} as {
-      [K in keyof TFormValues]: FieldType<TFormValues[K]>;
-    };
-
-    for (const key in defaultValues) {
-      fields[key] = this.fieldFactory.createField(key, defaultValues[key]);
-    }
-
-    return fields;
-  }
-
-  initField<Key extends keyof TFormValues>(
-    path: Key,
-    data: TFormValues[Key]
-  ): FormField<TFormValues[Key]> {
-    return new FormField<TFormValues[Key]>(String(path), data);
-  }
-
   get errors(): ValidationResult<TFormValues> {
     return this.validator.errors;
   }
 
-  setIsSubmitting(isSubmitting: boolean): void {
+  private setIsSubmitting(isSubmitting: boolean): void {
     this.isSubmitting = isSubmitting;
   }
 
-  setIsSubmitted(isSubmitted: boolean): void {
+  private setIsSubmitted(isSubmitted: boolean): void {
     this.isSubmitted = isSubmitted;
   }
 
@@ -95,10 +69,11 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
     try {
       this.setIsSubmitting(true);
 
-      // this.validate();
+      this.validate();
 
       if (this.errors.isSuccess) {
-        // await handleSubmit(this.values);
+        await handleSubmit(this.getValues());
+        this.reset();
       }
     } catch (err: unknown) {
       this.submitError = err;
@@ -108,7 +83,7 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
     }
   }
 
-  reset(): void {
+  reset(values?: TFormValues): void {
     for (const field in this.fields) {
       this.fields[field].reset();
     }
@@ -116,6 +91,7 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
     this.setIsSubmitting(false);
     this.setIsSubmitted(false);
     this.validator.reset();
+    this.fields = initializeFields(values ? values : this.defaultValues);
   }
 
   getValues<K extends keyof TFormValues>(): TFormValues {
@@ -142,7 +118,10 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
       return field.map(this.getValueFromField);
     }
 
-    if (typeof field === 'object' && field !== null) {
+    if (
+      (typeof field === 'object' || field instanceof NestedField) &&
+      field !== null
+    ) {
       return Object.fromEntries(
         Object.entries(field).map(([key, value]) => {
           if (
@@ -158,7 +137,18 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
     }
   }
 
-  // validate(): void {
-  //   this.validator.validate(this.values);
-  // }
+  validate(): void {
+    this.validator.validate(this.getValues());
+    if (!this.validator.errors.isSuccess) {
+      for (const key in this.validator.errors.errorMap) {
+        if (this.fields[key]) {
+          this.fields[key].setError(
+            this.validator.errors.errorMap[
+              key as keyof ValidationResultMap<TFormValues>
+            ]
+          );
+        }
+      }
+    }
+  }
 }

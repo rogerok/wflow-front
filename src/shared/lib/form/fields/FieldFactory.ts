@@ -22,14 +22,8 @@ export class FieldFactory implements IFieldFactory {
       return new ListField<T>(name, value) as unknown as FieldType<T>;
     }
 
-    // FIXME: this is doesnt work
-    // if (typeof value === 'object') {
-    //   return new NestedField(name, value) as unknown as FieldType<T>;
-    // }
-
-    // FIXME: rewrite logic of returning default object from outside of factory
     if (typeof value === 'object') {
-      return value as unknown as FieldType<T>;
+      return new NestedField(name, value) as unknown as FieldType<T>;
     }
 
     throw new Error(`Unknown field type: ${name}`);

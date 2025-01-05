@@ -1,8 +1,7 @@
 import { cn } from '@bem-react/classname';
-import { Button, FormStore, Page } from '@shared';
-import { toJS } from 'mobx';
+import { Button, FormComponent, FormStore, Page, TextInput } from '@shared';
 import { observer } from 'mobx-react-lite';
-import { FC, FormEvent, useState } from 'react';
+import { FC, useState } from 'react';
 import { z } from 'zod';
 
 const cnHomePage = cn('HomePage');
@@ -13,11 +12,11 @@ interface HomePageProps {
 
 const schema = z.object({
   name: z.string().min(10),
-  description: z.string().min(10),
+  // description: z.string().min(10),
   // testArr: z.array(z.object({ name: z.string().min(10) })),
-  testArr: z.array(z.object({ name: z.boolean() })),
+  // testArr: z.array(z.object({ name: z.boolean(), str: z.string().min(10) })),
   // testArr: z.array(z.object({ name: z.object({ name: z.string().min(10) }) })),
-  bool: z.boolean(),
+  // bool: z.boolean(),
 });
 
 type Schem = z.infer<typeof schema>;
@@ -29,20 +28,15 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
         schema: schema,
         defaultValues: {
           name: '',
-          description: '123',
-          bool: true,
+          // description: '123',
+          // bool: true,
           // testArr: [
           //   {
           //     name: {
-          //       name: 'sdsd',
+          //       name: 'test',
           //     },
           //   },
           // ],
-          testArr: [
-            {
-              name: true,
-            },
-          ],
         },
       })
   );
@@ -50,28 +44,17 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
     console.log(values);
   };
 
-  const handleSubmit = async (
-    event: FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    event.preventDefault();
+  const handleSubmit = async (): Promise<void> => {
     await form.submit(handleSubmit2);
   };
 
-  //FIXME: не подтягиваются типы поля (BooleanField)  у вложенных объектов
-  console.log(form.fields.testArr.fields[0]);
-
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
-      <form onSubmit={handleSubmit}>
-        {/*<TextField name={'firstField'} field={form.fields.name} />*/}
+      <FormComponent onSubmit={handleSubmit}>
+        <TextInput name={'firstField'} field={form.fields.name} />
         {/*<TextField field={form.fields.description} />*/}
         <Button type={'submit'}>Submit</Button>
-        <div>
-          {Array.from(form.errors.errorMap?.values() ?? [])?.map(
-            (err) => 'i error' + err
-          )}
-        </div>
-      </form>
+      </FormComponent>
 
       <div
         style={{

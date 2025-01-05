@@ -1,9 +1,9 @@
 import { computed, makeAutoObservable } from 'mobx';
 import { ZodSchema } from 'zod';
 
-import { NoOpValidator } from './validators/NoOpValidator';
-import { SupportedValidators, ValidationResult } from './validators/types';
-import { ZodValidator } from './validators/ZodValidator';
+import { NoOpValidator } from './NoOpValidator';
+import { SupportedValidators, ValidationResult } from './types';
+import { ZodValidator } from './ZodValidator';
 
 export class Validator<Values extends Record<string | number, unknown>> {
   handler: SupportedValidators<Values>;
@@ -30,7 +30,7 @@ export class Validator<Values extends Record<string | number, unknown>> {
 
   reset(): void {
     this.handler.setErrors({
-      errorMap: new Map(),
+      errorMap: null,
       isSuccess: false,
     });
   }

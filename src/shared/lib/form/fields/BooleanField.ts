@@ -1,8 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 
-import { IField } from './BaseField';
+import { BaseFieldType } from './types';
 
-export class BooleanField implements IField<boolean> {
+export class BooleanField implements BaseFieldType<boolean> {
   constructor(value: boolean, name: string) {
     makeAutoObservable(this, {}, { autoBind: true });
 
@@ -18,19 +18,24 @@ export class BooleanField implements IField<boolean> {
   _touched = false;
   _value: boolean;
 
-  get value(): boolean {
-    return this._value;
-  }
-
   get disabled(): boolean {
     return false;
+  }
+
+  get name(): string {
+    return this._name;
   }
 
   get touched(): boolean {
     return false;
   }
 
+  get value(): boolean {
+    return this._value;
+  }
+
   setValue(value: boolean): void {
+    this.touch();
     this._value = value;
   }
 
@@ -39,6 +44,8 @@ export class BooleanField implements IField<boolean> {
   }
 
   reset(): void {
+    this.unTouch();
+    this.setError(undefined);
     this._value = this._defaultValue;
   }
 
@@ -48,5 +55,9 @@ export class BooleanField implements IField<boolean> {
 
   unTouch(): void {
     this._touched = false;
+  }
+
+  setError(error: string | undefined): void {
+    this._error = error;
   }
 }

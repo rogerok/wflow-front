@@ -53,7 +53,7 @@ export class FormField<T> {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  setValue(newValue: T) {
+  setValue(newValue: T): void {
     this.value = newValue;
     this.validate();
   }
@@ -82,7 +82,7 @@ export class FormField<T> {
     }
   }
 
-  reset() {
+  reset(): void {
     this.touched = false;
     this.error = null;
   }
@@ -99,11 +99,11 @@ export class FieldArray<T> {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  addField(value: T) {
+  addField(value: T): void {
     this.fields.push(new FormField(value, this.fields[0]?.validator));
   }
 
-  removeField(index: number) {
+  removeField(index: number): void {
     this.fields.splice(index, 1);
   }
 

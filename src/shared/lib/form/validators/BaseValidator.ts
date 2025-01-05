@@ -10,7 +10,7 @@ export abstract class BaseValidator<Values, SchemaType> {
   schema: SchemaType;
 
   errors: ValidationResult<Values> = {
-    errorMap: new Map() as ValidationResultMap<Values>,
+    errorMap: null,
     isSuccess: false,
   };
 
@@ -31,6 +31,10 @@ export abstract class BaseValidator<Values, SchemaType> {
   }
 
   setError(path: ValidationResultItemPath<Values>, error: string): void {
-    this.errors.errorMap?.set(path, error);
+    if (!this.errors.errorMap) {
+      this.errors.errorMap = {} as ValidationResultMap<Values>;
+    }
+
+    this.errors.errorMap[path] = error;
   }
 }

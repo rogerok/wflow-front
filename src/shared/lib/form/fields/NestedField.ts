@@ -1,8 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 
-import { IField } from './BaseField';
 import { fieldFactory } from './FieldFactory';
-import { FieldType } from './types';
+import { BaseFieldType, FieldType } from './types';
 
 type NestedFieldType<T> = {
   [K in keyof T]: FieldType<T[K]>;
@@ -17,24 +16,27 @@ function createNestedFields<T>(value: T): NestedFieldType<T> {
   return fields;
 }
 
-export class NestedField<T> implements IField<T> {
+export class NestedField<T> implements BaseFieldType<T> {
+  _defaultValue: T;
   _disabled = false;
   _error: string | undefined;
   _name: string;
   _touched = false;
   _value: T;
-  _defaultValue: T;
 
-  nestedFields: NestedFieldType<T> = {} as NestedFieldType<T>;
+  fields: NestedFieldType<T> = {} as NestedFieldType<T>;
 
   constructor(name: string, value: T) {
     this._name = name;
     this._value = value;
     this._defaultValue = this._value;
-
-    this.nestedFields = createNestedFields(value);
+    this.fields = createNestedFields(value);
 
     makeAutoObservable(this, {}, { autoBind: true });
+  }
+
+  get name(): string {
+    return this._name;
   }
 
   get disabled(): boolean {
@@ -49,12 +51,18 @@ export class NestedField<T> implements IField<T> {
     return this._value;
   }
 
+  setError(error: string | undefined): void {
+    this._error = error;
+  }
+
   setValue(value: T): void {
     this._value = value;
   }
 
   reset(): void {
-    this._value = this._defaultValue;
+    this.unTouch();
+    this.setValue(this._defaultValue);
+    this.setError(undefined);
   }
 
   touch(): void {
