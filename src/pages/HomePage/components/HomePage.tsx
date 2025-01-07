@@ -1,5 +1,5 @@
 import { cn } from '@bem-react/classname';
-import { Button, FormComponent, FormStore, Page, TextInput } from '@shared';
+import { FormStore, Page } from '@shared';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 import { z } from 'zod';
@@ -50,12 +50,6 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
 
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
-      <FormComponent onSubmit={handleSubmit}>
-        <TextInput name={'firstField'} field={form.fields.name} />
-        {/*<TextField field={form.fields.description} />*/}
-        <Button type={'submit'}>Submit</Button>
-      </FormComponent>
-
       <div
         style={{
           height: '100px',

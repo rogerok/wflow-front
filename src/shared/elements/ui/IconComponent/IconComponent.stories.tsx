@@ -2,7 +2,7 @@ import { HStack, IconComponent } from '@shared';
 import { Meta, StoryObj } from '@storybook/react';
 
 import * as Icons from '../../../assets';
-import { CssColorsVarsConstant } from '../../../store/theme/constants';
+import { CssColorsVarsConstant } from '../../../stores/theme/constants';
 
 const iconsKeys = Object.keys(Icons);
 

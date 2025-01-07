@@ -5,7 +5,7 @@ import { ZodSchema } from 'zod';
 import {
   getLocalStorageItem,
   setLocalStorageItem,
-} from '../../lib/localStorage/utils';
+} from '../../lib/utils/localStorage/utils';
 
 export class UiBaseStore<T> implements IUiBaseStore<T> {
   private readonly _storageKey: null | string;

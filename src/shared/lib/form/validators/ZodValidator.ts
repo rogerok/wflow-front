@@ -12,6 +12,7 @@ export class ZodValidator<
     this.errors.isSuccess = result.success;
 
     if (!result.success) {
+      console.log(result.error);
       this.prepareErrorsMap(result.error.errors);
     } else {
       this.errors.errorMap = null;

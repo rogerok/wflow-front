@@ -29,7 +29,7 @@ export class NestedField<T> implements BaseFieldType<T> {
   constructor(name: string, value: T) {
     this._name = name;
     this._value = value;
-    this._defaultValue = this._value;
+    this._defaultValue = value;
     this.fields = createNestedFields(value);
 
     makeAutoObservable(this, {}, { autoBind: true });
