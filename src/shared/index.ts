@@ -1,20 +1,20 @@
 // components
-export * from './elements/AppLink/AppLink';
-export * from './elements/Button/Button';
-export * from './elements/Flex/Flex';
-export * from './elements/Form/FormComponent';
-export * from './elements/HStack/HStack';
-export * from './elements/IconComponent/IconComponent';
-export * from './elements/Input/TextInput';
-export * from './elements/Overlay/Overlay';
-export * from './elements/Page/Page';
-export * from './elements/Portal/Portal';
-export * from './elements/VStack/VStack';
+export * from './elements/ui/AppLink/AppLink';
+export * from './elements/ui/Button/Button';
+export * from './elements/ui/Flex/Flex';
+export * from './elements/ui/Form/FormComponent';
+export * from './elements/ui/HStack/HStack';
+export * from './elements/ui/IconComponent/IconComponent';
+export * from './elements/ui/Input/TextInput';
+export * from './elements/ui/Overlay/Overlay';
+export * from './elements/ui/Page/Page';
+export * from './elements/ui/Portal/Portal';
+export * from './elements/ui/VStack/VStack';
 
 // configs
 
 // layouts
-export * from './layouts';
+export * from './elements/layouts';
 
 // lib
 

@@ -1,7 +1,7 @@
 import { linkOptions } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 
-import { IconComponent } from '../elements/IconComponent/IconComponent';
+import { IconComponent } from '../elements/ui/IconComponent/IconComponent';
 
 export const routes = {
   main: () => '/',
