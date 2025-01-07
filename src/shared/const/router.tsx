@@ -95,4 +95,22 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Настройки',
   }),
+  linkOptions({
+    to: routes.signUp(),
+    inActive: (
+      <IconComponent
+        name={'SettingsIcon'}
+        size={'sm'}
+        color={'basic-secondary-4'}
+      />
+    ),
+    active: (
+      <IconComponent
+        name={'SettingsIconFilled'}
+        size={'sm'}
+        color={'brand-primary'}
+      />
+    ),
+    label: 'Вход',
+  }),
 ];
