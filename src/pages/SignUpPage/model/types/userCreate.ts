@@ -1,9 +1,14 @@
-import { EmptyStringSchema } from '@shared';
+import {
+  EmailSchema,
+  EmptyStringSchema,
+  NameSchema,
+  PasswordSchema,
+} from '@shared';
 import { z } from 'zod';
 
 const PseudonymSchema = z.object({
-  firstName: z.string().min(2).max(50).or(EmptyStringSchema).nullable(),
-  lastName: z.string().min(2).max(50).or(EmptyStringSchema).nullable(),
+  firstName: NameSchema.or(EmptyStringSchema).nullable(),
+  lastName: NameSchema.or(EmptyStringSchema).nullable(),
 });
 
 const SocialSchema = z.object({
@@ -15,12 +20,12 @@ const SocialSchema = z.object({
 
 export const UserCreateRequestSchema = z
   .object({
-    email: z.string().email().max(255),
-    firstName: z.string().min(2).max(50),
-    lastName: z.string().min(2).max(50).or(EmptyStringSchema).nullable(),
-    middleName: z.string().min(2).max(50).or(EmptyStringSchema).nullable(),
-    password: z.string().min(8).max(255),
-    passwordConfirm: z.string().min(8).max(255),
+    email: EmailSchema,
+    firstName: NameSchema,
+    lastName: NameSchema.or(EmptyStringSchema).nullable(),
+    middleName: NameSchema.or(EmptyStringSchema).nullable(),
+    password: PasswordSchema,
+    passwordConfirm: PasswordSchema,
     pseudonym: PseudonymSchema,
     socialLinks: SocialSchema,
     bornDate: z.string().nullable(),

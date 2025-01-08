@@ -55,26 +55,26 @@ export class RequestStore<T, Args extends any[] = []> {
   }
 
   call = async (...args: Args): Promise<ExecutionResult<T>> => {
-    Object.assign(this.result, {
+    this.result = {
       status: 'loading',
       data: null,
-    });
+    };
 
     try {
       const result = await this.requestFn(...args);
       runInAction(() => {
-        Object.assign(this.result, {
+        this.result = {
           data: result.data,
           status: 'success',
-        });
+        };
       });
     } catch (err: unknown) {
       runInAction(() => {
-        Object.assign(this.result, {
+        this.result = {
           data: null,
           error: err,
           status: 'error',
-        });
+        };
       });
     }
 

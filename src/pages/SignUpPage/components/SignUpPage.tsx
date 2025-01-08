@@ -1,7 +1,7 @@
 import { cn } from '@bem-react/classname';
-import { Button, FormComponent, TextInput } from '@shared';
+import { Button, FormComponent, Page, TextInput, VStack } from '@shared';
 import { observer } from 'mobx-react-lite';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { SignUpService } from '../model/service/SignUpService';
 
@@ -15,14 +15,34 @@ export const SignUpPage: FC<SignUpPageProps> = observer((props) => {
   const [service] = useState(() => new SignUpService());
   const { userForm } = service;
 
+  useEffect(() => {
+    return () => {
+      service.abortRequest();
+    };
+  }, [service]);
+
   return (
-    <FormComponent
-      className={cnSignUpPage(undefined, [props.className])}
-      onSubmit={service.submitForm}
-    >
-      <TextInput field={userForm.fields.firstName} />
-      <TextInput field={userForm.fields.lastName} />
-      <Button type={'submit'}>submit</Button>
-    </FormComponent>
+    <Page>
+      <FormComponent
+        className={cnSignUpPage(undefined, [props.className])}
+        onSubmit={service.submitForm}
+      >
+        <VStack gap={'8'}>
+          Регистрация
+          <TextInput
+            field={userForm.fields.firstName}
+            placeholder={'Имя'}
+            required
+          />
+          <TextInput field={userForm.fields.email} placeholder={'Почта'} />
+          <TextInput field={userForm.fields.password} placeholder={'Пароль'} />
+          <TextInput
+            field={userForm.fields.passwordConfirm}
+            placeholder={'Подтвердите пароль'}
+          />
+          <Button type={'submit'}>Отправить</Button>
+        </VStack>
+      </FormComponent>
+    </Page>
   );
 });

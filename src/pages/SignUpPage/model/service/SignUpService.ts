@@ -2,7 +2,10 @@ import { convertEmptyStringToNull, FormStore, RequestStore } from '@shared';
 import { makeAutoObservable } from 'mobx';
 
 import { createUserRequest } from '../api/signUpApi';
-import { UserCreateRequestSchema, UserCreateRequestType } from '../types/user';
+import {
+  UserCreateRequestSchema,
+  UserCreateRequestType,
+} from '../types/userCreate';
 
 export class SignUpService {
   createUserRequest = new RequestStore(createUserRequest);
@@ -30,15 +33,24 @@ export class SignUpService {
     },
   });
 
-  abortController = new AbortController();
+  private abortController: AbortController | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
 
+  abortRequest = (): void => {
+    if (this.abortController) {
+      this.abortController.abort();
+      this.abortController = null; // Reset the controller
+    }
+  };
+
   submitForm = async (): Promise<void> => {
+    this.abortController = new AbortController();
+
     await this.userForm.submit(async (formValues: UserCreateRequestType) => {
-      const result = await this.createUserRequest.call(
+      await this.createUserRequest.call(
         {
           email: formValues.email,
           firstName: formValues.firstName,

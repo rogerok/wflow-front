@@ -1,6 +1,6 @@
+import { IconComponent, NavbarLinksType, routes } from '@shared';
 import { Meta, StoryObj } from '@storybook/react';
 import { linkOptions } from '@tanstack/react-router';
-import { IconComponent, NavbarLinksType, routes } from '@wflow-front/shared';
 
 import { Navbar } from './Navbar';
 
@@ -22,24 +22,6 @@ const testLinks: NavbarLinksType[] = [
       />
     ),
     label: 'Главная',
-  }),
-  linkOptions({
-    to: '/some-where',
-    inActive: (
-      <IconComponent
-        name={'TimerIcon'}
-        size={'sm'}
-        color={'basic-secondary-4'}
-      />
-    ),
-    active: (
-      <IconComponent
-        name={'TimerIconFilled'}
-        size={'sm'}
-        color={'brand-primary'}
-      />
-    ),
-    label: 'Что-нибудь',
   }),
   linkOptions({
     to: routes.statistic(),

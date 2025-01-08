@@ -109,10 +109,6 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
       return field.value;
     }
 
-    // if (field instanceof ListField) {
-    //   return field.value.map(this.getValueFromField);
-    // }
-
     if (field instanceof ListField) {
       return field.fields.map((nestedField) =>
         this.getValueFromField(nestedField)
@@ -143,7 +139,6 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
   }
 
   validate(): void {
-    console.log(this.getValues());
     this.validator.validate(this.getValues());
     if (!this.validator.errors.isSuccess) {
       for (const key in this.validator.errors.errorMap) {

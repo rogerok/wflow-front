@@ -42,24 +42,6 @@ export const NavbarLinks: NavbarLinksType[] = [
     label: 'Главная',
   }),
   linkOptions({
-    to: '/',
-    inActive: (
-      <IconComponent
-        name={'TimerIcon'}
-        size={'sm'}
-        color={'basic-secondary-4'}
-      />
-    ),
-    active: (
-      <IconComponent
-        name={'TimerIconFilled'}
-        size={'sm'}
-        color={'brand-primary'}
-      />
-    ),
-    label: 'Что-нибудь',
-  }),
-  linkOptions({
     to: routes.statistic(),
     inActive: (
       <IconComponent
@@ -111,6 +93,24 @@ export const NavbarLinks: NavbarLinksType[] = [
         color={'brand-primary'}
       />
     ),
-    label: 'Вход',
+    label: 'Регистрация',
+  }),
+  linkOptions({
+    to: routes.signIn(),
+    inActive: (
+      <IconComponent
+        name={'SettingsIcon'}
+        size={'sm'}
+        color={'basic-secondary-4'}
+      />
+    ),
+    active: (
+      <IconComponent
+        name={'SettingsIconFilled'}
+        size={'sm'}
+        color={'brand-primary'}
+      />
+    ),
+    label: 'Войти',
   }),
 ];

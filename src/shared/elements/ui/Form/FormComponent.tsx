@@ -1,4 +1,5 @@
 import { cn } from '@bem-react/classname';
+import { observer } from 'mobx-react-lite';
 import { FC, FormEvent, ReactNode } from 'react';
 
 const cnFormComponent = cn('FormComponent');
@@ -10,7 +11,7 @@ interface FormComponentProps {
   onReset?: () => void;
 }
 
-export const FormComponent: FC<FormComponentProps> = (props) => {
+export const FormComponent: FC<FormComponentProps> = observer((props) => {
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -27,4 +28,4 @@ export const FormComponent: FC<FormComponentProps> = (props) => {
       {props.children}
     </form>
   );
-};
+});

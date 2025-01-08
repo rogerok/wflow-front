@@ -1,26 +1,34 @@
 import { cn } from '@bem-react/classname';
-import { TextField } from '@shared';
 import { observer } from 'mobx-react-lite';
 import { ChangeEvent, FC, InputHTMLAttributes } from 'react';
 
-const cnInput = cn('TextInput');
+const cnInput = cn('Input');
 
 type HTMLInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
-  'value' | 'onChange' | 'readOnly' | 'size'
+  'value' | 'onChange' | 'readOnly'
 >;
 
-interface TextInputProps extends HTMLInputProps {
+interface InputProps extends HTMLInputProps {
+  onChange: (value: string) => void;
+  value: string;
   className?: string;
-  field: TextField<string>;
+  readOnly?: boolean;
+  error?: string;
 }
 
-export const TextInput: FC<TextInputProps> = observer((props) => {
-  const { className, field, type = 'text', ...restProps } = props;
-  const { value, setValue, error, name } = field;
+export const Input: FC<InputProps> = observer((props) => {
+  const {
+    className,
+    type = 'text',
+    value,
+    name,
+    onChange,
+    ...restProps
+  } = props;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setValue(e.target.value);
+    onChange(e.target.value);
   };
 
   return (
@@ -33,7 +41,7 @@ export const TextInput: FC<TextInputProps> = observer((props) => {
         type={type}
         {...restProps}
       />
-      {error && <div className="error">{error}</div>}
+      {props.error && <div className="error">{props.error}</div>}
     </>
   );
 });
