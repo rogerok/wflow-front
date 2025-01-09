@@ -1,15 +1,15 @@
 import { makeAutoObservable } from 'mobx';
 
 class User {
-  token = '';
+  uuid: string | null = null;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  setToken(token: string): void {
-    this.token = token;
+  setUuid(token: string): void {
+    this.uuid = token;
   }
 }
 
-export const UserStore = new User();
+export const UserService = new User();

@@ -1,5 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { Button, FormComponent, Page, TextInput, VStack } from '@shared';
+import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
 import { AuthService } from '../model/services/AuthService';
@@ -10,7 +11,7 @@ interface SignInPageProps {
   className?: string;
 }
 
-export const SignInPage: FC<SignInPageProps> = (props) => {
+export const SignInPage: FC<SignInPageProps> = observer((props) => {
   const [authService] = useState(() => new AuthService());
 
   return (
@@ -30,4 +31,4 @@ export const SignInPage: FC<SignInPageProps> = (props) => {
       </FormComponent>
     </Page>
   );
-};
+});

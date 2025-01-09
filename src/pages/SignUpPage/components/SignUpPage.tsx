@@ -1,9 +1,10 @@
 import { cn } from '@bem-react/classname';
 import { Button, FormComponent, Page, TextInput, VStack } from '@shared';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
-import { SignUpService } from '../model/service/SignUpService';
+import { SignUpService } from '../model/services/SignUpService';
 
 const cnSignUpPage = cn('SignUpPage');
 
@@ -14,12 +15,6 @@ interface SignUpPageProps {
 export const SignUpPage: FC<SignUpPageProps> = observer((props) => {
   const [service] = useState(() => new SignUpService());
   const { userForm } = service;
-
-  useEffect(() => {
-    return () => {
-      service.abortRequest();
-    };
-  }, [service]);
 
   return (
     <Page>
@@ -40,7 +35,9 @@ export const SignUpPage: FC<SignUpPageProps> = observer((props) => {
             field={userForm.fields.passwordConfirm}
             placeholder={'Подтвердите пароль'}
           />
-          <Button type={'submit'}>Отправить</Button>
+          <Button type={'submit'} disabled={userForm.isSubmitting}>
+            Отправить
+          </Button>
         </VStack>
       </FormComponent>
     </Page>

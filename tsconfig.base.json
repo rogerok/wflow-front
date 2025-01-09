@@ -10,27 +10,15 @@
     "importHelpers": true,
     "target": "esnext",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pages": [
-        "src/pages/index.ts"
-      ],
-      "@widgets": [
-        "src/widgets/index.ts"
-      ],
-      "@shared": [
-        "src/shared/index.ts"
-      ]
+      "@pages": ["src/pages/index.ts"],
+      "@shared": ["src/shared/index.ts"],
+      "@widgets": ["src/widgets/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

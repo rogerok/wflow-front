@@ -11,7 +11,7 @@ export class NavbarStore {
   private _ui = new UiBaseStore<NavbarCollapsedType>(
     NavbarCollapsedConstant.Expanded,
     NavbarCollapsedSchema,
-    LOCAL_STORAGE_NAVBAR_COLLAPSED_KEY
+    LOCAL_STORAGE_NAVBAR_COLLAPSED_KEY,
   );
 
   private readonly _screenStore: ScreenStore;
@@ -22,8 +22,9 @@ export class NavbarStore {
       {},
       {
         autoBind: true,
-      }
+      },
     );
+
     this._screenStore = screenStore;
 
     this.init();

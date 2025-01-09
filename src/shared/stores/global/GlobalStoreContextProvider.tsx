@@ -8,8 +8,8 @@ export const GlobalStoreContextProvider = (props: {
   children: ReactNode;
 }): ReactNode => {
   return (
-    <GlobalStoreContext.Provider value={new GlobalStore()}>
+    <GlobalStoreContext value={new GlobalStore()}>
       {props.children}
-    </GlobalStoreContext.Provider>
+    </GlobalStoreContext>
   );
 };

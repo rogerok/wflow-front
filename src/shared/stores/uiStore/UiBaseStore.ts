@@ -5,7 +5,7 @@ import { ZodSchema } from 'zod';
 import {
   getLocalStorageItem,
   setLocalStorageItem,
-} from '../../lib/utils/localStorage/utils';
+} from '../../lib/utils/localStorage';
 
 export class UiBaseStore<T> implements IUiBaseStore<T> {
   private readonly _storageKey: null | string;
@@ -15,7 +15,7 @@ export class UiBaseStore<T> implements IUiBaseStore<T> {
   constructor(
     defaultState: T,
     validationSchema: ZodSchema,
-    storageKey?: string
+    storageKey?: string,
   ) {
     makeAutoObservable(this, {}, { autoBind: true });
 

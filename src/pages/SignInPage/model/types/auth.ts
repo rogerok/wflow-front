@@ -13,3 +13,12 @@ export const AuthResponseSchema = z.object({
 });
 
 export type AuthResponseType = z.infer<typeof AuthResponseSchema>;
+
+export const TokenSchema = z.object({
+  exp: z.number(),
+  iat: z.number(),
+  iss: z.string(),
+  sub: z.string(),
+});
+
+export type TokenType = z.infer<typeof TokenSchema>;

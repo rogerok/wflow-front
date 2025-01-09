@@ -8,12 +8,13 @@ import {
 } from '../types/userCreate';
 
 export class SignUpService {
+  private abortController: AbortController | null = null;
   createUserRequest = new RequestStore(createUserRequest);
 
   userForm = new FormStore<UserCreateRequestType>({
     schema: UserCreateRequestSchema,
     defaultValues: {
-      bornDate: new Date().toString(),
+      bornDate: null,
       email: '123@gmails.com',
       firstName: 'sdsdsdd',
       lastName: '',
@@ -33,8 +34,6 @@ export class SignUpService {
     },
   });
 
-  private abortController: AbortController | null = null;
-
   constructor() {
     makeAutoObservable(this);
   }
@@ -42,7 +41,7 @@ export class SignUpService {
   abortRequest = (): void => {
     if (this.abortController) {
       this.abortController.abort();
-      this.abortController = null; // Reset the controller
+      this.abortController = null;
     }
   };
 
@@ -71,7 +70,7 @@ export class SignUpService {
           bornDate: null,
         },
 
-        this.abortController
+        this.abortController,
       );
     });
   };
