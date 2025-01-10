@@ -34,7 +34,7 @@ export class UserService {
       uuid,
       this.abortController,
     );
-    
+
     runInAction(() => {
       this.setUserData(result.data);
     });
@@ -47,8 +47,4 @@ export class UserService {
   clearUserData = (): void => {
     this.setUserData(null);
   };
-
-  get isAuth(): boolean {
-    return !!this.userData;
-  }
 }

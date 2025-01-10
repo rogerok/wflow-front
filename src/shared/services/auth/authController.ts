@@ -59,14 +59,12 @@ export class AuthController {
   };
 
   restoreSession = async (): Promise<void> => {
-    if (!this.userService.isAuth) {
-      const token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
-      if (typeof token === 'string') {
-        const parsedToken = this.parseJwt(token);
+    const token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
+    if (typeof token === 'string') {
+      const parsedToken = this.parseJwt(token);
 
-        if (this.isTokenValid(parsedToken)) {
-          await this.userService.fetchUser(parsedToken.sub);
-        }
+      if (this.isTokenValid(parsedToken)) {
+        await this.userService.fetchUser(parsedToken.sub);
       }
     }
   };

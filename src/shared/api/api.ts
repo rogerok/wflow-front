@@ -9,6 +9,12 @@ import {
 import { globalStore } from '../stores/global/GlobalStore';
 import { RefreshTokenResponseType } from '../types/auth';
 
+declare module 'axios' {
+  interface InternalAxiosRequestConfig {
+    _isRetry?: boolean;
+  }
+}
+
 export const $api = axios.create({
   baseURL: '/api',
   withCredentials: true,
@@ -24,19 +30,18 @@ $api.interceptors.request.use((config) => {
   return config;
 });
 
-let isRefreshing = false;
-
 $api.interceptors.response.use(
   (config) => config,
   async (error) => {
     const originalRequest: InternalAxiosRequestConfig | undefined =
       error.config;
+
     if (
       error.response &&
       error.response.status === HttpStatusCode.Unauthorized
     ) {
-      if (!isRefreshing && originalRequest) {
-        isRefreshing = true;
+      if (originalRequest && !originalRequest._isRetry) {
+        originalRequest._isRetry = true;
 
         try {
           const resp = await $api.post<RefreshTokenResponseType>(
@@ -57,8 +62,6 @@ $api.interceptors.response.use(
           globalStore.userService.clearUserData();
 
           throw error;
-        } finally {
-          isRefreshing = false;
         }
       }
     }

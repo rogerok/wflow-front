@@ -10,6 +10,12 @@ interface SettingsPageProps {
 }
 
 export const SettingsPage: FC<SettingsPageProps> = observer((props) => {
+  const { userService } = useGlobalStore();
+
+  useEffect(() => {
+    userService.fetchUsers();
+  }, []);
+
   return (
     <div className={cnSettingsPage(undefined, [props.className])}>
       SettingsPage

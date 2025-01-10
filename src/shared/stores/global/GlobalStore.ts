@@ -36,7 +36,7 @@ export class GlobalStore {
   }
 
   get isAuth(): boolean {
-    return this._user.isAuth;
+    return !!this._user.userData;
   }
 
   get authController(): AuthController {
