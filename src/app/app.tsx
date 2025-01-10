@@ -4,12 +4,17 @@ import { cn } from '@bem-react/classname';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 
 import { observer } from 'mobx-react-lite';
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useEffect } from 'react';
 
 import { routeTree } from '../routeTree.gen';
 import { GlobalStoreContextProvider, useGlobalStore } from '@shared';
 
-export const router = createRouter({ routeTree });
+export const router = createRouter({
+  routeTree,
+  context: {
+    isAuth: undefined,
+  },
+});
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -19,12 +24,18 @@ declare module '@tanstack/react-router' {
 
 const cnApp = cn('App');
 
-const WflowApp: FC = observer(() => {
-  const { theme } = useGlobalStore();
+const InnerApp: FC = observer(() => {
+  const { theme, isAuth, authController } = useGlobalStore();
 
-  return (
+  useEffect(() => {
+    authController.restoreSession();
+  }, []);
+
+  return authController.userService.getUserRequestStore.isLoading ? (
+    <div style={{ width: '1000px', background: 'red' }}>Loading</div>
+  ) : (
     <div className={cnApp(undefined, [theme.current])}>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} context={{ isAuth: isAuth }} />
     </div>
   );
 });
@@ -32,7 +43,7 @@ const WflowApp: FC = observer(() => {
 function App(): ReactElement {
   return (
     <GlobalStoreContextProvider>
-      <WflowApp />
+      <InnerApp />
     </GlobalStoreContextProvider>
   );
 }

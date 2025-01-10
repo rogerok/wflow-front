@@ -1,18 +1,8 @@
-import {
-  FormStore,
-  LOCAL_STORAGE_TOKEN_KEY,
-  RequestStore,
-  setLocalStorageItem,
-} from '@shared';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { FormStore, RequestStore } from '@shared';
+import { makeAutoObservable } from 'mobx';
 
 import { authRequest } from '../../api/auth/authApi';
-import {
-  AuthRequestSchema,
-  AuthRequestType,
-  TokenSchema,
-  TokenType,
-} from '../../types/auth';
+import { AuthRequestSchema, AuthRequestType } from '../../types/auth';
 
 export class AuthService {
   authForm = new FormStore<AuthRequestType>({

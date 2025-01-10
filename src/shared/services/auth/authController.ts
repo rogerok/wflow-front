@@ -1,4 +1,9 @@
-import { LOCAL_STORAGE_TOKEN_KEY, routes, setLocalStorageItem } from '@shared';
+import {
+  getLocalStorageItem,
+  LOCAL_STORAGE_TOKEN_KEY,
+  routes,
+  setLocalStorageItem,
+} from '@shared';
 
 import { router } from '../../../app/app';
 import { TokenSchema, TokenType } from '../../types/auth';
@@ -48,6 +53,19 @@ export class AuthController {
           router.navigate({
             to: routes.main(),
           });
+        }
+      }
+    }
+  };
+
+  restoreSession = async (): Promise<void> => {
+    if (!this.userService.isAuth) {
+      const token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
+      if (typeof token === 'string') {
+        const parsedToken = this.parseJwt(token);
+
+        if (this.isTokenValid(parsedToken)) {
+          await this.userService.fetchUser(parsedToken.sub);
         }
       }
     }

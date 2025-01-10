@@ -1,9 +1,13 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 import React from 'react';
 import { MainLayout, NavbarLinks } from '@shared';
 import { Header, Navbar } from '@widgets';
 
-export const Route = createRootRoute({
+interface RouterContext {
+  isAuth?: boolean;
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
     <>
       <MainLayout

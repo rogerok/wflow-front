@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import { getUserById, getUsers } from '../../api/user/userApi';
 import { RequestStore } from '../../stores/request/RequestStore';
@@ -6,7 +6,6 @@ import { UserResponseType } from '../../types';
 
 export class UserService {
   private abortController: AbortController | null = null;
-  uuid: string | null = null;
 
   userData: UserResponseType | null = null;
 
@@ -35,8 +34,10 @@ export class UserService {
       uuid,
       this.abortController,
     );
-
-    this.setUserData(result.data);
+    
+    runInAction(() => {
+      this.setUserData(result.data);
+    });
   };
 
   fetchUsers = async (): Promise<void> => {
@@ -46,4 +47,8 @@ export class UserService {
   clearUserData = (): void => {
     this.setUserData(null);
   };
+
+  get isAuth(): boolean {
+    return !!this.userData;
+  }
 }
