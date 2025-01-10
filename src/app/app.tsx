@@ -9,7 +9,7 @@ import React, { FC, ReactElement } from 'react';
 import { routeTree } from '../routeTree.gen';
 import { GlobalStoreContextProvider, useGlobalStore } from '@shared';
 
-const router = createRouter({ routeTree });
+export const router = createRouter({ routeTree });
 
 declare module '@tanstack/react-router' {
   interface Register {

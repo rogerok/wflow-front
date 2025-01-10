@@ -13,6 +13,13 @@ export default defineConfig({
   server: {
     port: 4200,
     host: 'localhost',
+    proxy: {
+      '/api': {
+        //TODO: add to .env, get based on environment
+        target: `http://127.0.0.1:5000`,
+        changeOrigin: true,
+      },
+    },
   },
   preview: {
     port: 4300,

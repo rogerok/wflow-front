@@ -16,7 +16,7 @@ type FormHandleSubmitType<TFormValues> = (values: TFormValues) => Promise<void>;
 interface FormStoreConstructor<TFormValues> {
   defaultValues: TFormValues;
   schema: ZodSchema;
-  handleSubmit?: FormHandleSubmitType<TFormValues>;
+  // handleSubmit?: FormHandleSubmitType<TFormValues>;
 }
 
 function initializeFields<TFormValues>(defaultValues: TFormValues): {
@@ -73,7 +73,6 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
 
       if (this.errors.isSuccess) {
         await handleSubmit(this.getValues());
-        this.reset();
       }
     } catch (err: unknown) {
       this.submitError = err;
@@ -99,7 +98,7 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
 
     for (const field in this.fields) {
       result[field as TFormValues[K]] = this.getValueFromField(
-        this.fields[field]
+        this.fields[field],
       );
     }
     return result;
@@ -111,28 +110,30 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
     }
 
     if (field instanceof ListField) {
-      return field.value.map(this.getValueFromField);
+      return field.fields.map((nestedField) =>
+        this.getValueFromField(nestedField),
+      );
     }
 
     if (Array.isArray(field)) {
       return field.map(this.getValueFromField);
     }
 
-    if (
-      (typeof field === 'object' || field instanceof NestedField) &&
-      field !== null
-    ) {
+    if (field instanceof NestedField) {
       return Object.fromEntries(
-        Object.entries(field).map(([key, value]) => {
-          if (
-            value instanceof TextField ||
-            value instanceof ListField ||
-            value instanceof BooleanField
-          ) {
-            return [key, this.getValueFromField(value)];
-          }
-          return [key, value];
-        })
+        Object.entries(field.fields).map(([key, nestedField]) => [
+          key,
+          this.getValueFromField(nestedField),
+        ]),
+      );
+    }
+
+    if (typeof field === 'object' && field !== null) {
+      return Object.fromEntries(
+        Object.entries(field).map(([key, value]) => [
+          key,
+          this.getValueFromField(value),
+        ]),
       );
     }
   }
@@ -145,7 +146,7 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
           this.fields[key].setError(
             this.validator.errors.errorMap[
               key as keyof ValidationResultMap<TFormValues>
-            ]
+            ],
           );
         }
       }
