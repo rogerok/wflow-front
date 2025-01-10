@@ -38,3 +38,11 @@ export const setLocalStorageItem = <T>(key: string, value: T): void => {
     console.error('Unable to save item to localStorage');
   }
 };
+
+export const removeLocalStorageItem = (key: string): void => {
+  try {
+    localStorage.removeItem(key);
+  } catch {
+    console.error('Unable to remove item from localStorage');
+  }
+};

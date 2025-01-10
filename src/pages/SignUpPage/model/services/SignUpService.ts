@@ -14,7 +14,7 @@ export class SignUpService {
   userForm = new FormStore<UserCreateRequestType>({
     schema: UserCreateRequestSchema,
     defaultValues: {
-      bornDate: null,
+      bornDate: '',
       email: '123@gmails.com',
       firstName: 'sdsdsdd',
       lastName: '',
@@ -35,7 +35,7 @@ export class SignUpService {
   });
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
   }
 
   abortRequest = (): void => {

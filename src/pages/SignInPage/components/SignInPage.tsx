@@ -1,9 +1,17 @@
 import { cn } from '@bem-react/classname';
-import { Button, FormComponent, Page, TextInput, VStack } from '@shared';
+import {
+  Button,
+  FormComponent,
+  Page,
+  TextInput,
+  useGlobalStore,
+  VStack,
+} from '@shared';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
-import { AuthService } from '../model/services/AuthService';
+import { AuthController } from '../../../shared/services/auth/authController';
+import { AuthService } from '../../../shared/services/auth/authService';
 
 const cnSignInPage = cn('SignInPage');
 
@@ -12,18 +20,22 @@ interface SignInPageProps {
 }
 
 export const SignInPage: FC<SignInPageProps> = observer((props) => {
-  const [authService] = useState(() => new AuthService());
+  const { userService } = useGlobalStore();
+
+  const [authController] = useState(
+    () => new AuthController(new AuthService(), userService),
+  );
 
   return (
     <Page className={cnSignInPage(undefined, [props.className])}>
-      <FormComponent onSubmit={authService.submitForm}>
+      <FormComponent onSubmit={authController.authenticate}>
         <VStack gap={'8'}>
           <TextInput
-            field={authService.authForm.fields.email}
+            field={authController.authService.authForm.fields.email}
             placeholder={'Email'}
           />
           <TextInput
-            field={authService.authForm.fields.password}
+            field={authController.authService.authForm.fields.password}
             placeholder={'Пароль'}
           />
           <Button type={'submit'}>Войти</Button>

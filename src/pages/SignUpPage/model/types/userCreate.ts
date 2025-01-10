@@ -3,20 +3,10 @@ import {
   EmptyStringSchema,
   NameSchema,
   PasswordSchema,
+  PseudonymSchema,
+  SocialSchema,
 } from '@shared';
 import { z } from 'zod';
-
-const PseudonymSchema = z.object({
-  firstName: NameSchema.or(EmptyStringSchema).nullable(),
-  lastName: NameSchema.or(EmptyStringSchema).nullable(),
-});
-
-const SocialSchema = z.object({
-  instagram: z.string().url().or(EmptyStringSchema).nullable(),
-  telegram: z.string().url().or(EmptyStringSchema).nullable(),
-  tiktok: z.string().url().or(EmptyStringSchema).nullable(),
-  vk: z.string().url().or(EmptyStringSchema).nullable(),
-});
 
 export const UserCreateRequestSchema = z
   .object({

@@ -1,6 +1,5 @@
 import { cn } from '@bem-react/classname';
 import { Button, FormComponent, Page, TextInput, VStack } from '@shared';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
@@ -15,6 +14,12 @@ interface SignUpPageProps {
 export const SignUpPage: FC<SignUpPageProps> = observer((props) => {
   const [service] = useState(() => new SignUpService());
   const { userForm } = service;
+
+  useEffect(() => {
+    return () => {
+      service.abortRequest();
+    };
+  }, [service]);
 
   return (
     <Page>

@@ -1,10 +1,10 @@
 import { $api } from '@shared';
 import { AxiosResponse } from 'axios';
 
-import { AuthRequestType, AuthResponseType } from '../types/auth';
+import { AuthRequestType, AuthResponseType } from '../../types/auth';
 
 export const authRequest = (
-  data: AuthRequestType
+  data: AuthRequestType,
 ): Promise<AxiosResponse<AuthResponseType>> => {
-  return $api.post<AuthResponseType>('/auth', data, {});
+  return $api.post<AuthResponseType>('/auth', data);
 };

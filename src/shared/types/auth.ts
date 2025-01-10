@@ -1,5 +1,6 @@
-import { EmailSchema, PasswordSchema } from '@shared';
 import { z } from 'zod';
+
+import { EmailSchema, PasswordSchema } from '../const';
 
 export const AuthRequestSchema = z.object({
   email: EmailSchema,
@@ -22,3 +23,13 @@ export const TokenSchema = z.object({
 });
 
 export type TokenType = z.infer<typeof TokenSchema>;
+
+export const RefreshTokenResponseSchema = z
+  .object({
+    token: z.string(),
+  })
+  .strict();
+
+export type RefreshTokenResponseType = z.infer<
+  typeof RefreshTokenResponseSchema
+>;
