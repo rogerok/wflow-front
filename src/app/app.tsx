@@ -4,7 +4,7 @@ import { cn } from '@bem-react/classname';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 
 import { observer } from 'mobx-react-lite';
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useEffect } from 'react';
 
 import { routeTree } from '../routeTree.gen';
 import {
@@ -16,7 +16,7 @@ import {
 export const router = createRouter({
   routeTree,
   context: {
-    isAuth: globalStore.isAuth,
+    isAuth: globalStore.userService.isAuth,
     authController: globalStore.authController,
   },
 });
@@ -30,7 +30,11 @@ declare module '@tanstack/react-router' {
 const cnApp = cn('App');
 
 const InnerApp: FC = observer(() => {
-  const { theme, isAuth, authController } = useGlobalStore();
+  const { theme, authController } = useGlobalStore();
+
+  useEffect(() => {
+    authController.restoreSession();
+  }, []);
 
   return (
     <div className={cnApp(undefined, [theme.current])}>

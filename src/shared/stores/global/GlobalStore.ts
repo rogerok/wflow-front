@@ -8,7 +8,7 @@ import { ThemeStore } from '../theme/ThemeStore';
 export class GlobalStore {
   private readonly _theme: ThemeStore = new ThemeStore();
   private readonly _screen: ScreenStore = new ScreenStore();
-  private readonly _navbar = new NavbarStore(this._screen);
+  private readonly _navbar: NavbarStore = new NavbarStore(this._screen);
   private readonly _user: UserService = new UserService();
   private readonly _authController: AuthController = new AuthController(
     new AuthService(),
@@ -33,10 +33,6 @@ export class GlobalStore {
 
   get userService(): UserService {
     return this._user;
-  }
-
-  get isAuth(): boolean {
-    return !!this._user.userData;
   }
 
   get authController(): AuthController {

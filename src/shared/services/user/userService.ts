@@ -1,16 +1,18 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { getUserById, getUsers } from '../../api/user/userApi';
+import { RolesConstant } from '../../const';
 import { RequestStore } from '../../stores/request/RequestStore';
-import { UserResponseType } from '../../types';
+import { RolesType, UserResponseType } from '../../types';
 
 export class UserService {
   private abortController: AbortController | null = null;
+  getUserRequestStore = new RequestStore(getUserById);
+  getUsersRequest = new RequestStore(getUsers);
 
   userData: UserResponseType | null = null;
 
-  getUserRequestStore = new RequestStore(getUserById);
-  getUsersRequest = new RequestStore(getUsers);
+  private _role: RolesType = RolesConstant.Visitor;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -18,6 +20,10 @@ export class UserService {
 
   setUserData = (data: UserResponseType | null): void => {
     this.userData = data;
+  };
+
+  clearUserData = (): void => {
+    this.setUserData(null);
   };
 
   abortRequest = (): void => {
@@ -37,6 +43,8 @@ export class UserService {
 
     runInAction(() => {
       this.setUserData(result.data);
+      //TODO: add real data
+      this._role = RolesConstant.Admin;
     });
   };
 
@@ -44,7 +52,11 @@ export class UserService {
     await this.getUsersRequest.call();
   };
 
-  clearUserData = (): void => {
-    this.setUserData(null);
-  };
+  get isAuth(): boolean {
+    return !!this.userData;
+  }
+
+  get role(): RolesType {
+    return this._role;
+  }
 }
