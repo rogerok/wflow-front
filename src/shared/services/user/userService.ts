@@ -1,9 +1,9 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { getUserById, getUsers } from '../../api/user/userApi';
-import { RolesConstant } from '../../const';
 import { RequestStore } from '../../stores/request/RequestStore';
-import { RolesType, UserResponseType } from '../../types';
+import { RolesConstant } from '../../const/roles';
+import { RolesType, UserResponseType } from '../../types/user';
 
 export class UserService {
   private abortController: AbortController | null = null;

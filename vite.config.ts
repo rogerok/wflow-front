@@ -8,6 +8,7 @@ import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
+import circleDependency from 'vite-plugin-circular-dependency';
 import mkcert from 'vite-plugin-mkcert';
 import svgr from 'vite-plugin-svgr';
 
@@ -30,6 +31,9 @@ export default defineConfig({
     host: 'localhost',
   },
   plugins: [
+    circleDependency({
+      outputFilePath: './circleDep',
+    }),
     react(),
     mkcert(),
     TanStackRouterVite({

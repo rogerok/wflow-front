@@ -2,8 +2,8 @@ import { linkOptions } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 
 import { IconComponent } from '../elements/ui/IconComponent/IconComponent';
-import { RolesType } from '../types';
 import { RolesConstant } from './roles';
+import { RolesType } from '../types/user';
 
 export const routes = {
   main: () => '/',

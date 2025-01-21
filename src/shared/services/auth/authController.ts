@@ -1,9 +1,13 @@
 import { router } from '../../../app/app';
-import { LOCAL_STORAGE_TOKEN_KEY, routes } from '../../const';
-import { getLocalStorageItem, setLocalStorageItem } from '../../lib';
 import { TokenSchema, TokenType } from '../../types/auth';
 import { UserService } from '../user/userService';
 import { AuthService } from './authService';
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from '../../lib/utils/localStorage';
+import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
+import { routes } from '../../const/router';
 
 export class AuthController {
   authService: AuthService;
