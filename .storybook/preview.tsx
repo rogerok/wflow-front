@@ -1,14 +1,9 @@
 import '../src/app/styles/index.scss';
 
+import { GlobalStoreContextProvider, SbDecorator } from '@shared';
 import { withThemeByClassName } from '@storybook/addon-themes';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { Preview, StoryFn } from '@storybook/react';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { GlobalStoreContextProvider } from '@wflow-front/shared';
 import { JSX } from 'react';
-
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { SbDecorator } from '../src/shared/config/storybook/RouterDecorator';
 
 const preview: Preview = {
   tags: ['autodocs'],

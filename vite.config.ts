@@ -5,6 +5,8 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import checker from 'vite-plugin-checker';
+import mkcert from 'vite-plugin-mkcert';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
@@ -16,7 +18,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         //TODO: add to .env, get based on environment
-        target: `http://127.0.0.1:5000`,
+        target: 'http://127.0.0.1:5000',
         changeOrigin: true,
       },
     },
@@ -27,6 +29,7 @@ export default defineConfig({
   },
   plugins: [
     react(),
+    mkcert(),
     TanStackRouterVite({
       routesDirectory: './src/app/routes',
     }),
@@ -39,7 +42,9 @@ export default defineConfig({
       },
       include: '**/*.svg',
     }),
-
+    checker({
+      typescript: true,
+    }),
     nxViteTsPaths(),
     nxCopyAssetsPlugin(['*.md']),
   ],
