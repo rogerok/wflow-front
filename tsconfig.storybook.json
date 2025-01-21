@@ -4,6 +4,7 @@
     "emitDecoratorMetadata": true,
     "outDir": ""
   },
+  "baseUrl": ".",
   "paths": {
     "@pages": [
       "src/pages/index.ts"

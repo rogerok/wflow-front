@@ -2,11 +2,16 @@ import '../src/app/styles/index.scss';
 
 import { GlobalStoreContextProvider, SbDecorator } from '@shared';
 import { withThemeByClassName } from '@storybook/addon-themes';
-import { Preview, StoryFn } from '@storybook/react';
+import {
+  Preview,
+  ReactRenderer,
+  StoryContext,
+  StoryFn,
+} from '@storybook/react';
 import { JSX } from 'react';
 
 const preview: Preview = {
-  tags: ['autodocs'],
+  tags: ['autodocs', 'autodocs'],
   decorators: [
     withThemeByClassName({
       themes: {
@@ -16,10 +21,10 @@ const preview: Preview = {
       defaultTheme: 'light',
     }),
     SbDecorator,
-    (Story: StoryFn): JSX.Element => {
+    (Story: StoryFn, args: StoryContext<{ [x: string]: any }>): JSX.Element => {
       return (
         <GlobalStoreContextProvider>
-          <Story />
+          <>{Story(args, args.context)}</>
         </GlobalStoreContextProvider>
       );
     },

@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import * as path from 'node:path';
 
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
@@ -76,12 +78,12 @@ export default defineConfig({
       src: path.resolve(__dirname, 'src'),
     },
   },
-  test: {
-    watch: false,
-    globals: true,
-    environment: 'jsdom',
-    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    reporters: ['default'],
-    coverage: { reportsDirectory: './coverage/wflow-front', provider: 'v8' },
-  },
+  // test: {
+  //   watch: false,
+  //   globals: true,
+  //   environment: 'jsdom',
+  //   include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+  //   reporters: ['default'],
+  //   coverage: { reportsDirectory: './coverage/wflow-front', provider: 'v8' },
+  // },
 });

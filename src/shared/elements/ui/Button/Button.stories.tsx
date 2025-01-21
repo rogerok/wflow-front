@@ -1,7 +1,8 @@
-import { Button } from '@shared';
-import { expect } from '@storybook/jest';
 import type { Meta, StoryObj } from '@storybook/react';
-import { within } from '@storybook/testing-library';
+import { expect } from '@storybook/test';
+import { within } from '@storybook/test';
+
+import { Button } from './Button';
 
 const meta: Meta<typeof Button> = {
   component: Button,

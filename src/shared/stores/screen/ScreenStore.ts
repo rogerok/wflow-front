@@ -1,5 +1,6 @@
-import { ObjectValues } from '@shared';
 import { makeAutoObservable } from 'mobx';
+
+import { ObjectValues } from '../../lib/tsUtils/ObjectValues';
 
 const BreakpointsInPxConstant = {
   Xs: 0,

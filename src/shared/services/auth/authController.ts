@@ -1,11 +1,6 @@
-import {
-  getLocalStorageItem,
-  LOCAL_STORAGE_TOKEN_KEY,
-  routes,
-  setLocalStorageItem,
-} from '@shared';
-
 import { router } from '../../../app/app';
+import { LOCAL_STORAGE_TOKEN_KEY, routes } from '../../const';
+import { getLocalStorageItem, setLocalStorageItem } from '../../lib';
 import { TokenSchema, TokenType } from '../../types/auth';
 import { UserService } from '../user/userService';
 import { AuthService } from './authService';

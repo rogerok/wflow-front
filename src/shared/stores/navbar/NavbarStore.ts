@@ -1,7 +1,7 @@
-import { LOCAL_STORAGE_NAVBAR_COLLAPSED_KEY } from '@shared';
 import { makeAutoObservable } from 'mobx';
 import { makeLoggable } from 'mobx-log';
 
+import { LOCAL_STORAGE_NAVBAR_COLLAPSED_KEY } from '../../const/localStorage';
 import { ScreenStore } from '../screen/ScreenStore';
 import { UiBaseStore } from '../uiStore/UiBaseStore';
 import { NavbarCollapsedConstant } from './constant';
