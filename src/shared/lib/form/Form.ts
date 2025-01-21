@@ -2,8 +2,8 @@ import { makeAutoObservable } from 'mobx';
 import { makeLoggable } from 'mobx-log';
 import { ZodSchema } from 'zod';
 
+import { fieldFactory } from './factory/FieldFactory';
 import { BooleanField } from './fields/BooleanField';
-import { fieldFactory } from './fields/FieldFactory';
 import { ListField } from './fields/ListField';
 import { NestedField } from './fields/NestedField';
 import { TextField } from './fields/TextField';

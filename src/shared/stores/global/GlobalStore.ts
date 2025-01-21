@@ -1,6 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 
-import { UserService } from '../../services';
+import { AuthController } from '../../services/auth/authController';
+import { AuthService } from '../../services/auth/authService';
+import { UserService } from '../../services/user/userService';
 import { NavbarStore } from '../navbar/NavbarStore';
 import { ScreenStore } from '../screen/ScreenStore';
 import { ThemeStore } from '../theme/ThemeStore';
@@ -8,8 +10,12 @@ import { ThemeStore } from '../theme/ThemeStore';
 export class GlobalStore {
   private readonly _theme: ThemeStore = new ThemeStore();
   private readonly _screen: ScreenStore = new ScreenStore();
-  private readonly _navbar = new NavbarStore(this._screen);
+  private readonly _navbar: NavbarStore = new NavbarStore(this._screen);
   private readonly _user: UserService = new UserService();
+  private readonly _authController: AuthController = new AuthController(
+    new AuthService(),
+    this._user,
+  );
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -29,6 +35,10 @@ export class GlobalStore {
 
   get userService(): UserService {
     return this._user;
+  }
+
+  get authController(): AuthController {
+    return this._authController;
   }
 }
 

@@ -25,7 +25,6 @@ module.exports = [
           ],
         },
       ],
-      'import/no-cycle': ['error', { maxDepth: 1 }],
     },
   },
   {

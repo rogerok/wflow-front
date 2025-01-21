@@ -1,17 +1,12 @@
 import '../src/app/styles/index.scss';
 
+import { GlobalStoreContextProvider, SbDecorator } from '@shared';
 import { withThemeByClassName } from '@storybook/addon-themes';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { Preview, StoryFn } from '@storybook/react';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { GlobalStoreContextProvider } from '@wflow-front/shared';
+import { Preview, StoryContext, StoryFn } from '@storybook/react';
 import { JSX } from 'react';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { SbDecorator } from '../src/shared/config/storybook/RouterDecorator';
-
 const preview: Preview = {
-  tags: ['autodocs'],
+  tags: ['autodocs', 'autodocs'],
   decorators: [
     withThemeByClassName({
       themes: {
@@ -21,10 +16,10 @@ const preview: Preview = {
       defaultTheme: 'light',
     }),
     SbDecorator,
-    (Story: StoryFn): JSX.Element => {
+    (Story: StoryFn, args: StoryContext<{ [x: string]: any }>): JSX.Element => {
       return (
         <GlobalStoreContextProvider>
-          <Story />
+          <>{Story(args, args.context)}</>
         </GlobalStoreContextProvider>
       );
     },

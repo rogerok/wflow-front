@@ -2,6 +2,8 @@ import { linkOptions } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 
 import { IconComponent } from '../elements/ui/IconComponent/IconComponent';
+import { RolesType } from '../types/user';
+import { RolesConstant } from './roles';
 
 export const routes = {
   main: () => '/',
@@ -20,6 +22,8 @@ export type NavbarLinksType = {
   label: string;
 
   to: string;
+
+  roles: RolesType[];
 };
 
 export const NavbarLinks: NavbarLinksType[] = [
@@ -40,6 +44,7 @@ export const NavbarLinks: NavbarLinksType[] = [
       />
     ),
     label: 'Главная',
+    roles: [RolesConstant.Admin, RolesConstant.Visitor, RolesConstant.User],
   }),
   linkOptions({
     to: routes.statistic(),
@@ -58,6 +63,7 @@ export const NavbarLinks: NavbarLinksType[] = [
       />
     ),
     label: 'Статистика',
+    roles: [RolesConstant.Admin, RolesConstant.User],
   }),
   linkOptions({
     to: routes.settings(),
@@ -76,6 +82,7 @@ export const NavbarLinks: NavbarLinksType[] = [
       />
     ),
     label: 'Настройки',
+    roles: [RolesConstant.Admin, RolesConstant.User],
   }),
   linkOptions({
     to: routes.signUp(),
@@ -94,6 +101,7 @@ export const NavbarLinks: NavbarLinksType[] = [
       />
     ),
     label: 'Регистрация',
+    roles: [RolesConstant.Visitor],
   }),
   linkOptions({
     to: routes.signIn(),
@@ -112,5 +120,6 @@ export const NavbarLinks: NavbarLinksType[] = [
       />
     ),
     label: 'Войти',
+    roles: [RolesConstant.Visitor],
   }),
 ];

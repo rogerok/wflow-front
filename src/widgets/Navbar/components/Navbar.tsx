@@ -15,7 +15,7 @@ interface NavbarProps {
 }
 
 export const Navbar: FC<NavbarProps> = observer((props) => {
-  const { navbar, screen } = useGlobalStore();
+  const { navbar, screen, userService } = useGlobalStore();
 
   return (
     <>
@@ -25,17 +25,20 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
       <nav
         className={cnNavbar(
           { collapsed: navbar.isCollapsed, expanded: !navbar.isCollapsed },
-          []
+          [],
         )}
       >
-        {props.links.map((link) => (
-          <NavbarItem
-            className={cnNavbar('Link')}
-            key={link.to}
-            link={link}
-            collapsed={navbar.isCollapsed}
-          />
-        ))}
+        {props.links.map(
+          (link) =>
+            link.roles.includes(userService.role) && (
+              <NavbarItem
+                className={cnNavbar('Link')}
+                key={link.to}
+                link={link}
+                collapsed={navbar.isCollapsed}
+              />
+            ),
+        )}
         <NavbarToggleButton
           className={cnNavbar('ToggleButton', {
             expanded: !navbar.isCollapsed,

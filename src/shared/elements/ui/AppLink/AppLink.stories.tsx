@@ -1,7 +1,8 @@
-import { AppLink } from '@shared';
-import { expect } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
-import { within } from '@storybook/testing-library';
+import { expect } from '@storybook/test';
+import { within } from '@storybook/test';
+
+import { AppLink } from './AppLink';
 
 const meta: Meta<typeof AppLink> = {
   component: AppLink,

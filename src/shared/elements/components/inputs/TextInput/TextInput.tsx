@@ -2,8 +2,8 @@ import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
 import { ComponentProps, FC } from 'react';
 
-import { TextField } from '../../../../lib';
 import { Input } from '../../../ui/Input/Input';
+import { TextField } from '../../../../lib/form';
 
 const cnTextInput = cn('TextInput');
 

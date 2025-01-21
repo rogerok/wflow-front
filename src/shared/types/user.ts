@@ -1,6 +1,14 @@
 import { z } from 'zod';
+import {
+  EmailSchema,
+  EmptyStringSchema,
+  NameSchema,
+} from '../const/validationSchemas';
+import { RolesConstant } from '../const/roles';
 
-import { EmailSchema, EmptyStringSchema, NameSchema } from '../const';
+export const RolesSchema = z.nativeEnum(RolesConstant);
+
+export type RolesType = z.infer<typeof RolesSchema>;
 
 export const PseudonymSchema = z.object({
   firstName: NameSchema.or(EmptyStringSchema).nullable(),

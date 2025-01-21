@@ -1,7 +1,7 @@
-import { $api } from '@shared';
 import { AxiosResponse } from 'axios';
 
 import { AuthRequestType, AuthResponseType } from '../../types/auth';
+import { $api } from '../api';
 
 export const authRequest = (
   data: AuthRequestType,

@@ -1,9 +1,15 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 import React from 'react';
-import { MainLayout, NavbarLinks } from '@shared';
+import { AuthController, MainLayout, NavbarLinks } from '@shared';
 import { Header, Navbar } from '@widgets';
+import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
-export const Route = createRootRoute({
+interface RouterContext {
+  isAuth?: boolean;
+  authController?: AuthController; // Add your auth controller here
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
     <>
       <MainLayout
@@ -12,7 +18,7 @@ export const Route = createRootRoute({
         navbar={<Navbar links={NavbarLinks} />}
       />
 
-      {/*<TanStackRouterDevtools position={'bottom-right'} />*/}
+      <TanStackRouterDevtools position={'bottom-right'} />
     </>
   ),
 });
