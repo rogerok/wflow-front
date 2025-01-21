@@ -1,4 +1,5 @@
 import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
+import { routes } from '../../const/router';
 import {
   getLocalStorageItem,
   setLocalStorageItem,
@@ -47,9 +48,7 @@ export class AuthController {
         setLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY, token);
         await this.userService.fetchUser(parsedToken.sub);
         if (this.userService.getUserRequestStore.result.data) {
-          // router.navigate({
-          //   to: routes.main(),
-          // });
+          window.history.pushState({}, '', routes.main());
         }
       }
     }

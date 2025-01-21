@@ -1,9 +1,10 @@
 import '../src/app/styles/index.scss';
 
-import { GlobalStoreContextProvider, SbDecorator } from '@shared';
 import { withThemeByClassName } from '@storybook/addon-themes';
 import { Preview, StoryContext, StoryFn } from '@storybook/react';
 import { JSX } from 'react';
+
+import { GlobalStoreContextProvider, SbDecorator } from '../src/shared';
 
 const preview: Preview = {
   tags: ['autodocs', 'autodocs'],
