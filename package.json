@@ -24,6 +24,7 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-scan": "^0.0.54",
+    "vite-plugin-circular-dependency": "^0.5.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {

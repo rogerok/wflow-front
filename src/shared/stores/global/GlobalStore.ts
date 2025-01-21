@@ -1,6 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 
-import { AuthController, AuthService, UserService } from '../../services';
+import { AuthController } from '../../services/auth/authController';
+import { AuthService } from '../../services/auth/authService';
+import { UserService } from '../../services/user/userService';
 import { NavbarStore } from '../navbar/NavbarStore';
 import { ScreenStore } from '../screen/ScreenStore';
 import { ThemeStore } from '../theme/ThemeStore';

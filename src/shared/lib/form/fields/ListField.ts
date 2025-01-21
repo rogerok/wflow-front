@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-import { fieldFactory } from './FieldFactory';
+import { fieldFactory } from '../factory/FieldFactory';
 import { BaseFieldType, FieldType } from './types';
 
 export class ListField<T> implements BaseFieldType<T[]> {
@@ -11,7 +11,7 @@ export class ListField<T> implements BaseFieldType<T[]> {
     this._value = defaultValue;
     this._defaultValue = this._value;
     this.fields = defaultValue.map((item, index) =>
-      fieldFactory.createField(`${name}[${index}]`, item)
+      fieldFactory.createField(`${name}[${index}]`, item),
     );
 
     makeAutoObservable(this, {}, { autoBind: true });
@@ -46,7 +46,7 @@ export class ListField<T> implements BaseFieldType<T[]> {
 
   push(value: T): void {
     this.fields.push(
-      fieldFactory.createField(`${this._name}[${this.fields.length}]`, value)
+      fieldFactory.createField(`${this._name}[${this.fields.length}]`, value),
     );
   }
 

@@ -2,12 +2,7 @@ import '../src/app/styles/index.scss';
 
 import { GlobalStoreContextProvider, SbDecorator } from '@shared';
 import { withThemeByClassName } from '@storybook/addon-themes';
-import {
-  Preview,
-  ReactRenderer,
-  StoryContext,
-  StoryFn,
-} from '@storybook/react';
+import { Preview, StoryContext, StoryFn } from '@storybook/react';
 import { JSX } from 'react';
 
 const preview: Preview = {
