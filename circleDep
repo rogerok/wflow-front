@@ -5,16 +5,6 @@
 			"src/shared/lib/form/fields/ListField.ts"
 		]
 	],
-	"src/app/app.tsx": [
-		[
-			"src/app/app.tsx",
-			"src/app/routes/__root.tsx",
-			"src/routeTree.gen.ts",
-			"src/shared/index.ts",
-			"src/shared/services/auth/authController.ts",
-			"src/shared/stores/global/GlobalStore.ts"
-		]
-	],
 	"src/shared/api/api.ts": [
 		[
 			"src/shared/api/api.ts",

@@ -1,13 +1,11 @@
-import { router } from '../../../app/app';
-import { TokenSchema, TokenType } from '../../types/auth';
-import { UserService } from '../user/userService';
-import { AuthService } from './authService';
+import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
 import {
   getLocalStorageItem,
   setLocalStorageItem,
 } from '../../lib/utils/localStorage';
-import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
-import { routes } from '../../const/router';
+import { TokenSchema, TokenType } from '../../types/auth';
+import { UserService } from '../user/userService';
+import { AuthService } from './authService';
 
 export class AuthController {
   authService: AuthService;
@@ -49,9 +47,9 @@ export class AuthController {
         setLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY, token);
         await this.userService.fetchUser(parsedToken.sub);
         if (this.userService.getUserRequestStore.result.data) {
-          router.navigate({
-            to: routes.main(),
-          });
+          // router.navigate({
+          //   to: routes.main(),
+          // });
         }
       }
     }
