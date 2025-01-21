@@ -10,7 +10,6 @@ import {
   removeLocalStorageItem,
   setLocalStorageItem,
 } from '../lib/utils/localStorage';
-import { globalStore } from '../stores/global/GlobalStore';
 import { RefreshTokenResponseType } from '../types/auth';
 
 declare module 'axios' {
@@ -66,7 +65,7 @@ $api.interceptors.response.use(
         } catch (error) {
           //TODO: add promise rejecting
           removeLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
-          globalStore.userService.clearUserData();
+          // globalStore.userService.clearUserData();
 
           if (error instanceof AxiosError && error.response?.data?.error?.msg) {
             return Promise.reject(new Error(error.response.data.error.msg));

@@ -1,8 +1,10 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { getUserById, getUsers } from '../../api/user/userApi';
-import { RequestStore } from '../../stores/request/RequestStore';
+import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
 import { RolesConstant } from '../../const/roles';
+import { getLocalStorageItem } from '../../lib/utils/localStorage';
+import { RequestStore } from '../../stores/request/RequestStore';
 import { RolesType, UserResponseType } from '../../types/user';
 
 export class UserService {
@@ -11,6 +13,8 @@ export class UserService {
   getUsersRequest = new RequestStore(getUsers);
 
   userData: UserResponseType | null = null;
+
+  accessToken = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
 
   private _role: RolesType = RolesConstant.Visitor;
 

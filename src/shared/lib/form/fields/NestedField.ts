@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-import { fieldFactory } from './FieldFactory';
+import { fieldFactory } from '../factory/FieldFactory';
 import { BaseFieldType, FieldType } from './types';
 
 type NestedFieldType<T> = {

@@ -1,16 +1,9 @@
 {
-	"src/shared/lib/form/fields/FieldFactory.ts": [
+	"src/shared/lib/form/factory/FieldFactory.ts": [
 		[
-			"src/shared/lib/form/fields/FieldFactory.ts",
+			"src/shared/lib/form/factory/FieldFactory.ts",
+			"src/shared/lib/form/factory/helpers.ts",
 			"src/shared/lib/form/fields/ListField.ts"
-		]
-	],
-	"src/shared/api/api.ts": [
-		[
-			"src/shared/api/api.ts",
-			"src/shared/api/auth/authApi.ts",
-			"src/shared/services/auth/authService.ts",
-			"src/shared/stores/global/GlobalStore.ts"
 		]
 	]
 }
