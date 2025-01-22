@@ -1,7 +1,7 @@
 import './Navbar.scss';
 
 import { cn } from '@bem-react/classname';
-import { NavbarLinksType, Overlay, useGlobalStore } from '@shared';
+import { Button, NavbarLinksType, Overlay, useGlobalStore } from '@shared';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
@@ -15,7 +15,7 @@ interface NavbarProps {
 }
 
 export const Navbar: FC<NavbarProps> = observer((props) => {
-  const { navbar, screen, userService } = useGlobalStore();
+  const { navbar, screen, userService, authController } = useGlobalStore();
 
   return (
     <>
@@ -39,6 +39,9 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
               />
             ),
         )}
+        <Button variant={'clear'} onClick={authController.logout}>
+          Выход
+        </Button>
         <NavbarToggleButton
           className={cnNavbar('ToggleButton', {
             expanded: !navbar.isCollapsed,

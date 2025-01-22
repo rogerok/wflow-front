@@ -8,3 +8,7 @@ export const authRequest = (
 ): Promise<AxiosResponse<AuthResponseType>> => {
   return $api.post<AuthResponseType>('/auth', data);
 };
+
+export const logoutRequest = (): Promise<AxiosResponse<void>> => {
+  return $api.post<void>('/auth/logout');
+};
