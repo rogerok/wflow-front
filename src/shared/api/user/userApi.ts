@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
-import { $api } from '../../api/api';
 import { UserResponseType } from '../../types/user';
+import { $api } from '../api';
 
 export const getUserById = (
   id: string,
