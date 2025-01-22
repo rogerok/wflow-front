@@ -15,7 +15,7 @@ export class AuthService {
   });
 
   authRequest = new RequestStore(authRequest);
-
+  
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }

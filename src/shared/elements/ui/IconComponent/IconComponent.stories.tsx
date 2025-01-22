@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import * as Icons from '../../../assets';
-import { CssColorsVarsConstant } from '../../../stores/theme/constants';
+import { CssColorsVarsConstant } from '../../../const/themeConstants';
 import { HStack } from '../HStack/HStack';
 import { IconComponent } from './IconComponent';
 
@@ -44,6 +44,7 @@ export const SmIcon: Story = {
   args: {
     name: 'SunIcon',
     size: 'sm',
+    color: 'alert',
   },
 };
 

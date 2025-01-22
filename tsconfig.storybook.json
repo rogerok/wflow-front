@@ -4,6 +4,18 @@
     "emitDecoratorMetadata": true,
     "outDir": ""
   },
+  "baseUrl": ".",
+  "paths": {
+    "@pages": [
+      "src/pages/index.ts"
+    ],
+    "@shared": [
+      "src/shared/index.ts"
+    ],
+    "@widgets": [
+      "src/widgets/index.ts"
+    ]
+  },
   "files": [
     "node_modules/@nx/react/typings/styled-jsx.d.ts",
     "node_modules/@nx/react/typings/cssmodule.d.ts",
