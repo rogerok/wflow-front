@@ -5,18 +5,13 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 
 import { observer } from 'mobx-react-lite';
 import React, { FC, ReactElement, useEffect } from 'react';
-import {
-  globalStore,
-  GlobalStoreContextProvider,
-  useGlobalStore,
-} from '@shared';
+import { GlobalStoreContextProvider, useGlobalStore } from '@shared';
 import { routeTree } from '../routeTree.gen';
 
 export const router = createRouter({
   routeTree,
   context: {
-    isAuth: globalStore.userService.isAuth,
-    authController: globalStore.authController,
+    isAuth: false,
   },
 });
 
@@ -29,7 +24,7 @@ declare module '@tanstack/react-router' {
 const cnApp = cn('App');
 
 const InnerApp: FC = observer(() => {
-  const { theme, authController } = useGlobalStore();
+  const { theme, authController, userService } = useGlobalStore();
 
   useEffect(() => {
     authController.restoreSession();
@@ -37,7 +32,12 @@ const InnerApp: FC = observer(() => {
 
   return (
     <div className={cnApp(undefined, [theme.current])}>
-      <RouterProvider router={router} />
+      <RouterProvider
+        router={router}
+        context={{
+          isAuth: userService.isAuth,
+        }}
+      />
     </div>
   );
 });
