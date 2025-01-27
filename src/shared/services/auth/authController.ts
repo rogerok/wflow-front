@@ -1,7 +1,10 @@
+import { UseNavigateResult } from '@tanstack/react-router';
+
 import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
 import { routes } from '../../const/router';
 import {
   getLocalStorageItem,
+  removeLocalStorageItem,
   setLocalStorageItem,
 } from '../../lib/utils/localStorage';
 import { TokenSchema, TokenType } from '../../types/auth';
@@ -35,7 +38,17 @@ export class AuthController {
   };
 
   authenticate = async (): Promise<void> => {
-    await this.authService.submitForm(this.processAuth);
+    await this.authService.login(this.processAuth);
+  };
+
+  logout = async (navigateCb: UseNavigateResult<string>): Promise<void> => {
+    await this.authService.logout();
+    this.userService.clearUserData();
+    removeLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
+    await navigateCb({
+      to: routes.main(),
+      replace: true,
+    });
   };
 
   private processAuth = async (): Promise<void> => {

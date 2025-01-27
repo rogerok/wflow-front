@@ -1,11 +1,12 @@
+export { default as DoubleArrowLeft } from './icons/arrows/double-arrow-left.svg';
+export { default as DoubleArrowRight } from './icons/arrows/double-arrow-right.svg';
 export { default as BinIcon } from './icons/bin.svg';
 export { default as LogoIcon } from './icons/logo.svg';
 export { default as HomeIcon } from './icons/menu/home.svg';
 export { default as HomeIconFilled } from './icons/menu/home-filled.svg';
+export { default as LogoutIcon } from './icons/menu/logout.svg';
 export { default as SettingsIcon } from './icons/menu/settings.svg';
 export { default as SettingsIconFilled } from './icons/menu/settings-fill.svg';
-export { default as SidebarHideIcon } from './icons/menu/sidebar-hide.svg';
-export { default as SidebarShowIcon } from './icons/menu/sidebar-show.svg';
 export { default as StatisticIcon } from './icons/menu/statistic.svg';
 export { default as StatisticIconFilled } from './icons/menu/statistic-fill.svg';
 export { default as TimerIcon } from './icons/menu/timer.svg';

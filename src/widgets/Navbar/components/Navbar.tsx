@@ -5,7 +5,8 @@ import { NavbarLinksType, Overlay, useGlobalStore } from '@shared';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
-import { NavbarItem } from './NavbarItem/NavbarItem';
+import { NavbarLink } from './NavbarLink/NavbarLink';
+import { NavbarLogoutButton } from './NavbarLogoutButton/NavbarLogoutButton';
 import { NavbarToggleButton } from './NavbarToggleButton/NavbarToggleButton';
 
 const cnNavbar = cn('Navbar');
@@ -31,7 +32,7 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
         {props.links.map(
           (link) =>
             link.roles.includes(userService.role) && (
-              <NavbarItem
+              <NavbarLink
                 className={cnNavbar('Link')}
                 key={link.to}
                 link={link}
@@ -39,6 +40,8 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
               />
             ),
         )}
+        {userService.userData && <NavbarLogoutButton />}
+
         <NavbarToggleButton
           className={cnNavbar('ToggleButton', {
             expanded: !navbar.isCollapsed,
