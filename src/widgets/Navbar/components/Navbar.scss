@@ -7,37 +7,18 @@
 
   height: 60vh;
   padding: 0.5rem 4.5rem;
+  border-top-left-radius: 3.2rem;
+  border-top-right-radius: 3.2rem;
 
   color: var(--basic-primary);
   text-align: center;
 
   background: var(--navbar-bg);
-  border-top-left-radius: 3.2rem;
-  border-top-right-radius: 3.2rem;
   box-shadow: 0 -5px 10px rgb(0 0 0 / 30%),
-    0 -8px 20px rgb(56 58 139 / 30%) 0 -6px 20px rgb(255 200 150 / 10%);
+  0 -8px 20px rgb(56 58 139 / 30%) 0 -6px 20px rgb(255 200 150 / 10%);
 
   transition: var(--default-transition);
-
-  &-ToggleButton {
-    transform: rotate(-45deg);
-
-    &_expanded {
-      grid-column-start: 2;
-      margin-left: auto;
-    }
-
-    @media (min-width: $md-breakpoint) {
-      transform: rotate(0);
-
-      display: inherit;
-      align-self: center;
-
-      margin-top: auto;
-      margin-left: unset;
-    }
-  }
-
+  
   &_collapsed {
     align-items: flex-start;
     width: 100%;
@@ -77,10 +58,10 @@
 
     height: calc(100% - var(--header-height));
     padding: 2.4rem;
-
     border-radius: 3.2rem;
+
     box-shadow: 5px 0 10px rgb(0 0 0 / 30%), 8px 0 20px rgb(56 58 139 / 30%),
-      0 6px 20px rgb(255 200 150 / 10%), 0 -6px 10px rgb(255 200 150 / 10%);
+    0 6px 20px rgb(255 200 150 / 10%), 0 -6px 10px rgb(255 200 150 / 10%);
   }
 }
 

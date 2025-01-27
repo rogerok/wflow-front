@@ -7,13 +7,12 @@
 
 html {
   overflow: hidden;
+  font-family: var(--font-family), sans-serif;
   font-size: 10px;
 }
 
 .App {
   min-height: 100vh;
-  font: var(--font-s);
   color: var(--basic-primary);
   background: var(--bg-primary);
-
 }

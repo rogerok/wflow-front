@@ -18,7 +18,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         navbar={<Navbar links={NavbarLinks} />}
       />
 
-      <TanStackRouterDevtools position={'bottom-right'} />
+      <TanStackRouterDevtools position={'top-right'} />
     </>
   ),
 });

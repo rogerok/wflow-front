@@ -1,0 +1,47 @@
+.NavbarLink {
+  font: var(--font-s);
+  color: var(--basic-primary);
+
+
+  &-Inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: center;
+
+    @media (min-width: $md-breakpoint) {
+      flex-direction: row;
+    }
+  }
+
+  &-Icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.8rem;
+
+    &_active {
+      border-radius: 100%;
+      background: var(--bg-accent-1);
+      transition: var(--default-transition);
+      animation: active-bg 0.3s;
+    }
+  }
+
+}
+
+@keyframes active-bg {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.2;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
