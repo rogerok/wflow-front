@@ -24,6 +24,7 @@ export class UserService {
 
   clearUserData = (): void => {
     this.setUserData(null);
+    this._role = RolesConstant.Visitor;
   };
 
   abortRequest = (): void => {
