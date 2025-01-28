@@ -40,7 +40,9 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
               />
             ),
         )}
-        {userService.userData && <NavbarLogoutButton />}
+        {userService.userData && (
+          <NavbarLogoutButton className={cnNavbar('LogoutButton')} />
+        )}
 
         <NavbarToggleButton
           className={cnNavbar('ToggleButton', {
