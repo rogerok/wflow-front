@@ -9,12 +9,11 @@ import { ScreenStore } from '../screen/ScreenStore';
 import { ThemeStore } from '../theme/ThemeStore';
 
 export class GlobalStore {
-  private _theme: ThemeStore;
-  private _screen: ScreenStore;
-  private _navbar: NavbarStore;
-  private _user: UserService;
-  private _router: UseRouterType;
-
+  private readonly _theme: ThemeStore;
+  private readonly _screen: ScreenStore;
+  private readonly _navbar: NavbarStore;
+  private readonly _user: UserService;
+  private readonly _router: UseRouterType;
   private readonly _authController: AuthController;
 
   constructor(router: UseRouterType) {

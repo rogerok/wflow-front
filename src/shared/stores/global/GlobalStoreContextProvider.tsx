@@ -1,5 +1,5 @@
 import { useRouter } from '@tanstack/react-router';
-import { createContext, ReactNode } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 
 import { GlobalStore } from './GlobalStore';
 
@@ -9,10 +9,10 @@ export const GlobalStoreContextProvider = (props: {
   children: ReactNode;
 }): ReactNode => {
   const router = useRouter();
-  
+
+  const [store] = useState(() => new GlobalStore(router));
+
   return (
-    <GlobalStoreContext value={new GlobalStore(router)}>
-      {props.children}
-    </GlobalStoreContext>
+    <GlobalStoreContext value={store}>{props.children}</GlobalStoreContext>
   );
 };
