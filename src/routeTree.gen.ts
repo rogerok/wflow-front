@@ -15,7 +15,10 @@ import { Route as ProtectedImport } from './app/routes/_protected'
 import { Route as IndexImport } from './app/routes/index'
 import { Route as ProtectedStatisticImport } from './app/routes/_protected/statistic'
 import { Route as ProtectedSettingsImport } from './app/routes/_protected/settings'
+import { Route as ProtectedReportsImport } from './app/routes/_protected/reports'
 import { Route as ProtectedProfileImport } from './app/routes/_protected/profile'
+import { Route as ProtectedGoalsImport } from './app/routes/_protected/goals'
+import { Route as ProtectedBooksImport } from './app/routes/_protected/books'
 import { Route as authSignUpImport } from './app/routes/(auth)/signUp'
 import { Route as authSignInImport } from './app/routes/(auth)/signIn'
 
@@ -44,9 +47,27 @@ const ProtectedSettingsRoute = ProtectedSettingsImport.update({
   getParentRoute: () => ProtectedRoute,
 } as any)
 
+const ProtectedReportsRoute = ProtectedReportsImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
 const ProtectedProfileRoute = ProtectedProfileImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
+const ProtectedGoalsRoute = ProtectedGoalsImport.update({
+  id: '/goals',
+  path: '/goals',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
+const ProtectedBooksRoute = ProtectedBooksImport.update({
+  id: '/books',
+  path: '/books',
   getParentRoute: () => ProtectedRoute,
 } as any)
 
@@ -94,11 +115,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authSignUpImport
       parentRoute: typeof rootRoute
     }
+    '/_protected/books': {
+      id: '/_protected/books'
+      path: '/books'
+      fullPath: '/books'
+      preLoaderRoute: typeof ProtectedBooksImport
+      parentRoute: typeof ProtectedImport
+    }
+    '/_protected/goals': {
+      id: '/_protected/goals'
+      path: '/goals'
+      fullPath: '/goals'
+      preLoaderRoute: typeof ProtectedGoalsImport
+      parentRoute: typeof ProtectedImport
+    }
     '/_protected/profile': {
       id: '/_protected/profile'
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProtectedProfileImport
+      parentRoute: typeof ProtectedImport
+    }
+    '/_protected/reports': {
+      id: '/_protected/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ProtectedReportsImport
       parentRoute: typeof ProtectedImport
     }
     '/_protected/settings': {
@@ -121,13 +163,19 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface ProtectedRouteChildren {
+  ProtectedBooksRoute: typeof ProtectedBooksRoute
+  ProtectedGoalsRoute: typeof ProtectedGoalsRoute
   ProtectedProfileRoute: typeof ProtectedProfileRoute
+  ProtectedReportsRoute: typeof ProtectedReportsRoute
   ProtectedSettingsRoute: typeof ProtectedSettingsRoute
   ProtectedStatisticRoute: typeof ProtectedStatisticRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
+  ProtectedBooksRoute: ProtectedBooksRoute,
+  ProtectedGoalsRoute: ProtectedGoalsRoute,
   ProtectedProfileRoute: ProtectedProfileRoute,
+  ProtectedReportsRoute: ProtectedReportsRoute,
   ProtectedSettingsRoute: ProtectedSettingsRoute,
   ProtectedStatisticRoute: ProtectedStatisticRoute,
 }
@@ -141,7 +189,10 @@ export interface FileRoutesByFullPath {
   '': typeof ProtectedRouteWithChildren
   '/signIn': typeof authSignInRoute
   '/signUp': typeof authSignUpRoute
+  '/books': typeof ProtectedBooksRoute
+  '/goals': typeof ProtectedGoalsRoute
   '/profile': typeof ProtectedProfileRoute
+  '/reports': typeof ProtectedReportsRoute
   '/settings': typeof ProtectedSettingsRoute
   '/statistic': typeof ProtectedStatisticRoute
 }
@@ -151,7 +202,10 @@ export interface FileRoutesByTo {
   '': typeof ProtectedRouteWithChildren
   '/signIn': typeof authSignInRoute
   '/signUp': typeof authSignUpRoute
+  '/books': typeof ProtectedBooksRoute
+  '/goals': typeof ProtectedGoalsRoute
   '/profile': typeof ProtectedProfileRoute
+  '/reports': typeof ProtectedReportsRoute
   '/settings': typeof ProtectedSettingsRoute
   '/statistic': typeof ProtectedStatisticRoute
 }
@@ -162,7 +216,10 @@ export interface FileRoutesById {
   '/_protected': typeof ProtectedRouteWithChildren
   '/(auth)/signIn': typeof authSignInRoute
   '/(auth)/signUp': typeof authSignUpRoute
+  '/_protected/books': typeof ProtectedBooksRoute
+  '/_protected/goals': typeof ProtectedGoalsRoute
   '/_protected/profile': typeof ProtectedProfileRoute
+  '/_protected/reports': typeof ProtectedReportsRoute
   '/_protected/settings': typeof ProtectedSettingsRoute
   '/_protected/statistic': typeof ProtectedStatisticRoute
 }
@@ -174,18 +231,34 @@ export interface FileRouteTypes {
     | ''
     | '/signIn'
     | '/signUp'
+    | '/books'
+    | '/goals'
     | '/profile'
+    | '/reports'
     | '/settings'
     | '/statistic'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/signIn' | '/signUp' | '/profile' | '/settings' | '/statistic'
+  to:
+    | '/'
+    | ''
+    | '/signIn'
+    | '/signUp'
+    | '/books'
+    | '/goals'
+    | '/profile'
+    | '/reports'
+    | '/settings'
+    | '/statistic'
   id:
     | '__root__'
     | '/'
     | '/_protected'
     | '/(auth)/signIn'
     | '/(auth)/signUp'
+    | '/_protected/books'
+    | '/_protected/goals'
     | '/_protected/profile'
+    | '/_protected/reports'
     | '/_protected/settings'
     | '/_protected/statistic'
   fileRoutesById: FileRoutesById
@@ -227,7 +300,10 @@ export const routeTree = rootRoute
     "/_protected": {
       "filePath": "_protected.tsx",
       "children": [
+        "/_protected/books",
+        "/_protected/goals",
         "/_protected/profile",
+        "/_protected/reports",
         "/_protected/settings",
         "/_protected/statistic"
       ]
@@ -238,8 +314,20 @@ export const routeTree = rootRoute
     "/(auth)/signUp": {
       "filePath": "(auth)/signUp.tsx"
     },
+    "/_protected/books": {
+      "filePath": "_protected/books.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/goals": {
+      "filePath": "_protected/goals.tsx",
+      "parent": "/_protected"
+    },
     "/_protected/profile": {
       "filePath": "_protected/profile.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/reports": {
+      "filePath": "_protected/reports.tsx",
       "parent": "/_protected"
     },
     "/_protected/settings": {
