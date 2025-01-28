@@ -1,10 +1,11 @@
 import { z } from 'zod';
+
+import { RolesConstant } from '../const/roles';
 import {
   EmailSchema,
   EmptyStringSchema,
   NameSchema,
 } from '../const/validationSchemas';
-import { RolesConstant } from '../const/roles';
 
 export const RolesSchema = z.nativeEnum(RolesConstant);
 
