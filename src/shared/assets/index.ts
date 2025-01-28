@@ -9,6 +9,8 @@ export { default as GoalIconFilled } from './icons/menu/goal-filled.svg';
 export { default as HomeIcon } from './icons/menu/home.svg';
 export { default as HomeIconFilled } from './icons/menu/home-filled.svg';
 export { default as LogoutIcon } from './icons/menu/logout.svg';
+export { default as ProfileIcon } from './icons/menu/profile.svg';
+export { default as ProfileIconFilled } from './icons/menu/profile-filled.svg';
 export { default as ReportIcon } from './icons/menu/report.svg';
 export { default as ReportIconFilled } from './icons/menu/report-filled.svg';
 export { default as SettingsIcon } from './icons/menu/settings.svg';

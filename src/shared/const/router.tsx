@@ -183,4 +183,23 @@ export const NavbarLinks: NavbarLinksType[] = [
     label: 'Настройки',
     roles: [RolesConstant.Admin, RolesConstant.User],
   }),
+  linkOptions({
+    to: routes.profile(),
+    inActive: (
+      <IconComponent
+        name={'ProfileIcon'}
+        size={'sm'}
+        color={'basic-secondary-4'}
+      />
+    ),
+    active: (
+      <IconComponent
+        name={'ProfileIconFilled'}
+        size={'sm'}
+        color={'brand-primary'}
+      />
+    ),
+    label: 'Профиль',
+    roles: [RolesConstant.Admin, RolesConstant.User],
+  }),
 ];

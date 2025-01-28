@@ -1,5 +1,6 @@
 .NavbarToggleButton {
   transform: rotate(-45deg);
+  width: inherit;
 
   &_expanded {
     grid-column-start: 2;
@@ -12,7 +13,7 @@
     display: inherit;
     align-self: center;
 
-    margin-top: auto;
+    min-width: 100%;
     margin-left: unset;
   }
 }
