@@ -11,30 +11,21 @@
 // Import Routes
 
 import { Route as rootRoute } from './app/routes/__root'
-import { Route as StatisticImport } from './app/routes/statistic'
-import { Route as SettingsImport } from './app/routes/settings'
-import { Route as ProfileImport } from './app/routes/profile'
+import { Route as ProtectedImport } from './app/routes/_protected'
 import { Route as IndexImport } from './app/routes/index'
+import { Route as ProtectedStatisticImport } from './app/routes/_protected/statistic'
+import { Route as ProtectedSettingsImport } from './app/routes/_protected/settings'
+import { Route as ProtectedReportsImport } from './app/routes/_protected/reports'
+import { Route as ProtectedProfileImport } from './app/routes/_protected/profile'
+import { Route as ProtectedGoalsImport } from './app/routes/_protected/goals'
+import { Route as ProtectedBooksImport } from './app/routes/_protected/books'
 import { Route as authSignUpImport } from './app/routes/(auth)/signUp'
 import { Route as authSignInImport } from './app/routes/(auth)/signIn'
 
 // Create/Update Routes
 
-const StatisticRoute = StatisticImport.update({
-  id: '/statistic',
-  path: '/statistic',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const SettingsRoute = SettingsImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ProfileRoute = ProfileImport.update({
-  id: '/profile',
-  path: '/profile',
+const ProtectedRoute = ProtectedImport.update({
+  id: '/_protected',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -42,6 +33,42 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const ProtectedStatisticRoute = ProtectedStatisticImport.update({
+  id: '/statistic',
+  path: '/statistic',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
+const ProtectedSettingsRoute = ProtectedSettingsImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
+const ProtectedReportsRoute = ProtectedReportsImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
+const ProtectedProfileRoute = ProtectedProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
+const ProtectedGoalsRoute = ProtectedGoalsImport.update({
+  id: '/goals',
+  path: '/goals',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
+const ProtectedBooksRoute = ProtectedBooksImport.update({
+  id: '/books',
+  path: '/books',
+  getParentRoute: () => ProtectedRoute,
 } as any)
 
 const authSignUpRoute = authSignUpImport.update({
@@ -67,25 +94,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileImport
-      parentRoute: typeof rootRoute
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsImport
-      parentRoute: typeof rootRoute
-    }
-    '/statistic': {
-      id: '/statistic'
-      path: '/statistic'
-      fullPath: '/statistic'
-      preLoaderRoute: typeof StatisticImport
+    '/_protected': {
+      id: '/_protected'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof ProtectedImport
       parentRoute: typeof rootRoute
     }
     '/(auth)/signIn': {
@@ -102,75 +115,165 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authSignUpImport
       parentRoute: typeof rootRoute
     }
+    '/_protected/books': {
+      id: '/_protected/books'
+      path: '/books'
+      fullPath: '/books'
+      preLoaderRoute: typeof ProtectedBooksImport
+      parentRoute: typeof ProtectedImport
+    }
+    '/_protected/goals': {
+      id: '/_protected/goals'
+      path: '/goals'
+      fullPath: '/goals'
+      preLoaderRoute: typeof ProtectedGoalsImport
+      parentRoute: typeof ProtectedImport
+    }
+    '/_protected/profile': {
+      id: '/_protected/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProtectedProfileImport
+      parentRoute: typeof ProtectedImport
+    }
+    '/_protected/reports': {
+      id: '/_protected/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ProtectedReportsImport
+      parentRoute: typeof ProtectedImport
+    }
+    '/_protected/settings': {
+      id: '/_protected/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof ProtectedSettingsImport
+      parentRoute: typeof ProtectedImport
+    }
+    '/_protected/statistic': {
+      id: '/_protected/statistic'
+      path: '/statistic'
+      fullPath: '/statistic'
+      preLoaderRoute: typeof ProtectedStatisticImport
+      parentRoute: typeof ProtectedImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface ProtectedRouteChildren {
+  ProtectedBooksRoute: typeof ProtectedBooksRoute
+  ProtectedGoalsRoute: typeof ProtectedGoalsRoute
+  ProtectedProfileRoute: typeof ProtectedProfileRoute
+  ProtectedReportsRoute: typeof ProtectedReportsRoute
+  ProtectedSettingsRoute: typeof ProtectedSettingsRoute
+  ProtectedStatisticRoute: typeof ProtectedStatisticRoute
+}
+
+const ProtectedRouteChildren: ProtectedRouteChildren = {
+  ProtectedBooksRoute: ProtectedBooksRoute,
+  ProtectedGoalsRoute: ProtectedGoalsRoute,
+  ProtectedProfileRoute: ProtectedProfileRoute,
+  ProtectedReportsRoute: ProtectedReportsRoute,
+  ProtectedSettingsRoute: ProtectedSettingsRoute,
+  ProtectedStatisticRoute: ProtectedStatisticRoute,
+}
+
+const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
+  ProtectedRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/profile': typeof ProfileRoute
-  '/settings': typeof SettingsRoute
-  '/statistic': typeof StatisticRoute
+  '': typeof ProtectedRouteWithChildren
   '/signIn': typeof authSignInRoute
   '/signUp': typeof authSignUpRoute
+  '/books': typeof ProtectedBooksRoute
+  '/goals': typeof ProtectedGoalsRoute
+  '/profile': typeof ProtectedProfileRoute
+  '/reports': typeof ProtectedReportsRoute
+  '/settings': typeof ProtectedSettingsRoute
+  '/statistic': typeof ProtectedStatisticRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/profile': typeof ProfileRoute
-  '/settings': typeof SettingsRoute
-  '/statistic': typeof StatisticRoute
+  '': typeof ProtectedRouteWithChildren
   '/signIn': typeof authSignInRoute
   '/signUp': typeof authSignUpRoute
+  '/books': typeof ProtectedBooksRoute
+  '/goals': typeof ProtectedGoalsRoute
+  '/profile': typeof ProtectedProfileRoute
+  '/reports': typeof ProtectedReportsRoute
+  '/settings': typeof ProtectedSettingsRoute
+  '/statistic': typeof ProtectedStatisticRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/profile': typeof ProfileRoute
-  '/settings': typeof SettingsRoute
-  '/statistic': typeof StatisticRoute
+  '/_protected': typeof ProtectedRouteWithChildren
   '/(auth)/signIn': typeof authSignInRoute
   '/(auth)/signUp': typeof authSignUpRoute
+  '/_protected/books': typeof ProtectedBooksRoute
+  '/_protected/goals': typeof ProtectedGoalsRoute
+  '/_protected/profile': typeof ProtectedProfileRoute
+  '/_protected/reports': typeof ProtectedReportsRoute
+  '/_protected/settings': typeof ProtectedSettingsRoute
+  '/_protected/statistic': typeof ProtectedStatisticRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/profile'
-    | '/settings'
-    | '/statistic'
+    | ''
     | '/signIn'
     | '/signUp'
+    | '/books'
+    | '/goals'
+    | '/profile'
+    | '/reports'
+    | '/settings'
+    | '/statistic'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/profile' | '/settings' | '/statistic' | '/signIn' | '/signUp'
+  to:
+    | '/'
+    | ''
+    | '/signIn'
+    | '/signUp'
+    | '/books'
+    | '/goals'
+    | '/profile'
+    | '/reports'
+    | '/settings'
+    | '/statistic'
   id:
     | '__root__'
     | '/'
-    | '/profile'
-    | '/settings'
-    | '/statistic'
+    | '/_protected'
     | '/(auth)/signIn'
     | '/(auth)/signUp'
+    | '/_protected/books'
+    | '/_protected/goals'
+    | '/_protected/profile'
+    | '/_protected/reports'
+    | '/_protected/settings'
+    | '/_protected/statistic'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ProfileRoute: typeof ProfileRoute
-  SettingsRoute: typeof SettingsRoute
-  StatisticRoute: typeof StatisticRoute
+  ProtectedRoute: typeof ProtectedRouteWithChildren
   authSignInRoute: typeof authSignInRoute
   authSignUpRoute: typeof authSignUpRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ProfileRoute: ProfileRoute,
-  SettingsRoute: SettingsRoute,
-  StatisticRoute: StatisticRoute,
+  ProtectedRoute: ProtectedRouteWithChildren,
   authSignInRoute: authSignInRoute,
   authSignUpRoute: authSignUpRoute,
 }
@@ -186,9 +289,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/profile",
-        "/settings",
-        "/statistic",
+        "/_protected",
         "/(auth)/signIn",
         "/(auth)/signUp"
       ]
@@ -196,20 +297,46 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
-    "/profile": {
-      "filePath": "profile.tsx"
-    },
-    "/settings": {
-      "filePath": "settings.tsx"
-    },
-    "/statistic": {
-      "filePath": "statistic.tsx"
+    "/_protected": {
+      "filePath": "_protected.tsx",
+      "children": [
+        "/_protected/books",
+        "/_protected/goals",
+        "/_protected/profile",
+        "/_protected/reports",
+        "/_protected/settings",
+        "/_protected/statistic"
+      ]
     },
     "/(auth)/signIn": {
       "filePath": "(auth)/signIn.tsx"
     },
     "/(auth)/signUp": {
       "filePath": "(auth)/signUp.tsx"
+    },
+    "/_protected/books": {
+      "filePath": "_protected/books.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/goals": {
+      "filePath": "_protected/goals.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/profile": {
+      "filePath": "_protected/profile.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/reports": {
+      "filePath": "_protected/reports.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/settings": {
+      "filePath": "_protected/settings.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/statistic": {
+      "filePath": "_protected/statistic.tsx",
+      "parent": "/_protected"
     }
   }
 }

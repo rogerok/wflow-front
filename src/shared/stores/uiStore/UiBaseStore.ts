@@ -6,6 +6,7 @@ import {
   getLocalStorageItem,
   setLocalStorageItem,
 } from '../../lib/utils/localStorage';
+import { IUiBaseStore } from './types';
 
 export class UiBaseStore<T> implements IUiBaseStore<T> {
   private readonly _storageKey: null | string;

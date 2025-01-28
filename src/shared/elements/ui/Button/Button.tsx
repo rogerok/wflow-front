@@ -1,7 +1,7 @@
 import './Button.scss';
 
 import { cn } from '@bem-react/classname';
-import { ButtonHTMLAttributes, FC, memo } from 'react';
+import { ButtonHTMLAttributes, FC, memo, ReactNode } from 'react';
 
 const cnButton = cn('Button');
 
@@ -15,6 +15,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSizesType;
   variant?: ButtonVariantsType;
   disabled?: boolean;
+  addonLeft?: ReactNode;
+  addonRight?: ReactNode;
 }
 
 export const Button: FC<ButtonProps> = memo((props) => {
@@ -24,6 +26,8 @@ export const Button: FC<ButtonProps> = memo((props) => {
     fullWidth,
     size = 'sm',
     variant = 'filled',
+    addonLeft,
+    addonRight,
     ...otherProps
   } = props;
 
@@ -31,6 +35,7 @@ export const Button: FC<ButtonProps> = memo((props) => {
     size: size,
     variant: variant,
     fullWidth: fullWidth,
+    disabled: disabled,
   };
 
   return (
@@ -40,7 +45,9 @@ export const Button: FC<ButtonProps> = memo((props) => {
       disabled={disabled}
       className={cnButton(mods, [className])}
     >
+      <div className={cnButton('AddonLeft')}>{addonLeft}</div>
       {props.children}
+      <div className={cnButton('AddonRight')}>{addonRight}</div>
     </button>
   );
 });

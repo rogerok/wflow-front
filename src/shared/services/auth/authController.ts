@@ -1,17 +1,34 @@
-import { LOCAL_STORAGE_TOKEN_KEY, routes, setLocalStorageItem } from '@shared';
+import { makeAutoObservable } from 'mobx';
 
-import { router } from '../../../app/app';
+import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
+import { routes } from '../../const/router';
+import {
+  getLocalStorageItem,
+  removeLocalStorageItem,
+  setLocalStorageItem,
+} from '../../lib/utils/localStorage';
 import { TokenSchema, TokenType } from '../../types/auth';
+import { UseRouterType } from '../../types/router';
 import { UserService } from '../user/userService';
 import { AuthService } from './authService';
 
 export class AuthController {
   authService: AuthService;
   userService: UserService;
+  router: UseRouterType;
+  token: string | unknown | null = null;
 
-  constructor(authService: AuthService, userService: UserService) {
+  constructor(
+    authService: AuthService,
+    userService: UserService,
+    router: UseRouterType,
+  ) {
     this.authService = authService;
     this.userService = userService;
+    this.router = router;
+
+    makeAutoObservable(this, {}, { autoBind: true });
+    this.token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
   }
 
   private isTokenValid(data: unknown): data is TokenType {
@@ -28,11 +45,25 @@ export class AuthController {
         .map((char) => '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2))
         .join(''),
     );
+
     return JSON.parse(jsonPayload);
   };
 
   authenticate = async (): Promise<void> => {
-    await this.authService.submitForm(this.processAuth);
+    await this.authService.login(this.processAuth);
+  };
+
+  logout = async (): Promise<void> => {
+    await this.authService.logout();
+
+    this.userService.clearUserData();
+
+    removeLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
+
+    this.router.navigate({
+      to: routes.main(),
+      replace: true,
+    });
   };
 
   private processAuth = async (): Promise<void> => {
@@ -43,13 +74,35 @@ export class AuthController {
 
       if (this.isTokenValid(parsedToken)) {
         setLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY, token);
+        this.token = token;
+
         await this.userService.fetchUser(parsedToken.sub);
+
         if (this.userService.getUserRequestStore.result.data) {
-          router.navigate({
-            to: routes.main(),
-          });
+          window.history.pushState({}, '', routes.main());
         }
       }
+    }
+  };
+
+  restoreSession = async (): Promise<void> => {
+    const token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
+    if (typeof token === 'string') {
+      const parsedToken = this.parseJwt(token);
+
+      if (this.isTokenValid(parsedToken)) {
+        await this.userService.fetchUser(parsedToken.sub);
+      }
+    }
+  };
+
+  trackLocalStorageToken = (e: StorageEvent): void => {
+    if (e.key === LOCAL_STORAGE_TOKEN_KEY && !e.newValue) {
+      this.userService.clearUserData();
+      this.router.navigate({
+        to: routes.main(),
+        replace: true,
+      });
     }
   };
 }

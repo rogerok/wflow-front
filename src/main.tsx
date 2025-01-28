@@ -7,7 +7,8 @@ import App from './app/app';
 
 if (typeof window !== 'undefined') {
   scan({
-    enabled: true,
+    enabled: false,
+    showToolbar: false,
   });
 }
 

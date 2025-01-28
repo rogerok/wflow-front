@@ -1,13 +1,22 @@
-import axios, { HttpStatusCode, InternalAxiosRequestConfig } from 'axios';
+import axios, {
+  AxiosError,
+  HttpStatusCode,
+  InternalAxiosRequestConfig,
+} from 'axios';
 
-import { LOCAL_STORAGE_TOKEN_KEY } from '../const';
+import { LOCAL_STORAGE_TOKEN_KEY } from '../const/localStorage';
 import {
   getLocalStorageItem,
   removeLocalStorageItem,
   setLocalStorageItem,
-} from '../lib';
-import { globalStore } from '../stores/global/GlobalStore';
+} from '../lib/utils/localStorage';
 import { RefreshTokenResponseType } from '../types/auth';
+
+declare module 'axios' {
+  interface InternalAxiosRequestConfig {
+    _isRetry?: boolean;
+  }
+}
 
 export const $api = axios.create({
   baseURL: '/api',
@@ -17,48 +26,50 @@ export const $api = axios.create({
 $api.interceptors.request.use((config) => {
   const token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
 
-  if (token) {
+  if (typeof token === 'string' && token) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
 
   return config;
 });
 
-let isRefreshing = false;
-
 $api.interceptors.response.use(
   (config) => config,
   async (error) => {
     const originalRequest: InternalAxiosRequestConfig | undefined =
       error.config;
+
     if (
       error.response &&
-      error.response.status === HttpStatusCode.Unauthorized
+      error.response.status === HttpStatusCode.Unauthorized &&
+      !originalRequest?._isRetry
     ) {
-      if (!isRefreshing && originalRequest) {
-        isRefreshing = true;
+      if (originalRequest) {
+        originalRequest._isRetry = true;
 
         try {
-          const resp = await $api.post<RefreshTokenResponseType>(
-            '/auth/refresh',
+          const resp = await axios.post<RefreshTokenResponseType>(
+            '/api/auth/refresh',
             undefined,
             {
               withCredentials: true,
             },
           );
 
-          if (resp) {
+          if (resp.data) {
             setLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY, resp.data.token);
+            error.config.headers['Authorization'] = `Bearer ${resp.data.token}`;
+
             return $api.request(originalRequest);
           }
         } catch (error) {
           //TODO: add promise rejecting
           removeLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
-          globalStore.userService.clearUserData();
+          // globalStore.userService.clearUserData();
 
-          throw error;
-        } finally {
-          isRefreshing = false;
+          if (error instanceof AxiosError && error.response?.data?.error?.msg) {
+            return Promise.reject(new Error(error.response.data.error.msg));
+          }
         }
       }
     }

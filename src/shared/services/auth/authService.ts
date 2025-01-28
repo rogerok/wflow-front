@@ -1,18 +1,9 @@
-import {
-  FormStore,
-  LOCAL_STORAGE_TOKEN_KEY,
-  RequestStore,
-  setLocalStorageItem,
-} from '@shared';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
-import { authRequest } from '../../api/auth/authApi';
-import {
-  AuthRequestSchema,
-  AuthRequestType,
-  TokenSchema,
-  TokenType,
-} from '../../types/auth';
+import { authRequest, logoutRequest } from '../../api/auth/authApi';
+import { FormStore } from '../../lib/form';
+import { RequestStore } from '../../stores/request/RequestStore';
+import { AuthRequestSchema, AuthRequestType } from '../../types/auth';
 
 export class AuthService {
   authForm = new FormStore<AuthRequestType>({
@@ -24,17 +15,22 @@ export class AuthService {
   });
 
   authRequest = new RequestStore(authRequest);
+  logoutRequest = new RequestStore(logoutRequest);
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  submitForm = async (onSubmit?: () => Promise<void>): Promise<void> => {
+  login = async (onSubmit?: () => Promise<void>): Promise<void> => {
     await this.authForm.submit(async (formValues: AuthRequestType) => {
       await this.authRequest.call(formValues);
       if (onSubmit) {
         await onSubmit();
       }
     });
+  };
+
+  logout = async (): Promise<void> => {
+    await this.logoutRequest.call();
   };
 }

@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import * as path from 'node:path';
 
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
@@ -5,6 +7,9 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import checker from 'vite-plugin-checker';
+import circleDependency from 'vite-plugin-circular-dependency';
+import mkcert from 'vite-plugin-mkcert';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
@@ -16,7 +21,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         //TODO: add to .env, get based on environment
-        target: `http://127.0.0.1:5000`,
+        target: 'http://127.0.0.1:5000',
         changeOrigin: true,
       },
     },
@@ -26,7 +31,11 @@ export default defineConfig({
     host: 'localhost',
   },
   plugins: [
+    circleDependency({
+      outputFilePath: './circleDep',
+    }),
     react(),
+    mkcert(),
     TanStackRouterVite({
       routesDirectory: './src/app/routes',
     }),
@@ -39,7 +48,9 @@ export default defineConfig({
       },
       include: '**/*.svg',
     }),
-
+    checker({
+      typescript: true,
+    }),
     nxViteTsPaths(),
     nxCopyAssetsPlugin(['*.md']),
   ],
@@ -71,12 +82,12 @@ export default defineConfig({
       src: path.resolve(__dirname, 'src'),
     },
   },
-  test: {
-    watch: false,
-    globals: true,
-    environment: 'jsdom',
-    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    reporters: ['default'],
-    coverage: { reportsDirectory: './coverage/wflow-front', provider: 'v8' },
-  },
+  // test: {
+  //   watch: false,
+  //   globals: true,
+  //   environment: 'jsdom',
+  //   include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+  //   reporters: ['default'],
+  //   coverage: { reportsDirectory: './coverage/wflow-front', provider: 'v8' },
+  // },
 });

@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, within } from '@storybook/test';
 
 import { ThemeSwitcher } from './ThemeSwitcher';
 

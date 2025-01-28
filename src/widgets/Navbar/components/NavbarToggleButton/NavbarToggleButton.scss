@@ -1,0 +1,19 @@
+.NavbarToggleButton {
+  transform: rotate(-45deg);
+  width: inherit;
+
+  &_expanded {
+    grid-column-start: 2;
+    margin-left: auto;
+  }
+
+  @media (min-width: $md-breakpoint) {
+    transform: rotate(0);
+
+    display: inherit;
+    align-self: center;
+
+    min-width: 100%;
+    margin-left: unset;
+  }
+}

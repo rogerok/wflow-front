@@ -3,10 +3,10 @@
   transition: var(--default-transition);
 
   &_primary {
-    color: var(--brand-primary);
+    color: var(--basic-primary);
 
     &:hover {
-      color: var(--brand-accent-2);
+      color: var(--brand-primary);
     }
   }
 

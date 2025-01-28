@@ -1,15 +1,15 @@
-import { LOCAL_STORAGE_THEME_KEY } from '@shared';
 import { makeAutoObservable } from 'mobx';
 
+import { LOCAL_STORAGE_THEME_KEY } from '../../const/localStorage';
+import { ThemeConstant } from '../../const/themeConstants';
 import { UiBaseStore } from '../uiStore/UiBaseStore';
-import { ThemeConstant } from './constants';
 import { IThemeStore, ThemeSchema, ThemesType } from './types';
 
 export class ThemeStore implements IThemeStore {
   private ui = new UiBaseStore<ThemesType>(
     ThemeConstant.Light,
     ThemeSchema,
-    LOCAL_STORAGE_THEME_KEY
+    LOCAL_STORAGE_THEME_KEY,
   );
 
   constructor() {
@@ -18,7 +18,7 @@ export class ThemeStore implements IThemeStore {
       {},
       {
         autoBind: true,
-      }
+      },
     );
 
     this.init();
@@ -42,7 +42,7 @@ export class ThemeStore implements IThemeStore {
     this.ui.setStateAndSaveToStorage(
       this.ui.currentState === ThemeConstant.Dark
         ? ThemeConstant.Light
-        : ThemeConstant.Dark
+        : ThemeConstant.Dark,
     );
   };
 

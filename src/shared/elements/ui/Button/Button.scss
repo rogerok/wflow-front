@@ -1,23 +1,24 @@
 .Button {
-  font: var(--font-s);
-  font-weight: 600;
+  display: flex;
+  gap: 0.4rem;
   border-radius: var(--border-rad-1);
+  font-weight: 600;
 
   &_variant {
     &_clear {
       margin: 0;
       padding: 0;
+      border: none;
 
       color: var(--basic-primary);
 
-      background: none;
-      border: none
+      background: none
     }
 
     &_filled {
+      border: none;
       color: var(--basic-accent);
       background: var(--brand-primary);
-      border: none;
 
       &:disabled {
         color: var(--basic-accent);
@@ -27,27 +28,33 @@
     }
 
     &_outlined {
+      border: var(--border-style-1) var(--brand-primary);
       color: var(--brand-primary);
       background: var(--basic-accent);
-      border: var(--border-style-1) var(--brand-primary);
 
       &:disabled {
-        color: var(--basic-secondary-4);
         border: var(--border-style-1) var(--basic-secondary-4);
+        color: var(--basic-secondary-4);
       }
     }
   }
 
   &_size {
     &_sm {
-      padding: 0.8rem 1.6rem;
-      font: var(--font-xs);
+      font: var(--font-s);
+
+      &:not(.Button_variant_clear) {
+        padding: 0.8rem 1.6rem;
+      }
     }
 
     &_md {
-      padding: 1.6rem 2rem;
       font: var(--font-m);
       font-weight: 600;
+
+      &:not(.Button_variant_clear) {
+        padding: 0.8rem 1.6rem;
+      }
     }
   }
 
@@ -55,9 +62,16 @@
     width: 100%;
   }
 
-  &:disabled {
+  &_disabled {
     cursor: not-allowed;
+    opacity: 0.5;
   }
+
+
+  &-AddonLeft, &-AddonRight {
+    display: flex;
+  }
+
 
   @media (hover: hover) {
     &:not(:disabled):hover {
@@ -72,9 +86,9 @@
       }
 
       &_outlined:not(:disabled):hover {
+        border: 0.1rem solid var(--basic-accent);
         color: var(--basic-accent);
         background: var(--brand-primary);
-        border: 0.1rem solid var(--basic-accent);
       }
     }
   }

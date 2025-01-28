@@ -1,6 +1,9 @@
 import { z } from 'zod';
 
-import { CssColorsVarsConstant, ThemeConstant } from './constants';
+import {
+  CssColorsVarsConstant,
+  ThemeConstant,
+} from '../../const/themeConstants';
 
 export const ThemeSchema = z.nativeEnum(ThemeConstant);
 
@@ -12,6 +15,8 @@ export type CssVarsMapType = z.infer<typeof CssColorVarsSchema>;
 
 export interface IThemeStore {
   get current(): ThemesType;
+
   get isDark(): boolean;
+
   toggle(): void;
 }

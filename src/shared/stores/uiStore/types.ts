@@ -1,4 +1,4 @@
-interface IUiBaseStore<T> {
+export interface IUiBaseStore<T> {
   init(): void;
 
   setState(state: T): void;

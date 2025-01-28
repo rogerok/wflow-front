@@ -1,0 +1,9 @@
+{
+	"src/shared/lib/form/factory/FieldFactory.ts": [
+		[
+			"src/shared/lib/form/factory/FieldFactory.ts",
+			"src/shared/lib/form/factory/helpers.ts",
+			"src/shared/lib/form/fields/ListField.ts"
+		]
+	]
+}

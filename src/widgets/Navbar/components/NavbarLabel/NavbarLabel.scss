@@ -1,0 +1,35 @@
+.NavbarLabel {
+  width: 0;
+  height: 0;
+
+  visibility: hidden;
+  opacity: 0;
+
+  transition: var(--default-transition);
+
+
+  &_expanded {
+    width: fit-content;
+    height: fit-content;
+
+    visibility: visible;
+    opacity: 1;
+
+    transition: opacity 0.2s ease-in-out, visibility 0s linear 0.3s;
+  }
+
+  &_collapsed {
+    width: 0;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  @media (min-width: $md-breakpoint) {
+    &:has(:not(&_collapsed)) {
+      width: fit-content;
+      height: fit-content;
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
