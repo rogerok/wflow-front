@@ -29,13 +29,12 @@ const InnerApp: FC = observer(() => {
   useEffect(() => {
     authController.restoreSession();
 
-    window.addEventListener('storage', authController.trackLocalStorageToken);
+    const trackLocalStorage = authController.trackLocalStorageToken;
+
+    window.addEventListener('storage', trackLocalStorage);
 
     return () => {
-      window.removeEventListener(
-        'storage',
-        authController.trackLocalStorageToken,
-      );
+      window.removeEventListener('storage', trackLocalStorage);
     };
   }, []);
 
