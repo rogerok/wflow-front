@@ -8,20 +8,20 @@ import {
   setLocalStorageItem,
 } from '../../lib/utils/localStorage';
 import { TokenSchema, TokenType } from '../../types/auth';
-import { UseRouterType } from '../../types/router';
+import { RouterType } from '../../types/router';
 import { UserService } from '../user/userService';
 import { AuthService } from './authService';
 
 export class AuthController {
   authService: AuthService;
   userService: UserService;
-  router: UseRouterType;
+  router: RouterType;
   token: string | unknown | null = null;
 
   constructor(
     authService: AuthService,
     userService: UserService,
-    router: UseRouterType,
+    router: RouterType,
   ) {
     this.authService = authService;
     this.userService = userService;

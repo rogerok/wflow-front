@@ -47,10 +47,12 @@ export * from './assets/index';
 // API
 export * from './api/api';
 export * from './api/auth/authApi';
+export * from './api/books/booksApi';
 export * from './api/user/userApi';
 
 // Types
 export * from './types/auth';
+export * from './types/book';
 export * from './types/user';
 
 // Configs

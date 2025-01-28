@@ -1,5 +1,6 @@
 import { cn } from '@bem-react/classname';
-import { FC } from 'react';
+import { getBooks } from '@shared';
+import { FC, useEffect } from 'react';
 
 const cnBooksPage = cn('BooksPage');
 
@@ -8,9 +9,11 @@ interface BooksPageProps {
 }
 
 export const BooksPage: FC<BooksPageProps> = (props) => {
+  useEffect(() => {
+    getBooks();
+  }, []);
+
   return (
-    <div className={cnBooksPage(undefined, [props.className])}>
-      BooksPage
-    </div>
+    <div className={cnBooksPage(undefined, [props.className])}>BooksPage</div>
   );
 };

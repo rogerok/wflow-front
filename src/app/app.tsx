@@ -52,7 +52,7 @@ const InnerApp: FC = observer(() => {
 
 function App(): ReactElement {
   return (
-    <GlobalStoreContextProvider>
+    <GlobalStoreContextProvider router={router}>
       <InnerApp />
     </GlobalStoreContextProvider>
   );
