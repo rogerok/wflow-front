@@ -9,6 +9,11 @@
     gap: 0.4rem;
     align-items: center;
 
+
+    &_collapsed {
+      flex-direction: row;
+    }
+
     @media (min-width: $md-breakpoint) {
       flex-direction: row;
     }

@@ -54,6 +54,10 @@ export class NavbarStore {
     }
   };
 
+  close = (): void => {
+    this._ui.setState(NavbarCollapsedConstant.Collapsed);
+  };
+
   get isCollapsed(): boolean {
     return this._ui.currentState === NavbarCollapsedConstant.Collapsed;
   }

@@ -20,7 +20,11 @@ export const NavbarLink: FC<NavbarLabelProps> = memo((props) => {
   return (
     <AppLink className={cnNavbarLabel(undefined, [className])} to={link.to}>
       {({ isActive }) => (
-        <div className={cnNavbarLabel('Inner')}>
+        <div
+          className={cnNavbarLabel('Inner', {
+            collapsed: collapsed,
+          })}
+        >
           <div
             className={cnNavbarLabel('Icon', {
               active: isActive,
