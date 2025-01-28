@@ -2,7 +2,6 @@ import './NavbarLogoutButton.scss';
 
 import { cn } from '@bem-react/classname';
 import { Button, IconComponent, useGlobalStore } from '@shared';
-import { useNavigate } from '@tanstack/react-router';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
@@ -18,13 +17,11 @@ export const NavbarLogoutButton: FC<NavbarLogoutButtonProps> = observer(
   (props) => {
     const { authController, navbar } = useGlobalStore();
 
-    const navigate = useNavigate();
-
     return (
       <Button
         className={cnNavbarLogoutButton(undefined, [props.className])}
         variant={'clear'}
-        onClick={() => authController.logout(navigate)}
+        onClick={() => authController.logout()}
         addonLeft={
           <IconComponent
             className={cnNavbarLogoutButton('Icon')}

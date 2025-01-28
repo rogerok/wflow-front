@@ -33,7 +33,7 @@ export * from './const/validationSchemas';
 
 // Stores
 export * from './const/themeConstants';
-export { globalStore } from './stores/global/GlobalStore';
+export { GlobalStore } from './stores/global/GlobalStore';
 export { GlobalStoreContextProvider } from './stores/global/GlobalStoreContextProvider';
 export { useGlobalStore } from './stores/global/useGlobalStore';
 export { RequestStore } from './stores/request/RequestStore';

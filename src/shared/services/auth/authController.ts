@@ -1,4 +1,3 @@
-import { UseNavigateResult } from '@tanstack/react-router';
 import { makeAutoObservable } from 'mobx';
 
 import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
@@ -9,18 +8,24 @@ import {
   setLocalStorageItem,
 } from '../../lib/utils/localStorage';
 import { TokenSchema, TokenType } from '../../types/auth';
+import { UseRouterType } from '../../types/router';
 import { UserService } from '../user/userService';
 import { AuthService } from './authService';
 
 export class AuthController {
   authService: AuthService;
   userService: UserService;
-
+  router: UseRouterType;
   token: string | unknown | null = null;
 
-  constructor(authService: AuthService, userService: UserService) {
+  constructor(
+    authService: AuthService,
+    userService: UserService,
+    router: UseRouterType,
+  ) {
     this.authService = authService;
     this.userService = userService;
+    this.router = router;
 
     makeAutoObservable(this, {}, { autoBind: true });
     this.token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
@@ -40,6 +45,7 @@ export class AuthController {
         .map((char) => '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2))
         .join(''),
     );
+
     return JSON.parse(jsonPayload);
   };
 
@@ -47,14 +53,14 @@ export class AuthController {
     await this.authService.login(this.processAuth);
   };
 
-  logout = async (navigateCb: UseNavigateResult<string>): Promise<void> => {
+  logout = async (): Promise<void> => {
     await this.authService.logout();
 
     this.userService.clearUserData();
 
     removeLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
 
-    await navigateCb({
+    this.router.navigate({
       to: routes.main(),
       replace: true,
     });
@@ -93,7 +99,10 @@ export class AuthController {
   trackLocalStorageToken = (e: StorageEvent): void => {
     if (e.key === LOCAL_STORAGE_TOKEN_KEY && !e.newValue) {
       this.userService.clearUserData();
-      window.history.pushState({}, '', routes.main());
+      this.router.navigate({
+        to: routes.main(),
+        replace: true,
+      });
     }
   };
 }

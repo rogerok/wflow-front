@@ -3,22 +3,33 @@ import { makeAutoObservable } from 'mobx';
 import { AuthController } from '../../services/auth/authController';
 import { AuthService } from '../../services/auth/authService';
 import { UserService } from '../../services/user/userService';
+import { UseRouterType } from '../../types/router';
 import { NavbarStore } from '../navbar/NavbarStore';
 import { ScreenStore } from '../screen/ScreenStore';
 import { ThemeStore } from '../theme/ThemeStore';
 
 export class GlobalStore {
-  private readonly _theme: ThemeStore = new ThemeStore();
-  private readonly _screen: ScreenStore = new ScreenStore();
-  private readonly _navbar: NavbarStore = new NavbarStore(this._screen);
-  private readonly _user: UserService = new UserService();
-  private readonly _authController: AuthController = new AuthController(
-    new AuthService(),
-    this._user,
-  );
+  private _theme: ThemeStore;
+  private _screen: ScreenStore;
+  private _navbar: NavbarStore;
+  private _user: UserService;
+  private _router: UseRouterType;
 
-  constructor() {
+  private readonly _authController: AuthController;
+
+  constructor(router: UseRouterType) {
     makeAutoObservable(this, {}, { autoBind: true });
+    this._router = router;
+
+    this._theme = new ThemeStore();
+    this._user = new UserService();
+    this._screen = new ScreenStore();
+    this._navbar = new NavbarStore(this._screen);
+    this._authController = new AuthController(
+      new AuthService(),
+      this._user,
+      this._router,
+    );
   }
 
   get theme(): ThemeStore {
@@ -41,5 +52,3 @@ export class GlobalStore {
     return this._authController;
   }
 }
-
-export const globalStore = new GlobalStore();
