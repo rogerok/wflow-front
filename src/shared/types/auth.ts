@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { EmailSchema, PasswordSchema } from '../const/validationSchemas';
 
 export const AuthRequestSchema = z.object({
