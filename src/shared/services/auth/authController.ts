@@ -1,4 +1,5 @@
 import { UseNavigateResult } from '@tanstack/react-router';
+import { makeAutoObservable } from 'mobx';
 
 import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
 import { routes } from '../../const/router';
@@ -15,9 +16,14 @@ export class AuthController {
   authService: AuthService;
   userService: UserService;
 
+  token: string | unknown | null = null;
+
   constructor(authService: AuthService, userService: UserService) {
     this.authService = authService;
     this.userService = userService;
+
+    makeAutoObservable(this, {}, { autoBind: true });
+    this.token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
   }
 
   private isTokenValid(data: unknown): data is TokenType {
@@ -43,8 +49,11 @@ export class AuthController {
 
   logout = async (navigateCb: UseNavigateResult<string>): Promise<void> => {
     await this.authService.logout();
+
     this.userService.clearUserData();
+
     removeLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
+
     await navigateCb({
       to: routes.main(),
       replace: true,
@@ -59,7 +68,10 @@ export class AuthController {
 
       if (this.isTokenValid(parsedToken)) {
         setLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY, token);
+        this.token = token;
+
         await this.userService.fetchUser(parsedToken.sub);
+
         if (this.userService.getUserRequestStore.result.data) {
           window.history.pushState({}, '', routes.main());
         }
@@ -75,6 +87,13 @@ export class AuthController {
       if (this.isTokenValid(parsedToken)) {
         await this.userService.fetchUser(parsedToken.sub);
       }
+    }
+  };
+
+  trackLocalStorageToken = (e: StorageEvent): void => {
+    if (e.key === LOCAL_STORAGE_TOKEN_KEY && !e.newValue) {
+      this.userService.clearUserData();
+      window.history.pushState({}, '', routes.main());
     }
   };
 }
