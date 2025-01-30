@@ -9,6 +9,7 @@ import {
 } from '../../lib/utils/localStorage';
 import { TokenSchema, TokenType } from '../../types/auth';
 import { RouterType } from '../../types/router';
+import { UserResponseType } from '../../types/user';
 import { UserService } from '../user/userService';
 import { AuthService } from './authService';
 
@@ -85,7 +86,7 @@ export class AuthController {
     }
   };
 
-  restoreSession = async (): Promise<void> => {
+  restoreSession = async (): Promise<boolean> => {
     const token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
     if (typeof token === 'string') {
       const parsedToken = this.parseJwt(token);
@@ -94,6 +95,8 @@ export class AuthController {
         await this.userService.fetchUser(parsedToken.sub);
       }
     }
+
+    return !!this.userService.userData;
   };
 
   trackLocalStorageToken = (e: StorageEvent): void => {

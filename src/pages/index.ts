@@ -1,3 +1,4 @@
+export { BooksCreatePage } from './BooksCreatePage/components/BooksCreatePage';
 export { BooksPage } from './BooksPage/components/BooksPage';
 export { GoalsPage } from './GoalsPage/components/GoalsPage';
 export { HomePage } from './HomePage/components/HomePage';
