@@ -1,7 +1,7 @@
 import { cn } from '@bem-react/classname';
-import { AppLink, Button, ButtonLink, getBooks, Page, routes } from '@shared';
-import { Link } from '@tanstack/react-router';
+import { AppLink, Button, getBooks, Page, routes } from '@shared';
 import { FC, useEffect } from 'react';
+import { ButtonLink } from '../../../shared/elements/ui/AppLink/AppLink';
 
 const cnBooksPage = cn('BooksPage');
 
@@ -19,7 +19,7 @@ export const BooksPage: FC<BooksPageProps> = (props) => {
       <Button>
         <AppLink to={routes.booksCreate()}>Добавить книгу</AppLink>
       </Button>
-      <ButtonLink>sdsds</ButtonLink>
+      <ButtonLink to={'/books'}>sdsds</ButtonLink>
     </Page>
   );
 };

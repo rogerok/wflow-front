@@ -3,7 +3,6 @@ export { TextInput } from './elements/components/inputs/TextInput/TextInput';
 export { MainLayout } from './elements/layouts/MainLayout/MainLayout';
 export { AppLink } from './elements/ui/AppLink/AppLink';
 export { Button } from './elements/ui/Button/Button';
-export { ButtonLink } from './elements/ui/ButtonLink/ButtonLink';
 export { Flex } from './elements/ui/Flex/Flex';
 export { FormComponent } from './elements/ui/Form/FormComponent';
 export { HStack } from './elements/ui/HStack/HStack';
