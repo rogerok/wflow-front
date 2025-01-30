@@ -1,7 +1,7 @@
 import './Button.scss';
 
 import { cn } from '@bem-react/classname';
-import { ButtonHTMLAttributes, FC, memo, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 
 const cnButton = cn('Button');
 
@@ -9,7 +9,7 @@ type ButtonVariantsType = 'filled' | 'outlined' | 'clear';
 
 type ButtonSizesType = 'sm' | 'md';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export type ButtonProps<T extends ElementType> = {
   className?: string;
   fullWidth?: boolean;
   size?: ButtonSizesType;
@@ -17,9 +17,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   addonLeft?: ReactNode;
   addonRight?: ReactNode;
-}
+  as?: T;
+} & ComponentPropsWithoutRef<T>;
 
-export const Button: FC<ButtonProps> = memo((props) => {
+export const Button = <T extends ElementType = 'button'>(
+  props: ButtonProps<T>,
+): ReactNode => {
   const {
     className,
     disabled,
@@ -38,8 +41,10 @@ export const Button: FC<ButtonProps> = memo((props) => {
     disabled: disabled,
   };
 
+  const Component = props.as || 'button';
+
   return (
-    <button
+    <Component
       type={'button'}
       {...otherProps}
       disabled={disabled}
@@ -48,6 +53,6 @@ export const Button: FC<ButtonProps> = memo((props) => {
       <div className={cnButton('AddonLeft')}>{addonLeft}</div>
       {props.children}
       <div className={cnButton('AddonRight')}>{addonRight}</div>
-    </button>
+    </Component>
   );
-});
+};

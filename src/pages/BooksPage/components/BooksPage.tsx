@@ -1,7 +1,6 @@
 import { cn } from '@bem-react/classname';
-import { AppLink, Button, getBooks, Page, routes } from '@shared';
+import { ButtonLink, getBooks, Page, routes } from '@shared';
 import { FC, useEffect } from 'react';
-import { ButtonLink } from '../../../shared/elements/ui/AppLink/AppLink';
 
 const cnBooksPage = cn('BooksPage');
 
@@ -16,10 +15,9 @@ export const BooksPage: FC<BooksPageProps> = (props) => {
 
   return (
     <Page className={cnBooksPage(undefined, [props.className])}>
-      <Button>
-        <AppLink to={routes.booksCreate()}>Добавить книгу</AppLink>
-      </Button>
-      <ButtonLink to={'/books'}>sdsds</ButtonLink>
+      <ButtonLink to={routes.booksCreate()}>
+        Добавить книгу бант линк
+      </ButtonLink>
     </Page>
   );
 };

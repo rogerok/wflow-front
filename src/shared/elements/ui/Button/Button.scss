@@ -1,8 +1,11 @@
 .Button {
   display: flex;
   gap: 0.4rem;
+
   border-radius: var(--border-rad-1);
+
   font-weight: 600;
+  text-decoration: none;
 
   &_variant {
     &_clear {
@@ -12,7 +15,7 @@
 
       color: var(--basic-primary);
 
-      background: none
+      background: none;
     }
 
     &_filled {
@@ -22,9 +25,8 @@
 
       &:disabled {
         color: var(--basic-accent);
-        background: var(--basic-secondary-4)
+        background: var(--basic-secondary-4);
       }
-
     }
 
     &_outlined {
@@ -67,11 +69,10 @@
     opacity: 0.5;
   }
 
-
-  &-AddonLeft, &-AddonRight {
+  &-AddonLeft,
+  &-AddonRight {
     display: flex;
   }
-
 
   @media (hover: hover) {
     &:not(:disabled):hover {
