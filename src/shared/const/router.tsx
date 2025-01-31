@@ -13,6 +13,7 @@ export const routes = {
   settings: () => '/settings',
   statistic: () => '/statistic',
   books: () => '/books',
+  booksCreate: () => '/books/create',
   goals: () => '/goals',
   reports: () => '/reports',
 } as const;

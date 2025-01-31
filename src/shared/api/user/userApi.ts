@@ -12,6 +12,6 @@ export const getUserById = (
   });
 };
 
-export const getUsers = (): Promise<AxiosResponse> => {
+export const getUsers = (): Promise<AxiosResponse<UserResponseType[]>> => {
   return $api.get('/private/users');
 };

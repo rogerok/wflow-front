@@ -5,13 +5,14 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 
 import { observer } from 'mobx-react-lite';
 import React, { FC, ReactElement, useEffect } from 'react';
-import { GlobalStoreContextProvider, useGlobalStore } from '@shared';
 import { routeTree } from '../routeTree.gen';
+import { GlobalStoreContextProvider, useGlobalStore } from '@shared/stores';
 
 export const router = createRouter({
   routeTree,
   context: {
     isAuth: false,
+    authController: undefined,
   },
 });
 
@@ -27,8 +28,6 @@ const InnerApp: FC = observer(() => {
   const { theme, authController, userService } = useGlobalStore();
 
   useEffect(() => {
-    authController.restoreSession();
-
     const trackLocalStorage = authController.trackLocalStorageToken;
 
     window.addEventListener('storage', trackLocalStorage);
@@ -44,6 +43,7 @@ const InnerApp: FC = observer(() => {
         router={router}
         context={{
           isAuth: userService.isAuth,
+          authController: authController,
         }}
       />
     </div>
@@ -52,7 +52,7 @@ const InnerApp: FC = observer(() => {
 
 function App(): ReactElement {
   return (
-    <GlobalStoreContextProvider>
+    <GlobalStoreContextProvider router={router}>
       <InnerApp />
     </GlobalStoreContextProvider>
   );

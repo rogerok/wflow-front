@@ -1,7 +1,8 @@
 import './NavbarLink.scss';
 
 import { cn } from '@bem-react/classname';
-import { AppLink, NavbarLinksType } from '@shared';
+import { NavbarLinksType } from '@shared/const';
+import { AppLink } from '@shared/elements';
 import { FC, memo } from 'react';
 
 import { NavbarLabel } from '../NavbarLabel/NavbarLabel';

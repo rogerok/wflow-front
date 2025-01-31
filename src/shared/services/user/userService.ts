@@ -44,7 +44,6 @@ export class UserService {
 
     runInAction(() => {
       this.setUserData(result.data);
-      //TODO: add real data
       this._role = RolesConstant.Admin;
     });
   };

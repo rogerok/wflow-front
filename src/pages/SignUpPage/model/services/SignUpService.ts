@@ -1,4 +1,5 @@
-import { convertEmptyStringToNull, FormStore, RequestStore } from '@shared';
+import { convertEmptyStringToNull, FormStore } from '@shared/lib';
+import { RequestStore } from '@shared/stores';
 import { makeAutoObservable } from 'mobx';
 
 import { createUserRequest } from '../api/signUpApi';
@@ -15,12 +16,12 @@ export class SignUpService {
     schema: UserCreateRequestSchema,
     defaultValues: {
       bornDate: '',
-      email: '123@gmails.com',
-      firstName: 'sdsdsdd',
+      email: '',
+      firstName: '',
       lastName: '',
       middleName: '',
-      password: 'Password1!',
-      passwordConfirm: 'Password1!',
+      password: '',
+      passwordConfirm: '',
       pseudonym: {
         firstName: '',
         lastName: '',
@@ -39,10 +40,8 @@ export class SignUpService {
   }
 
   abortRequest = (): void => {
-    if (this.abortController) {
-      this.abortController.abort();
-      this.abortController = null;
-    }
+    this.abortController?.abort();
+    this.abortController = null;
   };
 
   submitForm = async (): Promise<void> => {

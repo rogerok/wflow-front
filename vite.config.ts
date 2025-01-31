@@ -33,6 +33,7 @@ export default defineConfig({
   plugins: [
     circleDependency({
       outputFilePath: './circleDep',
+      circleImportThrowErr: false,
     }),
     react(),
     mkcert(),

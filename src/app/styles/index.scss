@@ -1,9 +1,9 @@
-@use "reset";
-@use "themes/dark";
-@use "themes/light";
-@use "variables/global";
-@use "fonts";
-@use "variables/breakpoints";
+@use 'reset';
+@use 'themes/dark';
+@use 'themes/light';
+@use 'variables/global';
+@use 'fonts';
+@use 'variables/breakpoints';
 
 html {
   overflow: hidden;

@@ -1,7 +1,9 @@
 import './Navbar.scss';
 
 import { cn } from '@bem-react/classname';
-import { NavbarLinksType, Overlay, useGlobalStore } from '@shared';
+import { NavbarLinksType } from '@shared/const';
+import { Overlay } from '@shared/elements';
+import { useGlobalStore } from '@shared/stores';
 import { useLocation } from '@tanstack/react-router';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect } from 'react';
@@ -21,8 +23,6 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
 
   const close = navbar.close;
   const location = useLocation();
-
-  console.log(userService.role);
 
   useEffect(() => {
     if (screen.downMd) {

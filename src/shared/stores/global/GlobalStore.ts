@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import { AuthController } from '../../services/auth/authController';
 import { AuthService } from '../../services/auth/authService';
 import { UserService } from '../../services/user/userService';
-import { UseRouterType } from '../../types/router';
+import { RouterType } from '../../types/router';
 import { NavbarStore } from '../navbar/NavbarStore';
 import { ScreenStore } from '../screen/ScreenStore';
 import { ThemeStore } from '../theme/ThemeStore';
@@ -13,10 +13,10 @@ export class GlobalStore {
   private readonly _screen: ScreenStore;
   private readonly _navbar: NavbarStore;
   private readonly _user: UserService;
-  private readonly _router: UseRouterType;
+  private readonly _router: RouterType;
   private readonly _authController: AuthController;
 
-  constructor(router: UseRouterType) {
+  constructor(router: RouterType) {
     makeAutoObservable(this, {}, { autoBind: true });
     this._router = router;
 

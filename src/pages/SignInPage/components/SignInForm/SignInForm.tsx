@@ -1,5 +1,5 @@
 import { cn } from '@bem-react/classname';
-import { FormComponent } from '@shared';
+import { FormComponent } from '@shared/elements';
 import { FC } from 'react';
 
 const cnSignInForm = cn('SignInForm');

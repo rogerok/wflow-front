@@ -1,7 +1,8 @@
 import './NavbarToggleButton.scss';
 
 import { cn } from '@bem-react/classname';
-import { IconComponent, useGlobalStore } from '@shared';
+import { IconComponent } from '@shared/elements';
+import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
