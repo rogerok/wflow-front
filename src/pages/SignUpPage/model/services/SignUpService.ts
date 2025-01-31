@@ -16,12 +16,12 @@ export class SignUpService {
     schema: UserCreateRequestSchema,
     defaultValues: {
       bornDate: '',
-      email: '123@gmails.com',
-      firstName: 'sdsdsdd',
+      email: '',
+      firstName: '',
       lastName: '',
       middleName: '',
-      password: 'Password1!',
-      passwordConfirm: 'Password1!',
+      password: '',
+      passwordConfirm: '',
       pseudonym: {
         firstName: '',
         lastName: '',

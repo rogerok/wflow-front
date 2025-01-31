@@ -8,20 +8,25 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './app/routes/__root'
 import { Route as ProtectedImport } from './app/routes/_protected'
 import { Route as IndexImport } from './app/routes/index'
-import { Route as ProtectedStatisticImport } from './app/routes/_protected/statistic'
-import { Route as ProtectedSettingsImport } from './app/routes/_protected/settings'
-import { Route as ProtectedReportsImport } from './app/routes/_protected/reports'
-import { Route as ProtectedProfileImport } from './app/routes/_protected/profile'
-import { Route as ProtectedGoalsImport } from './app/routes/_protected/goals'
-import { Route as authSignUpImport } from './app/routes/(auth)/signUp'
 import { Route as authSignInImport } from './app/routes/(auth)/signIn'
 import { Route as ProtectedBooksIndexImport } from './app/routes/_protected/books/index'
 import { Route as ProtectedBooksCreateImport } from './app/routes/_protected/books/create'
+
+// Create Virtual Routes
+
+const ProtectedStatisticLazyImport = createFileRoute('/_protected/statistic')()
+const ProtectedSettingsLazyImport = createFileRoute('/_protected/settings')()
+const ProtectedReportsLazyImport = createFileRoute('/_protected/reports')()
+const ProtectedProfileLazyImport = createFileRoute('/_protected/profile')()
+const ProtectedGoalsLazyImport = createFileRoute('/_protected/goals')()
+const authSignUpLazyImport = createFileRoute('/(auth)/signUp')()
 
 // Create/Update Routes
 
@@ -36,41 +41,53 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ProtectedStatisticRoute = ProtectedStatisticImport.update({
+const ProtectedStatisticLazyRoute = ProtectedStatisticLazyImport.update({
   id: '/statistic',
   path: '/statistic',
   getParentRoute: () => ProtectedRoute,
-} as any)
+} as any).lazy(() =>
+  import('./app/routes/_protected/statistic.lazy').then((d) => d.Route),
+)
 
-const ProtectedSettingsRoute = ProtectedSettingsImport.update({
+const ProtectedSettingsLazyRoute = ProtectedSettingsLazyImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => ProtectedRoute,
-} as any)
+} as any).lazy(() =>
+  import('./app/routes/_protected/settings.lazy').then((d) => d.Route),
+)
 
-const ProtectedReportsRoute = ProtectedReportsImport.update({
+const ProtectedReportsLazyRoute = ProtectedReportsLazyImport.update({
   id: '/reports',
   path: '/reports',
   getParentRoute: () => ProtectedRoute,
-} as any)
+} as any).lazy(() =>
+  import('./app/routes/_protected/reports.lazy').then((d) => d.Route),
+)
 
-const ProtectedProfileRoute = ProtectedProfileImport.update({
+const ProtectedProfileLazyRoute = ProtectedProfileLazyImport.update({
   id: '/profile',
   path: '/profile',
   getParentRoute: () => ProtectedRoute,
-} as any)
+} as any).lazy(() =>
+  import('./app/routes/_protected/profile.lazy').then((d) => d.Route),
+)
 
-const ProtectedGoalsRoute = ProtectedGoalsImport.update({
+const ProtectedGoalsLazyRoute = ProtectedGoalsLazyImport.update({
   id: '/goals',
   path: '/goals',
   getParentRoute: () => ProtectedRoute,
-} as any)
+} as any).lazy(() =>
+  import('./app/routes/_protected/goals.lazy').then((d) => d.Route),
+)
 
-const authSignUpRoute = authSignUpImport.update({
-  id: '/(auth)/signUp',
-  path: '/signUp',
-  getParentRoute: () => rootRoute,
-} as any)
+const authSignUpLazyRoute = authSignUpLazyImport
+  .update({
+    id: '/(auth)/signUp',
+    path: '/signUp',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() => import('./app/routes/(auth)/signUp.lazy').then((d) => d.Route))
 
 const authSignInRoute = authSignInImport.update({
   id: '/(auth)/signIn',
@@ -119,42 +136,42 @@ declare module '@tanstack/react-router' {
       id: '/(auth)/signUp'
       path: '/signUp'
       fullPath: '/signUp'
-      preLoaderRoute: typeof authSignUpImport
+      preLoaderRoute: typeof authSignUpLazyImport
       parentRoute: typeof rootRoute
     }
     '/_protected/goals': {
       id: '/_protected/goals'
       path: '/goals'
       fullPath: '/goals'
-      preLoaderRoute: typeof ProtectedGoalsImport
+      preLoaderRoute: typeof ProtectedGoalsLazyImport
       parentRoute: typeof ProtectedImport
     }
     '/_protected/profile': {
       id: '/_protected/profile'
       path: '/profile'
       fullPath: '/profile'
-      preLoaderRoute: typeof ProtectedProfileImport
+      preLoaderRoute: typeof ProtectedProfileLazyImport
       parentRoute: typeof ProtectedImport
     }
     '/_protected/reports': {
       id: '/_protected/reports'
       path: '/reports'
       fullPath: '/reports'
-      preLoaderRoute: typeof ProtectedReportsImport
+      preLoaderRoute: typeof ProtectedReportsLazyImport
       parentRoute: typeof ProtectedImport
     }
     '/_protected/settings': {
       id: '/_protected/settings'
       path: '/settings'
       fullPath: '/settings'
-      preLoaderRoute: typeof ProtectedSettingsImport
+      preLoaderRoute: typeof ProtectedSettingsLazyImport
       parentRoute: typeof ProtectedImport
     }
     '/_protected/statistic': {
       id: '/_protected/statistic'
       path: '/statistic'
       fullPath: '/statistic'
-      preLoaderRoute: typeof ProtectedStatisticImport
+      preLoaderRoute: typeof ProtectedStatisticLazyImport
       parentRoute: typeof ProtectedImport
     }
     '/_protected/books/create': {
@@ -177,21 +194,21 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface ProtectedRouteChildren {
-  ProtectedGoalsRoute: typeof ProtectedGoalsRoute
-  ProtectedProfileRoute: typeof ProtectedProfileRoute
-  ProtectedReportsRoute: typeof ProtectedReportsRoute
-  ProtectedSettingsRoute: typeof ProtectedSettingsRoute
-  ProtectedStatisticRoute: typeof ProtectedStatisticRoute
+  ProtectedGoalsLazyRoute: typeof ProtectedGoalsLazyRoute
+  ProtectedProfileLazyRoute: typeof ProtectedProfileLazyRoute
+  ProtectedReportsLazyRoute: typeof ProtectedReportsLazyRoute
+  ProtectedSettingsLazyRoute: typeof ProtectedSettingsLazyRoute
+  ProtectedStatisticLazyRoute: typeof ProtectedStatisticLazyRoute
   ProtectedBooksCreateRoute: typeof ProtectedBooksCreateRoute
   ProtectedBooksIndexRoute: typeof ProtectedBooksIndexRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
-  ProtectedGoalsRoute: ProtectedGoalsRoute,
-  ProtectedProfileRoute: ProtectedProfileRoute,
-  ProtectedReportsRoute: ProtectedReportsRoute,
-  ProtectedSettingsRoute: ProtectedSettingsRoute,
-  ProtectedStatisticRoute: ProtectedStatisticRoute,
+  ProtectedGoalsLazyRoute: ProtectedGoalsLazyRoute,
+  ProtectedProfileLazyRoute: ProtectedProfileLazyRoute,
+  ProtectedReportsLazyRoute: ProtectedReportsLazyRoute,
+  ProtectedSettingsLazyRoute: ProtectedSettingsLazyRoute,
+  ProtectedStatisticLazyRoute: ProtectedStatisticLazyRoute,
   ProtectedBooksCreateRoute: ProtectedBooksCreateRoute,
   ProtectedBooksIndexRoute: ProtectedBooksIndexRoute,
 }
@@ -204,12 +221,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof ProtectedRouteWithChildren
   '/signIn': typeof authSignInRoute
-  '/signUp': typeof authSignUpRoute
-  '/goals': typeof ProtectedGoalsRoute
-  '/profile': typeof ProtectedProfileRoute
-  '/reports': typeof ProtectedReportsRoute
-  '/settings': typeof ProtectedSettingsRoute
-  '/statistic': typeof ProtectedStatisticRoute
+  '/signUp': typeof authSignUpLazyRoute
+  '/goals': typeof ProtectedGoalsLazyRoute
+  '/profile': typeof ProtectedProfileLazyRoute
+  '/reports': typeof ProtectedReportsLazyRoute
+  '/settings': typeof ProtectedSettingsLazyRoute
+  '/statistic': typeof ProtectedStatisticLazyRoute
   '/books/create': typeof ProtectedBooksCreateRoute
   '/books': typeof ProtectedBooksIndexRoute
 }
@@ -218,12 +235,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof ProtectedRouteWithChildren
   '/signIn': typeof authSignInRoute
-  '/signUp': typeof authSignUpRoute
-  '/goals': typeof ProtectedGoalsRoute
-  '/profile': typeof ProtectedProfileRoute
-  '/reports': typeof ProtectedReportsRoute
-  '/settings': typeof ProtectedSettingsRoute
-  '/statistic': typeof ProtectedStatisticRoute
+  '/signUp': typeof authSignUpLazyRoute
+  '/goals': typeof ProtectedGoalsLazyRoute
+  '/profile': typeof ProtectedProfileLazyRoute
+  '/reports': typeof ProtectedReportsLazyRoute
+  '/settings': typeof ProtectedSettingsLazyRoute
+  '/statistic': typeof ProtectedStatisticLazyRoute
   '/books/create': typeof ProtectedBooksCreateRoute
   '/books': typeof ProtectedBooksIndexRoute
 }
@@ -233,12 +250,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_protected': typeof ProtectedRouteWithChildren
   '/(auth)/signIn': typeof authSignInRoute
-  '/(auth)/signUp': typeof authSignUpRoute
-  '/_protected/goals': typeof ProtectedGoalsRoute
-  '/_protected/profile': typeof ProtectedProfileRoute
-  '/_protected/reports': typeof ProtectedReportsRoute
-  '/_protected/settings': typeof ProtectedSettingsRoute
-  '/_protected/statistic': typeof ProtectedStatisticRoute
+  '/(auth)/signUp': typeof authSignUpLazyRoute
+  '/_protected/goals': typeof ProtectedGoalsLazyRoute
+  '/_protected/profile': typeof ProtectedProfileLazyRoute
+  '/_protected/reports': typeof ProtectedReportsLazyRoute
+  '/_protected/settings': typeof ProtectedSettingsLazyRoute
+  '/_protected/statistic': typeof ProtectedStatisticLazyRoute
   '/_protected/books/create': typeof ProtectedBooksCreateRoute
   '/_protected/books/': typeof ProtectedBooksIndexRoute
 }
@@ -290,14 +307,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ProtectedRoute: typeof ProtectedRouteWithChildren
   authSignInRoute: typeof authSignInRoute
-  authSignUpRoute: typeof authSignUpRoute
+  authSignUpLazyRoute: typeof authSignUpLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ProtectedRoute: ProtectedRouteWithChildren,
   authSignInRoute: authSignInRoute,
-  authSignUpRoute: authSignUpRoute,
+  authSignUpLazyRoute: authSignUpLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -335,26 +352,26 @@ export const routeTree = rootRoute
       "filePath": "(auth)/signIn.tsx"
     },
     "/(auth)/signUp": {
-      "filePath": "(auth)/signUp.tsx"
+      "filePath": "(auth)/signUp.lazy.tsx"
     },
     "/_protected/goals": {
-      "filePath": "_protected/goals.tsx",
+      "filePath": "_protected/goals.lazy.tsx",
       "parent": "/_protected"
     },
     "/_protected/profile": {
-      "filePath": "_protected/profile.tsx",
+      "filePath": "_protected/profile.lazy.tsx",
       "parent": "/_protected"
     },
     "/_protected/reports": {
-      "filePath": "_protected/reports.tsx",
+      "filePath": "_protected/reports.lazy.tsx",
       "parent": "/_protected"
     },
     "/_protected/settings": {
-      "filePath": "_protected/settings.tsx",
+      "filePath": "_protected/settings.lazy.tsx",
       "parent": "/_protected"
     },
     "/_protected/statistic": {
-      "filePath": "_protected/statistic.tsx",
+      "filePath": "_protected/statistic.lazy.tsx",
       "parent": "/_protected"
     },
     "/_protected/books/create": {
