@@ -16,11 +16,13 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
 
   useEffect(() => {
     service.list();
+
+    return () => {
+      service.abortRequest();
+    };
   }, [service]);
 
-  return service.requestStore.isLoading ? (
-    <p> loading </p>
-  ) : (
+  return (
     <Page className={cnBooksPage(undefined, [props.className])}>
       <ButtonLink to={routes.booksCreate()}>
         Добавить книгу бант линк

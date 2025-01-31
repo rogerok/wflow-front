@@ -39,10 +39,8 @@ export class SignUpService {
   }
 
   abortRequest = (): void => {
-    if (this.abortController) {
-      this.abortController.abort();
-      this.abortController = null;
-    }
+    this.abortController?.abort();
+    this.abortController = null;
   };
 
   submitForm = async (): Promise<void> => {
