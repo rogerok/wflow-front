@@ -16,8 +16,6 @@ import { Route as rootRoute } from './app/routes/__root'
 import { Route as ProtectedImport } from './app/routes/_protected'
 import { Route as IndexImport } from './app/routes/index'
 import { Route as authSignInImport } from './app/routes/(auth)/signIn'
-import { Route as ProtectedBooksIndexImport } from './app/routes/_protected/books/index'
-import { Route as ProtectedBooksCreateImport } from './app/routes/_protected/books/create'
 
 // Create Virtual Routes
 
@@ -27,6 +25,10 @@ const ProtectedReportsLazyImport = createFileRoute('/_protected/reports')()
 const ProtectedProfileLazyImport = createFileRoute('/_protected/profile')()
 const ProtectedGoalsLazyImport = createFileRoute('/_protected/goals')()
 const authSignUpLazyImport = createFileRoute('/(auth)/signUp')()
+const ProtectedBooksIndexLazyImport = createFileRoute('/_protected/books/')()
+const ProtectedBooksCreateLazyImport = createFileRoute(
+  '/_protected/books/create',
+)()
 
 // Create/Update Routes
 
@@ -95,17 +97,21 @@ const authSignInRoute = authSignInImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ProtectedBooksIndexRoute = ProtectedBooksIndexImport.update({
+const ProtectedBooksIndexLazyRoute = ProtectedBooksIndexLazyImport.update({
   id: '/books/',
   path: '/books/',
   getParentRoute: () => ProtectedRoute,
-} as any)
+} as any).lazy(() =>
+  import('./app/routes/_protected/books/index.lazy').then((d) => d.Route),
+)
 
-const ProtectedBooksCreateRoute = ProtectedBooksCreateImport.update({
+const ProtectedBooksCreateLazyRoute = ProtectedBooksCreateLazyImport.update({
   id: '/books/create',
   path: '/books/create',
   getParentRoute: () => ProtectedRoute,
-} as any)
+} as any).lazy(() =>
+  import('./app/routes/_protected/books/create.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -178,14 +184,14 @@ declare module '@tanstack/react-router' {
       id: '/_protected/books/create'
       path: '/books/create'
       fullPath: '/books/create'
-      preLoaderRoute: typeof ProtectedBooksCreateImport
+      preLoaderRoute: typeof ProtectedBooksCreateLazyImport
       parentRoute: typeof ProtectedImport
     }
     '/_protected/books/': {
       id: '/_protected/books/'
       path: '/books'
       fullPath: '/books'
-      preLoaderRoute: typeof ProtectedBooksIndexImport
+      preLoaderRoute: typeof ProtectedBooksIndexLazyImport
       parentRoute: typeof ProtectedImport
     }
   }
@@ -199,8 +205,8 @@ interface ProtectedRouteChildren {
   ProtectedReportsLazyRoute: typeof ProtectedReportsLazyRoute
   ProtectedSettingsLazyRoute: typeof ProtectedSettingsLazyRoute
   ProtectedStatisticLazyRoute: typeof ProtectedStatisticLazyRoute
-  ProtectedBooksCreateRoute: typeof ProtectedBooksCreateRoute
-  ProtectedBooksIndexRoute: typeof ProtectedBooksIndexRoute
+  ProtectedBooksCreateLazyRoute: typeof ProtectedBooksCreateLazyRoute
+  ProtectedBooksIndexLazyRoute: typeof ProtectedBooksIndexLazyRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
@@ -209,8 +215,8 @@ const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedReportsLazyRoute: ProtectedReportsLazyRoute,
   ProtectedSettingsLazyRoute: ProtectedSettingsLazyRoute,
   ProtectedStatisticLazyRoute: ProtectedStatisticLazyRoute,
-  ProtectedBooksCreateRoute: ProtectedBooksCreateRoute,
-  ProtectedBooksIndexRoute: ProtectedBooksIndexRoute,
+  ProtectedBooksCreateLazyRoute: ProtectedBooksCreateLazyRoute,
+  ProtectedBooksIndexLazyRoute: ProtectedBooksIndexLazyRoute,
 }
 
 const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
@@ -227,8 +233,8 @@ export interface FileRoutesByFullPath {
   '/reports': typeof ProtectedReportsLazyRoute
   '/settings': typeof ProtectedSettingsLazyRoute
   '/statistic': typeof ProtectedStatisticLazyRoute
-  '/books/create': typeof ProtectedBooksCreateRoute
-  '/books': typeof ProtectedBooksIndexRoute
+  '/books/create': typeof ProtectedBooksCreateLazyRoute
+  '/books': typeof ProtectedBooksIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -241,8 +247,8 @@ export interface FileRoutesByTo {
   '/reports': typeof ProtectedReportsLazyRoute
   '/settings': typeof ProtectedSettingsLazyRoute
   '/statistic': typeof ProtectedStatisticLazyRoute
-  '/books/create': typeof ProtectedBooksCreateRoute
-  '/books': typeof ProtectedBooksIndexRoute
+  '/books/create': typeof ProtectedBooksCreateLazyRoute
+  '/books': typeof ProtectedBooksIndexLazyRoute
 }
 
 export interface FileRoutesById {
@@ -256,8 +262,8 @@ export interface FileRoutesById {
   '/_protected/reports': typeof ProtectedReportsLazyRoute
   '/_protected/settings': typeof ProtectedSettingsLazyRoute
   '/_protected/statistic': typeof ProtectedStatisticLazyRoute
-  '/_protected/books/create': typeof ProtectedBooksCreateRoute
-  '/_protected/books/': typeof ProtectedBooksIndexRoute
+  '/_protected/books/create': typeof ProtectedBooksCreateLazyRoute
+  '/_protected/books/': typeof ProtectedBooksIndexLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -375,11 +381,11 @@ export const routeTree = rootRoute
       "parent": "/_protected"
     },
     "/_protected/books/create": {
-      "filePath": "_protected/books/create.tsx",
+      "filePath": "_protected/books/create.lazy.tsx",
       "parent": "/_protected"
     },
     "/_protected/books/": {
-      "filePath": "_protected/books/index.tsx",
+      "filePath": "_protected/books/index.lazy.tsx",
       "parent": "/_protected"
     }
   }
