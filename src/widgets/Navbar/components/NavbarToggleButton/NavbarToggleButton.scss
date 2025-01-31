@@ -1,12 +1,12 @@
 .NavbarToggleButton {
   transform: rotate(-45deg);
   width: inherit;
+  border-radius: 0;
+  transition: var(--default-transition);
 
   &_expanded {
-    grid-column-start: 2;
-    margin-left: auto;
+    margin: 0 auto;
   }
-
 
   @media (min-width: $md-breakpoint) {
     transform: rotate(0);
@@ -16,5 +16,19 @@
 
     min-width: 100%;
     margin-left: unset;
+    border-radius: 50%;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-secondary);
+    }
+
+    &_expanded {
+      border-radius: 0;
+
+      &:hover {
+        box-shadow: unset;
+      }
+    }
   }
 }

@@ -3,8 +3,10 @@
   gap: 0.4rem;
   justify-content: space-between;
 
+  width: fit-content;
   border-radius: var(--border-rad-1);
 
+  font: var(--font-m);
   font-weight: 600;
   text-decoration: none;
 
@@ -48,8 +50,6 @@
 
   &_size {
     &_sm {
-      font: var(--font-s);
-
       &:not(.Button_variant_clear) {
         padding: 0.8rem 1.6rem;
       }
@@ -79,7 +79,6 @@
     display: flex;
   }
 
-
   @media (hover: hover) {
     &:not(:disabled):hover {
       cursor: pointer;
@@ -92,7 +91,6 @@
         color: var(--brand-primary);
         background: var(--basic-accent);
         box-shadow: var(--shadow-primary);
-
       }
 
       &_outlined:not(:disabled):hover {

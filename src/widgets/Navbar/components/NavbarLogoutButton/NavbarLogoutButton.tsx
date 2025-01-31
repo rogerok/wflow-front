@@ -25,9 +25,11 @@ export const NavbarLogoutButton: FC<NavbarLogoutButtonProps> = observer(
         onClick={() => authController.logout()}
         addonLeft={
           <IconComponent
-            className={cnNavbarLogoutButton('Icon')}
+            className={cnNavbarLogoutButton('Icon', {
+              collapsed: navbar.isCollapsed,
+            })}
             name={'LogoutIcon'}
-            size={'sm'}
+            size={'md'}
             color={'basic-secondary-4'}
           />
         }

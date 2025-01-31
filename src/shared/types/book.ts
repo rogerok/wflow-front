@@ -12,3 +12,10 @@ export const BookResponseSchema = z.object({
 export type BookResponseType = z.infer<typeof BookResponseSchema>;
 
 export type BooksListResponseType = BookResponseType[];
+
+export const BookFormRequestSchema = z.object({
+  name: z.string().min(1).max(255),
+  description: z.string().min(2).max(255).nullable(),
+});
+
+export type BookFormRequestType = z.infer<typeof BookFormRequestSchema>;

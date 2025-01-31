@@ -16,3 +16,25 @@ html {
   color: var(--basic-primary);
   background: var(--bg-primary);
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.8rem;
+  transition: var(--default-transition);
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--basic-secondary-1);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 2.5rem;
+  background: var(--basic-secondary-4);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--basic-secondary-3);
+}

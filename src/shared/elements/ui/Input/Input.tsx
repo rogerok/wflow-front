@@ -15,6 +15,7 @@ interface InputProps extends HTMLInputProps {
   className?: string;
   readOnly?: boolean;
   error?: string;
+  tag?: 'input' | 'textarea';
 }
 
 export const Input: FC<InputProps> = observer((props) => {
@@ -24,6 +25,7 @@ export const Input: FC<InputProps> = observer((props) => {
     value,
     name,
     onChange,
+    tag = 'input',
     ...restProps
   } = props;
 

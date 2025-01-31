@@ -29,6 +29,7 @@ export const NavbarLink: FC<NavbarLabelProps> = memo((props) => {
           <div
             className={cnNavbarLabel('Icon', {
               active: isActive,
+              collapsed: collapsed,
             })}
           >
             {isActive ? link.active : link.inActive}
