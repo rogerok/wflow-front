@@ -1,7 +1,8 @@
 import './NavbarLogoutButton.scss';
 
 import { cn } from '@bem-react/classname';
-import { Button, IconComponent, useGlobalStore } from '@shared';
+import { Button, IconComponent } from '@shared/elements';
+import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 

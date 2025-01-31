@@ -3,9 +3,8 @@ import {
   EmptyStringSchema,
   NameSchema,
   PasswordSchema,
-  PseudonymSchema,
-  SocialSchema,
-} from '@shared';
+} from '@shared/const';
+import { PseudonymSchema, SocialSchema } from '@shared/types';
 import { z } from 'zod';
 
 export const UserCreateRequestSchema = z

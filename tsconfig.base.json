@@ -21,8 +21,8 @@
       "@pages/*": [
         "./src/pages/*"
       ],
-      "@shared": [
-        "./src/shared/index.ts"
+      "@shared/*": [
+        "./src/shared/*"
       ],
       "@widgets": [
         "./src/widgets/index.ts"

@@ -1,9 +1,9 @@
 import { cn } from '@bem-react/classname';
-import { ButtonLink, Page, routes } from '@shared';
+import { routes } from '@shared/const';
+import { ButtonLink, Page } from '@shared/elements';
+import { BooksService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
-
-import { BooksService } from '../../../shared/services/books/booksService';
 
 const cnBooksPage = cn('BooksPage');
 

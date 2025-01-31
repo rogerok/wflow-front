@@ -1,5 +1,11 @@
 import { cn } from '@bem-react/classname';
-import { Button, FormComponent, Page, TextInput, VStack } from '@shared';
+import {
+  Button,
+  FormComponent,
+  Page,
+  TextInput,
+  VStack,
+} from '@shared/elements';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 

@@ -1,4 +1,4 @@
-import { $api } from '@shared';
+import { $api } from '@shared/api';
 import { AxiosResponse } from 'axios';
 
 import {
@@ -8,7 +8,7 @@ import {
 
 export const createUserRequest = (
   data: UserCreateRequestType,
-  controller: AbortController | null
+  controller: AbortController | null,
 ): Promise<AxiosResponse<UserCreateResponseType>> => {
   return $api.post<UserCreateResponseType>('/users', data, {
     signal: controller?.signal,

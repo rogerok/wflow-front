@@ -1,5 +1,5 @@
 import { cn } from '@bem-react/classname';
-import { Page } from '@shared';
+import { Page } from '@shared/elements';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 

@@ -4,9 +4,9 @@ import {
   FormComponent,
   Page,
   TextInput,
-  useGlobalStore,
   VStack,
-} from '@shared';
+} from '@shared/elements';
+import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 

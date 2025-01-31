@@ -1,4 +1,5 @@
-import { convertEmptyStringToNull, FormStore, RequestStore } from '@shared';
+import { convertEmptyStringToNull, FormStore } from '@shared/lib';
+import { RequestStore } from '@shared/stores';
 import { makeAutoObservable } from 'mobx';
 
 import { createUserRequest } from '../api/signUpApi';
