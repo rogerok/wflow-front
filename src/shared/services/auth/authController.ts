@@ -9,7 +9,6 @@ import {
 } from '../../lib/utils/localStorage';
 import { TokenSchema, TokenType } from '../../types/auth';
 import { RouterType } from '../../types/router';
-import { UserResponseType } from '../../types/user';
 import { UserService } from '../user/userService';
 import { AuthService } from './authService';
 
@@ -79,15 +78,16 @@ export class AuthController {
 
         await this.userService.fetchUser(parsedToken.sub);
 
-        if (this.userService.getUserRequestStore.result.data) {
-          window.history.pushState({}, '', routes.main());
+        if (this.userService.userData) {
+          this.router.navigate({ to: routes.main() });
         }
       }
     }
   };
 
-  restoreSession = async (): Promise<boolean> => {
+  restoreSession = async (): Promise<void> => {
     const token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
+
     if (typeof token === 'string') {
       const parsedToken = this.parseJwt(token);
 
@@ -95,17 +95,12 @@ export class AuthController {
         await this.userService.fetchUser(parsedToken.sub);
       }
     }
-
-    return !!this.userService.userData;
   };
 
   trackLocalStorageToken = (e: StorageEvent): void => {
     if (e.key === LOCAL_STORAGE_TOKEN_KEY && !e.newValue) {
       this.userService.clearUserData();
-      this.router.navigate({
-        to: routes.main(),
-        replace: true,
-      });
+      this.router.invalidate();
     }
   };
 }

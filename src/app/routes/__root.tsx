@@ -21,4 +21,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       <TanStackRouterDevtools position={'top-right'} />
     </>
   ),
+  beforeLoad: async ({ context }) => {
+    if (!context.isAuth) {
+      await context.authController?.restoreSession();
+    }
+  },
 });

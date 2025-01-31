@@ -9,6 +9,6 @@ export const BookResponseSchema = z.object({
   userId: z.string().uuid(),
 });
 
-export type BooksResponseType = z.infer<typeof BookResponseSchema>;
+export type BookResponseType = z.infer<typeof BookResponseSchema>;
 
-export type BooksListResponseType = BooksResponseType[];
+export type BooksListResponseType = BookResponseType[];
