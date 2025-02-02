@@ -16,17 +16,14 @@
 
   &-Input {
     padding: 1.6rem;
-    border: 0.1rem solid var(--bg-accent-5);
+    border: 0.1rem solid var(--bg-secondary);
     border-radius: 1.4rem;
 
     color: var(--basic-primary);
 
-    background: var(--bg-secondary);
+    background: #bcbfd82b;
     outline: transparent;
-
-    &_disabled {
-      background: var(--basic-accent);
-    }
+    box-shadow: var(--shadow-clear);
 
     &_error {
       border-color: var(--alert);
@@ -44,7 +41,8 @@
     &:disabled {
       border: none;
       color: var(--basic-secondary-2);
-      background: var(--basic-secondary-4);
+      background: var(--basic-secondary-5);
+      box-shadow: var(--shadow-primary);
     }
   }
 
