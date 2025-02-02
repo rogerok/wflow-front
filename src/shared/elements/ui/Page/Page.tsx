@@ -8,6 +8,7 @@ const cnPage = cn('Page');
 interface PageProps {
   className?: string;
   children?: ReactNode;
+  title?: string;
 }
 
 export const Page: FC<PageProps> = (props) => {

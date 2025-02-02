@@ -1,5 +1,54 @@
 .Input {
-  padding: 1.6rem;
-  border: 0.1rem solid var(--bg-primary);
-  border-radius: 1.4rem;
+  font: var(--font-s);
+  color: var(--basic-primary);
+
+  &_fullWidth {
+    width: 100%;
+  }
+
+  &_disabled {
+    color: var(--basic-secondary-1);
+  }
+
+  &-Label {
+    color: var(--basic-secondary-3);
+  }
+
+  &-Input {
+    padding: 1.6rem;
+    border: 0.1rem solid var(--bg-accent-5);
+    border-radius: 1.4rem;
+
+    color: var(--basic-primary);
+
+    background: var(--bg-secondary);
+    outline: transparent;
+
+    &_disabled {
+      background: var(--basic-accent);
+    }
+
+    &_error {
+      border-color: var(--alert);
+    }
+
+    &_fullWidth {
+      width: 100%;
+    }
+
+    &:active,
+    &:focus {
+      border-color: var(--brand-primary-light);
+    }
+
+    &:disabled {
+      border: none;
+      color: var(--basic-secondary-2);
+      background: var(--basic-secondary-4);
+    }
+  }
+
+  &-ErrorText {
+    color: var(--alert);
+  }
 }

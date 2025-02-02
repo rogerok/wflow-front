@@ -1,38 +1,36 @@
 /* stylelint-disable selector-class-pattern */
 .light {
   // Basics
-  --basic-primary: #0F2851;
-  --basic-accent: #FFF;
-  --basic-secondary-1: #E5E6EE;
+  --basic-primary: #0f2851;
+  --basic-accent: #fff;
+  --basic-secondary-1: #e5e6ee;
   --basic-secondary-2: #415371;
-  --basic-secondary-3: #898D9E;
-  --basic-secondary-4: #B0B2C3;
+  --basic-secondary-3: #898d9e;
+  --basic-secondary-4: #b0b2c3;
 
   // Colors
-  --brand-primary: #585CE5;
-  --brand-primary-light: #A1A3F6;
-  --brand-secondary: #58C6CD;
-  --brand-secondary-light: #58C6CD;
-  --brand-accent-1: #EEC1C1;
-  --brand-accent-2: #A6D0EE;
-  --brand-accent-3: #F2D382;
+  --brand-primary: #585ce5;
+  --brand-primary-light: #a1a3f6;
+  --brand-secondary: #58c6cd;
+  --brand-secondary-light: #58c6cd;
+  --brand-accent-1: #eec1c1;
+  --brand-accent-2: #a6d0ee;
+  --brand-accent-3: #f2d382;
 
-
-  --alert: #F59C9C;
+  --alert: #ef8b8b;
 
   // TODO: add more consistency
 
   // Backgrounds
-  --bg-primary: #FAFAFF;
-  --bg-secondary: #F0F1F9;
-  --bg-accent-1: #D0D1FF;
-  --bg-accent-2: #C9EBED;
-  --bg-accent-3: #F5DEDE;
-  --bg-accent-4: #FBECC4;
-  --bg-accent-5: #CFEBFF;
+  --bg-primary: #fafaff;
+  --bg-secondary: #f0f1f9;
+  --bg-accent-1: #d0d1ff;
+  --bg-accent-2: #c9ebed;
+  --bg-accent-3: #f5dede;
+  --bg-accent-4: #fbecc4;
+  --bg-accent-5: #cfebff;
 
-  --navbar-bg: #FFF;
-
+  --navbar-bg: #fff;
 
   --shadow-primary: var(--box-shadow-1) rgb(88 92 229 / 30%);
   --shadow-secondary: var(--box-shadow-2) rgb(56 58 139 / 30%);

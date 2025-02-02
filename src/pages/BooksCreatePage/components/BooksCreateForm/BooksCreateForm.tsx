@@ -19,10 +19,12 @@ export const BooksCreateForm: FC<BooksCreateFormProps> = observer((props) => {
       className={cnBooksCreateForm(undefined, [props.className])}
     >
       <VStack gap={'16'}>
-        <TextInput field={service.form.fields.name} placeholder={'Название'} />
+        <TextInput field={service.form.fields.name} label={'Название книги'} />
         <TextInput
+          label={'Описание книги'}
           field={service.form.fields.description}
-          placeholder={'Описание'}
+          disabled
+          fullWidth
         />
         <Button type={'submit'} disabled={service.form.isSubmitting}>
           Отправить

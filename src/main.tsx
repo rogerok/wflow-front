@@ -17,6 +17,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <StrictMode>
+    <title>Word Flow - Дневник автора</title>
     <App />
   </StrictMode>,
 );

@@ -11,6 +11,12 @@ html {
   font-size: 10px;
 }
 
+* {
+  &:focus-visible {
+    outline: 1px solid var(--brand-primary-light);
+  }
+}
+
 .App {
   min-height: 100vh;
   color: var(--basic-primary);

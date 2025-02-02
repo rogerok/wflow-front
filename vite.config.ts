@@ -52,9 +52,7 @@ export default defineConfig({
     checker({
       typescript: true,
     }),
-    nxViteTsPaths({
-      debug: true,
-    }),
+    nxViteTsPaths(),
     nxCopyAssetsPlugin(['*.md']),
   ],
   // Uncomment this if you are using workers.
@@ -83,6 +81,9 @@ export default defineConfig({
   resolve: {
     alias: {
       src: path.resolve(__dirname, 'src'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@shared': path.resolve(__dirname, 'src/shared'),
+      '@widgets': path.resolve(__dirname, 'src/widgets'),
     },
   },
   // test: {

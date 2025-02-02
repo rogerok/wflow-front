@@ -9,4 +9,5 @@ export { HStack } from './ui/HStack/HStack';
 export { IconComponent } from './ui/IconComponent/IconComponent';
 export { Overlay } from './ui/Overlay/Overlay';
 export { Page } from './ui/Page/Page';
+export { PageTitle } from './ui/PageTitle/PageTitle';
 export { VStack } from './ui/VStack/VStack';
