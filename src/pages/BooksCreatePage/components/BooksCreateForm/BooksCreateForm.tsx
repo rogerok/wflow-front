@@ -19,7 +19,11 @@ export const BooksCreateForm: FC<BooksCreateFormProps> = observer((props) => {
       className={cnBooksCreateForm(undefined, [props.className])}
     >
       <VStack gap={'16'}>
-        <TextInput field={service.form.fields.name} label={'Название книги'} />
+        <TextInput
+          field={service.form.fields.name}
+          label={'Название книги'}
+          fullWidth
+        />
         <TextInput
           label={'Описание книги'}
           field={service.form.fields.description}
