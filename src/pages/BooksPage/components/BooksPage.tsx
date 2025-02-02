@@ -1,6 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { routes } from '@shared/const';
-import { ButtonLink, Page } from '@shared/elements';
+import { ButtonLink, Page, PageTitle, VStack } from '@shared/elements';
 import { BooksService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
@@ -24,12 +24,18 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
 
   return (
     <Page className={cnBooksPage(undefined, [props.className])}>
-      <ButtonLink to={routes.booksCreate()}>
-        Добавить книгу бант линк
-      </ButtonLink>
-      {service.data.map((book) => (
-        <p key={book.id}>{book.name}</p>
-      ))}
+      <PageTitle title={'Мои книги'} />
+      <ButtonLink to={routes.booksCreate()}>Добавить книгу</ButtonLink>
+
+      <VStack as={'ul'} gap={'16'} fullWidth>
+        {service.data.map((book) => (
+          <VStack key={book.id} gap={'8'} as={'li'}>
+            <h3>{book.name}</h3>
+            <p>{book.description}</p>
+            <p>Создано {new Date(book.createdAt).toLocaleDateString()}</p>
+          </VStack>
+        ))}
+      </VStack>
     </Page>
   );
 });

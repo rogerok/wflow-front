@@ -1,4 +1,4 @@
-import { NavbarLinks } from '@shared';
+import { NavbarLinks } from '@shared/const';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { Navbar } from './Navbar';

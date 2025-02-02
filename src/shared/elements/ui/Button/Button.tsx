@@ -10,27 +10,29 @@ type ButtonVariantsType = 'filled' | 'outlined' | 'clear';
 type ButtonSizesType = 'sm' | 'md';
 
 export type ButtonProps<T extends ElementType> = {
-  className?: string;
-  fullWidth?: boolean;
-  size?: ButtonSizesType;
-  variant?: ButtonVariantsType;
-  disabled?: boolean;
   addonLeft?: ReactNode;
   addonRight?: ReactNode;
   as?: T;
+  className?: string;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  size?: ButtonSizesType;
+  variant?: ButtonVariantsType;
 } & ComponentPropsWithoutRef<T>;
 
 export const Button = <T extends ElementType = 'button'>(
   props: ButtonProps<T>,
 ): ReactNode => {
   const {
+    addonLeft,
+    addonRight,
+    as,
     className,
     disabled,
     fullWidth,
     size = 'sm',
+    type = 'button',
     variant = 'filled',
-    addonLeft,
-    addonRight,
     ...otherProps
   } = props;
 
@@ -45,14 +47,14 @@ export const Button = <T extends ElementType = 'button'>(
 
   return (
     <Component
-      type={'button'}
+      {...(as === 'button' ? { type: type } : {})}
       {...otherProps}
       disabled={disabled}
       className={cnButton(mods, [className])}
     >
-      <div className={cnButton('AddonLeft')}>{addonLeft}</div>
-      {props.children}
-      <div className={cnButton('AddonRight')}>{addonRight}</div>
+      {addonLeft && <div className={cnButton('AddonLeft')}>{addonLeft}</div>}
+      <span className={cnButton('Content')}>{props.children}</span>
+      {addonRight && <div className={cnButton('AddonRight')}>{addonRight}</div>}
     </Component>
   );
 };

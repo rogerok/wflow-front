@@ -1,1 +1,5 @@
-export { SbDecorator, withSbTanstackRouter } from './storybook/RouterDecorator';
+export {
+  SbDecorator,
+  storybookRouter,
+  withSbTanstackRouter,
+} from './storybook/RouterDecorator';
