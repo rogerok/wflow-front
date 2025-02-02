@@ -4,7 +4,8 @@ import { withThemeByClassName } from '@storybook/addon-themes';
 import { Preview, StoryContext, StoryFn } from '@storybook/react';
 import { JSX } from 'react';
 
-import { GlobalStoreContextProvider, SbDecorator } from '../src/shared';
+import { SbDecorator, storybookRouter } from '../src/shared/config';
+import { GlobalStoreContextProvider } from '../src/shared/stores';
 
 const preview: Preview = {
   tags: ['autodocs', 'autodocs'],
@@ -19,7 +20,7 @@ const preview: Preview = {
     SbDecorator,
     (Story: StoryFn, args: StoryContext<{ [x: string]: any }>): JSX.Element => {
       return (
-        <GlobalStoreContextProvider>
+        <GlobalStoreContextProvider router={storybookRouter}>
           <>{Story(args, args.context)}</>
         </GlobalStoreContextProvider>
       );

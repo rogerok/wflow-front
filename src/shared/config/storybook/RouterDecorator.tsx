@@ -20,16 +20,19 @@ const rootRoute = new RootRoute();
 const indexRoute = new Route({ getParentRoute: () => rootRoute, path: '/' });
 const memoryHistory = createMemoryHistory({ initialEntries: ['/'] });
 const routeTree = rootRoute.addChildren([indexRoute]);
-const router = new Router({ routeTree, history: memoryHistory });
+export const storybookRouter = new Router({
+  routeTree,
+  history: memoryHistory,
+});
 
 // @ts-expect-error todo maybe soon a better solution for this?
 export const withSbTanstackRouter: Preview['decorators'][0] = (
   Story: StoryFn,
-  context: StoryContext<ReactRenderer>
+  context: StoryContext<ReactRenderer>,
 ) => {
   return (
     <RouterProvider
-      router={router}
+      router={storybookRouter}
       defaultComponent={() => <Story {...context} />}
     />
   );

@@ -24,8 +24,8 @@
       "@shared/*": [
         "./src/shared/*"
       ],
-      "@widgets": [
-        "./src/widgets/index.ts"
+      "@widgets/*": [
+        "./src/widgets/*"
       ]
     }
   },

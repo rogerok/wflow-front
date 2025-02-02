@@ -1,9 +1,10 @@
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 import React from 'react';
-import { Header, Navbar } from '@widgets';
 import { MainLayout } from '@shared/elements';
 import { AuthController } from '@shared/services';
 import { NavbarLinks } from '@shared/const';
+import { Header } from '@widgets/Header';
+import { Navbar } from '@widgets/Navbar';
 
 interface RouterContext {
   isAuth: boolean;

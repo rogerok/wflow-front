@@ -52,7 +52,9 @@ export default defineConfig({
     checker({
       typescript: true,
     }),
-    nxViteTsPaths(),
+    nxViteTsPaths({
+      debug: true,
+    }),
     nxCopyAssetsPlugin(['*.md']),
   ],
   // Uncomment this if you are using workers.
