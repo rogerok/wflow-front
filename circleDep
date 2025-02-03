@@ -6,6 +6,20 @@
 			"src/shared/elements/ui/Input/Input.tsx"
 		]
 	],
+	"src/shared/elements/index.ts": [
+		[
+			"src/shared/elements/index.ts",
+			"src/shared/elements/layouts/MainLayout/MainLayout.tsx",
+			"src/widgets/Header/components/Header/Header.tsx",
+			"src/widgets/Header/index.ts"
+		],
+		[
+			"src/shared/elements/index.ts",
+			"src/shared/elements/layouts/MainLayout/MainLayout.tsx",
+			"src/widgets/Navbar/components/Navbar.tsx",
+			"src/widgets/Navbar/index.ts"
+		]
+	],
 	"src/shared/lib/form/factory/FieldFactory.ts": [
 		[
 			"src/shared/lib/form/factory/FieldFactory.ts",

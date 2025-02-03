@@ -4,9 +4,8 @@ import { cn } from '@bem-react/classname';
 import { NavbarLinksType } from '@shared/const';
 import { Overlay } from '@shared/elements';
 import { useGlobalStore } from '@shared/stores';
-import { useLocation } from '@tanstack/react-router';
 import { observer } from 'mobx-react-lite';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 import { NavbarLink } from './NavbarLink/NavbarLink';
 import { NavbarLogoutButton } from './NavbarLogoutButton/NavbarLogoutButton';
@@ -16,29 +15,24 @@ const cnNavbar = cn('Navbar');
 
 interface NavbarProps {
   links: NavbarLinksType[];
+  className?: string;
 }
 
 export const Navbar: FC<NavbarProps> = observer((props) => {
   const { navbar, screen, userService } = useGlobalStore();
 
   const close = navbar.close;
-  const location = useLocation();
-
-  useEffect(() => {
-    if (screen.downMd) {
-      close();
-    }
-  }, [close, location.pathname, screen.downMd]);
 
   return (
-    <>
+    <div className={cnNavbar(undefined, [props.className])}>
       {!navbar.isCollapsed && screen.downMd && (
         <Overlay className={cnNavbar('Overlay')} onClick={close} />
       )}
       <nav
         className={cnNavbar(
+          'Inner',
           { collapsed: navbar.isCollapsed, expanded: !navbar.isCollapsed },
-          [],
+          [props.className],
         )}
       >
         <NavbarToggleButton className={cnNavbar('ToggleButton')} />
@@ -57,6 +51,6 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
           <NavbarLogoutButton className={cnNavbar('LogoutButton')} />
         )}
       </nav>
-    </>
+    </div>
   );
 });

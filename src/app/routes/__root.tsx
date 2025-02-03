@@ -1,10 +1,8 @@
-import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
+import { createRootRouteWithContext } from '@tanstack/react-router';
 import React from 'react';
 import { MainLayout } from '@shared/elements';
 import { AuthController } from '@shared/services';
 import { NavbarLinks } from '@shared/const';
-import { Header } from '@widgets/Header';
-import { Navbar } from '@widgets/Navbar';
 
 interface RouterContext {
   isAuth: boolean;
@@ -12,15 +10,7 @@ interface RouterContext {
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({
-  component: () => (
-    <>
-      <MainLayout
-        header={<Header />}
-        content={<Outlet />}
-        navbar={<Navbar links={NavbarLinks} />}
-      />
-    </>
-  ),
+  component: () => <MainLayout navbarLinks={NavbarLinks} />,
   beforeLoad: async ({ context }) => {
     if (!context.isAuth) {
       await context.authController?.restoreSession();
