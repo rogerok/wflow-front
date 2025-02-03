@@ -27,7 +27,6 @@ export const BooksCreateForm: FC<BooksCreateFormProps> = observer((props) => {
         <TextInput
           label={'Описание книги'}
           field={service.form.fields.description}
-          disabled
           fullWidth
         />
         <Button type={'submit'} disabled={service.form.isSubmitting}>
