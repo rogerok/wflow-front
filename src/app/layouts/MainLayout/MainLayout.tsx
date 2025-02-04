@@ -13,18 +13,14 @@ interface MainLayoutProps {
   navbarLinks: NavbarLinksType[];
 }
 
-const OutletComponent: FC = () => (
-  <div className={cnMainLayout('Content')}>
-    <Outlet />
-  </div>
-);
-
 export const MainLayout: FC<MainLayoutProps> = (props) => {
   return (
     <div className={cnMainLayout()}>
       <Header className={cnMainLayout('Header')} />
       <Navbar className={cnMainLayout('Navbar')} links={props.navbarLinks} />
-      <OutletComponent />
+      <div className={cnMainLayout('Content')}>
+        <Outlet />
+      </div>
     </div>
   );
 };

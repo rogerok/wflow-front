@@ -1,9 +1,10 @@
 import './Input.scss';
 
 import { cn } from '@bem-react/classname';
-import { VStack } from '@shared/elements';
 import { observer } from 'mobx-react-lite';
 import { ChangeEvent, FC, InputHTMLAttributes } from 'react';
+
+import { VStack } from '../VStack/VStack';
 
 const cnInput = cn('Input');
 

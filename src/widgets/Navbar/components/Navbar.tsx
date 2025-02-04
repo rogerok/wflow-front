@@ -2,7 +2,7 @@ import './Navbar.scss';
 
 import { cn } from '@bem-react/classname';
 import { NavbarLinksType } from '@shared/const';
-import { Overlay } from '@shared/elements';
+import { Overlay } from '@shared/elements/ui';
 import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';

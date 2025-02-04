@@ -1,6 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { routes } from '@shared/const';
-import { ButtonLink, Page, PageTitle, VStack } from '@shared/elements';
+import { ButtonLink, Page, PageTitle, VStack } from '@shared/elements/ui';
 import { BooksService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
