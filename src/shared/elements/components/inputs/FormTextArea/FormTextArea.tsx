@@ -1,4 +1,5 @@
 import { cn } from '@bem-react/classname';
+import { observer } from 'mobx-react-lite';
 import { ComponentProps, FC } from 'react';
 
 import { TextField } from '../../../../lib/form';
@@ -16,10 +17,18 @@ interface FormTextAreaProps extends HTMLTextAreaProps {
   field: TextField<string>;
 }
 
-export const FormTextArea: FC<FormTextAreaProps> = (props) => {
+export const FormTextArea: FC<FormTextAreaProps> = observer((props) => {
+  const { className, field, ...restProps } = props;
+  const { value, setValue, error, name } = field;
+
   return (
-    <div className={cnFormTextArea(undefined, [props.className])}>
-      FormTextArea
-    </div>
+    <TextArea
+      className={cnFormTextArea(undefined, [props.className])}
+      value={value}
+      onChange={setValue}
+      error={error}
+      name={name}
+      {...restProps}
+    />
   );
-};
+});
