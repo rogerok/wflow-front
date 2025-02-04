@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { EmailSchema, PasswordSchema } from '../const/validationSchemas';
+import { EmailSchema, PasswordSchema } from '../const';
 
 export const AuthRequestSchema = z.object({
   email: EmailSchema,
@@ -9,18 +9,22 @@ export const AuthRequestSchema = z.object({
 
 export type AuthRequestType = z.infer<typeof AuthRequestSchema>;
 
-export const AuthResponseSchema = z.object({
-  token: z.string(),
-});
+export const AuthResponseSchema = z
+  .object({
+    token: z.string(),
+  })
+  .strict();
 
 export type AuthResponseType = z.infer<typeof AuthResponseSchema>;
 
-export const TokenSchema = z.object({
-  exp: z.number(),
-  iat: z.number(),
-  iss: z.string(),
-  sub: z.string(),
-});
+export const TokenSchema = z
+  .object({
+    exp: z.number(),
+    iat: z.number(),
+    iss: z.string(),
+    sub: z.string(),
+  })
+  .strict();
 
 export type TokenType = z.infer<typeof TokenSchema>;
 

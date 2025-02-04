@@ -2,7 +2,7 @@ import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
 import { ComponentProps, FC } from 'react';
 
-import { TextField } from '../../../../lib/form';
+import { TextField } from '../../../../lib';
 import { TextArea } from '../../../ui/TextArea/TextArea';
 
 const cnFormTextArea = cn('FormTextArea');

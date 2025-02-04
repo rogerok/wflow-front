@@ -1,11 +1,11 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { getBooks } from '../../api/books/booksApi';
+import { getBooksList } from '../../api/books/booksApi';
 import { RequestStore } from '../../stores/request/RequestStore';
 import { BooksListResponseType } from '../../types/book';
 
 export class BooksService {
-  requestStore = new RequestStore(getBooks);
+  requestStore = new RequestStore(getBooksList);
   data: BooksListResponseType = [];
   private abortController: AbortController | null = null;
 
