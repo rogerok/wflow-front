@@ -1,6 +1,7 @@
 import { cn } from '@bem-react/classname';
 import { BookCreateService } from '@pages/BooksCreatePage/model/services/BookCreateService';
-import { Button, FormComponent, TextInput, VStack } from '@shared/elements';
+import { FormComponent, TextInput } from '@shared/elements/components';
+import { Button, VStack } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 

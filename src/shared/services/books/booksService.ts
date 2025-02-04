@@ -1,7 +1,8 @@
-import { getBooks } from '@shared/api';
-import { RequestStore } from '@shared/stores';
-import { BooksListResponseType } from '@shared/types';
 import { makeAutoObservable, runInAction } from 'mobx';
+
+import { getBooks } from '../../api/books/booksApi';
+import { RequestStore } from '../../stores/request/RequestStore';
+import { BooksListResponseType } from '../../types/book';
 
 export class BooksService {
   requestStore = new RequestStore(getBooks);

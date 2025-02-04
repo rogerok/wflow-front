@@ -1,11 +1,4 @@
 {
-	"src/shared/elements/components/inputs/TextInput/TextInput.tsx": [
-		[
-			"src/shared/elements/components/inputs/TextInput/TextInput.tsx",
-			"src/shared/elements/index.ts",
-			"src/shared/elements/ui/Input/Input.tsx"
-		]
-	],
 	"src/shared/lib/form/factory/FieldFactory.ts": [
 		[
 			"src/shared/lib/form/factory/FieldFactory.ts",

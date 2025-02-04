@@ -1,7 +1,7 @@
 import './Header.scss';
 
 import { cn } from '@bem-react/classname';
-import { Flex, IconComponent } from '@shared/elements';
+import { Flex, IconComponent } from '@shared/elements/ui';
 import { FC } from 'react';
 
 import { ThemeSwitcher } from '../ThemeSwitcher/components/ThemeSwitcher';

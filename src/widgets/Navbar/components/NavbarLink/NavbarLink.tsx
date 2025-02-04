@@ -2,7 +2,7 @@ import './NavbarLink.scss';
 
 import { cn } from '@bem-react/classname';
 import { NavbarLinksType } from '@shared/const';
-import { AppLink } from '@shared/elements';
+import { AppLink } from '@shared/elements/ui';
 import { FC, memo } from 'react';
 
 import { NavbarLabel } from '../NavbarLabel/NavbarLabel';

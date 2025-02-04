@@ -42,3 +42,5 @@ storybook-static
 
 .env
 vitest.config.*.timestamp*
+
+circleDep
