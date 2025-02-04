@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse, CanceledError } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 const RequestStatusesConstant = {
@@ -50,7 +50,7 @@ export class RequestStore<T, Args extends any[] = []> {
     makeAutoObservable(
       this,
       { requestFn: false, messages: false },
-      { autoBind: true }
+      { autoBind: true },
     );
   }
 
@@ -70,11 +70,18 @@ export class RequestStore<T, Args extends any[] = []> {
       });
     } catch (err: unknown) {
       runInAction(() => {
-        this.result = {
-          data: null,
-          error: err,
-          status: 'error',
-        };
+        if (
+          (err instanceof AxiosError && err.code === 'ECONNABORTED') ||
+          err instanceof CanceledError
+        ) {
+          return;
+        } else {
+          this.result = {
+            data: null,
+            error: err,
+            status: 'error',
+          };
+        }
       });
     }
 
