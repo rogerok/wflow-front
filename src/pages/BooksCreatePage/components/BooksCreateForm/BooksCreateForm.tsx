@@ -2,6 +2,7 @@ import { cn } from '@bem-react/classname';
 import { BookCreateService } from '@pages/BooksCreatePage/model/services/BookCreateService';
 import { FormComponent, TextInput } from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
+import { TextArea } from '@shared/elements/ui/TextArea/TextArea';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
@@ -28,8 +29,12 @@ export const BooksCreateForm: FC<BooksCreateFormProps> = observer((props) => {
         <TextInput
           label={'Описание книги'}
           field={service.form.fields.description}
-          disabled
           fullWidth
+        />
+        <TextArea
+          fullWidth
+          value={'asd'}
+          onChange={() => console.log('onChange')}
         />
         <Button type={'submit'} disabled={service.form.isSubmitting}>
           Отправить

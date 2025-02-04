@@ -1,6 +1,7 @@
-.Input {
+.TextArea {
   font: var(--font-s);
   color: var(--basic-primary);
+
 
   &_fullWidth {
     width: 100%;
@@ -15,6 +16,8 @@
   }
 
   &-Input {
+    resize: none;
+
     padding: 1.6rem;
     border: 0.1rem solid var(--bg-secondary);
     border-radius: 1.4rem;
@@ -24,6 +27,11 @@
     background: #bcbfd82b;
     outline: transparent;
     box-shadow: var(--shadow-clear);
+
+    &_resizable {
+      resize: both;
+    }
+
 
     &_error {
       border-color: var(--alert);
@@ -51,9 +59,12 @@
       }
 
     }
+
   }
 
   &-ErrorText {
     color: var(--alert);
   }
+
+
 }
