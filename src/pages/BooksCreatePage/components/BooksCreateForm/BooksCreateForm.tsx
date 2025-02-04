@@ -1,10 +1,11 @@
 import { cn } from '@bem-react/classname';
-import { BookCreateService } from '@pages/BooksCreatePage/model/services/BookCreateService';
 import { FormComponent, TextInput } from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
 import { TextArea } from '@shared/elements/ui/TextArea/TextArea';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
+
+import { BookCreateService } from '../../model/services/BookCreateService';
 
 const cnBooksCreateForm = cn('BooksCreateForm');
 

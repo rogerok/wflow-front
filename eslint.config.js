@@ -3,6 +3,8 @@ const nx = require('@nx/eslint-plugin');
 const simpleImportSort = require('eslint-plugin-simple-import-sort');
 const tsParser = require('@typescript-eslint/parser');
 
+const importPlugin = require('eslint-plugin-import');
+
 module.exports = [
   ...baseConfig,
   {
@@ -32,8 +34,15 @@ module.exports = [
     languageOptions: {
       parser: tsParser,
     },
-    rules: {
-      '@typescript-eslint/explicit-module-boundary-types': ['error'],
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json',
+        },
+      },
+    },
+    plugins: {
+      import: importPlugin,
     },
   },
   {
@@ -45,6 +54,96 @@ module.exports = [
         'error',
         {
           allowExpressions: true,
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/widgets/**/*.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      parser: tsParser,
+    },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json',
+        },
+      },
+    },
+    plugins: {
+      import: importPlugin,
+    },
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@widgets/*'],
+              message:
+                'Do not use absolute imports from @widgets inside widgets. Use relative paths.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/pages/**/*.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      parser: tsParser,
+    },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json',
+        },
+      },
+    },
+    plugins: {
+      import: importPlugin,
+    },
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@pages/*'],
+              message:
+                'Do not use absolute imports from @pages inside pages. Use relative paths.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/shared/**/*.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      parser: tsParser,
+    },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json',
+        },
+      },
+    },
+    plugins: {
+      import: importPlugin,
+    },
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@shared/*'],
+              message:
+                'Do not use absolute imports from @shared inside pages. Use relative paths.',
+            },
+          ],
         },
       ],
     },

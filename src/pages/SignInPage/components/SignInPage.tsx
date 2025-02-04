@@ -1,8 +1,9 @@
 import { cn } from '@bem-react/classname';
-import { SignInForm } from '@pages/SignInPage/components/SignInForm/SignInForm';
 import { Page } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
+
+import { SignInForm } from '../components/SignInForm/SignInForm';
 
 const cnSignInPage = cn('SignInPage');
 
