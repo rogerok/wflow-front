@@ -1,98 +1,101 @@
 .Navbar {
-  display: flex;
-  flex-direction: row;
-  gap: 1.6rem;
-  align-items: center;
-  justify-content: space-between;
+  &-Inner {
+    display: flex;
+    flex-direction: row;
+    gap: 1.6rem;
+    align-items: center;
+    justify-content: space-between;
 
+    height: 60vh;
+    padding: 1.6rem 1.6rem 4.8rem;
+    border-top-left-radius: 3.2rem;
+    border-top-right-radius: 3.2rem;
 
-  height: 60vh;
-  padding: 1.6rem 1.6rem 4.8rem;
-  border-top-left-radius: 3.2rem;
-  border-top-right-radius: 3.2rem;
+    color: var(--basic-primary);
+    text-align: center;
 
-  color: var(--basic-primary);
-  text-align: center;
+    background: var(--navbar-bg);
+    box-shadow:
+      0 -5px 10px rgb(0 0 0 / 30%),
+      0 -8px 20px rgb(56 58 139 / 30%) 0 -6px 20px rgb(255 200 150 / 10%);
 
-  background: var(--navbar-bg);
-  box-shadow: 0 -5px 10px rgb(0 0 0 / 30%),
-  0 -8px 20px rgb(56 58 139 / 30%) 0 -6px 20px rgb(255 200 150 / 10%);
-
-  transition: var(--default-transition);
-
-  &_collapsed {
-    align-items: flex-start;
-    width: 100%;
-    height: var(--navbar-collapsed-height);
-
-    .Navbar-Link:nth-child(n + 5) {
-      display: none;
-    }
-
-    .Navbar-LogoutButton {
-      display: none;
-    }
-
-    @media (min-width: $md-breakpoint) {
-      width: 8rem;
-      height: auto;
-      animation: navbar-collapse 0.3s ease-in-out;
-
-      .Navbar-Link:nth-child(n + 5),
-      .Navbar-LogoutButton {
-        display: block; /* Show hidden items on desktop */
-      }
-    }
-  }
-
-  &_expanded {
-    position: relative;
-    z-index: var(--navbar-z-index);
-
-    overflow-y: scroll;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    @media (min-width: $md-breakpoint) {
-      overflow-y: unset;
-      display: flex;
-      width: 100%;
-      transition: var(--default-transition);
-
-
-      .Navbar-Link {
-        visibility: visible;
-        opacity: 1;
-        transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
-      }
-    }
-  }
-
-  &-ToggleButton {
-    justify-self: center;
-  }
-
-
-  /* Desktop Styles */
-  @media (min-width: $md-breakpoint) {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-
-    height: fit-content;
-    min-height: calc(100% - var(--header-height));
-    padding: 2.4rem;
-    border-radius: 3.2rem;
-
-    box-shadow: 5px 0 10px rgb(0 0 0 / 30%), 8px 0 20px rgb(56 58 139 / 30%),
-    0 6px 20px rgb(255 200 150 / 10%), 0 -6px 10px rgb(255 200 150 / 10%);
+    transition: var(--default-transition);
 
     &_collapsed {
-      align-items: center;
+      align-items: flex-start;
+      width: 100%;
+      height: var(--navbar-collapsed-height);
+
+      .Navbar-Link:nth-child(n + 5) {
+        display: none;
+      }
+
+      .Navbar-LogoutButton {
+        display: none;
+      }
+
+      @media (min-width: $md-breakpoint) {
+        width: 8rem;
+        height: auto;
+        animation: navbar-collapse 0.3s ease-in-out;
+
+        .Navbar-Link:nth-child(n + 5),
+        .Navbar-LogoutButton {
+          display: block; /* Show hidden items on desktop */
+        }
+      }
+    }
+
+    &_expanded {
+      position: relative;
+      z-index: var(--navbar-z-index);
+
+      overflow-y: scroll;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      @media (min-width: $md-breakpoint) {
+        overflow-y: unset;
+        display: flex;
+        width: 100%;
+        transition: var(--default-transition);
+
+        .Navbar-Link {
+          visibility: visible;
+          opacity: 1;
+          transition:
+            opacity 0.3s ease-in-out,
+            visibility 0s linear 0s;
+        }
+      }
+    }
+
+    &-ToggleButton {
+      justify-self: center;
+    }
+
+    /* Desktop Styles */
+    @media (min-width: $md-breakpoint) {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      height: fit-content;
+      min-height: calc(100% - var(--header-height));
+      padding: 2.4rem;
+      border-radius: 3.2rem;
+
+      box-shadow:
+        5px 0 10px rgb(0 0 0 / 30%),
+        8px 0 20px rgb(56 58 139 / 30%),
+        0 6px 20px rgb(255 200 150 / 10%),
+        0 -6px 10px rgb(255 200 150 / 10%);
+
+      &_collapsed {
+        align-items: center;
+      }
     }
   }
-
-
 }
 
 @keyframes navbar-collapse {

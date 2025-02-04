@@ -1,8 +1,10 @@
 import './Input.scss';
 
 import { cn } from '@bem-react/classname';
-import { VStack } from '@shared/elements';
-import { ChangeEvent, FC, InputHTMLAttributes, memo } from 'react';
+import { observer } from 'mobx-react-lite';
+import { ChangeEvent, FC, InputHTMLAttributes } from 'react';
+
+import { VStack } from '../VStack/VStack';
 
 const cnInput = cn('Input');
 
@@ -17,11 +19,12 @@ interface InputProps extends HTMLInputProps {
   className?: string;
   readOnly?: boolean;
   error?: string;
+  tag?: 'input' | 'textarea';
   label?: string;
   fullWidth?: boolean;
 }
 
-export const Input: FC<InputProps> = memo((props) => {
+export const Input: FC<InputProps> = observer((props) => {
   const {
     className,
     type = 'text',
@@ -30,6 +33,7 @@ export const Input: FC<InputProps> = memo((props) => {
     onChange,
     label,
     fullWidth,
+    tag = 'input',
     disabled,
     error,
     ...restProps

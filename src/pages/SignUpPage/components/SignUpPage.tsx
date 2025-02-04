@@ -1,11 +1,6 @@
 import { cn } from '@bem-react/classname';
-import {
-  Button,
-  FormComponent,
-  Page,
-  TextInput,
-  VStack,
-} from '@shared/elements';
+import { FormComponent, TextInput } from '@shared/elements/components';
+import { Button, Page, VStack } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
