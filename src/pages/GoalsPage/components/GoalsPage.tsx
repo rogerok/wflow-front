@@ -1,5 +1,5 @@
 import { cn } from '@bem-react/classname';
-import { Page } from '@shared/elements/ui';
+import { Page, Typography, VStack } from '@shared/elements/ui';
 import { GoalsService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
@@ -22,22 +22,16 @@ export const GoalsPage: FC<GoalsPageProps> = observer((props) => {
   }, [service]);
 
   return (
-    // <Page className={cnGoalsPage(undefined, [props.className])}>
-    //   {service.goalsListRequest.isLoading ? (
-    //     <div style={{ width: '300px', background: 'red' }}>loading...</div>
-    //   ) : (
-    //     service.data.map((goal) => (
-    //       <VStack key={goal.id}>
-    //         <p>{goal.createdAt}</p>
-    //         <p>{goal.description}</p>
-    //       </VStack>
-    //     ))
-    //   )}
-    // </Page>
-
     <Page className={cnGoalsPage(undefined, [props.className])}>
-      {service.goalsListRequest.isLoading && (
+      {service.goalsListRequest.isLoading ? (
         <div style={{ width: '300px', background: 'red' }}>loading...</div>
+      ) : (
+        service.data.map((goal) => (
+          <VStack key={goal.id}>
+            <Typography>{goal.createdAt}</Typography>
+            <Typography variant={'warn'}>{goal.description}</Typography>
+          </VStack>
+        ))
       )}
     </Page>
   );

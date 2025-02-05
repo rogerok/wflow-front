@@ -7,4 +7,5 @@ export { IconComponent } from './IconComponent/IconComponent';
 export { Overlay } from './Overlay/Overlay';
 export { Page } from './Page/Page';
 export { PageTitle } from './PageTitle/PageTitle';
+export { Typography } from './Text/Typography';
 export { VStack } from './VStack/VStack';

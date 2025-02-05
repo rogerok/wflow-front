@@ -9,6 +9,9 @@ import { GlobalStoreContextProvider } from '../src/shared/stores';
 
 const preview: Preview = {
   tags: ['autodocs', 'autodocs'],
+  parameters: {
+    controls: { expanded: true },
+  },
   decorators: [
     withThemeByClassName({
       themes: {

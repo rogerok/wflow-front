@@ -43,7 +43,7 @@ export const Button = <T extends ElementType = 'button'>(
     disabled: disabled,
   };
 
-  const Component = props.as || 'button';
+  const Component = as || 'button';
 
   return (
     <Component
