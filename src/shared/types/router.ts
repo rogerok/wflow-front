@@ -1,5 +1,3 @@
-import { createRouter, Register } from '@tanstack/react-router';
-
-export type UseRouterType = ReturnType<typeof createRouter>;
+import { Register } from '@tanstack/react-router';
 
 export type RouterType = Register['router'];
