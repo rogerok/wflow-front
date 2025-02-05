@@ -1,0 +1,3 @@
+// class AutocompleteItemModel {
+//   constructor() {}
+// }
