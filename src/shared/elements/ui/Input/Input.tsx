@@ -13,8 +13,8 @@ type HTMLInputProps = Omit<
 >;
 
 interface InputProps extends HTMLInputProps {
-  onChange: (value: string) => void;
-  value: string;
+  onChange: (value: string | number) => void;
+  value: string | number;
   className?: string;
   readOnly?: boolean;
   error?: string;

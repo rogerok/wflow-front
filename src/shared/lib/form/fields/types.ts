@@ -3,15 +3,15 @@ import { ListField } from './ListField';
 import { NestedField } from './NestedField';
 import { TextField } from './TextField';
 
-export type FieldType<T> = T extends string
+export type FieldType<T> = T extends string | number
   ? TextField<T>
   : T extends boolean
-  ? BooleanField
-  : T extends any[]
-  ? ListField<T[number]>
-  : T extends Record<string | number | symbol, unknown>
-  ? NestedField<T>
-  : never;
+    ? BooleanField
+    : T extends any[]
+      ? ListField<T[number]>
+      : T extends Record<string | number | symbol, unknown>
+        ? NestedField<T>
+        : never;
 
 export type BaseFieldType<T> = {
   _defaultValue: T;

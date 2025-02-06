@@ -14,7 +14,7 @@ type HTMLInputProps = Omit<
 
 interface TextInputProps extends HTMLInputProps {
   className?: string;
-  field: TextField<string>;
+  field: TextField<string | number>;
 }
 
 export const TextInput: FC<TextInputProps> = observer((props) => {
