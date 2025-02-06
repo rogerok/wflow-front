@@ -1,0 +1,137 @@
+import { cn } from '@bem-react/classname';
+import { memo, ReactNode, RefObject, useEffect, useMemo, useRef } from 'react';
+
+import { handleClickOutside, usePopup } from '../../../lib';
+import { Portal, PortalProps } from '../Portal/Portal';
+
+const cnPopup = cn('Popup');
+
+type Placement = 'top' | 'bottom' | 'left' | 'right';
+
+interface PopupProps<T extends HTMLElement = HTMLElement> {
+  children: ReactNode;
+  onClose: () => void;
+  className?: string;
+  container?: PortalProps['container'];
+  open?: boolean;
+  zIndex?: number;
+  closeOnEscape?: boolean;
+  placement?: Placement;
+  withPortal?: boolean;
+  scrollDisabled?: boolean;
+  closeOnOutsideClick?: boolean;
+  anchorRef?: RefObject<T | null>;
+}
+
+export const Popup = memo(
+  <T extends HTMLElement = HTMLElement>(props: PopupProps<T>) => {
+    const {
+      children,
+      container,
+      className,
+      open,
+      zIndex,
+      closeOnEscape,
+      placement = 'bottom',
+      closeOnOutsideClick = true,
+      onClose,
+      scrollDisabled,
+      anchorRef,
+    } = props;
+
+    usePopup({
+      scrollDisabled: scrollDisabled,
+      open: open,
+      closeOnEscape: closeOnEscape,
+      onClose: onClose,
+    });
+
+    const popupRef = useRef<HTMLDivElement>(null);
+
+    const mods = {
+      placement: placement,
+    };
+
+    useEffect(() => {
+      if (open && anchorRef?.current && popupRef.current) {
+        const anchorRect = anchorRef.current.getBoundingClientRect();
+        const popupEl = popupRef.current;
+
+        let top = 0;
+        let left = 0;
+
+        switch (placement) {
+          case 'top':
+            top = anchorRect.top - popupEl.offsetHeight - 8;
+            left =
+              anchorRect.left + anchorRect.width / 2 - popupEl.offsetWidth / 2;
+            break;
+          case 'bottom':
+            top = anchorRect.bottom + 8;
+            left =
+              anchorRect.left + anchorRect.width / 2 - popupEl.offsetWidth / 2;
+            break;
+          case 'left':
+            top =
+              anchorRect.top + anchorRect.height / 2 - popupEl.offsetHeight / 2;
+            left = anchorRect.left - popupEl.offsetWidth - 8;
+            break;
+          case 'right':
+            top =
+              anchorRect.top + anchorRect.height / 2 - popupEl.offsetHeight / 2;
+            left = anchorRect.right + 8;
+            break;
+        }
+
+        popupEl.style.top = `${top}px`;
+        popupEl.style.left = `${left}px`;
+      }
+    }, [anchorRef, open, placement]);
+
+    const outsideClickListener = useMemo(() => {
+      return popupRef && anchorRef
+        ? handleClickOutside({
+            callback: onClose,
+            ref: [anchorRef, popupRef],
+          })
+        : undefined;
+    }, [anchorRef, onClose]);
+
+    useEffect(() => {
+      if (open && outsideClickListener && closeOnOutsideClick) {
+        document.addEventListener('mousedown', outsideClickListener);
+        document.addEventListener('touchend', outsideClickListener);
+      }
+
+      return () => {
+        if (outsideClickListener) {
+          document.removeEventListener('mousedown', outsideClickListener);
+          document.addEventListener('touchend', outsideClickListener);
+        }
+      };
+    }, [closeOnOutsideClick, open, outsideClickListener]);
+
+    const content = (
+      <div
+        ref={popupRef}
+        className={cnPopup(undefined, [className])}
+        style={{
+          zIndex: zIndex,
+          position: 'absolute',
+        }}
+      >
+        {children}
+      </div>
+    );
+
+    if (!open) {
+      return null;
+    }
+
+    return props.withPortal ? (
+      <Portal container={container}>{content}</Portal>
+    ) : (
+      content
+    );
+  },
+);

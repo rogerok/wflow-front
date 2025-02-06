@@ -1,9 +1,10 @@
 import { cn } from '@bem-react/classname';
 import { Autocomplete } from '@shared/elements/components';
 import { Page } from '@shared/elements/ui';
+import { Popup } from '@shared/elements/ui/Popup/Popup';
 import { FormStore } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { z } from 'zod';
 
 const cnHomePage = cn('HomePage');
@@ -43,6 +44,10 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
       }),
   );
 
+  const [open, setOpen] = useState(false);
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
       home page
@@ -52,6 +57,17 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
         labelField={'label'}
         uniqueIdentifier={'id'}
       />
+      <button ref={buttonRef} onClick={() => setOpen(!open)}>
+        open
+      </button>
+      <Popup
+        onClose={() => setOpen(false)}
+        open={open}
+        closeOnEscape
+        anchorRef={buttonRef}
+      >
+        <div>Some test</div>
+      </Popup>
     </Page>
   );
 });

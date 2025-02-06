@@ -1,7 +1,7 @@
 import { FC, ReactNode, ReactPortal } from 'react';
 import { createPortal } from 'react-dom';
 
-interface PortalProps {
+export interface PortalProps {
   children: ReactNode;
   container?: Element | DocumentFragment;
   className?: string;
