@@ -31,27 +31,25 @@ export const Autocomplete = observer(
       uniqueIdentifier = 'id',
     } = props;
 
-    const getOptionValue = (
+    const getOptionValue = <T extends BaseAutocompleteOptions>(
       option: T,
       uniqueIdentifier: string,
     ): string | number => {
-      if (uniqueIdentifier in option) {
-        return option[uniqueIdentifier];
-      } else {
-        return option.id;
-      }
+      return option[uniqueIdentifier];
     };
 
     return (
       <div className={cnAutocomplete(undefined, [className])}>
         <TextInput field={field} />
         <ul>
-          {options.map((value) => (
+          {options.map((option) => (
             <li
-              // key={getOptionValue(value, uniqueIdentifier)}
-              onClick={() => field.setValue(value.id)}
+              key={getOptionValue(option, String(uniqueIdentifier))}
+              onClick={() =>
+                field.setValue(getOptionValue(option, String(uniqueIdentifier)))
+              }
             >
-              {String(value[labelField])}
+              {option[labelField]}
             </li>
           ))}
         </ul>
