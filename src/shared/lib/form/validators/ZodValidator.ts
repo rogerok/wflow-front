@@ -4,12 +4,14 @@ import { Path } from '../types/utils';
 import { BaseValidator } from './BaseValidator';
 
 export class ZodValidator<
-  Values extends Record<string | number, unknown>
+  Values extends Record<string | number, unknown>,
 > extends BaseValidator<Values, ZodSchema<Values>> {
   validate(values: Values): void {
     const result = this.schema.safeParse(values);
 
     this.errors.isSuccess = result.success;
+
+    //TODO: rewrite using result.errors.format();
 
     if (!result.success) {
       this.prepareErrorsMap(result.error.errors);
