@@ -1,6 +1,7 @@
 import { cn } from '@bem-react/classname';
 import { Autocomplete } from '@shared/elements/components';
 import { Page } from '@shared/elements/ui';
+import { Dropdown } from '@shared/elements/ui/Dropdown/Dropdown';
 import { Popup } from '@shared/elements/ui/Popup/Popup';
 import { FormStore } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
@@ -68,6 +69,11 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
       >
         <div>Some test</div>
       </Popup>
+      <Dropdown<Options>
+        labelField={'label'}
+        label={'Hello'}
+        options={options}
+      />
     </Page>
   );
 });

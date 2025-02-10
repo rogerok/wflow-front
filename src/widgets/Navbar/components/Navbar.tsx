@@ -1,7 +1,7 @@
 import './Navbar.scss';
 
 import { cn } from '@bem-react/classname';
-import { NavbarLinksType } from '@shared/const';
+import { NavbarLinks } from '@shared/const';
 import { Overlay } from '@shared/elements/ui';
 import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
@@ -14,7 +14,6 @@ import { NavbarToggleButton } from './NavbarToggleButton/NavbarToggleButton';
 const cnNavbar = cn('Navbar');
 
 interface NavbarProps {
-  links: NavbarLinksType[];
   className?: string;
 }
 
@@ -36,7 +35,7 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
         )}
       >
         <NavbarToggleButton className={cnNavbar('ToggleButton')} />
-        {props.links.map(
+        {NavbarLinks.map(
           (link) =>
             link.roles.includes(userService.role) && (
               <NavbarLink
