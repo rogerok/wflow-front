@@ -22,6 +22,12 @@ declare module '@tanstack/react-router' {
   }
 }
 
+declare global {
+  interface WindowEventMap {
+    localStorageChange: CustomEvent;
+  }
+}
+
 const cnApp = cn('App');
 
 const InnerApp: FC = observer(() => {
@@ -31,9 +37,17 @@ const InnerApp: FC = observer(() => {
     const trackLocalStorage = authController.trackLocalStorageToken;
 
     window.addEventListener('storage', trackLocalStorage);
+    window.addEventListener(
+      'localStorageChange',
+      authController.handleTokenRemoval,
+    );
 
     return () => {
       window.removeEventListener('storage', trackLocalStorage);
+      window.removeEventListener(
+        'localStorageChange',
+        authController.handleTokenRemoval,
+      );
     };
   }, []);
 

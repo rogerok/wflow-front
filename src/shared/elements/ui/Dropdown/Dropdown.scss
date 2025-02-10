@@ -1,23 +1,86 @@
 .Dropdown {
+  position: relative;
+
+  &-Content {
+    border: 0.1rem solid var(--brand-primary);
+  }
+
+  &-Button {
+    &#{&} {
+      &:hover {
+        box-shadow: none;
+      }
+    }
+  }
+
   &-ArrowIcon {
     &_open {
       transform: rotate(180deg);
     }
   }
 
+  &-Popup {
+    overflow-y: auto;
+
+    width: 100%;
+    max-height: 19.2rem;
+    border: 0.1rem solid var(--brand-primary);
+    border-radius: 1.4rem;
+
+    &::-webkit-scrollbar {
+      width: 0.4rem;
+      transition: var(--default-transition);
+    }
+  }
+
+  &-Toggle {
+    padding: 0.8rem;
+    border: 0.1rem solid var(--brand-primary);
+    border-radius: 1.4rem;
+  }
+
   &-List {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    background: red;
+    background: var(--bg-primary);
   }
 
   &-ListItem {
+    padding: 1.2rem 1.4rem;
     list-style-type: none;
-  }
+    transition: var(--default-transition);
 
-  &-Popup {
-    width: 100%;
-  }
+    &_selected {
+      background: var(--bg-accent-2);
 
+      &:last-child {
+        border-radius: 0 0 1.4rem 1.4rem;
+      }
+
+      &:first-child {
+        border-radius: 1.4rem 1.4rem 0 0;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      background: var(--bg-accent-1);
+    }
+
+    &:not(:last-child) {
+      border-bottom: 0.1rem solid var(--brand-primary-light);
+    }
+
+    &:last-child {
+      &:hover {
+        border-radius: 0 0 1.4rem 1.4rem;
+      }
+    }
+
+    &:first-child {
+      &:hover {
+        border-radius: 1.4rem 1.4rem 0 0;
+      }
+    }
+  }
 }

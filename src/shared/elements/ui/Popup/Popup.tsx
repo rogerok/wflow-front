@@ -1,3 +1,5 @@
+import './Popup.scss';
+
 import { cn } from '@bem-react/classname';
 import { memo, ReactNode, RefObject, useEffect, useRef } from 'react';
 
@@ -10,7 +12,7 @@ import { Portal, PortalProps } from '../Portal/Portal';
 
 const cnPopup = cn('Popup');
 
-type Placement = 'top' | 'bottom' | 'left' | 'right';
+type Placement = 'top-left' | 'bottom-right' | 'bottom-left' | 'top-right';
 
 interface PopupProps<T extends HTMLElement = HTMLElement> {
   children: ReactNode;
@@ -36,7 +38,7 @@ export const Popup = memo(
       open,
       zIndex = 10,
       closeOnEscape,
-      placement = 'bottom',
+      placement = 'bottom-left',
       closeOnOutsideClick = true,
       onClose,
       scrollDisabled,
@@ -50,56 +52,24 @@ export const Popup = memo(
       onClose: onClose,
     });
 
+    const mods = {
+      position: placement,
+    };
+
     const popupRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      if (open && anchorRef?.current && popupRef.current) {
-        const anchorRect = anchorRef.current.getBoundingClientRect();
-        const popupEl = popupRef.current;
+      const outsideClickListener = ():
+        | HandleClickOutsideReturnType
+        | undefined => {
+        return popupRef && anchorRef
+          ? handleClickOutside({
+              callback: onClose,
+              ref: [anchorRef, popupRef],
+            })
+          : undefined;
+      };
 
-        let top = 0;
-        let left = 0;
-
-        switch (placement) {
-          case 'top':
-            top = anchorRect.top - popupEl.offsetHeight - 8;
-            left =
-              anchorRect.left + anchorRect.width / 2 - popupEl.offsetWidth / 2;
-            break;
-          case 'bottom':
-            top = anchorRect.bottom + 8;
-            left =
-              anchorRect.left + anchorRect.width / 2 - popupEl.offsetWidth / 2;
-            break;
-          case 'left':
-            top =
-              anchorRect.top + anchorRect.height / 2 - popupEl.offsetHeight / 2;
-            left = anchorRect.left - popupEl.offsetWidth - 8;
-            break;
-          case 'right':
-            top =
-              anchorRect.top + anchorRect.height / 2 - popupEl.offsetHeight / 2;
-            left = anchorRect.right + 8;
-            break;
-        }
-
-        popupEl.style.top = `${top}px`;
-        popupEl.style.left = `${left}px`;
-      }
-    }, [anchorRef, open, placement]);
-
-    const outsideClickListener = ():
-      | HandleClickOutsideReturnType
-      | undefined => {
-      return popupRef && anchorRef
-        ? handleClickOutside({
-            callback: onClose,
-            ref: [anchorRef, popupRef],
-          })
-        : undefined;
-    };
-
-    useEffect(() => {
       const clickListener = outsideClickListener();
       if (open && clickListener && closeOnOutsideClick) {
         document.addEventListener('mousedown', clickListener);
@@ -112,15 +82,14 @@ export const Popup = memo(
           document.addEventListener('touchend', clickListener);
         }
       };
-    }, [closeOnOutsideClick, open, outsideClickListener]);
+    }, [closeOnOutsideClick, open]);
 
     const content = (
       <div
         ref={popupRef}
-        className={cnPopup(undefined, [className])}
+        className={cnPopup(mods, [className])}
         style={{
           zIndex: zIndex,
-          // position: 'absolute',
         }}
       >
         {children}

@@ -1,11 +1,13 @@
-const baseConfig = require('./eslint.base.config.js');
-const nx = require('@nx/eslint-plugin');
-const simpleImportSort = require('eslint-plugin-simple-import-sort');
-const tsParser = require('@typescript-eslint/parser');
+import nx from '@nx/eslint-plugin';
+import pluginRouter from '@tanstack/eslint-plugin-router';
+import tsParser from '@typescript-eslint/parser';
+import importPlugin from 'eslint-plugin-import';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
-const importPlugin = require('eslint-plugin-import');
+import baseConfig from './eslint.base.config.js';
 
-module.exports = [
+export default [
+  ...pluginRouter.configs['flat/recommended'],
   ...baseConfig,
   {
     ignores: ['**/dist'],

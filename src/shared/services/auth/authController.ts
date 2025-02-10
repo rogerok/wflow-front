@@ -28,7 +28,6 @@ export class AuthController {
     this.router = router;
 
     makeAutoObservable(this, {}, { autoBind: true });
-    this.token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
   }
 
   private isTokenValid(data: unknown): data is TokenType {
@@ -97,10 +96,27 @@ export class AuthController {
     }
   };
 
-  trackLocalStorageToken = (e: StorageEvent): void => {
+  trackLocalStorageToken = async (e: StorageEvent): Promise<void> => {
     if (e.key === LOCAL_STORAGE_TOKEN_KEY && !e.newValue) {
       this.userService.clearUserData();
-      this.router.invalidate();
+      this.router.navigate({
+        to: '/',
+        replace: true,
+      });
+
+      await this.router.invalidate();
+    }
+  };
+
+  handleTokenRemoval = async (): Promise<void> => {
+    if (!getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY)) {
+      this.userService.clearUserData();
+      this.router.navigate({
+        to: '/',
+        replace: true,
+      });
+
+      await this.router.invalidate();
     }
   };
 }
