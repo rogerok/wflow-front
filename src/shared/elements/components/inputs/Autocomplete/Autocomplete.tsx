@@ -1,6 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
-import { ReactNode } from 'react';
+import { ReactNode, Ref } from 'react';
 
 import { TextField } from '../../../../lib';
 import { TextInput } from '../TextInput/TextInput';
@@ -17,6 +17,7 @@ interface AutocompleteProps<T extends BaseAutocompleteOptions> {
   options: T[];
   labelField: keyof T;
   uniqueIdentifier?: 'id' | keyof T;
+  ref?: Ref<HTMLDivElement>;
 }
 
 export const Autocomplete = observer(
@@ -29,6 +30,7 @@ export const Autocomplete = observer(
       options,
       labelField,
       uniqueIdentifier = 'id',
+      ref,
     } = props;
 
     const getOptionValue = <T extends BaseAutocompleteOptions>(
@@ -39,7 +41,7 @@ export const Autocomplete = observer(
     };
 
     return (
-      <div className={cnAutocomplete(undefined, [className])}>
+      <div ref={ref} className={cnAutocomplete(undefined, [className])}>
         <TextInput field={field} />
         <ul>
           {options.map((option) => (
