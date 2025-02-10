@@ -30,7 +30,7 @@ export const Popup = memo(
       container,
       className,
       open,
-      zIndex,
+      zIndex = 10,
       closeOnEscape,
       placement = 'bottom',
       closeOnOutsideClick = true,
@@ -47,10 +47,6 @@ export const Popup = memo(
     });
 
     const popupRef = useRef<HTMLDivElement>(null);
-
-    const mods = {
-      placement: placement,
-    };
 
     useEffect(() => {
       if (open && anchorRef?.current && popupRef.current) {
