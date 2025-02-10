@@ -1,7 +1,11 @@
 import { cn } from '@bem-react/classname';
-import { memo, ReactNode, RefObject, useEffect, useMemo, useRef } from 'react';
+import { memo, ReactNode, RefObject, useEffect, useRef } from 'react';
 
-import { handleClickOutside, usePopup } from '../../../lib';
+import {
+  handleClickOutside,
+  HandleClickOutsideReturnType,
+  usePopup,
+} from '../../../lib';
 import { Portal, PortalProps } from '../Portal/Portal';
 
 const cnPopup = cn('Popup');
@@ -84,25 +88,28 @@ export const Popup = memo(
       }
     }, [anchorRef, open, placement]);
 
-    const outsideClickListener = useMemo(() => {
+    const outsideClickListener = ():
+      | HandleClickOutsideReturnType
+      | undefined => {
       return popupRef && anchorRef
         ? handleClickOutside({
             callback: onClose,
             ref: [anchorRef, popupRef],
           })
         : undefined;
-    }, [anchorRef, onClose]);
+    };
 
     useEffect(() => {
-      if (open && outsideClickListener && closeOnOutsideClick) {
-        document.addEventListener('mousedown', outsideClickListener);
-        document.addEventListener('touchend', outsideClickListener);
+      const clickListener = outsideClickListener();
+      if (open && clickListener && closeOnOutsideClick) {
+        document.addEventListener('mousedown', clickListener);
+        document.addEventListener('touchend', clickListener);
       }
 
       return () => {
-        if (outsideClickListener) {
-          document.removeEventListener('mousedown', outsideClickListener);
-          document.addEventListener('touchend', outsideClickListener);
+        if (clickListener) {
+          document.removeEventListener('mousedown', clickListener);
+          document.addEventListener('touchend', clickListener);
         }
       };
     }, [closeOnOutsideClick, open, outsideClickListener]);
@@ -113,7 +120,7 @@ export const Popup = memo(
         className={cnPopup(undefined, [className])}
         style={{
           zIndex: zIndex,
-          position: 'absolute',
+          // position: 'absolute',
         }}
       >
         {children}

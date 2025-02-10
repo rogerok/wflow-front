@@ -1,7 +1,6 @@
 import { cn } from '@bem-react/classname';
-import { Autocomplete } from '@shared/elements/components';
 import { Page } from '@shared/elements/ui';
-import { Popup } from '@shared/elements/ui/Popup/Popup';
+import { Dropdown } from '@shared/elements/ui/Dropdown/Dropdown';
 import { FormStore } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
 import { FC, useRef, useState } from 'react';
@@ -51,23 +50,24 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
       home page
-      <Autocomplete<Options>
-        options={options}
-        field={form.fields.name}
-        labelField={'label'}
-        uniqueIdentifier={'id'}
-      />
-      <button ref={buttonRef} onClick={() => setOpen(!open)}>
-        open
-      </button>
-      <Popup
-        onClose={() => setOpen(false)}
-        open={open}
-        closeOnEscape
-        anchorRef={buttonRef}
-      >
-        <div>Some test</div>
-      </Popup>
+      {/*<Autocomplete<Options>*/}
+      {/*  options={options}*/}
+      {/*  field={form.fields.name}*/}
+      {/*  labelField={'label'}*/}
+      {/*  uniqueIdentifier={'id'}*/}
+      {/*/>*/}
+      {/*<button ref={buttonRef} onClick={() => setOpen(!open)}>*/}
+      {/*  open*/}
+      {/*</button>*/}
+      {/*<Popup*/}
+      {/*  onClose={() => setOpen(false)}*/}
+      {/*  open={open}*/}
+      {/*  closeOnEscape*/}
+      {/*  anchorRef={buttonRef}*/}
+      {/*>*/}
+      {/*  <div>Some test</div>*/}
+      {/*</Popup>*/}
+      <Dropdown labelField={'sw'} label={'Hello'} options={options} />
     </Page>
   );
 });

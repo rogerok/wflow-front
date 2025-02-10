@@ -5,6 +5,8 @@
 @use 'fonts';
 @use 'variables/breakpoints';
 
+/* @use 'debug'; */
+
 html {
   overflow: hidden;
   font-family: var(--font-family), sans-serif;

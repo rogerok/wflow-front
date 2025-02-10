@@ -5,14 +5,14 @@ export interface handleClickOutsideArgs<T extends HTMLElement = HTMLElement> {
   callback: (event: MouseEvent | TouchEvent) => void;
 }
 
-export type handleClickOutsideReturnType = (
+export type HandleClickOutsideReturnType = (
   event: MouseEvent | TouchEvent,
 ) => void;
 
 export const handleClickOutside = ({
   ref,
   callback,
-}: handleClickOutsideArgs): handleClickOutsideReturnType => {
+}: handleClickOutsideArgs): HandleClickOutsideReturnType => {
   return (event: MouseEvent | TouchEvent): void => {
     const target = event.target as Node;
 

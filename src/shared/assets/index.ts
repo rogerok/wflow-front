@@ -1,4 +1,5 @@
-export { default as ArrowLong } from './icons/arrows/arrow-long .svg';
+export { default as ArrowLong } from './icons/arrows/arrow-long.svg';
+export { default as ArrowSm } from './icons/arrows/arrow-sm.svg';
 export { default as DoubleArrowLeft } from './icons/arrows/double-arrow-left.svg';
 export { default as DoubleArrowRight } from './icons/arrows/double-arrow-right.svg';
 export { default as BinIcon } from './icons/bin.svg';

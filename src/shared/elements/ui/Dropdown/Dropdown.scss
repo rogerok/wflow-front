@@ -1,0 +1,23 @@
+.Dropdown {
+  &-ArrowIcon {
+    &_open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &-List {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: red;
+  }
+
+  &-ListItem {
+    list-style-type: none;
+  }
+
+  &-Popup {
+    width: 100%;
+  }
+
+}
