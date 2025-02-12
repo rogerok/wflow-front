@@ -7,14 +7,13 @@ import { VStack } from '../VStack/VStack';
 
 const cnInput = cn('Input');
 
-type HTMLInputProps = Omit<
+export type HTMLInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'value' | 'onChange' | 'readOnly'
 >;
 
 interface InputProps extends HTMLInputProps {
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-
+  onChange: (value: string | number) => void;
   value: string | number;
   className?: string;
   readOnly?: boolean;
@@ -38,7 +37,7 @@ export const Input: FC<InputProps> = memo((props) => {
   } = props;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    onChange(e);
+    onChange(e.target.value);
   };
 
   return (

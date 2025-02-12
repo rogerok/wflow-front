@@ -56,7 +56,7 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
     ...rest
   } = props;
 
-  const [selectedItem, setSelectedItem] = useState<T | null>(value);
+  const [selectedItemLabel, setSelectedItemLabel] = useState<T | null>(value);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -68,12 +68,10 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
     if (onClose) {
       onClose();
     }
-
-    openCb?.(false);
   };
 
   const handleItemClick = (item: T): void => {
-    setSelectedItem((prev) => {
+    setSelectedItemLabel((prev) => {
       if (!prev) {
         return item;
       }
@@ -112,7 +110,7 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
               }
             >
               <span className={cnDropdown('Title')}>
-                {selectedItem?.[labelField] ?? title}
+                {selectedItemLabel?.[labelField] ?? title}
               </span>
             </Button>
           </div>
@@ -128,19 +126,23 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
           closeOnEscape
         >
           <ul className={cnDropdown('List')}>
-            {options.map((option) => (
-              <li
-                key={option.id}
-                onClick={() => handleItemClick(option)}
-                className={cnDropdown('ListItem', {
-                  selected:
-                    selectedItem?.[uniqueIdentifier] ===
-                    option[uniqueIdentifier],
-                })}
-              >
-                {option[labelField]}
-              </li>
-            ))}
+            {options.length ? (
+              options.map((option) => (
+                <li
+                  key={option.id}
+                  onClick={() => handleItemClick(option)}
+                  className={cnDropdown('ListItem', {
+                    selected:
+                      selectedItemLabel?.[uniqueIdentifier] ===
+                      option[uniqueIdentifier],
+                  })}
+                >
+                  {option[labelField]}
+                </li>
+              ))
+            ) : (
+              <p>ничего не найдено</p>
+            )}
           </ul>
         </Popup>
       </div>

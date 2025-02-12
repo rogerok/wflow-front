@@ -1,10 +1,10 @@
 import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
-import { ChangeEvent, ReactNode, Ref, useState } from 'react';
+import { ComponentProps, ReactNode, Ref, useState } from 'react';
 
 import { TextField } from '../../../../lib';
 import { Dropdown } from '../../../ui/Dropdown/Dropdown';
-import { TextInput } from '../TextInput/TextInput';
+import { Input } from '../../../ui/Input/Input';
 
 const cnAutocomplete = cn('Autocomplete');
 
@@ -12,14 +12,16 @@ interface BaseAutocompleteOptions extends Record<string, string | number> {
   id: string | number;
 }
 
-interface AutocompleteProps<T extends BaseAutocompleteOptions> {
+type HTMLInputProps = Omit<ComponentProps<typeof Input>, 'value' | 'onChange'>;
+
+type AutocompleteProps<T extends BaseAutocompleteOptions> = {
   className?: string;
   field: TextField<string | number>;
   options: T[];
   labelField: keyof T;
-  uniqueIdentifier?: 'id' | keyof T;
+  uniqueIdentifier?: keyof T;
   ref?: Ref<HTMLDivElement>;
-}
+} & HTMLInputProps;
 
 export const Autocomplete = observer(
   <T extends BaseAutocompleteOptions>(
@@ -34,35 +36,60 @@ export const Autocomplete = observer(
       ref,
     } = props;
 
-    const [open, setOpen] = useState(false);
-    const [inputOptions, setInputOptions] = useState<T[]>(options);
-
-    const onItemClick = (item: T): void => {
-      field.setValue(item[uniqueIdentifier]);
-    };
-
-    const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-      console.log(e.target.value);
-
-      setInputOptions((options) =>
-        options.filter((option) =>
-          new RegExp(`^${e.target.value.toLowerCase()}`).test(
-            String(option[labelField]).toLowerCase(),
-          ),
-        ),
+    const getLabelDefault = (): string | number => {
+      return (
+        options.find((option) => option[uniqueIdentifier] === field.value)?.[
+          labelField
+        ] ?? ''
       );
     };
 
-    console.log(inputOptions);
+    const [open, setOpen] = useState(false);
+    const [inputOptions, setInputOptions] = useState<T[]>(options);
+    const [inputLabel, setInputLabel] = useState<string | number>(() =>
+      getLabelDefault(),
+    );
+
+    const onItemClick = (item: T): void => {
+      setInputLabel(item[labelField]);
+      field.setValue(item[uniqueIdentifier]);
+    };
+
+    const onChange = (value: string | number): void => {
+      setInputLabel(value);
+
+      const filteredOptions = options.filter((option) =>
+        String(option[labelField])
+          .toLowerCase()
+          .startsWith(String(value).toLowerCase()),
+      );
+
+      setInputOptions(filteredOptions);
+
+      setOpen(true);
+    };
+
+    const handleClose = (): void => {
+      setOpen(false);
+      setInputLabel(getLabelDefault());
+
+      // setInputOptions();
+
+      // if (!inputOptions.length) {
+      //   setInputOptions(options);
+      //   setInputLabel('');
+      //   field.reset();
+      // }
+    };
 
     return (
       <div ref={ref} className={cnAutocomplete(undefined, [className])}>
         <Dropdown<T>
           toggleComponent={
-            <TextInput
-              field={field}
+            <Input
+              value={inputLabel}
               onClick={() => setOpen(true)}
-              handleChange={onChange}
+              onChange={onChange}
             />
           }
           options={inputOptions}
@@ -71,6 +98,7 @@ export const Autocomplete = observer(
           uniqueIdentifier={uniqueIdentifier}
           openCb={setOpen}
           onItemClick={onItemClick}
+          onClose={handleClose}
         />
       </div>
     );
