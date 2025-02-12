@@ -31,6 +31,13 @@
       width: 0.4rem;
       transition: var(--default-transition);
     }
+
+    &::-webkit-scrollbar-track {
+      margin: 2.4rem 0
+
+    }
+
+
   }
 
   &-Toggle {

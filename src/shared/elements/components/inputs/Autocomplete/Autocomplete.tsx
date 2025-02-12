@@ -1,8 +1,9 @@
 import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
-import { ReactNode, Ref } from 'react';
+import { ChangeEvent, ReactNode, Ref, useState } from 'react';
 
 import { TextField } from '../../../../lib';
+import { Dropdown } from '../../../ui/Dropdown/Dropdown';
 import { TextInput } from '../TextInput/TextInput';
 
 const cnAutocomplete = cn('Autocomplete');
@@ -33,28 +34,44 @@ export const Autocomplete = observer(
       ref,
     } = props;
 
-    const getOptionValue = <T extends BaseAutocompleteOptions>(
-      option: T,
-      uniqueIdentifier: string,
-    ): string | number => {
-      return option[uniqueIdentifier];
+    const [open, setOpen] = useState(false);
+    const [inputOptions, setInputOptions] = useState<T[]>(options);
+
+    const onItemClick = (item: T): void => {
+      field.setValue(item[uniqueIdentifier]);
     };
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+      console.log(e.target.value);
+
+      setInputOptions((options) =>
+        options.filter((option) =>
+          new RegExp(`^${e.target.value.toLowerCase()}`).test(
+            String(option[labelField]).toLowerCase(),
+          ),
+        ),
+      );
+    };
+
+    console.log(inputOptions);
 
     return (
       <div ref={ref} className={cnAutocomplete(undefined, [className])}>
-        <TextInput field={field} />
-        <ul>
-          {options.map((option) => (
-            <li
-              key={getOptionValue(option, String(uniqueIdentifier))}
-              onClick={() =>
-                field.setValue(getOptionValue(option, String(uniqueIdentifier)))
-              }
-            >
-              {option[labelField]}
-            </li>
-          ))}
-        </ul>
+        <Dropdown<T>
+          toggleComponent={
+            <TextInput
+              field={field}
+              onClick={() => setOpen(true)}
+              handleChange={onChange}
+            />
+          }
+          options={inputOptions}
+          labelField={labelField}
+          open={open}
+          uniqueIdentifier={uniqueIdentifier}
+          openCb={setOpen}
+          onItemClick={onItemClick}
+        />
       </div>
     );
   },

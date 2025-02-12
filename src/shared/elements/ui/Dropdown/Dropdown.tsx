@@ -33,6 +33,8 @@ type DropdownProps<T extends BaseDropdownOptions> = Omit<
   title?: string;
   uniqueIdentifier?: keyof T;
   value?: T;
+  open?: boolean;
+  openCb?: (open: boolean) => void;
 };
 
 const DropdownComponent = <T extends BaseDropdownOptions>(
@@ -49,15 +51,17 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
     labelField = 'title',
     title = 'Выбрать',
     value = null,
+    open,
+    openCb,
     ...rest
   } = props;
-  const [open, setOpen] = useState(false);
+
   const [selectedItem, setSelectedItem] = useState<T | null>(value);
 
   const ref = useRef<HTMLDivElement>(null);
 
   const toggleOpen = (): void => {
-    setOpen((prev) => !prev);
+    openCb?.(!open);
   };
 
   const handleClose = (): void => {
@@ -65,7 +69,7 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
       onClose();
     }
 
-    setOpen(false);
+    openCb?.(false);
   };
 
   const handleItemClick = (item: T): void => {
@@ -85,10 +89,11 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
     <div ref={ref} className={cnDropdown(undefined, [props.className])}>
       <div className={cnDropdown('DropdownContent')}>
         <label className={cnDropdown('Label')}>{label}</label>
-        <div className={cnDropdown('Toggle', { open: open })}>
-          {toggleComponent ? (
-            toggleComponent
-          ) : (
+
+        {toggleComponent ? (
+          toggleComponent
+        ) : (
+          <div className={cnDropdown('Toggle', { open: open })}>
             <Button
               className={cnDropdown('Button')}
               variant={'clear'}
@@ -110,8 +115,9 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
                 {selectedItem?.[labelField] ?? title}
               </span>
             </Button>
-          )}
-        </div>
+          </div>
+        )}
+
         <Popup
           {...rest}
           className={cnDropdown('Popup')}

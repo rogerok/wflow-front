@@ -16,7 +16,6 @@ export default defineConfig({
   root: __dirname,
   cacheDir: './node_modules/.vite/wflow-front',
   server: {
-    port: 4200,
     host: 'localhost',
     proxy: {
       '/api': {

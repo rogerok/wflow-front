@@ -13,7 +13,8 @@ type HTMLInputProps = Omit<
 >;
 
 interface InputProps extends HTMLInputProps {
-  onChange: (value: string | number) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+
   value: string | number;
   className?: string;
   readOnly?: boolean;
@@ -37,7 +38,7 @@ export const Input: FC<InputProps> = memo((props) => {
   } = props;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    onChange(e.target.value);
+    onChange(e);
   };
 
   return (
