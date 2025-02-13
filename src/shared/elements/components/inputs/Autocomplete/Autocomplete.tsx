@@ -32,29 +32,47 @@ export const Autocomplete = observer(
       ref,
     } = props;
 
-    const getSelectedOptionLabel = useCallback((): string | number => {
+    const getSelectedOption = useCallback((): T | null => {
       return (
-        options.find((option) => option[uniqueIdentifier] === field.value)?.[
-          labelField
-        ] ?? ''
+        options.find((option) => option[uniqueIdentifier] === field.value) ??
+        null
       );
-    }, [field.value, labelField, options, uniqueIdentifier]);
+    }, [field.value, options, uniqueIdentifier]);
 
     const [open, setOpen] = useState(false);
     const [inputOptions, setInputOptions] = useState<T[]>(options);
-    const [inputLabel, setInputLabel] = useState<string | number>(() =>
-      getSelectedOptionLabel(),
+    const [inputLabel, setInputLabel] = useState<string | number>(
+      () => getSelectedOption()?.[labelField] ?? '',
     );
 
-    const onItemClick = (item: T): void => {
-      if (item[uniqueIdentifier] === field.value) {
-        field.toDefaultValue();
-        setInputLabel('');
-      } else {
-        setInputLabel(item[labelField]);
-        field.setValue(item[uniqueIdentifier]);
-      }
-    };
+    const [selectedItem, setSelectedItem] = useState<T | null>(() =>
+      getSelectedOption(),
+    );
+
+    const onItemClick = useCallback(
+      (item: T): void => {
+        setSelectedItem((prev) => {
+          if (!prev) {
+            return item;
+          }
+          return prev[uniqueIdentifier] === item[uniqueIdentifier]
+            ? null
+            : item;
+        });
+
+        if (item[uniqueIdentifier] === field.value) {
+          field.toDefaultValue();
+          setInputLabel('');
+        } else {
+          setInputLabel(item[labelField]);
+          field.setValue(item[uniqueIdentifier]);
+        }
+
+        setOpen(false);
+      },
+
+      [field, labelField, uniqueIdentifier],
+    );
 
     const handleOpen = (): void => {
       setOpen(true);
@@ -81,7 +99,7 @@ export const Autocomplete = observer(
     const onClose = (): void => {
       handleClose();
 
-      const defaultLabel = getSelectedOptionLabel();
+      const defaultLabel = getSelectedOption()?.[labelField] ?? '';
 
       setInputLabel(defaultLabel);
 
@@ -90,13 +108,14 @@ export const Autocomplete = observer(
       if (!defaultLabel) {
         field.toDefaultValue();
       }
-      setInputOptions([]);
     };
 
     const handleClear = (): void => {
       field.setValue('');
       setInputLabel('');
       setInputOptions(options);
+      setSelectedItem(null);
+      handleClose();
     };
 
     return (
@@ -118,6 +137,7 @@ export const Autocomplete = observer(
               }
             />
           }
+          value={selectedItem}
           options={inputOptions}
           labelField={labelField}
           open={open}

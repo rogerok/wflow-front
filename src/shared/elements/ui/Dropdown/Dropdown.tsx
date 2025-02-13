@@ -1,14 +1,7 @@
 import './Dropdown.scss';
 
 import { cn } from '@bem-react/classname';
-import {
-  ComponentProps,
-  memo,
-  ReactNode,
-  useCallback,
-  useRef,
-  useState,
-} from 'react';
+import { ComponentProps, memo, ReactNode, useCallback, useRef } from 'react';
 
 import { IOptionType } from '../../../types';
 import { Button } from '../Button/Button';
@@ -39,7 +32,7 @@ type DropdownProps<T extends IOptionType> = Omit<
   title?: string;
   toggleComponent?: ReactNode;
   uniqueIdentifier?: keyof T;
-  value?: T;
+  value?: T | null;
 };
 
 const DropdownComponent = <T extends IOptionType>(
@@ -61,37 +54,16 @@ const DropdownComponent = <T extends IOptionType>(
     ...rest
   } = props;
 
-  const [selectedItem, setSelectedItem] = useState<T | null>(value);
-
   const ref = useRef<HTMLDivElement>(null);
 
   const toggleOpen = (): void => {
     openCb?.(!open);
   };
 
-  const handleClose = useCallback((): void => {
-    if (onClose) {
-      onClose();
-    }
-  }, [onClose]);
+  const handleClose = useCallback(
+    (): void => onClose?.(),
 
-  const handleItemClick = useCallback(
-    (item: T): (() => void) =>
-      () => {
-        setSelectedItem((prev) => {
-          if (!prev) {
-            return item;
-          }
-          return prev[uniqueIdentifier] === item[uniqueIdentifier]
-            ? null
-            : item;
-        });
-
-        onItemClick?.(item);
-
-        handleClose();
-      },
-    [handleClose, onItemClick, uniqueIdentifier],
+    [onClose],
   );
 
   return (
@@ -121,7 +93,7 @@ const DropdownComponent = <T extends IOptionType>(
               }
             >
               <span className={cnDropdown('Title')}>
-                {selectedItem?.[labelField] ?? title}
+                {value?.[labelField] ?? title}
               </span>
             </Button>
           </div>
@@ -141,11 +113,10 @@ const DropdownComponent = <T extends IOptionType>(
               {options.map((option) => (
                 <li
                   key={option.id}
-                  onClick={handleItemClick(option)}
+                  onClick={() => onItemClick?.(option)}
                   className={cnDropdown('ListItem', {
                     selected:
-                      selectedItem?.[uniqueIdentifier] ===
-                      option[uniqueIdentifier],
+                      value?.[uniqueIdentifier] === option[uniqueIdentifier],
                   })}
                 >
                   {option[labelField]}
