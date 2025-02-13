@@ -3,6 +3,7 @@ import './Input.scss';
 import { cn } from '@bem-react/classname';
 import { ChangeEvent, FC, InputHTMLAttributes, memo, ReactNode } from 'react';
 
+import { Typography } from '../Typography/Typography';
 import { VStack } from '../VStack/VStack';
 
 const cnInput = cn('Input');
@@ -54,25 +55,32 @@ export const Input: FC<InputProps> = memo((props) => {
     >
       {label && (
         <label htmlFor={name} className={cnInput('Label')}>
-          {label}
+          <Typography>{label}</Typography>
         </label>
       )}
-      {addonLeft && <div>{addonLeft}</div>}
-      <input
-        id={name}
-        className={cnInput('Input', { error: !!error, fullWidth: fullWidth })}
-        onChange={handleChange}
-        value={value}
-        disabled={disabled}
-        name={name}
-        type={type}
-        {...restProps}
-      />
-      {addonRight && <div>{addonRight}</div>}
+      <div className={cnInput('Inner')}>
+        {addonLeft && <div className={cnInput('AddonLeft')}>{addonLeft}</div>}
+        <input
+          id={name}
+          className={cnInput('Input', {
+            error: !!error,
+            fullWidth: fullWidth,
+            pl: !!addonLeft,
+            pr: !!addonRight,
+          })}
+          onChange={handleChange}
+          value={value}
+          disabled={disabled}
+          name={name}
+          type={type}
+          {...restProps}
+        />
+        {addonRight && (
+          <div className={cnInput('AddonRight')}>{addonRight}</div>
+        )}
+      </div>
 
-      {error && (
-        <p className={cnInput('ErrorText', { error: !!error })}>{error}</p>
-      )}
+      {error && <Typography variant={'warn'}>{error}</Typography>}
     </VStack>
   );
 });

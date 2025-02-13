@@ -47,9 +47,13 @@ export class TextField<T> implements BaseFieldType<T> {
     this._error = error;
   }
 
+  toDefaultValue(): void {
+    this.setValue(this._defaultValue);
+  }
+
   reset(): void {
     this.unTouch();
-    this.setValue(this._defaultValue);
+    this.toDefaultValue();
     this.setError(undefined);
   }
 

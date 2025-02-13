@@ -1,9 +1,12 @@
 import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
-import { ComponentProps, ReactNode, Ref, useCallback, useState } from 'react';
+import { ComponentProps, ReactNode, Ref } from 'react';
 
 import { TextField } from '../../../../lib';
+import { useAutocomplete } from '../../../../lib/hooks/useAutocomplete';
+import { useDropdown } from '../../../../lib/hooks/useDropdown';
 import { IOptionType } from '../../../../types';
+import { IconComponent } from '../../../ui';
 import { Dropdown } from '../../../ui/Dropdown/Dropdown';
 import { Input } from '../../../ui/Input/Input';
 
@@ -31,56 +34,41 @@ export const Autocomplete = observer(
       ref,
     } = props;
 
-    const getSelectedOptionLabel = useCallback((): string | number => {
-      return (
-        options.find((option) => option[uniqueIdentifier] === field.value)?.[
-          labelField
-        ] ?? ''
-      );
-    }, [field.value, labelField, options, uniqueIdentifier]);
+    const {
+      inputLabel,
+      selectedItem,
+      inputOptions,
+      onItemSelect,
+      onChange,
+      onClose,
+      onClear,
+    } = useAutocomplete({
+      field,
+      labelField,
+      uniqueIdentifier,
+      options,
+    });
 
-    const [open, setOpen] = useState(false);
-    const [inputOptions, setInputOptions] = useState<T[]>(options);
-    const [inputLabel, setInputLabel] = useState<string | number>(() =>
-      getSelectedOptionLabel(),
-    );
+    const { open, handleOpen, handleClose, toggleOpen } = useDropdown();
 
-    const onItemClick = (item: T): void => {
-      if (item[uniqueIdentifier] === field.value) {
-        field.reset();
-        setInputLabel('');
-      } else {
-        setInputLabel(item[labelField]);
-        field.setValue(item[uniqueIdentifier]);
-      }
+    const handleItemSelect = (value: T): void => {
+      onItemSelect(value);
+      handleClose();
     };
 
-    const onChange = (value: string | number): void => {
-      setInputLabel(value);
-
-      const filteredOptions = options.filter((option) =>
-        String(option[labelField])
-          .toLowerCase()
-          .startsWith(String(value).toLowerCase()),
-      );
-
-      setInputOptions(filteredOptions);
-
-      setOpen(true);
+    const handleChange = (value: string | number): void => {
+      handleOpen();
+      onChange(value);
     };
 
-    const handleClose = (): void => {
-      setOpen(false);
+    const onDropdownClose = (): void => {
+      onClose();
+      handleClose();
+    };
 
-      const defaultLabel = getSelectedOptionLabel();
-
-      setInputLabel(defaultLabel);
-
-      setInputOptions(options);
-
-      if (!defaultLabel) {
-        field.reset();
-      }
+    const handleClear = (): void => {
+      handleClose();
+      onClear();
     };
 
     return (
@@ -89,17 +77,27 @@ export const Autocomplete = observer(
           toggleComponent={
             <Input
               value={inputLabel}
-              onClick={() => setOpen(true)}
-              onChange={onChange}
+              onClick={handleOpen}
+              onChange={handleChange}
+              addonRight={
+                field.value && (
+                  <IconComponent
+                    name={'ClearCircle'}
+                    size={'sm'}
+                    onClick={handleClear}
+                  />
+                )
+              }
             />
           }
+          value={selectedItem}
           options={inputOptions}
           labelField={labelField}
           open={open}
           uniqueIdentifier={uniqueIdentifier}
-          openCb={setOpen}
-          onItemClick={onItemClick}
-          onClose={handleClose}
+          toggleOpen={toggleOpen}
+          onItemClick={handleItemSelect}
+          onClose={onDropdownClose}
         />
       </div>
     );

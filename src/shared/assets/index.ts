@@ -3,6 +3,7 @@ export { default as ArrowSm } from './icons/arrows/arrow-sm.svg';
 export { default as DoubleArrowLeft } from './icons/arrows/double-arrow-left.svg';
 export { default as DoubleArrowRight } from './icons/arrows/double-arrow-right.svg';
 export { default as BinIcon } from './icons/bin.svg';
+export { default as ClearCircle } from './icons/forms/clear-circle.svg';
 export { default as LogoIcon } from './icons/logo.svg';
 export { default as BookIcon } from './icons/menu/book.svg';
 export { default as BookIconFilled } from './icons/menu/book-filled.svg';
