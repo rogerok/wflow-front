@@ -1,6 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
-import { ComponentProps, ReactNode, Ref, useState } from 'react';
+import { ComponentProps, ReactNode, Ref, useCallback, useState } from 'react';
 
 import { TextField } from '../../../../lib';
 import { Dropdown } from '../../../ui/Dropdown/Dropdown';
@@ -36,13 +36,13 @@ export const Autocomplete = observer(
       ref,
     } = props;
 
-    const getLabelDefault = (): string | number => {
+    const getLabelDefault = useCallback((): string | number => {
       return (
         options.find((option) => option[uniqueIdentifier] === field.value)?.[
           labelField
         ] ?? ''
       );
-    };
+    }, [field.value, labelField, options, uniqueIdentifier]);
 
     const [open, setOpen] = useState(false);
     const [inputOptions, setInputOptions] = useState<T[]>(options);
@@ -51,8 +51,13 @@ export const Autocomplete = observer(
     );
 
     const onItemClick = (item: T): void => {
-      setInputLabel(item[labelField]);
-      field.setValue(item[uniqueIdentifier]);
+      if (item[uniqueIdentifier] === field.value) {
+        field.reset();
+        setInputLabel('');
+      } else {
+        setInputLabel(item[labelField]);
+        field.setValue(item[uniqueIdentifier]);
+      }
     };
 
     const onChange = (value: string | number): void => {
@@ -71,15 +76,17 @@ export const Autocomplete = observer(
 
     const handleClose = (): void => {
       setOpen(false);
-      setInputLabel(getLabelDefault());
 
-      // setInputOptions();
+      const defaultLabel = getLabelDefault();
 
-      // if (!inputOptions.length) {
-      //   setInputOptions(options);
-      //   setInputLabel('');
-      //   field.reset();
-      // }
+      console.log(defaultLabel);
+      setInputLabel(defaultLabel);
+
+      setInputOptions(options);
+
+      if (!defaultLabel) {
+        field.reset();
+      }
     };
 
     return (

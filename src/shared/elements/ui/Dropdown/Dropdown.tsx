@@ -1,7 +1,14 @@
 import './Dropdown.scss';
 
 import { cn } from '@bem-react/classname';
-import { ComponentProps, memo, ReactNode, useRef, useState } from 'react';
+import {
+  ComponentProps,
+  memo,
+  ReactNode,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 
 import { Button } from '../Button/Button';
 import { IconComponent } from '../IconComponent/IconComponent';
@@ -56,7 +63,7 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
     ...rest
   } = props;
 
-  const [selectedItemLabel, setSelectedItemLabel] = useState<T | null>(value);
+  const [selectedItem, setSelectedItem] = useState<T | null>(value);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -70,18 +77,21 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
     }
   };
 
-  const handleItemClick = (item: T): void => {
-    setSelectedItemLabel((prev) => {
-      if (!prev) {
-        return item;
-      }
-      return prev[uniqueIdentifier] === item[uniqueIdentifier] ? null : item;
-    });
+  const handleItemClick = useCallback(
+    (item: T): void => {
+      setSelectedItem((prev) => {
+        if (!prev) {
+          return item;
+        }
+        return prev[uniqueIdentifier] === item[uniqueIdentifier] ? null : item;
+      });
 
-    onItemClick?.(item);
+      onItemClick?.(item);
 
-    handleClose();
-  };
+      handleClose();
+    },
+    [handleClose, onItemClick, uniqueIdentifier],
+  );
 
   return (
     <div ref={ref} className={cnDropdown(undefined, [props.className])}>
@@ -110,7 +120,7 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
               }
             >
               <span className={cnDropdown('Title')}>
-                {selectedItemLabel?.[labelField] ?? title}
+                {selectedItem?.[labelField] ?? title}
               </span>
             </Button>
           </div>
@@ -133,7 +143,7 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
                   onClick={() => handleItemClick(option)}
                   className={cnDropdown('ListItem', {
                     selected:
-                      selectedItemLabel?.[uniqueIdentifier] ===
+                      selectedItem?.[uniqueIdentifier] ===
                       option[uniqueIdentifier],
                   })}
                 >

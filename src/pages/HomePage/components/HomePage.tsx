@@ -36,7 +36,7 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
     () =>
       new FormStore({
         defaultValues: {
-          name: '4',
+          name: '',
         },
         schema: z.object({
           name: z.string(),
