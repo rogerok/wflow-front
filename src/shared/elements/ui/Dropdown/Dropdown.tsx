@@ -69,11 +69,11 @@ const DropdownComponent = <T extends IOptionType>(
     openCb?.(!open);
   };
 
-  const handleClose = (): void => {
+  const handleClose = useCallback((): void => {
     if (onClose) {
       onClose();
     }
-  };
+  }, [onClose]);
 
   const handleItemClick = useCallback(
     (item: T): (() => void) =>
