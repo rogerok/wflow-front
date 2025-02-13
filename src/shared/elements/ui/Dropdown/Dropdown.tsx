@@ -95,7 +95,7 @@ const DropdownComponent = <T extends IOptionType>(
   );
 
   return (
-    <div ref={ref} className={cnDropdown(undefined, [props.className])}>
+    <div className={cnDropdown(undefined, [props.className])} ref={ref}>
       <div className={cnDropdown('Content')}>
         <label className={cnDropdown('Label')}>{label}</label>
 

@@ -1,10 +1,9 @@
 import { cn } from '@bem-react/classname';
 import { Autocomplete } from '@shared/elements/components';
 import { Page } from '@shared/elements/ui';
-import { Dropdown } from '@shared/elements/ui/Dropdown/Dropdown';
 import { FormStore } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
-import { FC, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import { z } from 'zod';
 
 const cnHomePage = cn('HomePage');
@@ -44,10 +43,6 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
       }),
   );
 
-  const [open, setOpen] = useState(false);
-
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
       home page
@@ -56,11 +51,6 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
         field={form.fields.name}
         labelField={'label'}
         uniqueIdentifier={'id'}
-      />
-      <Dropdown<Options>
-        labelField={'label'}
-        label={'Hello'}
-        options={options}
       />
     </Page>
   );

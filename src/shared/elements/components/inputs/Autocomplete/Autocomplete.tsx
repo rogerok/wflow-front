@@ -4,6 +4,7 @@ import { ComponentProps, ReactNode, Ref, useCallback, useState } from 'react';
 
 import { TextField } from '../../../../lib';
 import { IOptionType } from '../../../../types';
+import { IconComponent } from '../../../ui';
 import { Dropdown } from '../../../ui/Dropdown/Dropdown';
 import { Input } from '../../../ui/Input/Input';
 
@@ -47,12 +48,20 @@ export const Autocomplete = observer(
 
     const onItemClick = (item: T): void => {
       if (item[uniqueIdentifier] === field.value) {
-        field.reset();
+        field.toDefaultValue();
         setInputLabel('');
       } else {
         setInputLabel(item[labelField]);
         field.setValue(item[uniqueIdentifier]);
       }
+    };
+
+    const handleOpen = (): void => {
+      setOpen(true);
+    };
+
+    const handleClose = (): void => {
+      setOpen(false);
     };
 
     const onChange = (value: string | number): void => {
@@ -66,11 +75,11 @@ export const Autocomplete = observer(
 
       setInputOptions(filteredOptions);
 
-      setOpen(true);
+      handleOpen();
     };
 
-    const handleClose = (): void => {
-      setOpen(false);
+    const onClose = (): void => {
+      handleClose();
 
       const defaultLabel = getSelectedOptionLabel();
 
@@ -79,8 +88,15 @@ export const Autocomplete = observer(
       setInputOptions(options);
 
       if (!defaultLabel) {
-        field.reset();
+        field.toDefaultValue();
       }
+      setInputOptions([]);
+    };
+
+    const handleClear = (): void => {
+      field.setValue('');
+      setInputLabel('');
+      setInputOptions(options);
     };
 
     return (
@@ -89,8 +105,17 @@ export const Autocomplete = observer(
           toggleComponent={
             <Input
               value={inputLabel}
-              onClick={() => setOpen(true)}
+              onClick={handleOpen}
               onChange={onChange}
+              addonRight={
+                field.value && (
+                  <IconComponent
+                    name={'ClearCircle'}
+                    size={'sm'}
+                    onClick={handleClear}
+                  />
+                )
+              }
             />
           }
           options={inputOptions}
@@ -99,7 +124,7 @@ export const Autocomplete = observer(
           uniqueIdentifier={uniqueIdentifier}
           openCb={setOpen}
           onItemClick={onItemClick}
-          onClose={handleClose}
+          onClose={onClose}
         />
       </div>
     );
