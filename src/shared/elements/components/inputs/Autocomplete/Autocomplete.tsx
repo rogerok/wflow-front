@@ -3,30 +3,25 @@ import { observer } from 'mobx-react-lite';
 import { ComponentProps, ReactNode, Ref, useCallback, useState } from 'react';
 
 import { TextField } from '../../../../lib';
+import { IOptionType } from '../../../../types';
 import { Dropdown } from '../../../ui/Dropdown/Dropdown';
 import { Input } from '../../../ui/Input/Input';
 
 const cnAutocomplete = cn('Autocomplete');
 
-interface BaseAutocompleteOptions extends Record<string, string | number> {
-  id: string | number;
-}
-
 type HTMLInputProps = Omit<ComponentProps<typeof Input>, 'value' | 'onChange'>;
 
-type AutocompleteProps<T extends BaseAutocompleteOptions> = {
-  className?: string;
+type AutocompleteProps<T extends IOptionType> = {
   field: TextField<string | number>;
-  options: T[];
   labelField: keyof T;
+  options: T[];
+  className?: string;
   uniqueIdentifier?: keyof T;
   ref?: Ref<HTMLDivElement>;
 } & HTMLInputProps;
 
 export const Autocomplete = observer(
-  <T extends BaseAutocompleteOptions>(
-    props: AutocompleteProps<T>,
-  ): ReactNode => {
+  <T extends IOptionType>(props: AutocompleteProps<T>): ReactNode => {
     const {
       field,
       className,
@@ -36,7 +31,7 @@ export const Autocomplete = observer(
       ref,
     } = props;
 
-    const getLabelDefault = useCallback((): string | number => {
+    const getSelectedOptionLabel = useCallback((): string | number => {
       return (
         options.find((option) => option[uniqueIdentifier] === field.value)?.[
           labelField
@@ -47,7 +42,7 @@ export const Autocomplete = observer(
     const [open, setOpen] = useState(false);
     const [inputOptions, setInputOptions] = useState<T[]>(options);
     const [inputLabel, setInputLabel] = useState<string | number>(() =>
-      getLabelDefault(),
+      getSelectedOptionLabel(),
     );
 
     const onItemClick = (item: T): void => {
@@ -77,9 +72,8 @@ export const Autocomplete = observer(
     const handleClose = (): void => {
       setOpen(false);
 
-      const defaultLabel = getLabelDefault();
+      const defaultLabel = getSelectedOptionLabel();
 
-      console.log(defaultLabel);
       setInputLabel(defaultLabel);
 
       setInputOptions(options);
