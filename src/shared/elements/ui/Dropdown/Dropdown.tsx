@@ -28,7 +28,7 @@ type DropdownProps<T extends IOptionType> = Omit<
   onClose?: () => void;
   onItemClick?: (item: T) => void;
   open?: boolean;
-  openCb?: (open: boolean) => void;
+  toggleOpen?: () => void;
   title?: string;
   toggleComponent?: ReactNode;
   uniqueIdentifier?: keyof T;
@@ -50,15 +50,11 @@ const DropdownComponent = <T extends IOptionType>(
     title = 'Выбрать',
     value = null,
     open,
-    openCb,
+    toggleOpen,
     ...rest
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
-
-  const toggleOpen = (): void => {
-    openCb?.(!open);
-  };
 
   const handleClose = useCallback(
     (): void => onClose?.(),
