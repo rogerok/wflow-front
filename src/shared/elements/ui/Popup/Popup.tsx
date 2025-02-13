@@ -17,16 +17,16 @@ type Placement = 'top-left' | 'bottom-right' | 'bottom-left' | 'top-right';
 interface PopupProps<T extends HTMLElement = HTMLElement> {
   children: ReactNode;
   onClose: () => void;
+  anchorRef?: RefObject<T | null>;
   className?: string;
+  closeOnEscape?: boolean;
+  closeOnOutsideClick?: boolean;
   container?: PortalProps['container'];
   open?: boolean;
-  zIndex?: number;
-  closeOnEscape?: boolean;
   placement?: Placement;
-  withPortal?: boolean;
   scrollDisabled?: boolean;
-  closeOnOutsideClick?: boolean;
-  anchorRef?: RefObject<T | null>;
+  withPortal?: boolean;
+  zIndex?: number;
 }
 
 export const Popup = memo(
@@ -79,10 +79,10 @@ export const Popup = memo(
       return () => {
         if (clickListener) {
           document.removeEventListener('mousedown', clickListener);
-          document.addEventListener('touchend', clickListener);
+          document.removeEventListener('touchend', clickListener);
         }
       };
-    }, [closeOnOutsideClick, open]);
+    }, [anchorRef, closeOnOutsideClick, onClose, open]);
 
     const content = (
       <div

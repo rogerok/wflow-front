@@ -1,13 +1,13 @@
 import './Input.scss';
 
 import { cn } from '@bem-react/classname';
-import { ChangeEvent, FC, InputHTMLAttributes, memo } from 'react';
+import { ChangeEvent, FC, InputHTMLAttributes, memo, ReactNode } from 'react';
 
 import { VStack } from '../VStack/VStack';
 
 const cnInput = cn('Input');
 
-type HTMLInputProps = Omit<
+export type HTMLInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'value' | 'onChange' | 'readOnly'
 >;
@@ -15,11 +15,13 @@ type HTMLInputProps = Omit<
 interface InputProps extends HTMLInputProps {
   onChange: (value: string | number) => void;
   value: string | number;
+  addonLeft?: ReactNode;
+  addonRight?: ReactNode;
   className?: string;
-  readOnly?: boolean;
   error?: string;
-  label?: string;
   fullWidth?: boolean;
+  label?: string;
+  readOnly?: boolean;
 }
 
 export const Input: FC<InputProps> = memo((props) => {
@@ -33,6 +35,8 @@ export const Input: FC<InputProps> = memo((props) => {
     fullWidth,
     disabled,
     error,
+    addonLeft,
+    addonRight,
     ...restProps
   } = props;
 
@@ -53,6 +57,7 @@ export const Input: FC<InputProps> = memo((props) => {
           {label}
         </label>
       )}
+      {addonLeft && <div>{addonLeft}</div>}
       <input
         id={name}
         className={cnInput('Input', { error: !!error, fullWidth: fullWidth })}
@@ -63,6 +68,8 @@ export const Input: FC<InputProps> = memo((props) => {
         type={type}
         {...restProps}
       />
+      {addonRight && <div>{addonRight}</div>}
+
       {error && (
         <p className={cnInput('ErrorText', { error: !!error })}>{error}</p>
       )}

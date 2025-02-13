@@ -25,6 +25,7 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+    hmr: true,
   },
   preview: {
     port: 4300,

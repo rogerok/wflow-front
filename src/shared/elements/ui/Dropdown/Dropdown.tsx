@@ -1,19 +1,24 @@
 import './Dropdown.scss';
 
 import { cn } from '@bem-react/classname';
-import { ComponentProps, memo, ReactNode, useRef, useState } from 'react';
+import {
+  ComponentProps,
+  memo,
+  ReactNode,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 
+import { IOptionType } from '../../../types';
 import { Button } from '../Button/Button';
 import { IconComponent } from '../IconComponent/IconComponent';
 import { Popup } from '../Popup/Popup';
+import { Typography } from '../Typography/Typography';
 
 const cnDropdown = cn('Dropdown');
 
-interface BaseDropdownOptions extends Record<string, string | number> {
-  id: string | number;
-}
-
-type DropdownProps<T extends BaseDropdownOptions> = Omit<
+type DropdownProps<T extends IOptionType> = Omit<
   ComponentProps<typeof Popup>,
   | 'className'
   | 'withPortal'
@@ -25,17 +30,19 @@ type DropdownProps<T extends BaseDropdownOptions> = Omit<
 > & {
   options: T[];
   className?: string;
-  onClose?: () => void;
-  labelField: keyof T;
   label?: ReactNode;
+  labelField: keyof T;
+  onClose?: () => void;
   onItemClick?: (item: T) => void;
-  toggleComponent?: ReactNode;
+  open?: boolean;
+  openCb?: (open: boolean) => void;
   title?: string;
+  toggleComponent?: ReactNode;
   uniqueIdentifier?: keyof T;
   value?: T;
 };
 
-const DropdownComponent = <T extends BaseDropdownOptions>(
+const DropdownComponent = <T extends IOptionType>(
   props: DropdownProps<T>,
 ): ReactNode => {
   const {
@@ -49,46 +56,53 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
     labelField = 'title',
     title = 'Выбрать',
     value = null,
+    open,
+    openCb,
     ...rest
   } = props;
-  const [open, setOpen] = useState(false);
+
   const [selectedItem, setSelectedItem] = useState<T | null>(value);
 
   const ref = useRef<HTMLDivElement>(null);
 
   const toggleOpen = (): void => {
-    setOpen((prev) => !prev);
+    openCb?.(!open);
   };
 
-  const handleClose = (): void => {
+  const handleClose = useCallback((): void => {
     if (onClose) {
       onClose();
     }
+  }, [onClose]);
 
-    setOpen(false);
-  };
+  const handleItemClick = useCallback(
+    (item: T): (() => void) =>
+      () => {
+        setSelectedItem((prev) => {
+          if (!prev) {
+            return item;
+          }
+          return prev[uniqueIdentifier] === item[uniqueIdentifier]
+            ? null
+            : item;
+        });
 
-  const handleItemClick = (item: T): void => {
-    setSelectedItem((prev) => {
-      if (!prev) {
-        return item;
-      }
-      return prev[uniqueIdentifier] === item[uniqueIdentifier] ? null : item;
-    });
+        onItemClick?.(item);
 
-    onItemClick?.(item);
-
-    handleClose();
-  };
+        handleClose();
+      },
+    [handleClose, onItemClick, uniqueIdentifier],
+  );
 
   return (
     <div ref={ref} className={cnDropdown(undefined, [props.className])}>
-      <div className={cnDropdown('DropdownContent')}>
+      <div className={cnDropdown('Content')}>
         <label className={cnDropdown('Label')}>{label}</label>
-        <div className={cnDropdown('Toggle', { open: open })}>
-          {toggleComponent ? (
-            toggleComponent
-          ) : (
+
+        {toggleComponent ? (
+          toggleComponent
+        ) : (
+          <div className={cnDropdown('Toggle', { open: open })}>
             <Button
               className={cnDropdown('Button')}
               variant={'clear'}
@@ -110,8 +124,9 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
                 {selectedItem?.[labelField] ?? title}
               </span>
             </Button>
-          )}
-        </div>
+          </div>
+        )}
+
         <Popup
           {...rest}
           className={cnDropdown('Popup')}
@@ -121,29 +136,33 @@ const DropdownComponent = <T extends BaseDropdownOptions>(
           closeOnOutsideClick
           closeOnEscape
         >
-          <ul className={cnDropdown('List')}>
-            {options.map((option) => (
-              <li
-                key={option.id}
-                onClick={() => handleItemClick(option)}
-                className={cnDropdown('ListItem', {
-                  selected:
-                    selectedItem?.[uniqueIdentifier] ===
-                    option[uniqueIdentifier],
-                })}
-              >
-                {option[labelField]}
-              </li>
-            ))}
-          </ul>
+          {options.length ? (
+            <ul className={cnDropdown('List')}>
+              {options.map((option) => (
+                <li
+                  key={option.id}
+                  onClick={handleItemClick(option)}
+                  className={cnDropdown('ListItem', {
+                    selected:
+                      selectedItem?.[uniqueIdentifier] ===
+                      option[uniqueIdentifier],
+                  })}
+                >
+                  {option[labelField]}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <Typography className={cnDropdown('NotFoundLabel')}>
+              Не найдено
+            </Typography>
+          )}
         </Popup>
       </div>
     </div>
   );
 };
 
-export const Dropdown = memo(DropdownComponent) as <
-  T extends BaseDropdownOptions,
->(
+export const Dropdown = memo(DropdownComponent) as <T extends IOptionType>(
   props: DropdownProps<T>,
 ) => ReactNode;
