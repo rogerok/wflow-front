@@ -1,7 +1,7 @@
 import './Dropdown.scss';
 
 import { cn } from '@bem-react/classname';
-import { ComponentProps, memo, ReactNode, useCallback, useRef } from 'react';
+import { ComponentProps, memo, ReactNode, useRef } from 'react';
 
 import { IOptionType } from '../../../types';
 import { Button } from '../Button/Button';
@@ -56,11 +56,7 @@ const DropdownComponent = <T extends IOptionType>(
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const handleClose = useCallback(
-    (): void => onClose?.(),
-
-    [onClose],
-  );
+  const handleClose = (): void => onClose?.();
 
   return (
     <div className={cnDropdown(undefined, [props.className])} ref={ref}>

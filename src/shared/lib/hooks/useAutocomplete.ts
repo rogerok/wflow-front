@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import { IOptionType } from '../../types';
 import { TextField } from '../form';
@@ -25,11 +25,11 @@ export const useAutocomplete = <T extends IOptionType>({
   uniqueIdentifier,
   options,
 }: useAutocompleteArgs<T>): useAutocompleteReturnType<T> => {
-  const getSelectedOption = useCallback((): T | null => {
+  const getSelectedOption = (): T | null => {
     return (
       options.find((option) => option[uniqueIdentifier] === field.value) ?? null
     );
-  }, [field.value, options, uniqueIdentifier]);
+  };
 
   const [inputOptions, setInputOptions] = useState<T[]>(options);
   const [inputLabel, setInputLabel] = useState<string | number>(
@@ -40,43 +40,36 @@ export const useAutocomplete = <T extends IOptionType>({
     getSelectedOption(),
   );
 
-  const onItemSelect = useCallback(
-    (item: T): void => {
-      setSelectedItem((prev) => {
-        if (!prev) {
-          return item;
-        }
-        return prev[uniqueIdentifier] === item[uniqueIdentifier] ? null : item;
-      });
-
-      if (item[uniqueIdentifier] === field.value) {
-        field.toDefaultValue();
-        setInputLabel('');
-      } else {
-        setInputLabel(item[labelField]);
-        field.setValue(item[uniqueIdentifier]);
+  const onItemSelect = (item: T): void => {
+    setSelectedItem((prev) => {
+      if (!prev) {
+        return item;
       }
-    },
+      return prev[uniqueIdentifier] === item[uniqueIdentifier] ? null : item;
+    });
 
-    [field, labelField, uniqueIdentifier],
-  );
+    if (item[uniqueIdentifier] === field.value) {
+      field.toDefaultValue();
+      setInputLabel('');
+    } else {
+      setInputLabel(item[labelField]);
+      field.setValue(item[uniqueIdentifier]);
+    }
+  };
 
-  const onChange = useCallback(
-    (value: string | number): void => {
-      setInputLabel(value);
+  const onChange = (value: string | number): void => {
+    setInputLabel(value);
 
-      const filteredOptions = options.filter((option) =>
-        String(option[labelField])
-          .toLowerCase()
-          .startsWith(String(value).toLowerCase()),
-      );
+    const filteredOptions = options.filter((option) =>
+      String(option[labelField])
+        .toLowerCase()
+        .startsWith(String(value).toLowerCase()),
+    );
 
-      setInputOptions(filteredOptions);
-    },
-    [labelField, options],
-  );
+    setInputOptions(filteredOptions);
+  };
 
-  const onClose = useCallback((): void => {
+  const onClose = (): void => {
     const defaultLabel = getSelectedOption()?.[labelField] ?? '';
 
     setInputLabel(defaultLabel);
@@ -86,7 +79,7 @@ export const useAutocomplete = <T extends IOptionType>({
     if (!defaultLabel) {
       field.toDefaultValue();
     }
-  }, [field, getSelectedOption, labelField, options]);
+  };
 
   const onClear = (): void => {
     field.setValue('');
