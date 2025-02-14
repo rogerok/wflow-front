@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 type useDropdownReturnType = {
   open: boolean;
@@ -10,15 +10,15 @@ type useDropdownReturnType = {
 export const useDropdown = (): useDropdownReturnType => {
   const [open, setOpen] = useState(false);
 
-  const handleOpen = useCallback(() => {
+  const handleOpen = (): void => {
     setOpen(true);
-  }, []);
+  };
 
-  const handleClose = useCallback(() => {
+  const handleClose = (): void => {
     setOpen(false);
-  }, []);
+  };
 
-  const toggleOpen = useCallback(() => setOpen((prev) => !prev), [setOpen]);
+  const toggleOpen = (): void => setOpen((prev) => !prev);
 
   return { open, handleOpen, handleClose, toggleOpen };
 };
