@@ -1,9 +1,6 @@
 import { z } from 'zod';
 
-import {
-  CssColorsVarsConstant,
-  ThemeConstant,
-} from '../../const/themeConstants';
+import { CssColorsVarsConstant, ThemeConstant } from '../const/themeConstants';
 
 export const ThemeSchema = z.nativeEnum(ThemeConstant);
 

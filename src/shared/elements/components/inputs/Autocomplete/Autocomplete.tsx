@@ -6,9 +6,9 @@ import { TextField } from '../../../../lib';
 import { useAutocomplete } from '../../../../lib/hooks/useAutocomplete';
 import { useDropdown } from '../../../../lib/hooks/useDropdown';
 import { IOptionType } from '../../../../types';
-import { IconComponent } from '../../../ui';
 import { Dropdown } from '../../../ui/Dropdown/Dropdown';
 import { Input } from '../../../ui/Input/Input';
+import { InputClearable } from '../../../ui/Input/InputClearable/InputClearable';
 
 const cnAutocomplete = cn('Autocomplete');
 
@@ -75,19 +75,11 @@ export const Autocomplete = observer(
       <div ref={ref} className={cnAutocomplete(undefined, [className])}>
         <Dropdown<T>
           toggleComponent={
-            <Input
+            <InputClearable
               value={inputLabel}
               onClick={handleOpen}
               onChange={handleChange}
-              addonRight={
-                field.value && (
-                  <IconComponent
-                    name={'ClearCircle'}
-                    size={'sm'}
-                    onClick={handleClear}
-                  />
-                )
-              }
+              handleClear={handleClear}
             />
           }
           value={selectedItem}

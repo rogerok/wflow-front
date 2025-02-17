@@ -20,6 +20,7 @@
     "@bem-react/classname": "^1.6.0",
     "@tanstack/react-router": "^1.95.1",
     "axios": "^1.7.9",
+    "date-fns": "^4.1.0",
     "mobx": "^6.13.5",
     "mobx-react-lite": "^4.1.0",
     "react": "19.0.0",
@@ -28,8 +29,6 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "vite-plugin-circular-dependency": "^0.5.0",
-    "react-scan": "^0.0.54",
     "@babel/core": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
     "@chromatic-com/storybook": "^3",
@@ -63,6 +62,7 @@
     "@testing-library/react": "16.1.0",
     "@types/node": "22.10.5",
     "@types/react": "19.0.4",
+    "@types/react-date-range": "^1.4.9",
     "@types/react-dom": "19.0.2",
     "@typescript-eslint/parser": "^8.19.1",
     "@vitejs/plugin-react": "^4.3.4",
@@ -81,6 +81,7 @@
     "mobx-log": "^2.2.3",
     "nx": "20.0.12",
     "prettier": "^3.4.2",
+    "react-scan": "^0.0.54",
     "sass": "^1.83.1",
     "steiger": "^0.5.4",
     "storybook": "^8.5.0",
@@ -96,6 +97,7 @@
     "typescript-eslint": "^8.19.1",
     "vite": "^6.0.7",
     "vite-plugin-checker": "^0.8.0",
+    "vite-plugin-circular-dependency": "^0.5.0",
     "vite-plugin-mkcert": "^1.17.6",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^2.1.8"
