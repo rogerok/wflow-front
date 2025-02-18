@@ -1,3 +1,5 @@
+import './Autocomplete.scss';
+
 import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
 import { ComponentProps, ReactNode, Ref } from 'react';
@@ -34,6 +36,8 @@ export const Autocomplete = observer(
       options,
       ref,
       uniqueIdentifier = 'id',
+      fullWidth,
+      label,
     } = props;
 
     const {
@@ -74,7 +78,10 @@ export const Autocomplete = observer(
     };
 
     return (
-      <div ref={ref} className={cnAutocomplete(undefined, [className])}>
+      <div
+        ref={ref}
+        className={cnAutocomplete({ fullWidth: fullWidth }, [className])}
+      >
         <Dropdown<T>
           toggleComponent={
             <InputClearable
@@ -82,6 +89,8 @@ export const Autocomplete = observer(
               onChange={handleChange}
               onClick={handleOpen}
               value={inputLabel}
+              fullWidth
+              label={label}
             />
           }
           isLoading={isLoading}

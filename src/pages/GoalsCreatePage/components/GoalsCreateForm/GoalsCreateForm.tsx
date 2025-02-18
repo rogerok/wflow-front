@@ -1,10 +1,13 @@
 import { cn } from '@bem-react/classname';
 import {
   BooksAutocomplete,
+  DatePickerInput,
   FormComponent,
+  FormTextArea,
   TextInput,
 } from '@shared/elements/components';
-import { VStack } from '@shared/elements/ui';
+import { Button, VStack } from '@shared/elements/ui';
+import { toJS } from 'mobx';
 import { FC, useState } from 'react';
 
 import { GoalsCreateService } from '../../model/services/GoalsCreateService';
@@ -22,14 +25,36 @@ export const GoalsCreateForm: FC<GoalsCreateFormProps> = (props) => {
     form: { fields },
   } = service;
 
+  console.log(toJS(service.form.errors));
+
   return (
     <FormComponent
       className={cnGoalsCreateForm(undefined, [props.className])}
       onSubmit={service.submit}
     >
-      <VStack gap={'16'}>
-        <TextInput field={fields.title} label={'Название цели'} fullWidth />
-        <BooksAutocomplete field={fields.bookId} />
+      <VStack gap={'16'} fullWidth>
+        <TextInput field={fields.title} fullWidth label={'Название цели'} />
+        <FormTextArea field={fields.description} fullWidth label={'Описание'} />
+        <BooksAutocomplete label={'Книга'} field={fields.bookId} fullWidth />
+        <TextInput
+          field={fields.goalWords}
+          fullWidth
+          label={'Количество слов'}
+          type={'number'}
+        />
+        <DatePickerInput
+          field={fields.startDate}
+          label={'Дата начала'}
+          fullWidth
+        />
+        <DatePickerInput
+          field={fields.endDate}
+          label={'Дата завершения'}
+          fullWidth
+        />
+        <Button type={'submit'} disabled={service.form.isSubmitting}>
+          Отправить
+        </Button>
       </VStack>
     </FormComponent>
   );

@@ -8,7 +8,7 @@ export const createGoalRequest = async (
   data: GoalCreateFormType,
   abortController: AbortController | null,
 ): Promise<AxiosResponse<CreateResponseType>> => {
-  return $api.post<CreateResponseType>('/goals', data, {
+  return $api.post<CreateResponseType>('/private/goals', data, {
     signal: abortController?.signal,
   });
 };

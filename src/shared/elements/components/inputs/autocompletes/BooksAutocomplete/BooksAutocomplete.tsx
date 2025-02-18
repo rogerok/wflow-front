@@ -13,11 +13,12 @@ interface BooksAutocompleteProps {
   field: TextField<string>;
   className?: string;
   label?: string;
+  fullWidth?: boolean;
 }
 
 export const BooksAutocomplete: FC<BooksAutocompleteProps> = observer(
   (props) => {
-    const { field, label } = props;
+    const { field, label, fullWidth } = props;
     const [service] = useState(() => new BooksService());
     const { abortRequest, list, data } = service;
 
@@ -35,6 +36,7 @@ export const BooksAutocomplete: FC<BooksAutocompleteProps> = observer(
         className={cnBooksAutocomplete(undefined, [props.className])}
         label={label}
         field={field}
+        fullWidth={fullWidth}
         options={service.data}
         labelField={'name'}
       />

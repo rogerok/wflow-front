@@ -11,6 +11,10 @@
 
   &-Inner {
     position: relative;
+
+    &_fullWidth {
+      width: 100%;
+    }
   }
 
 

@@ -1,6 +1,15 @@
 .DatePicker {
   position: relative;
+
+  &_fullWidth {
+    width: 100%;
+
+    .react-datepicker-wrapper {
+      width: 100%;
+    }
+  }
 }
+
 
 .react-datepicker-popper {
   top: 76px !important;
@@ -10,7 +19,7 @@
 
 
 .react-datepicker {
-  width: 100%;
+  max-width: 100%;
 
   font: var(--font-m);
   color: var(--basic-primary);

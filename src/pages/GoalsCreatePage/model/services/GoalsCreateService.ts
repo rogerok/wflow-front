@@ -1,5 +1,6 @@
 import { FormStore } from '@shared/lib';
 import { AbortStore, RequestStore } from '@shared/stores';
+import { endOfDay, formatISO, startOfDay } from 'date-fns';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { createGoalRequest } from '../../api/createGoal';
@@ -34,9 +35,9 @@ export class GoalsCreateService {
         {
           bookId: values.bookId,
           description: values.description,
-          endDate: values.endDate,
-          goalWords: values.goalWords,
-          startDate: values.startDate,
+          endDate: formatISO(startOfDay(values.endDate)),
+          goalWords: Number(values.goalWords),
+          startDate: formatISO(endOfDay(values.startDate)),
           title: values.title,
         },
         this.abort.abortController,

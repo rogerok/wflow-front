@@ -1,20 +1,23 @@
 @font-face {
-  font-family: Overpass;
+  font-family: 'Noto Sans';
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/subset-NotoSans-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
   font-weight: normal;
   font-style: normal;
-  src: url('../assets/fonts/overpass-regular.woff2');
+  font-display: swap;
+  src: url('../assets/fonts/subset-NotoSans-Regular.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: Overpass;
+  font-family: 'Noto Sans';
   font-weight: 600;
   font-style: normal;
-  src: url('../assets/fonts/overpass-semibold.woff2');
-}
-
-@font-face {
-  font-family: Overpass;
-  font-weight: 700;
-  font-style: normal;
-  src: url('../assets/fonts/overpass-bold.woff2');
+  font-display: swap;
+  src: url('../assets/fonts/subset-NotoSans-SemiBold.woff2') format('woff2');
 }

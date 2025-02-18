@@ -27,6 +27,8 @@ export interface DatePickerProps {
   customInput?: ReactDatePickerProps['customInput'];
   dateFormat?: ReactDatePickerProps['dateFormat'];
   selectedDate?: Date | null;
+  withPortal?: ReactDatePickerProps['withPortal'];
+  fullWidth?: boolean;
 }
 
 export const DatePicker: FC<DatePickerProps> = memo((props) => {
@@ -37,6 +39,7 @@ export const DatePicker: FC<DatePickerProps> = memo((props) => {
     timeIntervals = 60,
     customInput,
     selectedDate,
+    fullWidth,
     ...restProps
   } = props;
 
@@ -48,7 +51,7 @@ export const DatePicker: FC<DatePickerProps> = memo((props) => {
   );
 
   return (
-    <div className={cnDatePicker(undefined, className)}>
+    <div className={cnDatePicker({ fullWidth: fullWidth }, className)}>
       <ReactDatePicker
         {...restProps}
         onChange={handleChange}
