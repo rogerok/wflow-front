@@ -19,34 +19,34 @@ type AutocompleteProps<T extends IOptionType> = {
   labelField: keyof T;
   options: T[];
   className?: string;
-  uniqueIdentifier?: keyof T;
   ref?: Ref<HTMLDivElement>;
+  uniqueIdentifier?: keyof T;
 } & HTMLInputProps;
 
 export const Autocomplete = observer(
   <T extends IOptionType>(props: AutocompleteProps<T>): ReactNode => {
     const {
-      field,
       className,
-      options,
+      field,
       labelField,
-      uniqueIdentifier = 'id',
+      options,
       ref,
+      uniqueIdentifier = 'id',
     } = props;
 
     const {
       inputLabel,
-      selectedItem,
       inputOptions,
       onItemSelect,
+      selectedItem,
       onChange,
       onClose,
       onClear,
     } = useAutocomplete({
       field,
       labelField,
-      uniqueIdentifier,
       options,
+      uniqueIdentifier,
     });
 
     const { open, handleOpen, handleClose, toggleOpen } = useDropdown();
@@ -76,20 +76,20 @@ export const Autocomplete = observer(
         <Dropdown<T>
           toggleComponent={
             <InputClearable
-              value={inputLabel}
-              onClick={handleOpen}
-              onChange={handleChange}
               handleClear={handleClear}
+              onChange={handleChange}
+              onClick={handleOpen}
+              value={inputLabel}
             />
           }
-          value={selectedItem}
-          options={inputOptions}
           labelField={labelField}
-          open={open}
-          uniqueIdentifier={uniqueIdentifier}
-          toggleOpen={toggleOpen}
-          onItemClick={handleItemSelect}
           onClose={onDropdownClose}
+          onItemClick={handleItemSelect}
+          open={open}
+          options={inputOptions}
+          toggleOpen={toggleOpen}
+          uniqueIdentifier={uniqueIdentifier}
+          value={selectedItem}
         />
       </div>
     );

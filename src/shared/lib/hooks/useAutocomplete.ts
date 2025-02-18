@@ -12,6 +12,7 @@ type useAutocompleteReturnType<T extends IOptionType> = {
   inputOptions: T[];
   onClear: () => void;
 };
+
 type useAutocompleteArgs<T extends IOptionType> = {
   field: TextField<string | number>;
   options: T[];
@@ -52,8 +53,13 @@ export const useAutocomplete = <T extends IOptionType>({
       field.toDefaultValue();
       setInputLabel('');
     } else {
-      setInputLabel(item[labelField]);
-      field.setValue(item[uniqueIdentifier]);
+      if (item[uniqueIdentifier]) {
+        field.setValue(item[uniqueIdentifier]);
+      }
+
+      if (item[labelField]) {
+        setInputLabel(item[labelField]);
+      }
     }
   };
 

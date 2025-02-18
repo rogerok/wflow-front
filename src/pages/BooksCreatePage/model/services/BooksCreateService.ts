@@ -5,7 +5,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 
 import { createBookRequest } from '../api/createBookApi';
 
-export class BookCreateService {
+export class BooksCreateService {
   form = new FormStore<BookFormRequestType>({
     schema: BookFormRequestSchema,
     defaultValues: {
@@ -28,7 +28,7 @@ export class BookCreateService {
       });
 
       runInAction(() => {
-        if (resp) {
+        if (resp.status === 'success') {
           this.form.reset();
         }
       });

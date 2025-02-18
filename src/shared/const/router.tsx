@@ -15,6 +15,7 @@ export const routes = {
   books: () => '/books',
   booksCreate: () => '/books/create',
   goals: () => '/goals',
+  goalsCreate: () => '/goals/create',
   reports: () => '/reports',
 } as const;
 
