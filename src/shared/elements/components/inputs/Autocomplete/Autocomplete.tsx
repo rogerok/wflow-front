@@ -21,6 +21,7 @@ type AutocompleteProps<T extends IOptionType> = {
   className?: string;
   ref?: Ref<HTMLDivElement>;
   uniqueIdentifier?: keyof T;
+  isLoading?: boolean;
 } & HTMLInputProps;
 
 export const Autocomplete = observer(
@@ -28,6 +29,7 @@ export const Autocomplete = observer(
     const {
       className,
       field,
+      isLoading,
       labelField,
       options,
       ref,
@@ -82,6 +84,7 @@ export const Autocomplete = observer(
               value={inputLabel}
             />
           }
+          isLoading={isLoading}
           labelField={labelField}
           onClose={onDropdownClose}
           onItemClick={handleItemSelect}

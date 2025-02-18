@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { IOptionType } from '../../types';
 import { TextField } from '../form';
@@ -32,10 +32,14 @@ export const useAutocomplete = <T extends IOptionType>({
     );
   };
 
-  const [inputOptions, setInputOptions] = useState<T[]>(options);
+  const [inputOptions, setInputOptions] = useState<T[]>([]);
   const [inputLabel, setInputLabel] = useState<string | number>(
     () => getSelectedOption()?.[labelField] ?? '',
   );
+
+  useEffect(() => {
+    setInputOptions(options);
+  }, [options]);
 
   const [selectedItem, setSelectedItem] = useState<T | null>(() =>
     getSelectedOption(),

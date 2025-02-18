@@ -1,8 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { getBooksList } from '../../api/books/booksApi';
-import { RequestStore } from '../../stores/request/RequestStore';
-import { BooksListResponseType } from '../../types/book';
+import { getBooksList } from '../../api';
+import { RequestStore } from '../../stores';
+import { BooksListResponseType } from '../../types';
 
 export class BooksService {
   requestStore = new RequestStore(getBooksList);

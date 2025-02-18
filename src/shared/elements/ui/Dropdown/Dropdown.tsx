@@ -33,6 +33,7 @@ type DropdownProps<T extends IOptionType> = Omit<
   toggleComponent?: ReactNode;
   uniqueIdentifier?: keyof T;
   value?: T | null;
+  isLoading?: boolean;
 };
 
 const DropdownComponent = <T extends IOptionType>(
@@ -102,18 +103,22 @@ const DropdownComponent = <T extends IOptionType>(
         >
           {options.length ? (
             <ul className={cnDropdown('List')}>
-              {options.map((option) => (
-                <li
-                  key={option.id}
-                  onClick={() => onItemClick?.(option)}
-                  className={cnDropdown('ListItem', {
-                    selected:
-                      value?.[uniqueIdentifier] === option[uniqueIdentifier],
-                  })}
-                >
-                  {option[labelField]}
-                </li>
-              ))}
+              {!props.isLoading ? (
+                options.map((option) => (
+                  <li
+                    key={option.id}
+                    onClick={() => onItemClick?.(option)}
+                    className={cnDropdown('ListItem', {
+                      selected:
+                        value?.[uniqueIdentifier] === option[uniqueIdentifier],
+                    })}
+                  >
+                    {option[labelField]}
+                  </li>
+                ))
+              ) : (
+                <div>loading</div>
+              )}
             </ul>
           ) : (
             <Typography className={cnDropdown('NotFoundLabel')}>

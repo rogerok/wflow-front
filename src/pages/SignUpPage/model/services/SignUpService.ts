@@ -2,7 +2,7 @@ import { convertEmptyStringToNull, FormStore } from '@shared/lib';
 import { RequestStore } from '@shared/stores';
 import { makeAutoObservable } from 'mobx';
 
-import { createUserRequest } from '../api/signUpApi';
+import { createUserRequest } from '../../api/signUpApi';
 import {
   UserCreateRequestSchema,
   UserCreateRequestType,

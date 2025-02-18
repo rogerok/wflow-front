@@ -2,7 +2,7 @@ import { FormStore } from '@shared/lib';
 import { AbortStore, RequestStore } from '@shared/stores';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { createGoalRequest } from '../api/createGoal';
+import { createGoalRequest } from '../../api/createGoal';
 import { GoalCreateFormSchema, GoalCreateFormType } from '../types/createGoal';
 
 export class GoalsCreateService {

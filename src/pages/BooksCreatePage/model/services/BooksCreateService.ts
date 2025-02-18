@@ -3,7 +3,7 @@ import { RequestStore } from '@shared/stores';
 import { BookFormRequestSchema, BookFormRequestType } from '@shared/types';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { createBookRequest } from '../api/createBookApi';
+import { createBookRequest } from '../../api/createBookApi';
 
 export class BooksCreateService {
   form = new FormStore<BookFormRequestType>({

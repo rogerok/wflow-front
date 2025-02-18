@@ -1,12 +1,12 @@
 import './Navbar.scss';
 
 import { cn } from '@bem-react/classname';
-import { NavbarLinks } from '@shared/const';
 import { Overlay } from '@shared/elements/ui';
 import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
+import { NavbarLinks } from '../model/constants/links';
 import { NavbarLink } from './NavbarLink/NavbarLink';
 import { NavbarLogoutButton } from './NavbarLogoutButton/NavbarLogoutButton';
 import { NavbarToggleButton } from './NavbarToggleButton/NavbarToggleButton';

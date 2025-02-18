@@ -28,8 +28,8 @@ export const InputClearable: FC<InputClearableProps> = memo((props) => {
 
   return (
     <Input
-      className={cnInputClearable(undefined, [className])}
       {...restProps}
+      className={cnInputClearable(undefined, [className])}
       value={value}
       addonRight={addonRight}
     />
