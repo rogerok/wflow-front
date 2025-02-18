@@ -3,7 +3,7 @@ import './DatePicker.scss';
 
 import { cn } from '@bem-react/classname';
 import { ru } from 'date-fns/locale';
-import { FC, useState } from 'react';
+import { FC, memo, useCallback } from 'react';
 import ReactDatePicker, {
   DatePickerProps as ReactDatePickerProps,
   registerLocale,
@@ -26,26 +26,26 @@ export interface DatePickerProps {
   maxDate?: ReactDatePickerProps['maxDate'];
   customInput?: ReactDatePickerProps['customInput'];
   dateFormat?: ReactDatePickerProps['dateFormat'];
+  selectedDate?: Date | null;
 }
 
-export const DatePicker: FC<DatePickerProps> = (props) => {
+export const DatePicker: FC<DatePickerProps> = memo((props) => {
   const {
     onChange,
     value,
     className,
     timeIntervals = 60,
     customInput,
+    selectedDate,
     ...restProps
   } = props;
 
-  const [selectedDate, setSelectedDate] = useState<Date | null>(() =>
-    value ? new Date(value) : null,
+  const handleChange = useCallback(
+    (date: Date | null): void => {
+      onChange?.(date);
+    },
+    [onChange],
   );
-
-  const handleChange = (date: Date | null): void => {
-    onChange?.(date);
-    setSelectedDate(selectedDate);
-  };
 
   return (
     <div className={cnDatePicker(undefined, className)}>
@@ -60,4 +60,4 @@ export const DatePicker: FC<DatePickerProps> = (props) => {
       />
     </div>
   );
-};
+});

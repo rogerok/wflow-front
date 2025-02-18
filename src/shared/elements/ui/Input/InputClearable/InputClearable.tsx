@@ -1,7 +1,7 @@
 import './InputClearable.scss';
 
 import { cn } from '@bem-react/classname';
-import { ComponentProps, FC } from 'react';
+import { ComponentProps, FC, memo } from 'react';
 
 import { IconComponent } from '../../IconComponent/IconComponent';
 import { Input } from '../Input';
@@ -14,22 +14,24 @@ interface InputClearableProps
 
 const cnInputClearable = cn('InputClearable');
 
-export const InputClearable: FC<InputClearableProps> = (props) => {
+export const InputClearable: FC<InputClearableProps> = memo((props) => {
   const { handleClear, className, value, ...restProps } = props;
+
+  const addonRight = (
+    <IconComponent
+      className={cnInputClearable('Button', { hidden: !value })}
+      name={'ClearCircle'}
+      size={'sm'}
+      onClick={handleClear}
+    />
+  );
 
   return (
     <Input
       className={cnInputClearable(undefined, [className])}
       {...restProps}
       value={value}
-      addonRight={
-        <IconComponent
-          className={cnInputClearable('Button', { hidden: !value })}
-          name={'ClearCircle'}
-          size={'sm'}
-          onClick={handleClear}
-        />
-      }
+      addonRight={addonRight}
     />
   );
-};
+});
