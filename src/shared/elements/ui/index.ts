@@ -1,6 +1,7 @@
 export { AppLink } from './AppLink/AppLink';
 export { Button } from './Button/Button';
 export { ButtonLink } from './ButtonLink/ButtonLink';
+export { DatePicker } from './Datepicker/DatePicker';
 export { Flex } from './Flex/Flex';
 export { HStack } from './HStack/HStack';
 export { IconComponent } from './IconComponent/IconComponent';

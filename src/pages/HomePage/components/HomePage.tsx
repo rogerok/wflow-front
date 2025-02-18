@@ -1,5 +1,9 @@
 import { cn } from '@bem-react/classname';
-import { Autocomplete } from '@shared/elements/components';
+import {
+  Autocomplete,
+  DatePickerInput,
+  DateTimePickerInput,
+} from '@shared/elements/components';
 import { Page } from '@shared/elements/ui';
 import { FormStore } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
@@ -45,7 +49,8 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
 
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
-      home page
+      <DatePickerInput field={form.fields.name} />
+      <DateTimePickerInput field={form.fields.name} />
       <Autocomplete<Options>
         options={options}
         field={form.fields.name}
