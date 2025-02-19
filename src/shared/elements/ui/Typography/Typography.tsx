@@ -6,7 +6,7 @@ import { ComponentPropsWithoutRef, ElementType, memo, ReactNode } from 'react';
 const cnTypography = cn('Typography');
 
 type TypographyVariants = 'primary' | 'secondary' | 'light' | 'accent' | 'warn';
-type TypographySize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type TypographySize = 'xs' | 'sm' | 'm' | 'l' | 'xl';
 type TypographyWeight = 'normal' | 'semibold' | 'bold';
 type TypographyAlign = 'left' | 'center' | 'right';
 
@@ -18,6 +18,7 @@ type TypographyProps<T extends ElementType> = {
   variant?: TypographyVariants;
   weight?: TypographyWeight;
   align?: TypographyAlign;
+  fullWidth?: boolean;
 } & ComponentPropsWithoutRef<T>;
 
 export const Typography = memo(
@@ -30,6 +31,7 @@ export const Typography = memo(
       variant = 'primary',
       weight = 'normal',
       align = 'left',
+      fullWidth,
       ...restProps
     } = props;
 
@@ -38,6 +40,7 @@ export const Typography = memo(
       variant: variant,
       weight: weight,
       align: align,
+      fullWidth: fullWidth,
     };
 
     const Component = as || 'span';

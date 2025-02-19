@@ -1,6 +1,14 @@
 import { cn } from '@bem-react/classname';
 import { routes } from '@shared/const';
-import { ButtonLink, Page, PageTitle, VStack } from '@shared/elements/ui';
+import {
+  ButtonLink,
+  Card,
+  CardContent,
+  HStack,
+  Page,
+  PageTitle,
+} from '@shared/elements/ui';
+import { CardHeader } from '@shared/elements/ui/Card/CardHeader/CardHeader';
 import { BooksService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
@@ -27,15 +35,16 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
       <PageTitle title={'Мои книги'} />
       <ButtonLink to={routes.booksCreate()}>Добавить книгу</ButtonLink>
 
-      <VStack as={'ul'} gap={'16'} fullWidth>
+      <HStack as={'ul'} gap={'16'} fullWidth>
         {service.data.map((book) => (
-          <VStack key={book.id} gap={'8'} as={'li'}>
-            <h3>{book.name}</h3>
-            <p>{book.description}</p>
-            <p>Создано {new Date(book.createdAt).toLocaleDateString()}</p>
-          </VStack>
+          <Card>
+            <CardContent key={book.id}>
+              <CardHeader title={book.name} subtitle={book.description} />
+              <p>Создано {new Date(book.createdAt).toLocaleDateString()}</p>
+            </CardContent>
+          </Card>
         ))}
-      </VStack>
+      </HStack>
     </Page>
   );
 });
