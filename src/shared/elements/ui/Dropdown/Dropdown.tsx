@@ -1,7 +1,7 @@
 import './Dropdown.scss';
 
 import { cn } from '@bem-react/classname';
-import { ComponentProps, memo, ReactNode, useRef } from 'react';
+import { ComponentProps, ReactNode, useRef } from 'react';
 
 import { IOptionType } from '../../../types';
 import { Button } from '../Button/Button';
@@ -36,7 +36,7 @@ type DropdownProps<T extends IOptionType> = Omit<
   isLoading?: boolean;
 };
 
-const DropdownComponent = <T extends IOptionType>(
+export const Dropdown = <T extends IOptionType>(
   props: DropdownProps<T>,
 ): ReactNode => {
   const {
@@ -130,7 +130,3 @@ const DropdownComponent = <T extends IOptionType>(
     </div>
   );
 };
-
-export const Dropdown = memo(DropdownComponent) as <T extends IOptionType>(
-  props: DropdownProps<T>,
-) => ReactNode;

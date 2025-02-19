@@ -7,7 +7,7 @@ import {
   TextInput,
 } from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
-import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
 import { GoalsCreateService } from '../../model/services/GoalsCreateService';
@@ -18,14 +18,14 @@ interface GoalsCreateFormProps {
   className?: string;
 }
 
-export const GoalsCreateForm: FC<GoalsCreateFormProps> = (props) => {
+export const GoalsCreateForm: FC<GoalsCreateFormProps> = observer((props) => {
   const [service] = useState(() => new GoalsCreateService());
 
   const {
     form: { fields },
   } = service;
 
-  console.log(toJS(service.form.errors));
+  const minDate = new Date();
 
   return (
     <FormComponent
@@ -45,11 +45,17 @@ export const GoalsCreateForm: FC<GoalsCreateFormProps> = (props) => {
         <DatePickerInput
           field={fields.startDate}
           label={'Дата начала'}
+          minDate={minDate}
+          showMonthDropdown
+          showYearDropdown
           fullWidth
         />
         <DatePickerInput
           field={fields.endDate}
           label={'Дата завершения'}
+          minDate={minDate}
+          showMonthDropdown
+          showYearDropdown
           fullWidth
         />
         <Button type={'submit'} disabled={service.form.isSubmitting}>
@@ -58,4 +64,4 @@ export const GoalsCreateForm: FC<GoalsCreateFormProps> = (props) => {
       </VStack>
     </FormComponent>
   );
-};
+});

@@ -36,7 +36,7 @@ export const Popup = memo(
       container,
       className,
       open,
-      zIndex = 10,
+      zIndex = 3,
       closeOnEscape,
       placement = 'bottom-left',
       closeOnOutsideClick = true,

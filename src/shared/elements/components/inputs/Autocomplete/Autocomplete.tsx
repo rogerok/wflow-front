@@ -91,6 +91,7 @@ export const Autocomplete = observer(
               value={inputLabel}
               fullWidth
               label={label}
+              error={field.error}
             />
           }
           isLoading={isLoading}

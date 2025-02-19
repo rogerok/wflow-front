@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { IOptionType } from '../../types';
 import { TextField } from '../form';
@@ -26,24 +26,29 @@ export const useAutocomplete = <T extends IOptionType>({
   uniqueIdentifier,
   options,
 }: useAutocompleteArgs<T>): useAutocompleteReturnType<T> => {
-  const getSelectedOption = (): T | null => {
+  const getSelectedOption = useCallback((): T | null => {
     return (
       options.find((option) => option[uniqueIdentifier] === field.value) ?? null
     );
-  };
+  }, [field.value, options, uniqueIdentifier]);
 
   const [inputOptions, setInputOptions] = useState<T[]>([]);
   const [inputLabel, setInputLabel] = useState<string | number>(
     () => getSelectedOption()?.[labelField] ?? '',
   );
 
-  useEffect(() => {
-    setInputOptions(options);
-  }, [options]);
-
   const [selectedItem, setSelectedItem] = useState<T | null>(() =>
     getSelectedOption(),
   );
+
+  useEffect(() => {
+    setInputOptions(options);
+
+    if (getSelectedOption()?.id !== field.value) {
+      setInputLabel('');
+      setSelectedItem(null);
+    }
+  }, [field.value, getSelectedOption, options]);
 
   const onItemSelect = (item: T): void => {
     setSelectedItem((prev) => {
@@ -92,7 +97,7 @@ export const useAutocomplete = <T extends IOptionType>({
   };
 
   const onClear = (): void => {
-    field.setValue('');
+    field.reset();
     setInputLabel('');
     setInputOptions(options);
     setSelectedItem(null);

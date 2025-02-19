@@ -1,7 +1,7 @@
 import { cn } from '@bem-react/classname';
-import { format } from 'date-fns';
+import { format, formatISO } from 'date-fns';
 import { observer } from 'mobx-react-lite';
-import { ComponentProps, FC, useState } from 'react';
+import { ComponentProps, FC, useEffect, useState } from 'react';
 
 import { TextField } from '../../../../lib';
 import { useGlobalStore } from '../../../../stores';
@@ -31,9 +31,12 @@ export const DatePickerInput: FC<DatePickerInputProps> = observer((props) => {
     ...restProps
   } = props;
   const { setValue, value, error, name } = field;
-  const [selectedDate, setSelectedDate] = useState<Date | null>(() =>
-    value ? new Date(value) : null,
-  );
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setSelectedDate(() => (value ? new Date(value) : null));
+  }, [value]);
 
   const store = useGlobalStore();
   const inputValue = selectedDate ? format(selectedDate, dateFormat) : '';
@@ -45,7 +48,7 @@ export const DatePickerInput: FC<DatePickerInputProps> = observer((props) => {
 
   const handleDatePickerChange = (date: Date | null): void => {
     if (date) {
-      setValue(date.toString());
+      setValue(formatISO(date));
       setSelectedDate(date);
     } else {
       setValue('');
