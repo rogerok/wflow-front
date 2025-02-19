@@ -31,3 +31,14 @@ export const GoalRequestSchema = z
   })
   .merge(PaginationRequestSchema);
 export type GoalRequestType = z.infer<typeof GoalRequestSchema>;
+
+export const GoalCreateRequestSchema = z.object({
+  bookId: z.string().uuid(),
+  description: z.string().max(255).nullable(),
+  endDate: z.string(),
+  goalWords: z.number().min(2),
+  startDate: z.string(),
+  title: z.string().min(2).max(255),
+});
+
+export type GoalFormRequestType = z.infer<typeof GoalCreateRequestSchema>;

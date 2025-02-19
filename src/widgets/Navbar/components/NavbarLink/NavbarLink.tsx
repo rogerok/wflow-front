@@ -1,10 +1,10 @@
 import './NavbarLink.scss';
 
 import { cn } from '@bem-react/classname';
-import { NavbarLinksType } from '@shared/const';
 import { AppLink } from '@shared/elements/ui';
 import { FC, memo } from 'react';
 
+import { NavbarLinksType } from '../../model/constants/links';
 import { NavbarLabel } from '../NavbarLabel/NavbarLabel';
 
 const cnNavbarLabel = cn('NavbarLink');

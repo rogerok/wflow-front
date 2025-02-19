@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@bem-react/classname": "^1.6.0",
+    "@floating-ui/react": "^0.27.4",
     "@tanstack/react-router": "^1.95.1",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
@@ -62,7 +63,7 @@
     "@testing-library/react": "16.1.0",
     "@types/node": "22.10.5",
     "@types/react": "19.0.4",
-    "@types/react-date-range": "^1.4.9",
+    "@types/react-datepicker": "^7.0.0",
     "@types/react-dom": "19.0.2",
     "@typescript-eslint/parser": "^8.19.1",
     "@vitejs/plugin-react": "^4.3.4",

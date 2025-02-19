@@ -15,7 +15,7 @@ export const usePopup = ({
 }: UsePopupArgs): void => {
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (closeOnEscape && event.code === 'Escape') {
+      if (closeOnEscape && event.code === 'Escape' && onClose) {
         onClose();
       }
     },

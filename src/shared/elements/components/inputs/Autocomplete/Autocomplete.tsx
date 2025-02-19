@@ -1,3 +1,5 @@
+import './Autocomplete.scss';
+
 import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
 import { ComponentProps, ReactNode, Ref } from 'react';
@@ -19,34 +21,38 @@ type AutocompleteProps<T extends IOptionType> = {
   labelField: keyof T;
   options: T[];
   className?: string;
-  uniqueIdentifier?: keyof T;
   ref?: Ref<HTMLDivElement>;
+  uniqueIdentifier?: keyof T;
+  isLoading?: boolean;
 } & HTMLInputProps;
 
 export const Autocomplete = observer(
   <T extends IOptionType>(props: AutocompleteProps<T>): ReactNode => {
     const {
-      field,
       className,
-      options,
+      field,
+      isLoading,
       labelField,
-      uniqueIdentifier = 'id',
+      options,
       ref,
+      uniqueIdentifier = 'id',
+      fullWidth,
+      label,
     } = props;
 
     const {
       inputLabel,
-      selectedItem,
       inputOptions,
       onItemSelect,
+      selectedItem,
       onChange,
       onClose,
       onClear,
     } = useAutocomplete({
       field,
       labelField,
-      uniqueIdentifier,
       options,
+      uniqueIdentifier,
     });
 
     const { open, handleOpen, handleClose, toggleOpen } = useDropdown();
@@ -72,24 +78,31 @@ export const Autocomplete = observer(
     };
 
     return (
-      <div ref={ref} className={cnAutocomplete(undefined, [className])}>
+      <div
+        ref={ref}
+        className={cnAutocomplete({ fullWidth: fullWidth }, [className])}
+      >
         <Dropdown<T>
           toggleComponent={
             <InputClearable
-              value={inputLabel}
-              onClick={handleOpen}
-              onChange={handleChange}
               handleClear={handleClear}
+              onChange={handleChange}
+              onClick={handleOpen}
+              value={inputLabel}
+              fullWidth
+              label={label}
+              error={field.error}
             />
           }
-          value={selectedItem}
-          options={inputOptions}
+          isLoading={isLoading}
           labelField={labelField}
-          open={open}
-          uniqueIdentifier={uniqueIdentifier}
-          toggleOpen={toggleOpen}
-          onItemClick={handleItemSelect}
           onClose={onDropdownClose}
+          onItemClick={handleItemSelect}
+          open={open}
+          options={inputOptions}
+          toggleOpen={toggleOpen}
+          uniqueIdentifier={uniqueIdentifier}
+          value={selectedItem}
         />
       </div>
     );

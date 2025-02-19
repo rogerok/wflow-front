@@ -7,6 +7,7 @@ import { observer } from 'mobx-react-lite';
 import React, { FC, ReactElement, useEffect } from 'react';
 import { routeTree } from '../routeTree.gen';
 import { GlobalStoreContextProvider, useGlobalStore } from '@shared/stores';
+import { z } from 'zod';
 
 export const router = createRouter({
   routeTree,
@@ -27,6 +28,14 @@ declare global {
     localStorageChange: CustomEvent;
   }
 }
+
+z.setErrorMap((error, ctx) => {
+  let errorMessage = ctx.defaultError;
+  console.error(error, ctx);
+  return {
+    message: errorMessage,
+  };
+});
 
 const cnApp = cn('App');
 

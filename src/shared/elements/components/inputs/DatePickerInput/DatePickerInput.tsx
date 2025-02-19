@@ -1,9 +1,10 @@
 import { cn } from '@bem-react/classname';
-import { format } from 'date-fns';
+import { format, formatISO } from 'date-fns';
 import { observer } from 'mobx-react-lite';
-import { ComponentProps, FC, useState } from 'react';
+import { ComponentProps, FC, useEffect, useState } from 'react';
 
 import { TextField } from '../../../../lib';
+import { useGlobalStore } from '../../../../stores';
 import { DatePicker } from '../../../ui';
 import { InputClearable } from '../../../ui/Input/InputClearable/InputClearable';
 
@@ -17,15 +18,28 @@ interface DatePickerInputProps
   className?: string;
   field: TextField<string | number>;
   dateFormat?: string;
+  label?: string;
+  fullWidth?: boolean;
 }
 
 export const DatePickerInput: FC<DatePickerInputProps> = observer((props) => {
-  const { field, dateFormat = 'dd-MM-yyyy', className, ...restProps } = props;
-  const { setValue, value } = field;
-  const [selectedDate, setSelectedDate] = useState<Date | null>(() =>
-    value ? new Date(value) : null,
-  );
+  const {
+    field,
+    dateFormat = 'dd-MM-yyyy',
+    className,
+    label,
+    fullWidth,
+    ...restProps
+  } = props;
+  const { setValue, value, error, name } = field;
 
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setSelectedDate(() => (value ? new Date(value) : null));
+  }, [value]);
+
+  const store = useGlobalStore();
   const inputValue = selectedDate ? format(selectedDate, dateFormat) : '';
 
   const handleClear = (): void => {
@@ -35,7 +49,7 @@ export const DatePickerInput: FC<DatePickerInputProps> = observer((props) => {
 
   const handleDatePickerChange = (date: Date | null): void => {
     if (date) {
-      setValue(date.toString());
+      setValue(formatISO(date));
       setSelectedDate(date);
     } else {
       setValue('');
@@ -44,20 +58,25 @@ export const DatePickerInput: FC<DatePickerInputProps> = observer((props) => {
 
   const input = (
     <InputClearable
-      label={'Выберите дату'}
+      label={label}
       value={inputValue}
       handleClear={handleClear}
+      fullWidth={fullWidth}
+      error={error}
+      name={name}
     />
   );
 
   return (
     <DatePicker
       {...restProps}
+      fullWidth={fullWidth}
       className={cnDatePickerInput(undefined, [className])}
       customInput={input}
       selectedDate={selectedDate}
       onChange={handleDatePickerChange}
       dateFormat={dateFormat}
+      withPortal={store.screen.downMd}
     />
   );
 });

@@ -1,5 +1,5 @@
 :root {
-  --font-family: 'Overpass';
+  --font-family: 'Noto Sans';
 
   --font-size-xs: 1.2rem;
   --font-line-xs: 1.5;
@@ -24,11 +24,12 @@
   --navbar-height: 10.4rem;
   --navbar-collapsed-height: 5rem;
 
-  --navbar-z-index: 3;
+  --navbar-z-index: 10;
+  --popup-z-index: 3;
 
   --header-height: 8rem;
 
-  --overlay-z-index: 2;
+  --overlay-z-index: 5;
 
   --default-transition: all 0.2s ease-in-out;
 

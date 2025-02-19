@@ -58,9 +58,10 @@ export const Input: FC<InputProps> = memo((props) => {
           <Typography>{label}</Typography>
         </label>
       )}
-      <div className={cnInput('Inner')}>
+      <div className={cnInput('Inner', { fullWidth: fullWidth })}>
         {addonLeft && <div className={cnInput('AddonLeft')}>{addonLeft}</div>}
         <input
+          {...restProps}
           id={name}
           className={cnInput('Input', {
             error: !!error,
@@ -73,7 +74,6 @@ export const Input: FC<InputProps> = memo((props) => {
           disabled={disabled}
           name={name}
           type={type}
-          {...restProps}
         />
         {addonRight && (
           <div className={cnInput('AddonRight')}>{addonRight}</div>

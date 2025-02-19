@@ -8,7 +8,7 @@ import { Button, VStack } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
-import { BookCreateService } from '../../model/services/BookCreateService';
+import { BooksCreateService } from '../../model/services/BooksCreateService';
 
 const cnBooksCreateForm = cn('BooksCreateForm');
 
@@ -17,7 +17,7 @@ interface BooksCreateFormProps {
 }
 
 export const BooksCreateForm: FC<BooksCreateFormProps> = observer((props) => {
-  const [service] = useState(() => new BookCreateService());
+  const [service] = useState(() => new BooksCreateService());
 
   return (
     <FormComponent

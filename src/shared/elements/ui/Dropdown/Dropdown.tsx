@@ -1,7 +1,7 @@
 import './Dropdown.scss';
 
 import { cn } from '@bem-react/classname';
-import { ComponentProps, memo, ReactNode, useRef } from 'react';
+import { ComponentProps, ReactNode, useRef } from 'react';
 
 import { IOptionType } from '../../../types';
 import { Button } from '../Button/Button';
@@ -33,9 +33,10 @@ type DropdownProps<T extends IOptionType> = Omit<
   toggleComponent?: ReactNode;
   uniqueIdentifier?: keyof T;
   value?: T | null;
+  isLoading?: boolean;
 };
 
-const DropdownComponent = <T extends IOptionType>(
+export const Dropdown = <T extends IOptionType>(
   props: DropdownProps<T>,
 ): ReactNode => {
   const {
@@ -102,18 +103,22 @@ const DropdownComponent = <T extends IOptionType>(
         >
           {options.length ? (
             <ul className={cnDropdown('List')}>
-              {options.map((option) => (
-                <li
-                  key={option.id}
-                  onClick={() => onItemClick?.(option)}
-                  className={cnDropdown('ListItem', {
-                    selected:
-                      value?.[uniqueIdentifier] === option[uniqueIdentifier],
-                  })}
-                >
-                  {option[labelField]}
-                </li>
-              ))}
+              {!props.isLoading ? (
+                options.map((option) => (
+                  <li
+                    key={option.id}
+                    onClick={() => onItemClick?.(option)}
+                    className={cnDropdown('ListItem', {
+                      selected:
+                        value?.[uniqueIdentifier] === option[uniqueIdentifier],
+                    })}
+                  >
+                    {option[labelField]}
+                  </li>
+                ))
+              ) : (
+                <div>loading</div>
+              )}
             </ul>
           ) : (
             <Typography className={cnDropdown('NotFoundLabel')}>
@@ -125,7 +130,3 @@ const DropdownComponent = <T extends IOptionType>(
     </div>
   );
 };
-
-export const Dropdown = memo(DropdownComponent) as <T extends IOptionType>(
-  props: DropdownProps<T>,
-) => ReactNode;

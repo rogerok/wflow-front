@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 import {
   UserCreateRequestType,
   UserCreateResponseType,
-} from '../types/userCreate';
+} from '../model/types/userCreate';
 
 export const createUserRequest = (
   data: UserCreateRequestType,
