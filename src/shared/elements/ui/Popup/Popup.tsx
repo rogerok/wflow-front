@@ -1,6 +1,7 @@
 import './Popup.scss';
 
 import { cn } from '@bem-react/classname';
+import { autoUpdate, flip, shift, useFloating } from '@floating-ui/react';
 import { memo, ReactNode, RefObject, useEffect, useRef } from 'react';
 
 import {
@@ -38,7 +39,6 @@ export const Popup = memo(
       open,
       zIndex = 3,
       closeOnEscape,
-      placement = 'bottom-left',
       closeOnOutsideClick = true,
       onClose,
       scrollDisabled,
@@ -51,12 +51,6 @@ export const Popup = memo(
       closeOnEscape: closeOnEscape,
       onClose: onClose,
     });
-
-    const mods = {
-      position: placement,
-    };
-
-    const popupRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
       const outsideClickListener = ():
@@ -84,13 +78,23 @@ export const Popup = memo(
       };
     }, [anchorRef, closeOnOutsideClick, onClose, open]);
 
+    const popupRef = useRef<HTMLDivElement>(null);
+
+    const { refs, floatingStyles } = useFloating({
+      elements: {
+        floating: popupRef.current,
+        reference: anchorRef?.current,
+      },
+      middleware: [flip(), shift()],
+      open: open,
+      whileElementsMounted: autoUpdate,
+    });
+
     const content = (
       <div
-        ref={popupRef}
-        className={cnPopup(mods, [className])}
-        style={{
-          zIndex: zIndex,
-        }}
+        ref={refs.setFloating}
+        className={cnPopup(undefined, [className])}
+        style={{ ...floatingStyles, zIndex: zIndex }}
       >
         {children}
       </div>

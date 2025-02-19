@@ -19,6 +19,7 @@ interface DatePickerInputProps
   field: TextField<string | number>;
   dateFormat?: string;
   label?: string;
+  fullWidth?: boolean;
 }
 
 export const DatePickerInput: FC<DatePickerInputProps> = observer((props) => {

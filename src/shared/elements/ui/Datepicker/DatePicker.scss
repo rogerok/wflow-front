@@ -1,6 +1,4 @@
 .DatePicker {
-  position: relative;
-
   &_fullWidth {
     width: 100%;
 
@@ -8,13 +6,6 @@
       width: 100%;
     }
   }
-}
-
-
-.react-datepicker-popper {
-  top: 76px !important;
-  bottom: 0 !important;
-  transform: translate(0, 0) !important;
 }
 
 
