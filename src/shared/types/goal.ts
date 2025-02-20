@@ -10,6 +10,7 @@ export const GoalResponseSchema = z.object({
   createdAt: z.string(),
   description: z.string().nullable(),
   endDate: z.string(),
+  goalWords: z.string(),
   id: z.string().uuid(),
   isExpired: z.boolean(),
   isFinished: z.boolean(),

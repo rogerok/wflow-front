@@ -27,7 +27,7 @@ export const Typography = memo(
       children,
       as,
       className,
-      size,
+      size = 'm',
       variant = 'primary',
       weight = 'normal',
       align = 'left',

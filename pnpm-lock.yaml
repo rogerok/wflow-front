@@ -11,6 +11,9 @@ importers:
       '@bem-react/classname':
         specifier: ^1.6.0
         version: 1.6.0
+      '@date-fns/utc':
+        specifier: ^2.1.0
+        version: 2.1.0
       '@floating-ui/react':
         specifier: ^0.27.4
         version: 0.27.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1009,6 +1012,9 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       postcss-selector-parser: ^7.0.0
+
+  '@date-fns/utc@2.1.0':
+    resolution: {integrity: sha512-176grgAgU2U303rD2/vcOmNg0kGPbhzckuH1TEP2al7n0AQipZIy9P15usd2TKQCG1g+E1jX/ZVQSzs4sUDwgA==}
 
   '@dependents/detective-less@5.0.0':
     resolution: {integrity: sha512-D/9dozteKcutI5OdxJd8rU+fL6XgaaRg60sPPJWkT33OCiRfkCu5wO5B/yXTaaL2e6EB0lcCBGe5E0XscZCvvQ==}
@@ -9939,6 +9945,8 @@ snapshots:
   '@csstools/selector-specificity@5.0.0(postcss-selector-parser@7.0.0)':
     dependencies:
       postcss-selector-parser: 7.0.0
+
+  '@date-fns/utc@2.1.0': {}
 
   '@dependents/detective-less@5.0.0':
     dependencies:

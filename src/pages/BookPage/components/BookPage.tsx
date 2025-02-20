@@ -1,5 +1,5 @@
 import { cn } from '@bem-react/classname';
-import { Typography, VStack } from '@shared/elements/ui';
+import { Page, PageTitle, Typography, VStack } from '@shared/elements/ui';
 import { GoalsService } from '@shared/services';
 import { getRouteApi } from '@tanstack/react-router';
 import { observer } from 'mobx-react-lite';
@@ -22,6 +22,10 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
 
   const param = route.useParams();
 
+  const isLoading =
+    bookService.bookByIdRequest.isLoading ||
+    goalsService.goalsListRequest.isLoading;
+
   useEffect(() => {
     bookService.getById(param.bookId);
     goalsService.list({ bookId: param.bookId });
@@ -32,8 +36,11 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
     };
   }, [bookService, goalsService, param.bookId]);
 
-  return (
-    <div className={cnBookPage(undefined, [props.className])}>
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
+    <Page className={cnBookPage(undefined, [props.className])}>
+      <PageTitle title={`Книга ${bookService.data?.name ?? ''}`} />
       <VStack gap={'8'}>
         <Typography
           size={'xl'}
@@ -44,10 +51,12 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
         >
           {bookService.data?.name}
         </Typography>
-        <Typography size={'l'}>Описание:</Typography>
-        <Typography size={'m'}>{bookService.data?.description}</Typography>
+        <Typography>{bookService.data?.description}</Typography>
       </VStack>
-      <GoalsList />
-    </div>
+      <VStack gap={'16'} pt={'16'}>
+        <Typography size={'l'}>Мои цели</Typography>
+        <GoalsList data={goalsService.data} />
+      </VStack>
+    </Page>
   );
 });

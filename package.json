@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@bem-react/classname": "^1.6.0",
+    "@date-fns/utc": "^2.1.0",
     "@floating-ui/react": "^0.27.4",
     "@tanstack/react-router": "^1.95.1",
     "axios": "^1.7.9",
