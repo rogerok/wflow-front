@@ -1,17 +1,29 @@
 import './Card.scss';
 
 import { cn } from '@bem-react/classname';
-import { FC, ReactNode } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  ElementType,
+  ReactElement,
+  ReactNode,
+} from 'react';
 
 const cnCard = cn('Card');
 
-interface CardProps {
+type CardProps<T extends ElementType> = {
   className?: string;
   children: ReactNode;
-}
+  as?: T;
+} & ComponentPropsWithoutRef<T>;
 
-export const Card: FC<CardProps> = (props) => {
-  const { className, children } = props;
+export const Card = <T extends ElementType = 'div'>(
+  props: CardProps<T>,
+): ReactElement => {
+  const { as, className, children } = props;
 
-  return <div className={cnCard(undefined, [className])}>{children}</div>;
+  const Component = as || 'div';
+
+  return (
+    <Component className={cnCard(undefined, [className])}>{children}</Component>
+  );
 };

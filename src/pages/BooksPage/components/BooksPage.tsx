@@ -4,11 +4,12 @@ import {
   ButtonLink,
   Card,
   CardContent,
+  CardHeader,
   HStack,
   Page,
   PageTitle,
+  Typography,
 } from '@shared/elements/ui';
-import { CardHeader } from '@shared/elements/ui/Card/CardHeader/CardHeader';
 import { BooksService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
@@ -37,9 +38,10 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
 
       <HStack as={'ul'} gap={'16'} fullWidth>
         {service.data.map((book) => (
-          <Card>
-            <CardContent key={book.id}>
-              <CardHeader title={book.name} subtitle={book.description} />
+          <Card key={book.id} as={'li'}>
+            <CardHeader title={book.name} />
+            <CardContent>
+              <Typography>{book.description}</Typography>
               <p>Создано {new Date(book.createdAt).toLocaleDateString()}</p>
             </CardContent>
           </Card>
