@@ -43,6 +43,12 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
             <CardContent>
               <Typography>{book.description}</Typography>
               <p>Создано {new Date(book.createdAt).toLocaleDateString()}</p>
+              <ButtonLink
+                to={routes.bookDetails()}
+                params={{ bookId: book.id }}
+              >
+                К книге
+              </ButtonLink>
             </CardContent>
           </Card>
         ))}

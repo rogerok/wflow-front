@@ -26,10 +26,11 @@ export type GoalsListResponseType = z.infer<typeof GoalsListResponseSchema>;
 
 export const GoalRequestSchema = z
   .object({
-    bookId: z.string().uuid().nullable(),
-    orderById: OrderByCreatedAtRequestSchema,
+    bookId: z.string().uuid().catch('').nullable(),
+    orderById: OrderByCreatedAtRequestSchema.catch('createdAt desc'),
   })
-  .merge(PaginationRequestSchema);
+  .merge(PaginationRequestSchema)
+  .partial();
 export type GoalRequestType = z.infer<typeof GoalRequestSchema>;
 
 export const GoalCreateRequestSchema = z.object({
