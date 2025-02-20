@@ -1,6 +1,11 @@
 .Typography {
   margin: 0;
 
+  &_fullWidth {
+    display: block;
+    width: 100%;
+  }
+
   &_variant {
     &_primary {
       color: var(--basic-primary);
@@ -32,12 +37,12 @@
       font: var(--font-s);
     }
 
-    &_md {
-      font: var(--font-md);
+    &_m {
+      font: var(--font-m);
     }
 
-    &_lg {
-      font: var(--font-lg);
+    &_l {
+      font: var(--font-l);
     }
 
     &_xl {

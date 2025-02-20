@@ -102,6 +102,8 @@ $api.interceptors.response.use(
         } catch (error) {
           removeLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
 
+          // TODO: replace with event emitter
+
           window.dispatchEvent(new Event('localStorageChange'));
 
           if (error instanceof AxiosError && error.response?.data?.error?.msg) {

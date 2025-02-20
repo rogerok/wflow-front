@@ -1,6 +1,6 @@
 .Navbar {
   $parent: &;
-  
+
   &-Inner {
     display: flex;
     flex-direction: row;
@@ -17,8 +17,7 @@
     text-align: center;
 
     background: var(--navbar-bg);
-    box-shadow: 0 -5px 10px rgb(0 0 0 / 30%),
-    0 -8px 20px rgb(56 58 139 / 30%) 0 -6px 20px rgb(255 200 150 / 10%);
+    box-shadow: var(--box-shadow-primary);
 
     transition: var(--default-transition);
 
