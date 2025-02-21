@@ -17,7 +17,7 @@ export const GoalResponseSchema = z.object({
   startDate: z.string(),
   title: z.string(),
   updatedAt: z.string(),
-  wordPerDay: z.string(),
+  wordsPerDay: z.string(),
   writtenWords: z.string(),
 });
 export type GoalResponseType = z.infer<typeof GoalResponseSchema>;

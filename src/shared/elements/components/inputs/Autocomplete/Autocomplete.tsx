@@ -40,6 +40,7 @@ export const Autocomplete = observer(
       label,
     } = props;
 
+    // TODO: separate form logic from ui
     const {
       inputLabel,
       inputOptions,

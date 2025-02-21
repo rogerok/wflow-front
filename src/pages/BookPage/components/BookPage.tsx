@@ -1,5 +1,12 @@
 import { cn } from '@bem-react/classname';
-import { Page, PageTitle, Typography, VStack } from '@shared/elements/ui';
+import {
+  HStack,
+  IconComponent,
+  Page,
+  PageTitle,
+  Typography,
+  VStack,
+} from '@shared/elements/ui';
 import { GoalsService } from '@shared/services';
 import { getRouteApi } from '@tanstack/react-router';
 import { observer } from 'mobx-react-lite';
@@ -41,7 +48,9 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
   ) : (
     <Page className={cnBookPage(undefined, [props.className])}>
       <PageTitle title={`Книга ${bookService.data?.name ?? ''}`} />
-      <VStack gap={'8'}>
+      <VStack gap={'8'} align={'center'}>
+        <IconComponent name={'BookIconFilled'} size={'md'} />
+
         <Typography
           size={'xl'}
           align={'center'}
@@ -51,10 +60,22 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
         >
           {bookService.data?.name}
         </Typography>
+
         <Typography>{bookService.data?.description}</Typography>
       </VStack>
-      <VStack gap={'16'} pt={'16'}>
-        <Typography size={'l'}>Мои цели</Typography>
+      <VStack gap={'16'} pt={'16'} as={'section'}>
+        <HStack flexJustify={'center'} align={'center'} gap={'16'}>
+          <Typography
+            size={'xl'}
+            variant={'accent'}
+            weight={'semibold'}
+            align={'center'}
+          >
+            Мои цели
+          </Typography>
+          <IconComponent name={'GoalIcon'} size={'md'} />
+        </HStack>
+
         <GoalsList data={goalsService.data} />
       </VStack>
     </Page>

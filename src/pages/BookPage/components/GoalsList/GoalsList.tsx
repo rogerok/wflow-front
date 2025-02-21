@@ -23,7 +23,7 @@ export const GoalsList: FC<GoalsListProps> = observer((props) => {
       className={cnGoalsList(undefined, [className])}
       as={'ul'}
       fullWidth
-      gap={'16'}
+      gap={'24'}
     >
       {data.map((item) => (
         <GoalsListItem data={item} key={item.id} />

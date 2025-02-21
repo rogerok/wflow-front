@@ -5,7 +5,7 @@ import { ComponentPropsWithoutRef, ElementType, memo, ReactNode } from 'react';
 
 const cnButton = cn('Button');
 
-type ButtonVariantsType = 'filled' | 'outlined' | 'clear';
+type ButtonVariantsType = 'filled' | 'outlined' | 'clear' | 'warn';
 
 type ButtonSizesType = 'sm' | 'md';
 

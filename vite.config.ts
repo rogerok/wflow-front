@@ -16,7 +16,7 @@ export default defineConfig({
   cacheDir: './node_modules/.vite/wflow-front',
   server: {
     port: 4200,
-    host: 'localhost',
+    host: true,
     proxy: {
       '/api': {
         //TODO: add to .env, get based on environment

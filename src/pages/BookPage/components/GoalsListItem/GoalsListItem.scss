@@ -1,0 +1,14 @@
+.GoalsListItem {
+  &-ProgressBar {
+    width: 100%;
+  }
+
+  &-DeleteButton {
+    margin-top: 1.6rem;
+    margin-left: auto;
+
+    @media (min-width: $lg-breakpoint) {
+      margin-top: 0;
+    }
+  }
+}
