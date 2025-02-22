@@ -1,12 +1,11 @@
-import './GoalsList.scss';
+import 'src/widgets/GoalsList/components/GoalsList/GoalsList.scss';
 
 import { cn } from '@bem-react/classname';
 import { VStack } from '@shared/elements/ui';
 import { GoalsListResponseType } from '@shared/types';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
-
-import { GoalsListItem } from '../GoalsListItem/GoalsListItem';
+import { GoalsListItem } from 'src/widgets/GoalsList/components/GoalsListItem/GoalsListItem';
 
 const cnGoalsList = cn('GoalsList');
 

@@ -1,4 +1,5 @@
 import { cn } from '@bem-react/classname';
+import { GoalCreateFormType } from '@pages/GoalsCreatePage/model/types/createGoal';
 import {
   BooksAutocomplete,
   DatePickerInput,
@@ -28,9 +29,10 @@ export const GoalsCreateForm: FC<GoalsCreateFormProps> = observer((props) => {
   const minDate = new Date();
 
   return (
-    <FormComponent
+    <FormComponent<GoalCreateFormType>
       className={cnGoalsCreateForm(undefined, [props.className])}
       onSubmit={service.submit}
+      form={service.form}
     >
       <VStack gap={'16'} fullWidth>
         <TextInput field={fields.title} fullWidth label={'Название цели'} />

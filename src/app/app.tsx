@@ -6,8 +6,9 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { observer } from 'mobx-react-lite';
 import React, { FC, ReactElement, useEffect } from 'react';
 import { routeTree } from '../routeTree.gen';
-import { GlobalStoreContextProvider, useGlobalStore } from '@shared/stores';
 import { z } from 'zod';
+import { GlobalStoreContextProvider } from 'src/shared/providers';
+import { useGlobalStore } from '@shared/lib';
 
 export const router = createRouter({
   routeTree,
