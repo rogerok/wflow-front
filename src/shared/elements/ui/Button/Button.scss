@@ -37,6 +37,17 @@
       }
     }
 
+    &_warn {
+      border: none;
+      color: var(--basic-accent);
+      background: var(--alert);
+
+      &:disabled {
+        color: var(--basic-accent);
+        background: var(--basic-secondary-4);
+      }
+    }
+
     &_outlined {
       border: var(--border-style-1) var(--brand-primary);
       color: var(--brand-primary);
@@ -91,6 +102,12 @@
       &_filled:not(:disabled):hover {
         color: var(--brand-primary);
         background: var(--basic-accent);
+        box-shadow: var(--shadow-primary);
+      }
+
+      &_warn:not(:disabled):hover {
+        color: var(--brand-primary);
+        background: var(--brand-accent-1);
         box-shadow: var(--shadow-primary);
       }
 

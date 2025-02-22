@@ -15,6 +15,8 @@ export type FlexAlign = 'start' | 'center' | 'end';
 export type FlexDirection = 'row' | 'column';
 export type FlexWrap = 'wrap' | 'nowrap';
 export type FlexGap = '4' | '8' | '16' | '24' | '32';
+export type Padding = '4' | '8' | '16' | '24' | '32';
+export type Margin = '4' | '8' | '16' | '24' | '32';
 
 export type FlexProps<T extends ElementType> = {
   align?: FlexAlign;
@@ -26,13 +28,21 @@ export type FlexProps<T extends ElementType> = {
   gap?: FlexGap;
   wrap?: FlexWrap;
   as?: T;
+  pt?: Padding;
+  pr?: Padding;
+  pb?: Padding;
+  pl?: Padding;
+  mt?: Margin;
+  mr?: Margin;
+  mb?: Margin;
+  ml?: Margin;
 } & ComponentPropsWithoutRef<T>;
 
 export const Flex = <T extends ElementType = 'div'>(
-  props: FlexProps<T>
+  props: FlexProps<T>,
 ): ReactElement => {
   const {
-    align = 'start',
+    align,
     children,
     className,
     direction = 'row',
@@ -40,6 +50,14 @@ export const Flex = <T extends ElementType = 'div'>(
     fullWidth = false,
     gap,
     as,
+    mt,
+    mr,
+    mb,
+    ml,
+    pt,
+    pr,
+    pb,
+    pl,
     wrap = 'wrap',
     ...otherProps
   } = props;
@@ -56,8 +74,16 @@ export const Flex = <T extends ElementType = 'div'>(
           gap: gap,
           justify: flexJustify,
           wrap: wrap,
+          pt: pt,
+          pr: pr,
+          pb: pb,
+          pl: pl,
+          mt: mt,
+          ml: ml,
+          mb: mb,
+          mr: mr,
         },
-        [className]
+        [className],
       )}
       {...otherProps}
     >

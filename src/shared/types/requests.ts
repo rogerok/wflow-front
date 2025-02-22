@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
-import { OrderByRequestConstant } from '../const';
+import { OrderByRequestConstant, PerPageConstant } from '../const';
 
 export const PaginationRequestSchema = z.object({
-  page: z.number(),
-  perPage: z.number(),
+  page: z.number().catch(1),
+  perPage: z.number().default(PerPageConstant.Default),
 });
 
 export const OrderByCreatedAtRequestSchema = z.nativeEnum(

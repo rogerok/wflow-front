@@ -28,11 +28,11 @@ export class GoalsService {
     this.abortController = null;
   };
 
-  list = async (): Promise<void> => {
+  list = async (params?: GoalRequestType): Promise<void> => {
     this.abortController = new AbortController();
 
     const resp = await this.goalsListRequest.call(
-      this.requestParams,
+      { ...this.requestParams, ...params },
       this.abortController,
     );
 

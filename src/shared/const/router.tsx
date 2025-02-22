@@ -6,6 +6,7 @@ export const routes = {
   settings: () => '/settings',
   statistic: () => '/statistic',
   books: () => '/books',
+  bookDetails: () => '/books/$bookId',
   booksCreate: () => '/books/create',
   goals: () => '/goals',
   goalsCreate: () => '/goals/create',

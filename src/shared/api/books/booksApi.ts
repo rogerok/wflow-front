@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { BooksListResponseType } from '../../types/book';
+import { BooksListResponseType } from '../../types';
 import { $api } from '../api';
 
 export const getBooksList = (
