@@ -8,6 +8,7 @@ export { DatePicker } from './Datepicker/DatePicker';
 export { Flex } from './Flex/Flex';
 export { HStack } from './HStack/HStack';
 export { IconComponent } from './IconComponent/IconComponent';
+export { Modal } from './Modal/Modal';
 export { Overlay } from './Overlay/Overlay';
 export { Page } from './Page/Page';
 export { PageTitle } from './PageTitle/PageTitle';

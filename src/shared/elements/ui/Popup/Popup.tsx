@@ -45,11 +45,23 @@ export const Popup = memo(
       anchorRef,
     } = props;
 
+    const popupRef = useRef<HTMLDivElement | null>(null);
+
     usePopup({
       scrollDisabled: scrollDisabled,
       open: open,
       closeOnEscape: closeOnEscape,
       onClose: onClose,
+    });
+
+    const { refs, floatingStyles } = useFloating({
+      elements: {
+        floating: popupRef.current,
+        reference: anchorRef?.current,
+      },
+      middleware: [flip(), shift()],
+      open: open,
+      whileElementsMounted: autoUpdate,
     });
 
     useEffect(() => {
@@ -77,18 +89,6 @@ export const Popup = memo(
         }
       };
     }, [anchorRef, closeOnOutsideClick, onClose, open]);
-
-    const popupRef = useRef<HTMLDivElement>(null);
-
-    const { refs, floatingStyles } = useFloating({
-      elements: {
-        floating: popupRef.current,
-        reference: anchorRef?.current,
-      },
-      middleware: [flip(), shift()],
-      open: open,
-      whileElementsMounted: autoUpdate,
-    });
 
     const content = (
       <div
