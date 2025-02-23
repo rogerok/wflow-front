@@ -55,12 +55,12 @@ export const Dropdown = <T extends IOptionType>(
     ...rest
   } = props;
 
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const handleClose = (): void => onClose?.();
 
   return (
-    <div className={cnDropdown(undefined, [props.className])} ref={ref}>
+    <div className={cnDropdown(undefined, [className])} ref={ref}>
       <div className={cnDropdown('Content')}>
         <label className={cnDropdown('Label')}>{label}</label>
 

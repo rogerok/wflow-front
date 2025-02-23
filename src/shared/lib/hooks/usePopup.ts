@@ -1,4 +1,6 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
+
+import { useKeyDown } from '../hooks/useKeyDown';
 
 export interface UsePopupArgs {
   onClose: () => void;
@@ -13,24 +15,16 @@ export const usePopup = ({
   open,
   scrollDisabled,
 }: UsePopupArgs): void => {
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      if (closeOnEscape && event.code === 'Escape' && onClose) {
-        onClose();
-      }
-    },
-    [closeOnEscape, onClose],
-  );
-
-  useEffect(() => {
-    if (open && closeOnEscape) {
-      window.addEventListener('keydown', handleKeyDown);
+  const handleClose = (): void => {
+    if (closeOnEscape) {
+      onClose();
     }
+  };
 
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [closeOnEscape, handleKeyDown, open]);
+  useKeyDown({
+    callBack: handleClose,
+    keyCode: 'Escape',
+  });
 
   useEffect(() => {
     if (scrollDisabled && open) {
