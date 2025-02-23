@@ -3,8 +3,7 @@ import { format, formatISO } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 import { ComponentProps, FC, useEffect, useState } from 'react';
 
-import { TextField } from '../../../../lib';
-import { useGlobalStore } from '../../../../stores';
+import { TextField, useGlobalStore } from '../../../../lib';
 import { DatePicker } from '../../../ui';
 import { InputClearable } from '../../../ui/Input/InputClearable/InputClearable';
 

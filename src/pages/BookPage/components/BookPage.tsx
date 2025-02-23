@@ -9,11 +9,11 @@ import {
 } from '@shared/elements/ui';
 import { GoalsService } from '@shared/services';
 import { getRouteApi } from '@tanstack/react-router';
+import { GoalsList } from '@widgets/GoalsList/components/GoalsList/GoalsList';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
 import { BookService } from '../model/services/BookService';
-import { GoalsList } from './GoalsList/GoalsList';
 
 const cnBookPage = cn('BookPage');
 

@@ -1,7 +1,8 @@
 import { cn } from '@bem-react/classname';
 import { FormComponent, TextInput } from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
-import { useGlobalStore } from '@shared/stores';
+import { useGlobalStore } from '@shared/lib';
+import { AuthRequestType } from '@shared/types';
 import { FC } from 'react';
 
 const cnSignInForm = cn('SignInForm');
@@ -17,9 +18,10 @@ export const SignInForm: FC<SignInFormProps> = (props) => {
   } = authController;
 
   return (
-    <FormComponent
+    <FormComponent<AuthRequestType>
       className={cnSignInForm(undefined, [props.className])}
       onSubmit={authController.authenticate}
+      form={authForm}
     >
       <VStack gap={'8'}>
         <TextInput field={authForm.fields.email} placeholder={'Email'} />

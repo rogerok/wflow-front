@@ -1,4 +1,4 @@
-import './GoalsListItem.scss';
+import 'src/widgets/GoalsList/components/GoalsListItem/GoalsListItem.scss';
 
 import { cn } from '@bem-react/classname';
 import { routes } from '@shared/const';
@@ -13,8 +13,7 @@ import {
   VStack,
 } from '@shared/elements/ui';
 import { ProgressBar } from '@shared/elements/ui/ProgressBar/ProgressBar';
-import { formatDate } from '@shared/lib';
-import { useGlobalStore } from '@shared/stores';
+import { formatDate, useGlobalStore } from '@shared/lib';
 import { GoalResponseType } from '@shared/types';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';

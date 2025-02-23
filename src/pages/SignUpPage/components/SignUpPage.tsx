@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
 import { SignUpService } from '../model/services/SignUpService';
+import { UserCreateRequestType } from '../model/types/userCreate';
 
 const cnSignUpPage = cn('SignUpPage');
 
@@ -24,9 +25,10 @@ export const SignUpPage: FC<SignUpPageProps> = observer((props) => {
 
   return (
     <Page>
-      <FormComponent
+      <FormComponent<UserCreateRequestType>
         className={cnSignUpPage(undefined, [props.className])}
         onSubmit={service.submitForm}
+        form={service.userForm}
       >
         <VStack gap={'8'}>
           Регистрация

@@ -1,31 +1,42 @@
 import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
-import { FC, FormEvent, ReactNode } from 'react';
+import { FormEvent, ReactNode } from 'react';
+
+import { FormStore } from '../../../lib/form';
+import { FormStoreProvider } from '../../../providers';
 
 const cnFormComponent = cn('FormComponent');
 
-interface FormComponentProps {
+interface FormComponentProps<T extends Record<string | number, any>> {
   className?: string;
   children: ReactNode;
+  form: FormStore<T>;
   onSubmit: () => Promise<void>;
-  onReset?: () => void;
 }
 
-export const FormComponent: FC<FormComponentProps> = observer((props) => {
-  const handleSubmit = async (
-    event: FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    event.preventDefault();
+export const FormComponent = observer(
+  <T extends Record<string | number, any>>(
+    props: FormComponentProps<T>,
+  ): ReactNode => {
+    const { className, children, form, onSubmit } = props;
 
-    await props.onSubmit();
-  };
+    const handleSubmit = async (
+      event: FormEvent<HTMLFormElement>,
+    ): Promise<void> => {
+      event.preventDefault();
 
-  return (
-    <form
-      onSubmit={handleSubmit}
-      className={cnFormComponent(undefined, [props.className])}
-    >
-      {props.children}
-    </form>
-  );
-});
+      await onSubmit();
+    };
+
+    return (
+      <FormStoreProvider form={form}>
+        <form
+          onSubmit={handleSubmit}
+          className={cnFormComponent(undefined, [className])}
+        >
+          {children}
+        </form>
+      </FormStoreProvider>
+    );
+  },
+);

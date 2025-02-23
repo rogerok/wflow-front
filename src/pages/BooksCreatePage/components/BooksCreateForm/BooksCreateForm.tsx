@@ -5,6 +5,7 @@ import {
   TextInput,
 } from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
+import { BookFormRequestType } from '@shared/types';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
@@ -20,7 +21,8 @@ export const BooksCreateForm: FC<BooksCreateFormProps> = observer((props) => {
   const [service] = useState(() => new BooksCreateService());
 
   return (
-    <FormComponent
+    <FormComponent<BookFormRequestType>
+      form={service.form}
       onSubmit={service.submitForm}
       className={cnBooksCreateForm(undefined, [props.className])}
     >
