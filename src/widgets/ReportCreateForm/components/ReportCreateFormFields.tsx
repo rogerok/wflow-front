@@ -15,8 +15,6 @@ export const ReportCreateFormFields: FC<ReportCreateFormFieldsProps> = observer(
   (props) => {
     const form = useFormStore<ReportCreateRequestType>();
 
-    console.log(form.fields.description.value);
-
     return (
       <div className={cnReportCreateFormFields(undefined, [props.className])}>
         ReportCreateFormFields

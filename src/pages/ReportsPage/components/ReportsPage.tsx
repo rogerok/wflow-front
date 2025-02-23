@@ -1,5 +1,5 @@
 import { cn } from '@bem-react/classname';
-import { ReportCreateForm } from '@widgets/ReportCreateForm';
+import { Page, PageTitle } from '@shared/elements/ui';
 import { FC } from 'react';
 
 const cnReportsPage = cn('ReportsPage');
@@ -10,8 +10,8 @@ interface ReportsPageProps {
 
 export const ReportsPage: FC<ReportsPageProps> = (props) => {
   return (
-    <div className={cnReportsPage(undefined, [props.className])}>
-      <ReportCreateForm />
-    </div>
+    <Page className={cnReportsPage(undefined, [props.className])}>
+      <PageTitle title={'Мои отчёты'} />
+    </Page>
   );
 };
