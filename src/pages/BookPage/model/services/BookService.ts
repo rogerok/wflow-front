@@ -1,7 +1,8 @@
-import { bookById } from '@pages/BookPage/api/bookApi';
 import { RequestStore } from '@shared/stores';
 import { BookResponseType } from '@shared/types';
 import { makeAutoObservable, runInAction } from 'mobx';
+
+import { bookById } from '../../api/bookApi';
 
 export class BookService {
   constructor() {

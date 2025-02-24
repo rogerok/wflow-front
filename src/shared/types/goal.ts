@@ -10,15 +10,15 @@ export const GoalResponseSchema = z.object({
   createdAt: z.string(),
   description: z.string().nullable(),
   endDate: z.string(),
-  goalWords: z.string(),
+  goalWords: z.number(),
   id: z.string().uuid(),
   isExpired: z.boolean(),
   isFinished: z.boolean(),
   startDate: z.string(),
   title: z.string(),
   updatedAt: z.string(),
-  wordsPerDay: z.string(),
-  writtenWords: z.string(),
+  wordsPerDay: z.number(),
+  writtenWords: z.number(),
 });
 export type GoalResponseType = z.infer<typeof GoalResponseSchema>;
 

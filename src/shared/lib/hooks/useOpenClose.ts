@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-type useDropdownReturnType = {
+type UseOpenCloseReturnType = {
   open: boolean;
   handleOpen: () => void;
   handleClose: () => void;
   toggleOpen: () => void;
 };
 
-export const useDropdown = (): useDropdownReturnType => {
+export const useOpenClose = (): UseOpenCloseReturnType => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = (): void => {

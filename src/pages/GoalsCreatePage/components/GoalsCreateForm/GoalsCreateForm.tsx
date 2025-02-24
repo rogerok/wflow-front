@@ -1,5 +1,4 @@
 import { cn } from '@bem-react/classname';
-import { GoalCreateFormType } from '@pages/GoalsCreatePage/model/types/createGoal';
 import {
   BooksAutocomplete,
   DatePickerInput,
@@ -12,6 +11,7 @@ import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
 import { GoalsCreateService } from '../../model/services/GoalsCreateService';
+import { GoalCreateFormType } from '../../model/types/createGoal';
 
 const cnGoalsCreateForm = cn('GoalsCreateForm');
 
@@ -39,22 +39,22 @@ export const GoalsCreateForm: FC<GoalsCreateFormProps> = observer((props) => {
         <FormTextArea field={fields.description} fullWidth label={'Описание'} />
         <BooksAutocomplete label={'Книга'} field={fields.bookId} fullWidth />
         <TextInput
-          field={fields.goalWords}
-          fullWidth
           label={'Количество слов'}
           type={'number'}
+          field={fields.goalWords}
+          fullWidth
         />
         <DatePickerInput
-          field={fields.startDate}
           label={'Дата начала'}
+          field={fields.startDate}
           minDate={minDate}
           showMonthDropdown
           showYearDropdown
           fullWidth
         />
         <DatePickerInput
-          field={fields.endDate}
           label={'Дата завершения'}
+          field={fields.endDate}
           minDate={minDate}
           showMonthDropdown
           showYearDropdown
