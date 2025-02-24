@@ -66,29 +66,6 @@ export const Flex = <T extends ElementType = 'div'>(
 
   const Component = as || 'div';
 
-  console.log(
-    cnFlex(
-      {
-        align: align,
-        direction: direction,
-        fullWidth: fullWidth,
-        fullHeight: fullHeight,
-        gap: gap,
-        justify: flexJustify,
-        wrap: wrap,
-        pt: pt,
-        pr: pr,
-        pb: pb,
-        pl: pl,
-        mt: mt,
-        ml: ml,
-        mb: mb,
-        mr: mr,
-      },
-      [className],
-    ),
-  );
-
   return (
     <Component
       className={cnFlex(

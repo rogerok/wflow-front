@@ -19,6 +19,7 @@ type TypographyProps<T extends ElementType> = {
   weight?: TypographyWeight;
   align?: TypographyAlign;
   fullWidth?: boolean;
+  wordBreak?: boolean;
 } & ComponentPropsWithoutRef<T>;
 
 export const Typography = memo(
@@ -31,6 +32,7 @@ export const Typography = memo(
       variant = 'primary',
       weight = 'normal',
       align = 'left',
+      wordBreak = true,
       fullWidth,
       ...restProps
     } = props;
@@ -41,6 +43,7 @@ export const Typography = memo(
       weight: weight,
       align: align,
       fullWidth: fullWidth,
+      break: wordBreak,
     };
 
     const Component = as || 'span';

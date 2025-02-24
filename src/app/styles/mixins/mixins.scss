@@ -7,12 +7,12 @@
   height: 1px;
   margin: -1px;
   padding: 0;
+  border: 0;
 
   white-space: nowrap;
 
   clip: rect(0 0 0 0);
   clip-path: inset(100%);
-  border: 0;
   outline: transparent;
 }
 
@@ -25,11 +25,26 @@
   height: auto;
   margin: 0;
   padding: 0;
+  border: initial;
 
   white-space: normal;
 
   clip: auto;
   clip-path: none;
-  border: initial;
   outline: initial;
+}
+
+
+@mixin line-clamp($line: 3) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+}
+
+// Перенос слов согласно правилам русского языка
+@mixin break-line {
+  hyphens: auto;
+  word-break: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }

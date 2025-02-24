@@ -77,4 +77,10 @@
       text-align: center;
     }
   }
+
+
+  &_break {
+    @include break-line;
+  }
+
 }
