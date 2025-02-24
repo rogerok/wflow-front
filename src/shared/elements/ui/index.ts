@@ -12,5 +12,6 @@ export { Modal } from './Modal/Modal';
 export { Overlay } from './Overlay/Overlay';
 export { Page } from './Page/Page';
 export { PageTitle } from './PageTitle/PageTitle';
+export { ProgressBar } from './ProgressBar/ProgressBar';
 export { Typography } from './Typography/Typography';
 export { VStack } from './VStack/VStack';

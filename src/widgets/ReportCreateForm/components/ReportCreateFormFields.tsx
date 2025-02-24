@@ -1,4 +1,6 @@
 import { cn } from '@bem-react/classname';
+import { TextInput } from '@shared/elements/components';
+import { VStack } from '@shared/elements/ui';
 import { useFormStore } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
@@ -13,12 +15,29 @@ interface ReportCreateFormFieldsProps {
 
 export const ReportCreateFormFields: FC<ReportCreateFormFieldsProps> = observer(
   (props) => {
+    const { className } = props;
     const form = useFormStore<ReportCreateRequestType>();
 
     return (
-      <div className={cnReportCreateFormFields(undefined, [props.className])}>
-        ReportCreateFormFields
-      </div>
+      <VStack
+        className={cnReportCreateFormFields(undefined, [className])}
+        fullWidth
+        gap={'24'}
+        mb={'16'}
+      >
+        <TextInput label={'Описание'} field={form.fields.title} fullWidth />
+        <TextInput
+          label={'Описание'}
+          field={form.fields.description}
+          fullWidth
+        />
+        <TextInput
+          label={'Количество слов'}
+          field={form.fields.wordsAmount}
+          type={'number'}
+          fullWidth
+        />
+      </VStack>
     );
   },
 );

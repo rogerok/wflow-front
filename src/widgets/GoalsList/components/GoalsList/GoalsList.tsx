@@ -1,4 +1,4 @@
-import 'src/widgets/GoalsList/components/GoalsList/GoalsList.scss';
+import './GoalsList.scss';
 
 import { cn } from '@bem-react/classname';
 import { VStack } from '@shared/elements/ui';
@@ -24,9 +24,9 @@ export const GoalsList: FC<GoalsListProps> = observer((props) => {
       fullWidth
       gap={'24'}
     >
-      {data.map(
-        (item, idx) => idx === 1 && <GoalsListItem data={item} key={item.id} />,
-      )}
+      {data.map((item) => (
+        <GoalsListItem data={item} key={item.id} />
+      ))}
     </VStack>
   );
 });

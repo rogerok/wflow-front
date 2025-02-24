@@ -1,4 +1,4 @@
-import 'src/widgets/GoalsList/components/GoalsListItem/GoalsListItem.scss';
+import './GoalsListItem.scss';
 
 import { cn } from '@bem-react/classname';
 import { routes } from '@shared/const';
@@ -9,14 +9,18 @@ import {
   CardHeader,
   Flex,
   HStack,
+  Modal,
+  ProgressBar,
   Typography,
   VStack,
 } from '@shared/elements/ui';
-import { ProgressBar } from '@shared/elements/ui/ProgressBar/ProgressBar';
 import { formatDate, useGlobalStore } from '@shared/lib';
+import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
 import { GoalResponseType } from '@shared/types';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
+
+import { ReportCreateForm } from '../../../ReportCreateForm';
 
 const cnGoalsListItem = cn('GoalsListItem');
 
@@ -32,6 +36,8 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
 
   const isScreenDownMd = screen.downMd;
 
+  const { open, handleOpen, handleClose } = useOpenClose();
+
   return (
     <Card className={cnGoalsListItem(undefined, [className])} as={'li'}>
       <CardHeader title={data.title} />
@@ -39,8 +45,8 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
         <Typography as={'p'}>{data.description}</Typography>
         <VStack fullWidth>
           <Typography>
-            Чтобы успеть в срок, вам стоит писать около {data.wordsPerDay} слов
-            ежедневно.
+            Чтобы успеть в срок, вам стоит писать около{' '}
+            {Math.round(data.wordsPerDay)} слов ежедневно.
           </Typography>
 
           <Typography variant={'accent'} weight={'semibold'}>
@@ -57,7 +63,12 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
           />
         </VStack>
         <Flex gap={'16'} direction={screen.downLg ? 'column' : 'row'} mt={'16'}>
-          <Button fullWidth={isScreenDownMd}>Добавить отчёт</Button>
+          <Button onClick={handleOpen} fullWidth={isScreenDownMd}>
+            Добавить отчёт
+          </Button>
+          <Modal fullScreen={isScreenDownMd} onClose={handleClose} open={open}>
+            <ReportCreateForm goalId={data.id} bookId={data.bookId} />
+          </Modal>
           <Button fullWidth={isScreenDownMd}>Редактировать цель</Button>
           <ButtonLink
             to={routes.reports()}
