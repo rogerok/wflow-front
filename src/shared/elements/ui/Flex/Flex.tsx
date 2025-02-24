@@ -16,7 +16,7 @@ export type FlexDirection = 'row' | 'column';
 export type FlexWrap = 'wrap' | 'nowrap';
 export type FlexGap = '4' | '8' | '16' | '24' | '32';
 export type Padding = '4' | '8' | '16' | '24' | '32';
-export type Margin = '4' | '8' | '16' | '24' | '32';
+export type Margin = '4' | '8' | '16' | '24' | '32' | 'auto';
 
 export type FlexProps<T extends ElementType> = {
   align?: FlexAlign;
@@ -25,6 +25,7 @@ export type FlexProps<T extends ElementType> = {
   direction?: FlexDirection;
   flexJustify?: FlexJustify;
   fullWidth?: boolean;
+  fullHeight?: boolean;
   gap?: FlexGap;
   wrap?: FlexWrap;
   as?: T;
@@ -48,6 +49,7 @@ export const Flex = <T extends ElementType = 'div'>(
     direction = 'row',
     flexJustify = 'start',
     fullWidth = false,
+    fullHeight = false,
     gap,
     as,
     mt,
@@ -64,6 +66,29 @@ export const Flex = <T extends ElementType = 'div'>(
 
   const Component = as || 'div';
 
+  console.log(
+    cnFlex(
+      {
+        align: align,
+        direction: direction,
+        fullWidth: fullWidth,
+        fullHeight: fullHeight,
+        gap: gap,
+        justify: flexJustify,
+        wrap: wrap,
+        pt: pt,
+        pr: pr,
+        pb: pb,
+        pl: pl,
+        mt: mt,
+        ml: ml,
+        mb: mb,
+        mr: mr,
+      },
+      [className],
+    ),
+  );
+
   return (
     <Component
       className={cnFlex(
@@ -71,6 +96,7 @@ export const Flex = <T extends ElementType = 'div'>(
           align: align,
           direction: direction,
           fullWidth: fullWidth,
+          fullHeight: fullHeight,
           gap: gap,
           justify: flexJustify,
           wrap: wrap,

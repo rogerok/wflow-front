@@ -24,6 +24,7 @@
   &_end {
     align-items: end;
   }
+
 }
 
 .Flex_justify {
@@ -78,6 +79,10 @@
 
 .Flex_fullWidth {
   width: 100%;
+}
+
+.Flex_fullHeight {
+  height: 100%;
 }
 
 .Flex_pt {
@@ -188,6 +193,10 @@
   &_32 {
     margin-top: 3.2rem;
   }
+
+  &_auto {
+    margin-top: auto;
+  }
 }
 
 .Flex_mr {
@@ -209,6 +218,10 @@
 
   &_32 {
     margin-right: 3.2rem;
+  }
+
+  &_auto {
+    margin-right: auto;
   }
 }
 
@@ -232,6 +245,10 @@
   &_32 {
     margin-bottom: 3.2rem;
   }
+
+  &_auto {
+    margin-bottom: auto;
+  }
 }
 
 .Flex_ml {
@@ -253,5 +270,9 @@
 
   &_32 {
     margin-left: 3.2rem;
+  }
+
+  &_auto {
+    margin-left: auto;
   }
 }

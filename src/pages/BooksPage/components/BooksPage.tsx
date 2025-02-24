@@ -1,14 +1,15 @@
+import './BooksPage.scss';
+
 import { cn } from '@bem-react/classname';
 import { routes } from '@shared/const';
 import {
+  Button,
   ButtonLink,
   Card,
-  CardContent,
   CardHeader,
-  HStack,
   Page,
   PageTitle,
-  Typography,
+  VStack,
 } from '@shared/elements/ui';
 import { BooksService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
@@ -36,23 +37,28 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
       <PageTitle title={'Мои книги'} />
       <ButtonLink to={routes.booksCreate()}>Добавить книгу</ButtonLink>
 
-      <HStack as={'ul'} gap={'16'} fullWidth>
-        {service.data.map((book) => (
-          <Card key={book.id} as={'li'}>
-            <CardHeader title={book.name} />
-            <CardContent>
-              <Typography>{book.description}</Typography>
-              <p>Создано {new Date(book.createdAt).toLocaleDateString()}</p>
-              <ButtonLink
-                to={routes.bookDetails()}
-                params={{ bookId: book.id }}
-              >
-                К книге
-              </ButtonLink>
-            </CardContent>
+      <ul className={cnBooksPage('List')}>
+        {service.data.concat(service.data).map((book) => (
+          <Card className={cnBooksPage('ListItem')} key={book.id} as={'li'}>
+            <VStack gap={'16'} mt={'auto'} fullHeight>
+              <CardHeader title={book.name} />
+              <VStack mt={'auto'} gap={'16'}>
+                <ButtonLink
+                  fullWidth
+                  to={routes.bookDetails()}
+                  params={{ bookId: book.id }}
+                >
+                  К книге
+                </ButtonLink>
+                <Button fullWidth>Добавить отчёт</Button>
+                <Button fullWidth variant={'outlined'}>
+                  Редактировать
+                </Button>
+              </VStack>
+            </VStack>
           </Card>
         ))}
-      </HStack>
+      </ul>
     </Page>
   );
 });
