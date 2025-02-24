@@ -16,22 +16,26 @@ export const CardHeader: FC<CardHeaderProps> = (props) => {
   const { className, title, subtitle } = props;
 
   return (
-    <VStack gap={'8'}>
-      <Typography
-        className={cnCardHeader(undefined, [className])}
-        align={'center'}
-        children={title}
-        fullWidth
-        size={'l'}
-        weight={'bold'}
-      />
-      <Typography
-        className={cnCardHeader(undefined, [className])}
-        align={'center'}
-        children={subtitle}
-        fullWidth
-        weight={'semibold'}
-      />
+    <VStack gap={'8'} as={'p'}>
+      {title && (
+        <Typography
+          className={cnCardHeader(undefined, [className])}
+          align={'center'}
+          children={title}
+          fullWidth
+          size={'l'}
+          weight={'bold'}
+        />
+      )}
+      {subtitle && (
+        <Typography
+          className={cnCardHeader(undefined, [className])}
+          align={'center'}
+          children={subtitle}
+          fullWidth
+          weight={'semibold'}
+        />
+      )}
     </VStack>
   );
 };

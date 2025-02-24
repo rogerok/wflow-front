@@ -9,7 +9,7 @@ import {
 } from '@shared/elements/ui';
 import { GoalsService } from '@shared/services';
 import { getRouteApi } from '@tanstack/react-router';
-import { GoalsList } from '@widgets/GoalsList/components/GoalsList/GoalsList';
+import { GoalsList } from '@widgets/GoalsList';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
