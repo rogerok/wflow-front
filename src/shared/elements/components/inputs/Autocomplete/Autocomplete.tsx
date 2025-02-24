@@ -6,7 +6,7 @@ import { ComponentProps, ReactNode, Ref } from 'react';
 
 import { TextField } from '../../../../lib';
 import { useAutocomplete } from '../../../../lib/hooks/useAutocomplete';
-import { useDropdown } from '../../../../lib/hooks/useDropdown';
+import { useOpenClose } from '../../../../lib/hooks/useOpenClose';
 import { IOptionType } from '../../../../types';
 import { Dropdown } from '../../../ui/Dropdown/Dropdown';
 import { Input } from '../../../ui/Input/Input';
@@ -56,7 +56,7 @@ export const Autocomplete = observer(
       uniqueIdentifier,
     });
 
-    const { open, handleOpen, handleClose, toggleOpen } = useDropdown();
+    const { open, handleOpen, handleClose, toggleOpen } = useOpenClose();
 
     const handleItemSelect = (value: T): void => {
       onItemSelect(value);

@@ -40,7 +40,7 @@ export class ReportCreateService {
         {
           description: convertEmptyStringToNull(formValues.description),
           goalId: formValues.goalId,
-          wordsAmount: formValues.wordsAmount,
+          wordsAmount: Number(formValues.wordsAmount),
           title: formValues.title,
           bookId: formValues.bookId,
         },
