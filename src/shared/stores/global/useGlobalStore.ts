@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { GlobalStoreContext } from '../../providers';
-import { GlobalStore } from '../../stores';
+import { GlobalStore } from './GlobalStore';
+import { GlobalStoreContext } from './GlobalStoreContextProvider';
 
 export const useGlobalStore = (): GlobalStore => {
   const store = useContext(GlobalStoreContext);

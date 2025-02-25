@@ -6,31 +6,18 @@
 			"src/shared/lib/form/fields/ListField.ts"
 		]
 	],
-	"src/shared/api/api.ts": [
+	"src/shared/services/auth/authService.ts": [
 		[
-			"src/shared/api/api.ts",
-			"src/shared/api/index.ts",
-			"src/shared/lib/hooks/useGlobalStore.ts",
-			"src/shared/lib/index.ts",
-			"src/shared/providers/globalStoreProvider/GlobalStoreContextProvider.tsx",
-			"src/shared/services/auth/authController.ts",
-			"src/shared/stores/global/GlobalStore.ts"
+			"src/shared/services/auth/authService.ts",
+			"src/shared/stores/global/GlobalStore.ts",
+			"src/shared/stores/index.ts"
 		]
 	],
-	"src/shared/lib/hooks/useGlobalStore.ts": [
+	"src/shared/services/user/userService.ts": [
 		[
-			"src/shared/lib/hooks/useGlobalStore.ts",
-			"src/shared/lib/index.ts",
-			"src/shared/providers/globalStoreProvider/GlobalStoreContextProvider.tsx",
-			"src/shared/services/auth/authController.ts",
-			"src/shared/stores/global/GlobalStore.ts"
-		],
-		[
-			"src/shared/lib/hooks/useGlobalStore.ts",
-			"src/shared/lib/index.ts",
-			"src/shared/providers/globalStoreProvider/GlobalStoreContextProvider.tsx",
-			"src/shared/services/auth/authService.ts",
-			"src/shared/stores/global/GlobalStore.ts"
+			"src/shared/services/user/userService.ts",
+			"src/shared/stores/global/GlobalStore.ts",
+			"src/shared/stores/index.ts"
 		]
 	]
 }

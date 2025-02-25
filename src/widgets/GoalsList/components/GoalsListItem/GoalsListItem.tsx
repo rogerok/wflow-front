@@ -14,8 +14,9 @@ import {
   Typography,
   VStack,
 } from '@shared/elements/ui';
-import { formatDate, useGlobalStore } from '@shared/lib';
+import { formatDate } from '@shared/lib';
 import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
+import { useGlobalStore } from '@shared/stores';
 import { GoalResponseType } from '@shared/types';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';

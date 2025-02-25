@@ -1,6 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { IconComponent } from '@shared/elements/ui';
-import { useGlobalStore } from '@shared/lib';
+import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
