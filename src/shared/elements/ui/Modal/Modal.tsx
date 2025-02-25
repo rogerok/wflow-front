@@ -3,8 +3,7 @@ import './Modal.scss';
 import { cn } from '@bem-react/classname';
 import { FC, ReactNode, useEffect, useRef } from 'react';
 
-import { handleClickOutside } from '../../../lib';
-import { useKeyDown } from '../../../lib/hooks/useKeyDown';
+import { handleClickOutside, useKeyDown } from '../../../lib';
 import { HStack } from '../HStack/HStack';
 import { IconComponent } from '../IconComponent/IconComponent';
 import { Overlay } from '../Overlay/Overlay';
@@ -62,14 +61,10 @@ export const Modal: FC<ModalProps> = (props) => {
             })}
             ref={ref}
           >
-            <HStack
-              pt={'16'}
-              pb={'16'}
-              flexJustify={'between'}
-              align={'center'}
-            >
+            <HStack pt={'16'} pb={'16'} flexJustify={'between'} wrap={'nowrap'}>
               {title && (
                 <Typography
+                  className={cnModal('Title')}
                   as={'h4'}
                   variant={'accent'}
                   size={'l'}

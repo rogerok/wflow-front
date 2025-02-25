@@ -9,6 +9,7 @@ import { routeTree } from '../routeTree.gen';
 import { z } from 'zod';
 import { GlobalStoreContextProvider } from 'src/shared/providers';
 import { useGlobalStore } from '@shared/lib';
+import { PageTitle } from '@shared/elements/ui';
 
 export const router = createRouter({
   routeTree,
@@ -63,6 +64,7 @@ const InnerApp: FC = observer(() => {
 
   return (
     <div className={cnApp(undefined, [theme.current])}>
+      <PageTitle title={'Word Flow - Дневник автора'} />
       <RouterProvider
         router={router}
         context={{

@@ -5,7 +5,8 @@ import { VStack } from '@shared/elements/ui';
 import { GoalsListResponseType } from '@shared/types';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
-import { GoalsListItem } from 'src/widgets/GoalsList/components/GoalsListItem/GoalsListItem';
+
+import { GoalsListItem } from '../GoalsListItem/GoalsListItem';
 
 const cnGoalsList = cn('GoalsList');
 

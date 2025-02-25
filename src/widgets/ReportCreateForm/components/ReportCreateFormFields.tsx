@@ -24,7 +24,7 @@ export const ReportCreateFormFields: FC<ReportCreateFormFieldsProps> = observer(
         gap={'24'}
         mb={'16'}
       >
-        <TextInput label={'Описание'} field={form.fields.title} fullWidth />
+        <TextInput label={'Название'} field={form.fields.title} fullWidth />
         <TextInput
           label={'Описание'}
           field={form.fields.description}
