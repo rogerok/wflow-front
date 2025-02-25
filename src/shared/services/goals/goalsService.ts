@@ -1,9 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { getGoalsList } from '../../api/goals/goalsApi';
+import {
+  getGoalsList,
+  GoalRequestType,
+  GoalsListResponseType,
+} from '../../api';
 import { OrderByRequestConstant } from '../../const';
 import { RequestStore } from '../../stores';
-import { GoalRequestType, GoalsListResponseType } from '../../types';
 
 export class GoalsService {
   requestParams: GoalRequestType = {
@@ -19,7 +22,10 @@ export class GoalsService {
 
   goalsListRequest = new RequestStore(getGoalsList);
 
-  constructor() {
+  constructor(requestParams?: GoalRequestType) {
+    if (requestParams) {
+      this.requestParams = requestParams;
+    }
     makeAutoObservable(this);
   }
 

@@ -16,6 +16,8 @@ import { ReportCreateForm } from '@widgets/ReportCreateForm';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
+import { BookCreateReportFormFields } from '../BookCreateReportForm/BookCreateReportFormFields';
+
 const cnBooksListItem = cn('BooksListItem');
 
 interface BooksListItemProps {
@@ -57,7 +59,10 @@ export const BooksListItem: FC<BooksListItemProps> = observer((props) => {
             open={open}
             title={`Создать отчёт для ${book.name}`}
           >
-            <ReportCreateForm bookId={book.id} />
+            <ReportCreateForm
+              bookId={book.id}
+              fields={<BookCreateReportFormFields />}
+            />
           </Modal>
           <Button fullWidth variant={'outlined'}>
             Редактировать

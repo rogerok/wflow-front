@@ -1,24 +1,25 @@
 import { cn } from '@bem-react/classname';
 import { observer } from 'mobx-react-lite';
-import { FC, useEffect, useState } from 'react';
+import { ComponentProps, FC, useEffect, useState } from 'react';
 
+import { BookResponseType } from '../../../../../api';
 import { TextField } from '../../../../../lib';
 import { BooksService } from '../../../../../services';
-import { BookResponseType } from '../../../../../types';
 import { Autocomplete } from '../../Autocomplete/Autocomplete';
 
 const cnBooksAutocomplete = cn('BooksAutocomplete');
 
-interface BooksAutocompleteProps {
+type BooksAutocompleteProps = {
   field: TextField<string>;
   className?: string;
-  label?: string;
-  fullWidth?: boolean;
-}
+} & Omit<
+  ComponentProps<typeof Autocomplete<BookResponseType>>,
+  'field' | 'options' | 'labelField'
+>;
 
 export const BooksAutocomplete: FC<BooksAutocompleteProps> = observer(
   (props) => {
-    const { field, label, fullWidth } = props;
+    const { className, field, ...restProps } = props;
     const [service] = useState(() => new BooksService());
     const { abortRequest, list, data } = service;
 
@@ -33,10 +34,9 @@ export const BooksAutocomplete: FC<BooksAutocompleteProps> = observer(
 
     return (
       <Autocomplete<BookResponseType>
+        {...restProps}
         className={cnBooksAutocomplete(undefined, [props.className])}
-        label={label}
         field={field}
-        fullWidth={fullWidth}
         options={service.data}
         labelField={'name'}
       />
