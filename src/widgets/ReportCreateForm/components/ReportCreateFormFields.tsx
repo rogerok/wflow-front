@@ -1,11 +1,10 @@
 import { cn } from '@bem-react/classname';
+import { ReportCreateRequestType } from '@shared/api/reports/models/reports';
 import { TextInput } from '@shared/elements/components';
 import { VStack } from '@shared/elements/ui';
 import { useFormStore } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
-
-import { ReportCreateRequestType } from '../model/types/report';
 
 const cnReportCreateFormFields = cn('ReportCreateFormFields');
 
@@ -25,7 +24,7 @@ export const ReportCreateFormFields: FC<ReportCreateFormFieldsProps> = observer(
         gap={'24'}
         mb={'16'}
       >
-        <TextInput label={'Описание'} field={form.fields.title} fullWidth />
+        <TextInput label={'Название'} field={form.fields.title} fullWidth />
         <TextInput
           label={'Описание'}
           field={form.fields.description}

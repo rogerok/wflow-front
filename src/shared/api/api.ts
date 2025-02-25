@@ -4,13 +4,13 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 
-import { LOCAL_STORAGE_TOKEN_KEY } from '../const/localStorage';
+import { LOCAL_STORAGE_TOKEN_KEY } from '../const';
 import {
   getLocalStorageItem,
   removeLocalStorageItem,
   setLocalStorageItem,
-} from '../lib/utils/localStorage';
-import { RefreshTokenResponseType } from '../types/auth';
+} from '../lib';
+import { RefreshTokenResponseType } from './auth/models/auth';
 
 declare module 'axios' {
   interface InternalAxiosRequestConfig {

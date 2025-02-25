@@ -1,4 +1,4 @@
-import { ReportCreateRequestType } from '../types/report';
+import { ReportCreateRequestType } from '@shared/api';
 
 export const reportFormDefaultValues: ReportCreateRequestType = {
   bookId: '',
