@@ -69,11 +69,14 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
           <Modal fullScreen={isScreenDownMd} onClose={handleClose} open={open}>
             <ReportCreateForm goalId={data.id} bookId={data.bookId} />
           </Modal>
-          <Button fullWidth={isScreenDownMd}>Редактировать цель</Button>
+          <Button fullWidth={isScreenDownMd} disabled>
+            Редактировать цель
+          </Button>
           <ButtonLink
             to={routes.reports()}
             variant={'outlined'}
             fullWidth={isScreenDownMd}
+            disabled
           >
             Подробности
           </ButtonLink>
@@ -82,6 +85,7 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
           className={cnGoalsListItem('DeleteButton')}
           variant={'warn'}
           size={'sm'}
+          disabled
         >
           Удалить
         </Button>

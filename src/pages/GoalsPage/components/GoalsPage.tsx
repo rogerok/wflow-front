@@ -1,13 +1,10 @@
+import './GoalsPage.scss';
+
 import { cn } from '@bem-react/classname';
 import { routes } from '@shared/const';
-import {
-  ButtonLink,
-  Page,
-  PageTitle,
-  Typography,
-  VStack,
-} from '@shared/elements/ui';
+import { ButtonLink, Page, PageTitle } from '@shared/elements/ui';
 import { GoalsService } from '@shared/services';
+import { GoalsList } from '@widgets/GoalsList';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
@@ -33,16 +30,7 @@ export const GoalsPage: FC<GoalsPageProps> = observer((props) => {
       <PageTitle title={'Мои цели'} />
       <ButtonLink to={routes.goalsCreate()}>Добавить цель</ButtonLink>
 
-      {service.goalsListRequest.isLoading ? (
-        <div style={{ width: '300px', background: 'red' }}>loading...</div>
-      ) : (
-        service.data.map((goal) => (
-          <VStack key={goal.id}>
-            <Typography>{goal.createdAt}</Typography>
-            <Typography variant={'warn'}>{goal.description}</Typography>
-          </VStack>
-        ))
-      )}
+      <GoalsList data={service.data} className={cnGoalsPage('List')} />
     </Page>
   );
 });

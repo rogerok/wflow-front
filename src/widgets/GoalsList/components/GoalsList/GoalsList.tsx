@@ -1,7 +1,6 @@
 import './GoalsList.scss';
 
 import { cn } from '@bem-react/classname';
-import { VStack } from '@shared/elements/ui';
 import { GoalsListResponseType } from '@shared/types';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
@@ -19,15 +18,15 @@ export const GoalsList: FC<GoalsListProps> = observer((props) => {
   const { className, data } = props;
 
   return (
-    <VStack
+    <ul
       className={cnGoalsList(undefined, [className])}
-      as={'ul'}
-      fullWidth
-      gap={'24'}
+      // as={'ul'}
+      // fullWidth
+      // gap={'24'}
     >
       {data.map((item) => (
         <GoalsListItem data={item} key={item.id} />
       ))}
-    </VStack>
+    </ul>
   );
 });

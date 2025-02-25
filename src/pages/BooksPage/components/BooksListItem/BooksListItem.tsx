@@ -43,6 +43,7 @@ export const BooksListItem: FC<BooksListItemProps> = observer((props) => {
             fullWidth
             to={routes.bookDetails()}
             params={{ bookId: book.id }}
+            addonRight={<IconComponent name={'BookIcon'} size={'sm'} />}
           >
             К книге
           </ButtonLink>
@@ -64,7 +65,7 @@ export const BooksListItem: FC<BooksListItemProps> = observer((props) => {
               fields={<BookCreateReportFormFields />}
             />
           </Modal>
-          <Button fullWidth variant={'outlined'}>
+          <Button fullWidth variant={'outlined'} disabled>
             Редактировать
           </Button>
         </VStack>
