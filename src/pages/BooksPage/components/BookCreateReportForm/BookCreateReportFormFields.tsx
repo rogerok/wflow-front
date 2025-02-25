@@ -20,7 +20,7 @@ export const BookCreateReportFormFields: FC<FormFieldsProps> = (props) => {
       className={cnBookCreateReportFormFields(undefined, [props.className])}
       fullWidth
       gap={'24'}
-      mb={'16'}
+      mb={'24'}
     >
       <GoalsAutocomplete
         field={form.fields.goalId}
