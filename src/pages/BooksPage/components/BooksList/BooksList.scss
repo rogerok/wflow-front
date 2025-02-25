@@ -9,12 +9,11 @@
   list-style-type: none;
 
 
-  @media (min-width: $md-breakpoint) {
+  @media (min-width: $lg-breakpoint) {
     grid-template-columns: repeat(2, 1fr);
   }
-
-
-  @media (min-width: $lg-breakpoint) {
+  
+  @media (min-width: $xl-breakpoint) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
