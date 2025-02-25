@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
-import { AuthRequestType, AuthResponseType } from '../../types/auth';
 import { $api } from '../api';
+import { AuthRequestType, AuthResponseType } from './models/auth';
 
 export const authRequest = (
   data: AuthRequestType,

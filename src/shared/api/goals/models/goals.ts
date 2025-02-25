@@ -3,7 +3,7 @@ import { z } from 'zod';
 import {
   OrderByCreatedAtRequestSchema,
   PaginationRequestSchema,
-} from './requests';
+} from '../../models/requests';
 
 export const GoalResponseSchema = z.object({
   bookId: z.string().uuid(),

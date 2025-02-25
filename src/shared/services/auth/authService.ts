@@ -1,9 +1,13 @@
 import { makeAutoObservable } from 'mobx';
 
-import { authRequest, logoutRequest } from '../../api/auth/authApi';
-import { FormStore } from '../../lib/form';
-import { RequestStore } from '../../stores/request/RequestStore';
-import { AuthRequestSchema, AuthRequestType } from '../../types/auth';
+import {
+  authRequest,
+  AuthRequestSchema,
+  AuthRequestType,
+  logoutRequest,
+} from '../../api';
+import { FormStore } from '../../lib';
+import { RequestStore } from '../../stores';
 
 export class AuthService {
   authForm = new FormStore<AuthRequestType>({

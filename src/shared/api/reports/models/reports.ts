@@ -1,5 +1,6 @@
-import { EmptyStringSchema } from '@shared/const';
 import { z } from 'zod';
+
+import { EmptyStringSchema } from '../../../const';
 
 export const ReportCreateRequestSchema = z.object({
   bookId: z.string().uuid(),
@@ -10,3 +11,13 @@ export const ReportCreateRequestSchema = z.object({
 });
 
 export type ReportCreateRequestType = z.infer<typeof ReportCreateRequestSchema>;
+
+export const ReportCreateResponseSchema = z.object({
+  reportId: z.string().uuid(),
+  writtenWords: z.number(),
+  wordsPerDay: z.number(),
+});
+
+export type ReportCreateResponseType = z.infer<
+  typeof ReportCreateResponseSchema
+>;

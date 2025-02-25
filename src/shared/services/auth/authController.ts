@@ -1,13 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 
-import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
-import { routes } from '../../const/router';
+import { TokenSchema, TokenType } from '../../api';
+import { LOCAL_STORAGE_TOKEN_KEY, routes } from '../../const';
 import {
   getLocalStorageItem,
   removeLocalStorageItem,
   setLocalStorageItem,
-} from '../../lib/utils/localStorage';
-import { TokenSchema, TokenType } from '../../types/auth';
+} from '../../lib';
 import { RouterType } from '../../types/router';
 import { UserService } from '../user/userService';
 import { AuthService } from './authService';

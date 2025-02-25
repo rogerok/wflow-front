@@ -1,7 +1,7 @@
-import { $api } from '@shared/api';
-import { CreateResponseType } from '@shared/types';
 import { AxiosResponse } from 'axios';
-import { ReportCreateRequestType } from 'src/widgets/ReportCreateForm/model/types/report';
+
+import { CreateResponseType, ReportCreateRequestType } from '../../types';
+import { $api } from '../api';
 
 export const reportCreateRequest = (
   data: ReportCreateRequestType,

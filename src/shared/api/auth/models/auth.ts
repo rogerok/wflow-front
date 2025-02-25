@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { EmailSchema, PasswordSchema } from '../const';
+import { EmailSchema, PasswordSchema } from '../../../const';
 
 export const AuthRequestSchema = z.object({
   email: EmailSchema,

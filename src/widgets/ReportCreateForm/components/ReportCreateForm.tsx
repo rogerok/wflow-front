@@ -1,13 +1,13 @@
 import { cn } from '@bem-react/classname';
+import { ReportCreateRequestType } from '@shared/api';
 import { FormComponent } from '@shared/elements/components';
 import { Button } from '@shared/elements/ui';
+import { ReportCreateService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
-import { ReportCreateFormFields } from '../components/ReportCreateFormFields';
 import { reportFormDefaultValues } from '../model/constants/constants';
-import { ReportCreateService } from '../model/services/ReportCreateService';
-import { ReportCreateRequestType } from '../model/types/report';
+import { ReportCreateFormFields } from './ReportCreateFormFields';
 
 const cnReportCreateForm = cn('ReportCreateForm');
 
