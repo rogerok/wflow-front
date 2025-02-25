@@ -5,21 +5,24 @@ import {
   PaginationRequestSchema,
 } from '../../models/requests';
 
-export const GoalResponseSchema = z.object({
-  bookId: z.string().uuid(),
-  createdAt: z.string(),
-  description: z.string().nullable(),
-  endDate: z.string(),
-  goalWords: z.number(),
-  id: z.string().uuid(),
-  isExpired: z.boolean(),
-  isFinished: z.boolean(),
-  startDate: z.string(),
-  title: z.string(),
-  updatedAt: z.string(),
-  wordsPerDay: z.number(),
-  writtenWords: z.number(),
-});
+export const GoalResponseSchema = z
+  .object({
+    bookId: z.string().uuid(),
+    createdAt: z.string(),
+    description: z.string().nullable(),
+    endDate: z.string(),
+    goalWords: z.number(),
+    id: z.string().uuid(),
+    isExpired: z.boolean(),
+    isFinished: z.boolean(),
+    startDate: z.string(),
+    title: z.string(),
+    updatedAt: z.string(),
+    wordsPerDay: z.number(),
+    writtenWords: z.number(),
+  })
+  .strict();
+
 export type GoalResponseType = z.infer<typeof GoalResponseSchema>;
 
 export const GoalsListResponseSchema = z.array(GoalResponseSchema);

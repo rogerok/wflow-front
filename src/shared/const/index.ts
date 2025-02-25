@@ -1,3 +1,4 @@
+export * from './goals/goalsConstants';
 export * from './localStorage';
 export * from './requestConstants';
 export * from './roles';

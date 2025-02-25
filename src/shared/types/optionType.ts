@@ -1,4 +1,3 @@
-export interface IOptionType
-  extends Record<string, string | number | null | undefined> {
+export interface IOptionType extends Record<string, unknown> {
   id: string | number;
 }

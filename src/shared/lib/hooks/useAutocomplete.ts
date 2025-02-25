@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { IOptionType } from '../../types';
 import { TextField } from '../form';
+import { getLabel } from '../utils/helpers';
 
 type useAutocompleteReturnType<T extends IOptionType> = {
   inputLabel: string | number;
@@ -23,7 +24,7 @@ type useAutocompleteArgs<T extends IOptionType> = {
 export const useAutocomplete = <T extends IOptionType>({
   field,
   labelField,
-  uniqueIdentifier,
+  uniqueIdentifier = 'id',
   options,
 }: useAutocompleteArgs<T>): useAutocompleteReturnType<T> => {
   const getSelectedOption = useCallback((): T | null => {
@@ -34,7 +35,7 @@ export const useAutocomplete = <T extends IOptionType>({
 
   const [inputOptions, setInputOptions] = useState<T[]>([]);
   const [inputLabel, setInputLabel] = useState<string | number>(
-    () => getSelectedOption()?.[labelField] ?? '',
+    () => getLabel(getSelectedOption()?.[labelField]) ?? '',
   );
 
   const [selectedItem, setSelectedItem] = useState<T | null>(() =>
@@ -51,6 +52,8 @@ export const useAutocomplete = <T extends IOptionType>({
   }, [field.value, getSelectedOption, options]);
 
   const onItemSelect = (item: T): void => {
+    const val = item[uniqueIdentifier];
+
     setSelectedItem((prev) => {
       if (!prev) {
         return item;
@@ -58,16 +61,16 @@ export const useAutocomplete = <T extends IOptionType>({
       return prev[uniqueIdentifier] === item[uniqueIdentifier] ? null : item;
     });
 
-    if (item[uniqueIdentifier] === field.value) {
+    if (val === field.value) {
       field.toDefaultValue();
       setInputLabel('');
     } else {
-      if (item[uniqueIdentifier]) {
-        field.setValue(item[uniqueIdentifier]);
+      if (typeof val === 'string' || typeof val === 'number') {
+        field.setValue(val);
       }
 
       if (item[labelField]) {
-        setInputLabel(item[labelField]);
+        setInputLabel(getLabel(item[labelField]) ?? '');
       }
     }
   };
@@ -87,7 +90,7 @@ export const useAutocomplete = <T extends IOptionType>({
   const onClose = (): void => {
     const defaultLabel = getSelectedOption()?.[labelField] ?? '';
 
-    setInputLabel(defaultLabel);
+    setInputLabel(getLabel(defaultLabel) ?? '');
 
     setInputOptions(options);
 

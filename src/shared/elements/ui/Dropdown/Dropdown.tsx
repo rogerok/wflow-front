@@ -3,6 +3,7 @@ import './Dropdown.scss';
 import { cn } from '@bem-react/classname';
 import { ComponentProps, ReactNode, useRef } from 'react';
 
+import { getLabel } from '../../../lib';
 import { IOptionType } from '../../../types';
 import { Button } from '../Button/Button';
 import { IconComponent } from '../IconComponent/IconComponent';
@@ -86,7 +87,7 @@ export const Dropdown = <T extends IOptionType>(
               }
             >
               <span className={cnDropdown('Title')}>
-                {value?.[labelField] ?? title}
+                {getLabel(value?.[labelField]) ?? title}
               </span>
             </Button>
           </div>
@@ -113,7 +114,7 @@ export const Dropdown = <T extends IOptionType>(
                         value?.[uniqueIdentifier] === option[uniqueIdentifier],
                     })}
                   >
-                    {option[labelField]}
+                    {getLabel(option[labelField])}
                   </li>
                 ))
               ) : (
