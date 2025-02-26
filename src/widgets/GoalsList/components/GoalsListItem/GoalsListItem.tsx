@@ -14,8 +14,9 @@ import {
   Typography,
   VStack,
 } from '@shared/elements/ui';
-import { formatDate, useGlobalStore } from '@shared/lib';
+import { formatDate } from '@shared/lib';
 import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
+import { useGlobalStore } from '@shared/stores';
 import { GoalResponseType } from '@shared/types';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
@@ -69,11 +70,14 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
           <Modal fullScreen={isScreenDownMd} onClose={handleClose} open={open}>
             <ReportCreateForm goalId={data.id} bookId={data.bookId} />
           </Modal>
-          <Button fullWidth={isScreenDownMd}>Редактировать цель</Button>
+          <Button fullWidth={isScreenDownMd} disabled>
+            Редактировать цель
+          </Button>
           <ButtonLink
             to={routes.reports()}
             variant={'outlined'}
             fullWidth={isScreenDownMd}
+            disabled
           >
             Подробности
           </ButtonLink>
@@ -82,6 +86,7 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
           className={cnGoalsListItem('DeleteButton')}
           variant={'warn'}
           size={'sm'}
+          disabled
         >
           Удалить
         </Button>

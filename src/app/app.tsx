@@ -7,9 +7,8 @@ import { observer } from 'mobx-react-lite';
 import React, { FC, ReactElement, useEffect } from 'react';
 import { routeTree } from '../routeTree.gen';
 import { z } from 'zod';
-import { GlobalStoreContextProvider } from 'src/shared/providers';
-import { useGlobalStore } from '@shared/lib';
 import { PageTitle } from '@shared/elements/ui';
+import { GlobalStoreContextProvider, useGlobalStore } from '@shared/stores';
 
 export const router = createRouter({
   routeTree,

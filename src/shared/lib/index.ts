@@ -7,7 +7,6 @@ export {
 } from './form';
 export * from './hooks/useBooleanToggle';
 export * from './hooks/useFormStore';
-export * from './hooks/useGlobalStore';
 export * from './hooks/useKeyDown';
 export * from './hooks/usePopup';
 export * from './tsUtils/ObjectValues';

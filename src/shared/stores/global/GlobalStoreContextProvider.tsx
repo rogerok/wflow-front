@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useState } from 'react';
 
-import { GlobalStore } from '../../stores/global/GlobalStore';
 import { RouterType } from '../../types/router';
+import { GlobalStore } from './GlobalStore';
 
 export const GlobalStoreContext = createContext<GlobalStore | null>(null);
 

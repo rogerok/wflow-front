@@ -12,17 +12,28 @@ import { Typography } from '../Typography/Typography';
 
 const cnModal = cn('Modal');
 
+type ModalSize = 'xs' | 'sm' | 'md' | 'lg';
+
 interface ModalProps {
   className?: string;
+  fullScreen?: boolean;
   onClose?: () => void;
   open?: boolean;
-  fullScreen?: boolean;
+  size?: ModalSize;
   title?: string;
   children: ReactNode;
 }
 
 export const Modal: FC<ModalProps> = (props) => {
-  const { className, onClose, fullScreen, open, title, children } = props;
+  const {
+    className,
+    onClose,
+    fullScreen,
+    open,
+    title,
+    size = 'md',
+    children,
+  } = props;
 
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -58,6 +69,7 @@ export const Modal: FC<ModalProps> = (props) => {
           <div
             className={cnModal('Content', {
               fullScreen: fullScreen,
+              size: size,
             })}
             ref={ref}
           >

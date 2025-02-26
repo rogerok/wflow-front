@@ -1,0 +1,21 @@
+.GoalsPage {
+  &-List {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.2rem;
+
+    width: 100%;
+    padding: 1.6rem 0;
+
+    list-style-type: none;
+
+
+    @media (min-width: $lg-breakpoint) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: $xl-breakpoint) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}

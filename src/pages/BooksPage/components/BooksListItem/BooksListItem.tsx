@@ -10,8 +10,8 @@ import {
   Modal,
   VStack,
 } from '@shared/elements/ui';
-import { useGlobalStore } from '@shared/lib';
 import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
+import { useGlobalStore } from '@shared/stores';
 import { ReportCreateForm } from '@widgets/ReportCreateForm';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
@@ -43,6 +43,7 @@ export const BooksListItem: FC<BooksListItemProps> = observer((props) => {
             fullWidth
             to={routes.bookDetails()}
             params={{ bookId: book.id }}
+            addonRight={<IconComponent name={'BookIcon'} size={'sm'} />}
           >
             К книге
           </ButtonLink>
@@ -64,7 +65,7 @@ export const BooksListItem: FC<BooksListItemProps> = observer((props) => {
               fields={<BookCreateReportFormFields />}
             />
           </Modal>
-          <Button fullWidth variant={'outlined'}>
+          <Button fullWidth variant={'outlined'} disabled>
             Редактировать
           </Button>
         </VStack>

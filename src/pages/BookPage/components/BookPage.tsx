@@ -1,3 +1,5 @@
+import './BookPage.scss';
+
 import { cn } from '@bem-react/classname';
 import {
   HStack,
@@ -50,7 +52,6 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
       <PageTitle title={`Книга ${bookService.data?.name ?? ''}`} />
       <VStack gap={'8'} align={'center'}>
         <IconComponent name={'BookIconFilled'} size={'md'} />
-
         <Typography
           size={'xl'}
           align={'center'}
@@ -75,8 +76,10 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
           </Typography>
           <IconComponent name={'GoalIcon'} size={'md'} />
         </HStack>
-
-        <GoalsList data={goalsService.data} />
+        <GoalsList
+          data={goalsService.data}
+          className={cnBookPage('GoalsList')}
+        />
       </VStack>
     </Page>
   );
