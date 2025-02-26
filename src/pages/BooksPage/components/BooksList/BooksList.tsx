@@ -18,7 +18,7 @@ export const BooksList: FC<BooksListProps> = (props) => {
 
   return (
     <ul className={cnBooksList(undefined, [className])}>
-      {data.concat(data).map((book) => (
+      {data.map((book) => (
         <BooksListItem book={book} key={book.id} />
       ))}
     </ul>

@@ -17,19 +17,19 @@ export const BookGoalForm: FC<BookGoalFormProps> = observer((props) => {
   const { screen } = useGlobalStore();
   const { open, handleOpen, handleClose } = useOpenClose();
 
-  const bookService = useContext(BookContext);
-  const report = bookService?.report;
+  const bookFacade = useContext(BookContext);
+  const report = bookFacade?.reportForm;
 
   const isScreenDownMd = screen.downMd;
 
   const handleFormOpen = (): void => {
-    bookService?.initForm(goal.id);
+    bookFacade?.initReportForm(goal.id);
     handleOpen();
   };
 
   const handleFormClose = (): void => {
     report?.abortRequest();
-    bookService?.destroyForm();
+    bookFacade?.destroyReportForm();
     handleClose();
   };
 
@@ -41,7 +41,7 @@ export const BookGoalForm: FC<BookGoalFormProps> = observer((props) => {
       <Modal fullScreen={isScreenDownMd} onClose={handleFormClose} open={open}>
         {report && (
           <FormComponent<ReportCreateRequestType>
-            onSubmit={() => bookService?.submitForm(goal)}
+            onSubmit={() => bookFacade?.submitReport(goal)}
             form={report.form}
           >
             <VStack fullWidth gap={'24'} mb={'16'}>
