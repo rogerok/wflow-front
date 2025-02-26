@@ -112,7 +112,7 @@ export const Dropdown = <T extends IOptionType>(
                         value?.[uniqueIdentifier] === option[uniqueIdentifier],
                     })}
                   >
-                    <Typography>{getLabel(option[labelField])}</Typography>+
+                    <Typography>{getLabel(option[labelField])}</Typography>
                   </li>
                 ))
               ) : (

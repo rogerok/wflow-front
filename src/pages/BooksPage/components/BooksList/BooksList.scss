@@ -12,7 +12,7 @@
   @media (min-width: $lg-breakpoint) {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   @media (min-width: $xl-breakpoint) {
     grid-template-columns: repeat(3, 1fr);
   }
