@@ -1,5 +1,4 @@
-import { $api } from '@shared/api';
-import { CreateResponseType } from '@shared/types';
+import { $api, CreateResponseType } from '@shared/api';
 import { AxiosResponse } from 'axios';
 
 import { GoalCreateFormType } from '../model/types/createGoal';

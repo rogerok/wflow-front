@@ -1,8 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { getBooksList } from '../../api';
+import { BooksListResponseType, getBooksList } from '../../api';
 import { RequestStore } from '../../stores';
-import { BooksListResponseType } from '../../types';
 
 export class BooksService {
   requestStore = new RequestStore(getBooksList);
@@ -22,10 +21,11 @@ export class BooksService {
     this.abortController = new AbortController();
 
     const resp = await this.requestStore.call(this.abortController);
-    if (resp.data) {
-      runInAction(() => {
+
+    runInAction(() => {
+      if (resp.data) {
         this.data = resp.data;
-      });
-    }
+      }
+    });
   };
 }

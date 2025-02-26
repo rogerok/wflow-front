@@ -12,11 +12,8 @@ import {
 } from '@shared/elements/ui';
 import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
 import { useGlobalStore } from '@shared/stores';
-import { ReportCreateForm } from '@widgets/ReportCreateForm';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
-
-import { BookCreateReportFormFields } from '../BookCreateReportForm/BookCreateReportFormFields';
 
 const cnBooksListItem = cn('BooksListItem');
 
@@ -60,10 +57,11 @@ export const BooksListItem: FC<BooksListItemProps> = observer((props) => {
             open={open}
             title={`Создать отчёт для ${book.name}`}
           >
-            <ReportCreateForm
-              bookId={book.id}
-              fields={<BookCreateReportFormFields />}
-            />
+            {/*<ReportCreateForm*/}
+            {/*  bookId={book.id}*/}
+            {/*  fields={<BookCreateReportFormFields />}*/}
+            {/*/>*/}
+            some
           </Modal>
           <Button fullWidth variant={'outlined'} disabled>
             Редактировать

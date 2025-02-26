@@ -1,6 +1,6 @@
 import { ReportCreateRequestType } from '@shared/api';
 
-export const reportFormDefaultValues: ReportCreateRequestType = {
+export const ReportCreateFormDefaultValues: ReportCreateRequestType = {
   bookId: '',
   goalId: '',
   wordsAmount: 0,

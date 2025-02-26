@@ -1,11 +1,11 @@
 import { cn } from '@bem-react/classname';
+import { UserCreateRequestType } from '@shared/api';
 import { FormComponent, TextInput } from '@shared/elements/components';
 import { Button, Page, VStack } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
 import { SignUpService } from '../model/services/SignUpService';
-import { UserCreateRequestType } from '../model/types/userCreate';
 
 const cnSignUpPage = cn('SignUpPage');
 

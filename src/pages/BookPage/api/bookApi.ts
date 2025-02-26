@@ -1,5 +1,4 @@
-import { $api } from '@shared/api';
-import { BookResponseType } from '@shared/types';
+import { $api, BookResponseType } from '@shared/api';
 import { AxiosResponse } from 'axios';
 
 export const bookById = (

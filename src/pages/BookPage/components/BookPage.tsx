@@ -1,6 +1,7 @@
 import './BookPage.scss';
 
 import { cn } from '@bem-react/classname';
+import { GoalResponseType } from '@shared/api';
 import {
   HStack,
   IconComponent,
@@ -15,7 +16,9 @@ import { GoalsList } from '@widgets/GoalsList';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
+import { BookContext } from '../model/contexts/BookContext';
 import { BookService } from '../model/services/BookService';
+import { BookGoalCardActions } from './BookGoalCardActions/BookGoalCardActions';
 
 const cnBookPage = cn('BookPage');
 
@@ -26,24 +29,28 @@ interface BookPageProps {
 const route = getRouteApi('/_protected/books/$bookId');
 
 export const BookPage: FC<BookPageProps> = observer((props) => {
-  const [bookService] = useState(() => new BookService());
-  const [goalsService] = useState(() => new GoalsService());
+  const [bookService] = useState(
+    () =>
+      new BookService({
+        goalService: new GoalsService(),
+      }),
+  );
 
   const param = route.useParams();
 
   const isLoading =
     bookService.bookByIdRequest.isLoading ||
-    goalsService.goalsListRequest.isLoading;
+    bookService.goal.goalsListRequest.isLoading;
 
   useEffect(() => {
     bookService.getById(param.bookId);
-    goalsService.list({ bookId: param.bookId });
+    bookService.goal.list({ bookId: param.bookId });
 
     return () => {
       bookService.abortRequest();
-      goalsService.abortRequest();
+      bookService.goal.abortRequest();
     };
-  }, [bookService, goalsService, param.bookId]);
+  }, [bookService, param.bookId]);
 
   return isLoading ? (
     <div>Loading...</div>
@@ -76,10 +83,15 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
           </Typography>
           <IconComponent name={'GoalIcon'} size={'md'} />
         </HStack>
-        <GoalsList
-          data={goalsService.data}
-          className={cnBookPage('GoalsList')}
-        />
+        <BookContext value={bookService}>
+          <GoalsList
+            className={cnBookPage('GoalsList')}
+            data={bookService.goal.data}
+            actions={(goal: GoalResponseType) => (
+              <BookGoalCardActions goal={goal} />
+            )}
+          />
+        </BookContext>
       </VStack>
     </Page>
   );

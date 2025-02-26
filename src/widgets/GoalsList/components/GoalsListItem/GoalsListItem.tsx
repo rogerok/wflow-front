@@ -1,43 +1,30 @@
 import './GoalsListItem.scss';
 
 import { cn } from '@bem-react/classname';
-import { routes } from '@shared/const';
+import { GoalResponseType } from '@shared/api';
 import {
   Button,
-  ButtonLink,
   Card,
   CardHeader,
-  Flex,
   HStack,
-  Modal,
   ProgressBar,
   Typography,
   VStack,
 } from '@shared/elements/ui';
 import { formatDate } from '@shared/lib';
-import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
-import { useGlobalStore } from '@shared/stores';
-import { GoalResponseType } from '@shared/types';
 import { observer } from 'mobx-react-lite';
-import { FC } from 'react';
-
-import { ReportCreateForm } from '../../../ReportCreateForm';
+import { FC, ReactNode } from 'react';
 
 const cnGoalsListItem = cn('GoalsListItem');
 
 interface GoalsListItemProps {
   data: GoalResponseType;
   className?: string;
+  actions?: ReactNode;
 }
 
 export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
-  const { className, data } = props;
-
-  const { screen } = useGlobalStore();
-
-  const isScreenDownMd = screen.downMd;
-
-  const { open, handleOpen, handleClose } = useOpenClose();
+  const { className, data, actions } = props;
 
   return (
     <Card className={cnGoalsListItem(undefined, [className])} as={'li'}>
@@ -63,25 +50,7 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
             max={data.goalWords}
           />
         </VStack>
-        <Flex gap={'16'} direction={screen.downLg ? 'column' : 'row'} mt={'16'}>
-          <Button onClick={handleOpen} fullWidth={isScreenDownMd}>
-            Добавить отчёт
-          </Button>
-          <Modal fullScreen={isScreenDownMd} onClose={handleClose} open={open}>
-            <ReportCreateForm goalId={data.id} bookId={data.bookId} />
-          </Modal>
-          <Button fullWidth={isScreenDownMd} disabled>
-            Редактировать цель
-          </Button>
-          <ButtonLink
-            to={routes.reports()}
-            variant={'outlined'}
-            fullWidth={isScreenDownMd}
-            disabled
-          >
-            Подробности
-          </ButtonLink>
-        </Flex>
+        {actions}
         <Button
           className={cnGoalsListItem('DeleteButton')}
           variant={'warn'}
