@@ -1,7 +1,7 @@
 import { BookResponseType, GoalResponseType } from '@shared/api';
+import { ReportCreateFormDefaultValues } from '@shared/const/reports/reportsConstants';
 import { GoalsService, ReportCreateService } from '@shared/services';
 import { RequestStore } from '@shared/stores';
-import { ReportCreateFormDefaultValues } from '@widgets/ReportCreateForm/model/constants/constants';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { bookById } from '../../api/bookApi';

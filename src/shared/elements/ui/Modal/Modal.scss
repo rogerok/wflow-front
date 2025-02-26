@@ -1,4 +1,7 @@
 .Modal {
+  $parent: &;
+
+
   position: fixed;
   z-index: var(--modal-z-index);
   inset: 0;
@@ -29,27 +32,27 @@
     &_fullScreen {
       width: 100%;
       height: 100%;
+      border-radius: 0;
     }
 
-    &_size {
-      &_xs {
+    &:not(&_fullScreen) {
+      #{$parent}-Content_size_xs {
         width: 20%;
       }
 
-      &_sm {
-        width: 40%
+      #{$parent}-Content_size_sm {
+        width: 40%;
       }
 
-
-      &_md {
+      #{$parent}-Content_size_md {
         width: 60%;
       }
 
-      &_lg {
-        width: 80%
+      #{$parent}-Content_size_lg {
+        width: 80%;
       }
     }
-    
+
   }
 
   &-CloseButton {
