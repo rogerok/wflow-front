@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
-import { BooksListResponseType } from '../../types';
 import { $api } from '../api';
+import { BooksListResponseType } from './models/books';
 
 export const getBooksList = (
   abortController: AbortController | null,

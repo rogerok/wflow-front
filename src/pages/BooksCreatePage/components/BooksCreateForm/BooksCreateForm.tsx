@@ -1,11 +1,11 @@
 import { cn } from '@bem-react/classname';
+import { BookFormRequestType } from '@shared/api';
 import {
   FormComponent,
   FormTextArea,
   TextInput,
 } from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
-import { BookFormRequestType } from '@shared/types';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 

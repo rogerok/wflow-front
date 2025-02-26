@@ -1,19 +1,16 @@
+import { createUserRequest } from '@shared/api';
 import { convertEmptyStringToNull, FormStore } from '@shared/lib';
 import { RequestStore } from '@shared/stores';
 import { makeAutoObservable } from 'mobx';
 
-import { createUserRequest } from '../../api/signUpApi';
-import {
-  UserCreateRequestSchema,
-  UserCreateRequestType,
-} from '../types/userCreate';
+import { UserCreateFormSchema, UserCreateFormType } from '../types/userCreate';
 
 export class SignUpService {
   private abortController: AbortController | null = null;
   createUserRequest = new RequestStore(createUserRequest);
 
-  userForm = new FormStore<UserCreateRequestType>({
-    schema: UserCreateRequestSchema,
+  userForm = new FormStore<UserCreateFormType>({
+    schema: UserCreateFormSchema,
     defaultValues: {
       bornDate: '',
       email: '',
@@ -47,7 +44,7 @@ export class SignUpService {
   submitForm = async (): Promise<void> => {
     this.abortController = new AbortController();
 
-    await this.userForm.submit(async (formValues: UserCreateRequestType) => {
+    await this.userForm.submit(async (formValues: UserCreateFormType) => {
       await this.createUserRequest.call(
         {
           email: formValues.email,

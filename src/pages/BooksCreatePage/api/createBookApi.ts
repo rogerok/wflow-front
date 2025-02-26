@@ -1,5 +1,4 @@
-import { $api } from '@shared/api';
-import { BookFormRequestType, CreateResponseType } from '@shared/types';
+import { $api, BookFormRequestType, CreateResponseType } from '@shared/api';
 import { AxiosResponse } from 'axios';
 
 export const createBookRequest = (

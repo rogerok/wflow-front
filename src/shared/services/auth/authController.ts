@@ -7,7 +7,7 @@ import {
   removeLocalStorageItem,
   setLocalStorageItem,
 } from '../../lib';
-import { RouterType } from '../../types/router';
+import { RouterType } from '../../types';
 import { UserService } from '../user/userService';
 import { AuthService } from './authService';
 

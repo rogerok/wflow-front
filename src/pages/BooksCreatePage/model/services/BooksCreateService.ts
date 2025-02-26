@@ -1,6 +1,6 @@
+import { BookFormRequestSchema, BookFormRequestType } from '@shared/api';
 import { convertEmptyStringToNull, FormStore } from '@shared/lib';
 import { RequestStore } from '@shared/stores';
-import { BookFormRequestSchema, BookFormRequestType } from '@shared/types';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { createBookRequest } from '../../api/createBookApi';

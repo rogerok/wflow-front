@@ -4,10 +4,7 @@ import { FormComponent } from '@shared/elements/components';
 import { Button } from '@shared/elements/ui';
 import { ReportCreateService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
-import { FC, ReactNode, useEffect, useState } from 'react';
-
-import { reportFormDefaultValues } from '../model/constants/constants';
-import { ReportCreateFormFields } from './ReportCreateFormFields';
+import { FC, ReactNode } from 'react';
 
 const cnReportCreateForm = cn('ReportCreateForm');
 
@@ -15,37 +12,21 @@ interface ReportCreateFormProps {
   bookId?: string;
   className?: string;
   goalId?: string;
-  service?: ReportCreateService;
-  fields?: ReactNode;
+  service: ReportCreateService;
+  fields: ReactNode;
 }
 
 export const ReportCreateForm: FC<ReportCreateFormProps> = observer((props) => {
-  const { className, goalId, bookId, service, fields } = props;
-
-  const [createService] = useState(
-    () =>
-      service ??
-      new ReportCreateService({
-        ...reportFormDefaultValues,
-        bookId: bookId || '',
-        goalId: goalId || '',
-      }),
-  );
-
-  useEffect(() => {
-    return () => {
-      createService.abortRequest();
-    };
-  }, [createService]);
+  const { className, service, fields } = props;
 
   return (
     <FormComponent<ReportCreateRequestType>
       className={cnReportCreateForm(undefined, [className])}
-      onSubmit={createService.submit}
-      form={createService.form}
+      onSubmit={service.submit}
+      form={service.form}
     >
-      {fields ? fields : <ReportCreateFormFields />}
-      <Button type={'submit'} disabled={createService.form.isSubmitting}>
+      {fields}
+      <Button type={'submit'} disabled={service.form.isSubmitting}>
         Отправить
       </Button>
     </FormComponent>

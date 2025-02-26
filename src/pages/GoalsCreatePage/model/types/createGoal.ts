@@ -1,5 +1,5 @@
+import { GoalCreateRequestSchema } from '@shared/api';
 import { validateDatesPeriod } from '@shared/lib';
-import { GoalCreateRequestSchema } from '@shared/types';
 import { z } from 'zod';
 
 export const GoalCreateFormSchema = GoalCreateRequestSchema.merge(

@@ -3,6 +3,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import {
   getGoalsList,
   GoalRequestType,
+  GoalResponseType,
   GoalsListResponseType,
 } from '../../api';
 import { OrderByRequestConstant } from '../../const';
@@ -26,7 +27,14 @@ export class GoalsService {
     if (requestParams) {
       this.requestParams = requestParams;
     }
-    makeAutoObservable(this);
+
+    makeAutoObservable(
+      this,
+      {},
+      {
+        autoBind: true,
+      },
+    );
   }
 
   abortRequest = (): void => {
@@ -42,10 +50,19 @@ export class GoalsService {
       this.abortController,
     );
 
-    if (resp.data) {
-      runInAction(() => {
+    runInAction(() => {
+      if (resp.data) {
         this.data.push(...resp.data);
-      });
-    }
+      }
+    });
+  };
+
+  updateItemStats = (
+    goal: GoalResponseType,
+    writtenWords: number,
+    wordsPerDay: number,
+  ) => {
+    goal.writtenWords = writtenWords;
+    goal.wordsPerDay = wordsPerDay;
   };
 }

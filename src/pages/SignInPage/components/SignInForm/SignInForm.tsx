@@ -1,8 +1,8 @@
 import { cn } from '@bem-react/classname';
+import { AuthRequestType } from '@shared/api';
 import { FormComponent, TextInput } from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
 import { useGlobalStore } from '@shared/stores';
-import { AuthRequestType } from '@shared/types';
 import { FC } from 'react';
 
 const cnSignInForm = cn('SignInForm');

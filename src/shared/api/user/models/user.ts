@@ -4,6 +4,7 @@ import {
   EmailSchema,
   EmptyStringSchema,
   NameSchema,
+  PasswordSchema,
   RolesConstant,
 } from '../../../const';
 
@@ -37,3 +38,17 @@ export const UserResponseSchema = z
   .strict();
 
 export type UserResponseType = z.infer<typeof UserResponseSchema>;
+
+export const UserCreateRequestSchema = z.object({
+  email: EmailSchema,
+  firstName: NameSchema,
+  lastName: NameSchema.or(EmptyStringSchema).nullable(),
+  middleName: NameSchema.or(EmptyStringSchema).nullable(),
+  password: PasswordSchema,
+  passwordConfirm: PasswordSchema,
+  pseudonym: PseudonymSchema,
+  socialLinks: SocialSchema,
+  bornDate: z.string().nullable(),
+});
+
+export type UserCreateRequestType = z.infer<typeof UserCreateRequestSchema>;

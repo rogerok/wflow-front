@@ -1,23 +1,59 @@
+import { BookResponseType, GoalResponseType } from '@shared/api';
+import { GoalsService, ReportCreateService } from '@shared/services';
 import { RequestStore } from '@shared/stores';
-import { BookResponseType } from '@shared/types';
+import { ReportCreateFormDefaultValues } from '@widgets/ReportCreateForm/model/constants/constants';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { bookById } from '../../api/bookApi';
 
-export class BookService {
-  constructor() {
-    makeAutoObservable(this);
-  }
+interface BookServiceArgs {
+  goalService: GoalsService;
+}
 
+export class BookService {
   private abortController: AbortController | null = null;
+
+  goal: GoalsService;
+  report: ReportCreateService | null = null;
+  bookByIdRequest = new RequestStore(bookById);
 
   data: BookResponseType | null = null;
 
-  bookByIdRequest = new RequestStore(bookById);
+  constructor(args: BookServiceArgs) {
+    this.goal = args.goalService;
+
+    makeAutoObservable(
+      this,
+      {},
+      {
+        autoBind: true,
+      },
+    );
+  }
 
   abortRequest = (): void => {
     this.abortController?.abort();
     this.abortController = null;
+  };
+
+  initForm = (goalId: string): void => {
+    this.report = new ReportCreateService({
+      ...ReportCreateFormDefaultValues,
+      bookId: this.data?.id ?? '',
+      goalId,
+    });
+  };
+
+  destroyForm = (): void => {
+    this.report = null;
+  };
+
+  submitForm = async (goal: GoalResponseType): Promise<void> => {
+    await this.report?.submit();
+    if (this.report?.create.result.status === 'success') {
+      const data = this.report.create.result.data;
+      this.goal.updateItemStats(goal, data.writtenWords, data.wordsPerDay);
+    }
   };
 
   getById = async (id: string): Promise<void> => {
@@ -25,10 +61,10 @@ export class BookService {
 
     const resp = await this.bookByIdRequest.call(id, this.abortController);
 
-    if (resp.status === 'success') {
-      runInAction(() => {
+    runInAction(() => {
+      if (resp.status === 'success') {
         this.data = resp.data;
-      });
-    }
+      }
+    });
   };
 }

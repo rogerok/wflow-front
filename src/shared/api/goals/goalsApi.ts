@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
-import { GoalRequestType, GoalsListResponseType } from '../../types';
 import { $api } from '../api';
+import { GoalRequestType, GoalsListResponseType } from './models/goals';
 
 export const getGoalsList = (
   params: GoalRequestType,

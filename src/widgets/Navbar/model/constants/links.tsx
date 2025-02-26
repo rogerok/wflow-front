@@ -1,6 +1,6 @@
+import { RolesType } from '@shared/api';
 import { RolesConstant, routes } from '@shared/const';
 import { IconComponent } from '@shared/elements/ui';
-import { RolesType } from '@shared/types';
 import { linkOptions } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 
