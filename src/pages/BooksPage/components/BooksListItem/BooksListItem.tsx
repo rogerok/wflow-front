@@ -15,6 +15,8 @@ import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
+import { BookCreateReportForm } from '../BookCreateReportForm/BookCreateReportForm';
+
 const cnBooksListItem = cn('BooksListItem');
 
 interface BooksListItemProps {
@@ -57,11 +59,7 @@ export const BooksListItem: FC<BooksListItemProps> = observer((props) => {
             open={open}
             title={`Создать отчёт для ${book.name}`}
           >
-            {/*<ReportCreateForm*/}
-            {/*  bookId={book.id}*/}
-            {/*  fields={<BookCreateReportFormFields />}*/}
-            {/*/>*/}
-            some
+            <BookCreateReportForm bookId={book.id} />
           </Modal>
           <Button fullWidth variant={'outlined'} disabled>
             Редактировать

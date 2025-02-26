@@ -1,4 +1,5 @@
 import { cn } from '@bem-react/classname';
+import { observer } from 'mobx-react-lite';
 import { ComponentProps, FC, useEffect, useState } from 'react';
 
 import { GoalResponseType } from '../../../../../api';
@@ -18,32 +19,35 @@ type GoalsAutocompleteProps = {
   'field' | 'options' | 'labelField'
 >;
 
-export const GoalsAutocomplete: FC<GoalsAutocompleteProps> = (props) => {
-  const { className, bookId, ...restProps } = props;
-  const [service] = useState(
-    () =>
-      new GoalsService({
-        ...GoalsListRequestDefaultParams,
-        bookId: bookId ?? null,
-      }),
-  );
-  const { abortRequest, list, data } = service;
+export const GoalsAutocomplete: FC<GoalsAutocompleteProps> = observer(
+  (props) => {
+    const { className, bookId, ...restProps } = props;
 
-  useEffect(() => {
-    if (!data.length) {
-      list();
-    }
-    return () => {
-      abortRequest();
-    };
-  }, [abortRequest, data.length, list]);
+    const [service] = useState(
+      () =>
+        new GoalsService({
+          ...GoalsListRequestDefaultParams,
+          bookId: bookId ?? null,
+        }),
+    );
+    const { abortRequest, list, data } = service;
 
-  return (
-    <Autocomplete<GoalResponseType>
-      {...restProps}
-      className={cnGoalsAutocomplete(undefined, [className])}
-      options={service.data}
-      labelField={'title'}
-    />
-  );
-};
+    useEffect(() => {
+      if (!data.length) {
+        list();
+      }
+      return () => {
+        abortRequest();
+      };
+    }, [abortRequest, data.length, list]);
+
+    return (
+      <Autocomplete<GoalResponseType>
+        {...restProps}
+        className={cnGoalsAutocomplete(undefined, [className])}
+        options={service.data}
+        labelField={'title'}
+      />
+    );
+  },
+);

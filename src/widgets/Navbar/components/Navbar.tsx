@@ -22,17 +22,22 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
 
   const close = navbar.close;
 
+  const closeOnNavigate = (): void => {
+    if (screen.downMd) {
+      close();
+    }
+  };
+
   return (
     <div className={cnNavbar(undefined, [props.className])}>
       {!navbar.isCollapsed && screen.downMd && (
         <Overlay className={cnNavbar('Overlay')} onClick={close} />
       )}
       <nav
-        className={cnNavbar(
-          'Inner',
-          { collapsed: navbar.isCollapsed, expanded: !navbar.isCollapsed },
-          [props.className],
-        )}
+        className={cnNavbar('Inner', {
+          collapsed: navbar.isCollapsed,
+          expanded: !navbar.isCollapsed,
+        })}
       >
         <NavbarToggleButton className={cnNavbar('ToggleButton')} />
         {NavbarLinks.map(
@@ -43,6 +48,7 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
                 key={link.to}
                 link={link}
                 collapsed={navbar.isCollapsed}
+                onClick={closeOnNavigate}
               />
             ),
         )}

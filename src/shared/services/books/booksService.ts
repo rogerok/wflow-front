@@ -18,6 +18,8 @@ export class BooksService {
   };
 
   list = async (): Promise<void> => {
+    this.abortRequest();
+
     this.abortController = new AbortController();
 
     const resp = await this.requestStore.call(this.abortController);
