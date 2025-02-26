@@ -4,7 +4,7 @@ import { Button, Modal, VStack } from '@shared/elements/ui';
 import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
 import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
-import { FC, useContext } from 'react';
+import { FC, useContext, useEffect } from 'react';
 
 import { BookContext } from '../../model/contexts/BookContext';
 
@@ -29,9 +29,14 @@ export const BookGoalForm: FC<BookGoalFormProps> = observer((props) => {
 
   const handleFormClose = (): void => {
     report?.abortRequest();
-    bookFacade?.destroyReportForm();
     handleClose();
   };
+
+  useEffect(() => {
+    return () => {
+      bookFacade?.destroyReportForm();
+    };
+  }, [bookFacade]);
 
   return (
     <>
