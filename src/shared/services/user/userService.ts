@@ -29,10 +29,7 @@ export class UserService {
   fetchUser = async (uuid: string): Promise<void> => {
     this.abortController = new AbortController();
 
-    const result = await this.getUserRequestStore.call(
-      uuid,
-      this.abortController,
-    );
+    const result = await this.getUserRequestStore.call(uuid);
 
     runInAction(() => {
       this.setUserData(result.data);

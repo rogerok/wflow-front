@@ -10,14 +10,13 @@ import {
   Typography,
   VStack,
 } from '@shared/elements/ui';
-import { GoalsService } from '@shared/services';
 import { getRouteApi } from '@tanstack/react-router';
 import { GoalsList } from '@widgets/GoalsList';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
 import { BookContext } from '../model/contexts/BookContext';
-import { BookService } from '../model/services/BookService';
+import { BookPageFacade } from '../model/services/BookPageFacade';
 import { BookGoalCardActions } from './BookGoalCardActions/BookGoalCardActions';
 
 const cnBookPage = cn('BookPage');
@@ -29,34 +28,25 @@ interface BookPageProps {
 const route = getRouteApi('/_protected/books/$bookId');
 
 export const BookPage: FC<BookPageProps> = observer((props) => {
-  const [bookService] = useState(
-    () =>
-      new BookService({
-        goalService: new GoalsService(),
-      }),
-  );
+  const [bookFacade] = useState(() => new BookPageFacade());
 
   const param = route.useParams();
 
-  const isLoading =
-    bookService.bookByIdRequest.isLoading ||
-    bookService.goal.goalsListRequest.isLoading;
+  const isLoading = bookFacade.isLoading;
 
   useEffect(() => {
-    bookService.getById(param.bookId);
-    bookService.goal.list({ bookId: param.bookId });
+    bookFacade.fetchBookData(param.bookId);
 
     return () => {
-      bookService.abortRequest();
-      bookService.goal.abortRequest();
+      bookFacade.abortRequests();
     };
-  }, [bookService, param.bookId]);
+  }, [bookFacade, param.bookId]);
 
   return isLoading ? (
     <div>Loading...</div>
   ) : (
     <Page className={cnBookPage(undefined, [props.className])}>
-      <PageTitle title={`Книга ${bookService.data?.name ?? ''}`} />
+      <PageTitle title={`Книга ${bookFacade.bookData?.name ?? ''}`} />
       <VStack gap={'8'} align={'center'}>
         <IconComponent name={'BookIconFilled'} size={'md'} />
         <Typography
@@ -66,10 +56,10 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
           weight={'bold'}
           fullWidth
         >
-          {bookService.data?.name}
+          {bookFacade.bookData?.name}
         </Typography>
 
-        <Typography>{bookService.data?.description}</Typography>
+        <Typography>{bookFacade.bookData?.description}</Typography>
       </VStack>
       <VStack gap={'16'} pt={'16'} as={'section'}>
         <HStack flexJustify={'center'} align={'center'} gap={'16'}>
@@ -83,10 +73,10 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
           </Typography>
           <IconComponent name={'GoalIcon'} size={'md'} />
         </HStack>
-        <BookContext value={bookService}>
+        <BookContext value={bookFacade}>
           <GoalsList
             className={cnBookPage('GoalsList')}
-            data={bookService.goal.data}
+            data={bookFacade.goalsData}
             actions={(goal: GoalResponseType) => (
               <BookGoalCardActions goal={goal} />
             )}

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
 
-import { BookService } from '../services/BookService';
+import { BookPageFacade } from '../services/BookPageFacade';
 
-export const BookContext = createContext<BookService | null>(null);
+export const BookContext = createContext<BookPageFacade | null>(null);

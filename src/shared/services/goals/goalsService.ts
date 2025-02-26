@@ -51,8 +51,8 @@ export class GoalsService {
     );
 
     runInAction(() => {
-      if (resp.data) {
-        this.data.push(...resp.data);
+      if (resp.status === 'success') {
+        this.data = resp.data;
       }
     });
   };
@@ -61,7 +61,7 @@ export class GoalsService {
     goal: GoalResponseType,
     writtenWords: number,
     wordsPerDay: number,
-  ) => {
+  ): void => {
     goal.writtenWords = writtenWords;
     goal.wordsPerDay = wordsPerDay;
   };
