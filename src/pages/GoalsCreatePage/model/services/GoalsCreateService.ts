@@ -1,5 +1,5 @@
 import { FormStore } from '@shared/lib';
-import { AbortStore, RequestStore } from '@shared/stores';
+import { RequestStore } from '@shared/stores';
 import { endOfDay, formatISO, startOfDay } from 'date-fns';
 import { makeAutoObservable, runInAction } from 'mobx';
 
@@ -7,11 +7,7 @@ import { createGoalRequest } from '../../api/createGoal';
 import { GoalCreateFormSchema, GoalCreateFormType } from '../types/createGoal';
 
 export class GoalsCreateService {
-  constructor() {
-    makeAutoObservable(this);
-  }
-
-  abort = new AbortStore();
+  private abortController: AbortController | null = null;
 
   createRequest = new RequestStore(createGoalRequest);
 
@@ -27,8 +23,23 @@ export class GoalsCreateService {
     },
   });
 
+  constructor() {
+    makeAutoObservable(
+      this,
+      {},
+      {
+        autoBind: true,
+      },
+    );
+  }
+
+  abortRequest = (): void => {
+    this.abortController?.abort();
+    this.abortController = null;
+  };
+
   submit = async (): Promise<void> => {
-    this.abort.abortController = new AbortController();
+    this.abortController = new AbortController();
 
     await this.form.submit(async (values) => {
       const resp = await this.createRequest.call(
@@ -40,7 +51,7 @@ export class GoalsCreateService {
           startDate: formatISO(endOfDay(values.startDate)),
           title: values.title,
         },
-        this.abort.abortController,
+        this.abortController,
       );
 
       runInAction(() => {

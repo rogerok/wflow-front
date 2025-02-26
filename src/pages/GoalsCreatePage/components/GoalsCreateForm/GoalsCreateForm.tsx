@@ -8,7 +8,7 @@ import {
 } from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { GoalsCreateService } from '../../model/services/GoalsCreateService';
 import { GoalCreateFormType } from '../../model/types/createGoal';
@@ -25,6 +25,12 @@ export const GoalsCreateForm: FC<GoalsCreateFormProps> = observer((props) => {
   const {
     form: { fields },
   } = service;
+
+  useEffect(() => {
+    return () => {
+      service.abortRequest();
+    };
+  }, [service]);
 
   const minDate = new Date();
 

@@ -26,13 +26,6 @@ export class UserService {
     this._role = RolesConstant.Visitor;
   };
 
-  abortRequest = (): void => {
-    if (this.abortController) {
-      this.abortController.abort();
-      this.abortController = null;
-    }
-  };
-
   fetchUser = async (uuid: string): Promise<void> => {
     this.abortController = new AbortController();
 

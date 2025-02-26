@@ -6,11 +6,8 @@ import { UserCreateRequestType, UserResponseType } from './models/user';
 
 export const getUserById = (
   id: string,
-  controller: AbortController | null,
 ): Promise<AxiosResponse<UserResponseType>> => {
-  return $api.get<UserResponseType>(`/private/users/${id}`, {
-    signal: controller?.signal,
-  });
+  return $api.get<UserResponseType>(`/private/users/${id}`);
 };
 
 export const getUsers = (): Promise<AxiosResponse<UserResponseType[]>> => {
