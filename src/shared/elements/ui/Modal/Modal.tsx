@@ -12,7 +12,7 @@ import { Typography } from '../Typography/Typography';
 
 const cnModal = cn('Modal');
 
-type ModalSize = 'xs' | 'sm' | 'md' | 'lg';
+type ModalSize = 'xs' | 'sm' | 'md' | 'lg' | 'fullScreen';
 
 interface ModalProps {
   className?: string;

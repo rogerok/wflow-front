@@ -12,14 +12,19 @@ const cnNavbarLabel = cn('NavbarLink');
 interface NavbarLabelProps {
   collapsed: boolean;
   link: NavbarLinksType;
+  onClick?: () => void;
   className?: string;
 }
 
 export const NavbarLink: FC<NavbarLabelProps> = memo((props) => {
-  const { className, link, collapsed } = props;
+  const { className, link, collapsed, onClick } = props;
 
   return (
-    <AppLink className={cnNavbarLabel(undefined, [className])} to={link.to}>
+    <AppLink
+      className={cnNavbarLabel(undefined, [className])}
+      to={link.to}
+      onClick={onClick}
+    >
       {({ isActive }) => (
         <div
           className={cnNavbarLabel('Inner', {
