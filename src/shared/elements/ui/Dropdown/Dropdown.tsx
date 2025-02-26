@@ -86,9 +86,7 @@ export const Dropdown = <T extends IOptionType>(
                 />
               }
             >
-              <span className={cnDropdown('Title')}>
-                {getLabel(value?.[labelField]) ?? title}
-              </span>
+              <Typography>{getLabel(value?.[labelField]) ?? title}</Typography>
             </Button>
           </div>
         )}
@@ -114,7 +112,7 @@ export const Dropdown = <T extends IOptionType>(
                         value?.[uniqueIdentifier] === option[uniqueIdentifier],
                     })}
                   >
-                    {getLabel(option[labelField])}
+                    <Typography>{getLabel(option[labelField])}</Typography>+
                   </li>
                 ))
               ) : (
