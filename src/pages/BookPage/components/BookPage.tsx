@@ -15,7 +15,7 @@ import { GoalsList } from '@widgets/GoalsList';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
-import { BookContext } from '../model/contexts/BookContext';
+import { BookContext } from '../model/context/BookContext';
 import { BookPageFacade } from '../model/services/BookPageFacade';
 import { BookGoalCardActions } from './BookGoalCardActions/BookGoalCardActions';
 

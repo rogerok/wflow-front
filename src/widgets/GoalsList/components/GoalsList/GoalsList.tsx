@@ -12,7 +12,7 @@ const cnGoalsList = cn('GoalsList');
 interface GoalsListProps {
   data: GoalsListResponseType;
   className?: string;
-  actions?: (goalId: GoalResponseType) => ReactNode;
+  actions?: (goal: GoalResponseType) => ReactNode;
 }
 
 export const GoalsList: FC<GoalsListProps> = observer((props) => {

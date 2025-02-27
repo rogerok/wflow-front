@@ -6,7 +6,7 @@ import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
-import { BookGoalForm } from '../BookGoalForm/BookGoalForm';
+import { BookReportForm } from '../BookReportForm/BookReportForm';
 
 const cnBookGoalCardActions = cn('BookGoalCardActions');
 
@@ -30,7 +30,7 @@ export const BookGoalCardActions: FC<BookGoalCardActionsProps> = observer(
         direction={screen.downLg ? 'column' : 'row'}
         mt={'16'}
       >
-        <BookGoalForm goal={goal} />
+        <BookReportForm goal={goal} />
         <Button fullWidth={isScreenDownMd} disabled>
           Редактировать цель
         </Button>

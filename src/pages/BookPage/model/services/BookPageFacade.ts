@@ -3,21 +3,18 @@ import {
   GoalResponseType,
   GoalsListResponseType,
 } from '@shared/api';
+import { ReportCreateFormDefaultValues } from '@shared/const';
 import { GoalsService, ReportCreateService } from '@shared/services';
 import { makeAutoObservable } from 'mobx';
 
 import { BookService } from './BookService';
 
 export class BookPageFacade {
-  readonly bookService: BookService;
-  readonly goalsService: GoalsService;
+  private readonly goalsService: GoalsService = new GoalsService();
+  private readonly bookService: BookService = new BookService();
+  private report: ReportCreateService | null = null;
 
   constructor() {
-    this.bookService = new BookService({
-      goalService: new GoalsService(),
-    });
-    this.goalsService = this.bookService.goal;
-
     makeAutoObservable(
       this,
       {},
@@ -43,7 +40,7 @@ export class BookPageFacade {
   }
 
   get reportForm(): ReportCreateService | null {
-    return this.bookService.report;
+    return this.report;
   }
 
   fetchBookData = async (bookId: string): Promise<void> => {
@@ -54,19 +51,37 @@ export class BookPageFacade {
   };
 
   initReportForm = (goalId: string): void => {
-    this.bookService.initForm(goalId);
+    this.report = new ReportCreateService({
+      ...ReportCreateFormDefaultValues,
+      bookId: this.bookService.data?.id ?? '',
+      goalId,
+    });
   };
 
   destroyReportForm = (): void => {
-    this.bookService.destroyForm();
+    this.report = null;
   };
 
   submitReport = async (goal: GoalResponseType): Promise<void> => {
-    await this.bookService.submitForm(goal);
+    await this.report?.submit();
+
+    const result = this.report?.create.result;
+
+    if (result?.status === 'success') {
+      this.goalsService.updateItemStats(
+        goal,
+        result.data.writtenWords,
+        result.data.wordsPerDay,
+      );
+    }
   };
 
   abortRequests = (): void => {
     this.bookService.abortRequest();
     this.goalsService.abortRequest();
+  };
+
+  abortFormSubmit = (): void => {
+    this.report?.abortRequest();
   };
 }
