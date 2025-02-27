@@ -1,4 +1,5 @@
 import { cn } from '@bem-react/classname';
+import DOMPurify from 'dompurify';
 import { observer } from 'mobx-react-lite';
 import { ComponentProps, FC } from 'react';
 
@@ -21,11 +22,15 @@ export const FormTextArea: FC<FormTextAreaProps> = observer((props) => {
   const { className, field, ...restProps } = props;
   const { value, setValue, error, name } = field;
 
+  const handleChange = (value: string): void => {
+    setValue(DOMPurify.sanitize(value));
+  };
+
   return (
     <TextArea
       className={cnFormTextArea(undefined, [props.className])}
       value={value}
-      onChange={setValue}
+      onChange={handleChange}
       error={error}
       name={name}
       {...restProps}
