@@ -3,10 +3,13 @@ import './GoalsPage.scss';
 import { cn } from '@bem-react/classname';
 import { routes } from '@shared/const';
 import { ButtonLink, Page, PageTitle } from '@shared/elements/ui';
-import { GoalsService } from '@shared/services';
 import { GoalsList } from '@widgets/GoalsList';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
+
+import { GoalsContext } from '../model/context/GoalsContext';
+import { GoalsPageFacade } from '../model/services/GoalsPageFacade';
+import { GoalsCardActions } from './GoalsCardActions/GoalsCardActions';
 
 const cnGoalsPage = cn('GoalsPage');
 
@@ -15,22 +18,27 @@ interface GoalsPageProps {
 }
 
 export const GoalsPage: FC<GoalsPageProps> = observer((props) => {
-  const [service] = useState(() => new GoalsService());
+  const [facade] = useState(() => new GoalsPageFacade());
 
   useEffect(() => {
-    service.list();
+    facade.fetchData();
 
     return () => {
-      service.abortRequest();
+      facade.abortRequest();
     };
-  }, [service]);
+  }, [facade]);
 
   return (
     <Page className={cnGoalsPage(undefined, [props.className])}>
       <PageTitle title={'Мои цели'} />
       <ButtonLink to={routes.goalsCreate()}>Добавить цель</ButtonLink>
-
-      <GoalsList className={cnGoalsPage('List')} data={service.data} />
+      <GoalsContext value={facade}>
+        <GoalsList
+          className={cnGoalsPage('List')}
+          data={facade.goals}
+          actions={(goal) => <GoalsCardActions goal={goal} />}
+        />
+      </GoalsContext>
     </Page>
   );
 });

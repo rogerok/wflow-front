@@ -11,12 +11,10 @@ import { BookService } from './BookService';
 
 export class BookPageFacade {
   private readonly goalsService: GoalsService = new GoalsService();
-  private readonly bookService: BookService;
+  private readonly bookService: BookService = new BookService();
   private report: ReportCreateService | null = null;
 
   constructor() {
-    this.bookService = new BookService();
-
     makeAutoObservable(
       this,
       {},
@@ -32,14 +30,6 @@ export class BookPageFacade {
       this.goalsService.goalsListRequest.isLoading
     );
   }
-
-  initReportForm = (goalId: string): void => {
-    this.report = new ReportCreateService({
-      ...ReportCreateFormDefaultValues,
-      bookId: this.bookService.data?.id ?? '',
-      goalId,
-    });
-  };
 
   get bookData(): BookResponseType | null {
     return this.bookService.data;
@@ -60,18 +50,28 @@ export class BookPageFacade {
     ]);
   };
 
+  initReportForm = (goalId: string): void => {
+    this.report = new ReportCreateService({
+      ...ReportCreateFormDefaultValues,
+      bookId: this.bookService.data?.id ?? '',
+      goalId,
+    });
+  };
+
   destroyReportForm = (): void => {
     this.report = null;
   };
 
   submitReport = async (goal: GoalResponseType): Promise<void> => {
     await this.report?.submit();
-    if (this.report?.create.result.status === 'success') {
-      const data = this.report.create.result.data;
+
+    const result = this.report?.create.result;
+
+    if (result?.status === 'success') {
       this.goalsService.updateItemStats(
         goal,
-        data.writtenWords,
-        data.wordsPerDay,
+        result.data.writtenWords,
+        result.data.wordsPerDay,
       );
     }
   };
@@ -79,5 +79,9 @@ export class BookPageFacade {
   abortRequests = (): void => {
     this.bookService.abortRequest();
     this.goalsService.abortRequest();
+  };
+
+  abortFormSubmit = (): void => {
+    this.report?.abortRequest();
   };
 }
