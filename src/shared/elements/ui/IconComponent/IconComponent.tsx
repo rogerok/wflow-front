@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 
 import * as Icons from '../../../assets';
-import { CssVarsMapType } from '../../../types/theme';
+import { CssVarsMapType } from '../../../types/uiTypes/theme';
 
 const cnIconComponent = cn('IconComponent');
 

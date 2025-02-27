@@ -62,7 +62,7 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
         <Typography>{bookFacade.bookData?.description}</Typography>
       </VStack>
       <VStack gap={'16'} pt={'16'} as={'section'}>
-        <HStack flexJustify={'center'} align={'center'} gap={'16'}>
+        <HStack flexJustify={'center'} align={'center'} gap={'16'} as={'p'}>
           <Typography
             size={'xl'}
             variant={'accent'}

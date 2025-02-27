@@ -8,6 +8,8 @@ import {
   ReactNode,
 } from 'react';
 
+import { Margin, Padding } from '../../../types';
+
 const cnFlex = cn('Flex');
 
 export type FlexJustify = 'start' | 'center' | 'end' | 'between';
@@ -15,8 +17,6 @@ export type FlexAlign = 'start' | 'center' | 'end';
 export type FlexDirection = 'row' | 'column';
 export type FlexWrap = 'wrap' | 'nowrap';
 export type FlexGap = '4' | '8' | '16' | '24' | '32';
-export type Padding = '4' | '8' | '16' | '24' | '32';
-export type Margin = '4' | '8' | '16' | '24' | '32' | 'auto';
 
 export type FlexProps<T extends ElementType> = {
   align?: FlexAlign;

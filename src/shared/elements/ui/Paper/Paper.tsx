@@ -1,5 +1,8 @@
 import { cn } from '@bem-react/classname';
-import { FC, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, ElementType, FC, ReactNode } from 'react';
+
+import { Margin, Padding } from '../../../types';
+import { Box } from '../Box/Box';
 
 const cnPaper = cn('Paper');
 
@@ -11,6 +14,22 @@ interface PaperProps {
   children?: ReactNode;
 }
 
+export type BoxProps<T extends ElementType> = {
+  className?: string;
+  children?: ReactNode;
+  as?: T;
+  pt?: Padding;
+  pr?: Padding;
+  pb?: Padding;
+  pl?: Padding;
+  mt?: Margin;
+  mr?: Margin;
+  mb?: Margin;
+  ml?: Margin;
+  fullWidth?: boolean;
+  fullHeight?: boolean;
+} & ComponentPropsWithoutRef<T>;
+
 export const Paper: FC<PaperProps> = (props) => {
-  return <div className={cnPaper(undefined, [props.className])}>Paper</div>;
+  return <Box className={cnPaper(undefined, [props.className])}>Paper</Box>;
 };

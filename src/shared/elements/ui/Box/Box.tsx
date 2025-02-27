@@ -8,12 +8,11 @@ import {
   ReactNode,
 } from 'react';
 
+import { Margin, Padding } from '../../../types';
+
 const cnBox = cn('Box');
 
-export type Padding = '4' | '8' | '16' | '24' | '32';
-export type Margin = '4' | '8' | '16' | '24' | '32' | 'auto';
-
-export type BoxProps<T extends ElementType> = {
+type BoxProps<T extends ElementType> = {
   className?: string;
   children?: ReactNode;
   as?: T;

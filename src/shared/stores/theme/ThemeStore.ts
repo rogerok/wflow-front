@@ -2,7 +2,11 @@ import { makeAutoObservable } from 'mobx';
 
 import { LOCAL_STORAGE_THEME_KEY } from '../../const/localStorage';
 import { ThemeConstant } from '../../const/themeConstants';
-import { IThemeStore, ThemeSchema, ThemesType } from '../../types/theme';
+import {
+  IThemeStore,
+  ThemeSchema,
+  ThemesType,
+} from '../../types/uiTypes/theme';
 import { UiBaseStore } from '../uiStore/UiBaseStore';
 
 export class ThemeStore implements IThemeStore {
