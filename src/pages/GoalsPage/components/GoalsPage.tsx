@@ -30,7 +30,7 @@ export const GoalsPage: FC<GoalsPageProps> = observer((props) => {
       <PageTitle title={'Мои цели'} />
       <ButtonLink to={routes.goalsCreate()}>Добавить цель</ButtonLink>
 
-      <GoalsList data={service.data} className={cnGoalsPage('List')} />
+      <GoalsList className={cnGoalsPage('List')} data={service.data} />
     </Page>
   );
 });

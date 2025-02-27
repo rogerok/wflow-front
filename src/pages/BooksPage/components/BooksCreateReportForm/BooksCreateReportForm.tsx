@@ -1,21 +1,24 @@
 import { cn } from '@bem-react/classname';
 import { ReportCreateRequestType } from '@shared/api';
 import { ReportCreateFormDefaultValues } from '@shared/const/reports/reportsConstants';
-import { FormComponent, TextInput } from '@shared/elements/components';
-import { GoalsAutocomplete } from '@shared/elements/components/inputs/autocompletes/GoalsAutocomplete/GoalsAutocomplete';
+import {
+  FormComponent,
+  GoalsAutocomplete,
+  TextInput,
+} from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
 import { ReportCreateService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
-const cnBookCreateReportForm = cn('BookCreateReportForm');
+const cnBookCreateReportForm = cn('BooksCreateReportForm');
 
 interface BookCreateReportFormProps {
   className?: string;
   bookId: string;
 }
 
-export const BookCreateReportForm: FC<BookCreateReportFormProps> = observer(
+export const BooksCreateReportForm: FC<BookCreateReportFormProps> = observer(
   (props) => {
     const { bookId, className } = props;
 

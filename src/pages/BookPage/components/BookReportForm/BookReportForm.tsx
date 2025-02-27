@@ -8,11 +8,11 @@ import { FC, useContext, useEffect } from 'react';
 
 import { BookContext } from '../../model/contexts/BookContext';
 
-interface BookGoalFormProps {
+interface BookReportFormProps {
   goal: GoalResponseType;
 }
 
-export const BookGoalForm: FC<BookGoalFormProps> = observer((props) => {
+export const BookReportForm: FC<BookReportFormProps> = observer((props) => {
   const { goal } = props;
   const { screen } = useGlobalStore();
   const { open, handleOpen, handleClose } = useOpenClose();
