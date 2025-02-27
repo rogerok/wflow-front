@@ -1,4 +1,5 @@
 import { cn } from '@bem-react/classname';
+import DOMPurify from 'dompurify';
 import { observer } from 'mobx-react-lite';
 import { ComponentProps, FC } from 'react';
 
@@ -21,10 +22,18 @@ export const TextInput: FC<TextInputProps> = observer((props) => {
   const { className, field, type = 'text', ...restProps } = props;
   const { value, setValue, error, name } = field;
 
+  const handleChange = (value: string | number): void => {
+    if (typeof value === 'string') {
+      setValue(DOMPurify.sanitize(value));
+    }
+
+    setValue(value);
+  };
+
   return (
     <Input
       className={cnTextInput(undefined, [className])}
-      onChange={setValue}
+      onChange={handleChange}
       value={value}
       name={name}
       type={type}
