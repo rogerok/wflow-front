@@ -8,18 +8,23 @@ import {
   ReactNode,
 } from 'react';
 
-import { Margin, Padding } from '../../../types';
+export type Padding = '4' | '8' | '16' | '24' | '32';
+export type Margin = '4' | '8' | '16' | '24' | '32' | 'auto';
 
 const cnBox = cn('Box');
 
-type BoxProps<T extends ElementType> = {
+export type BoxProps<T extends ElementType = 'div'> = {
   className?: string;
   children?: ReactNode;
   as?: T;
+  py?: Padding;
+  px?: Padding;
   pt?: Padding;
   pr?: Padding;
   pb?: Padding;
   pl?: Padding;
+  mx?: Margin;
+  my?: Margin;
   mt?: Margin;
   mr?: Margin;
   mb?: Margin;
@@ -34,10 +39,14 @@ export const Box = <T extends ElementType = 'div'>(
   const {
     children,
     className,
+    mx,
+    my,
     mt,
     mr,
     mb,
     ml,
+    py,
+    px,
     pt,
     pr,
     pb,
@@ -53,10 +62,14 @@ export const Box = <T extends ElementType = 'div'>(
     <Component
       className={cnBox(
         {
+          py: py,
+          px: px,
           pt: pt,
           pr: pr,
           pb: pb,
           pl: pl,
+          mx: mx,
+          my: my,
           mt: mt,
           ml: ml,
           mb: mb,

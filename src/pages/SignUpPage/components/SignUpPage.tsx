@@ -11,7 +11,7 @@ const cnSignUpPage = cn('SignUpPage');
 
 export const SignUpPage: FC = observer(() => {
   return (
-    <Page className={cnSignUpPage('SignUpPage')}>
+    <Page className={cnSignUpPage()}>
       <PageTitle title={'Регистрация'} />
       <Typography
         align={'center'}

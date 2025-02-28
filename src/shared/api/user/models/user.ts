@@ -41,7 +41,7 @@ export type UserResponseType = z.infer<typeof UserResponseSchema>;
 
 export const UserCreateRequestSchema = z.object({
   email: EmailSchema,
-  firstName: NameSchema,
+  firstName: NameSchema.min(2),
   lastName: NameSchema.or(EmptyStringSchema).nullable(),
   middleName: NameSchema.or(EmptyStringSchema).nullable(),
   password: PasswordSchema,

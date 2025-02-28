@@ -1,7 +1,8 @@
-import { cn } from '@bem-react/classname';
-import { ComponentPropsWithoutRef, ElementType, FC, ReactNode } from 'react';
+import './Paper.scss';
 
-import { Margin, Padding } from '../../../types';
+import { cn } from '@bem-react/classname';
+import { ComponentProps, ElementType, FC, ReactNode } from 'react';
+
 import { Box } from '../Box/Box';
 
 const cnPaper = cn('Paper');
@@ -9,27 +10,30 @@ const cnPaper = cn('Paper');
 type PaperElevation = 1 | 2 | 3 | 4 | 5 | 6;
 type PaperRounded = 1 | 2 | 3 | 4 | 5 | 6;
 
-interface PaperProps {
+export type PaperProps<T extends ElementType = 'div'> = ComponentProps<
+  typeof Box<T>
+> & {
   className?: string;
   children?: ReactNode;
-}
-
-export type BoxProps<T extends ElementType> = {
-  className?: string;
-  children?: ReactNode;
-  as?: T;
-  pt?: Padding;
-  pr?: Padding;
-  pb?: Padding;
-  pl?: Padding;
-  mt?: Margin;
-  mr?: Margin;
-  mb?: Margin;
-  ml?: Margin;
-  fullWidth?: boolean;
-  fullHeight?: boolean;
-} & ComponentPropsWithoutRef<T>;
+  elevation?: PaperElevation;
+  rounded?: PaperRounded;
+};
 
 export const Paper: FC<PaperProps> = (props) => {
-  return <Box className={cnPaper(undefined, [props.className])}>Paper</Box>;
+  const { className, children, elevation, rounded } = props;
+
+  return (
+    <Box
+      {...props}
+      className={cnPaper(
+        {
+          elevation: elevation,
+          rounded: rounded,
+        },
+        [className],
+      )}
+    >
+      {children}
+    </Box>
+  );
 };

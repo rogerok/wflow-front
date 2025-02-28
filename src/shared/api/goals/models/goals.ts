@@ -45,5 +45,3 @@ export const GoalCreateRequestSchema = z.object({
   startDate: z.string(),
   title: z.string().min(2).max(255),
 });
-
-export type GoalFormRequestType = z.infer<typeof GoalCreateRequestSchema>;

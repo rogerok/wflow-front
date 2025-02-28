@@ -26,6 +26,7 @@ export interface DatePickerProps {
   maxDate?: ReactDatePickerProps['maxDate'];
   customInput?: ReactDatePickerProps['customInput'];
   dateFormat?: ReactDatePickerProps['dateFormat'];
+  placeholderText?: ReactDatePickerProps['placeholderText'];
   selectedDate?: Date | null;
   withPortal?: ReactDatePickerProps['withPortal'];
   fullWidth?: boolean;
