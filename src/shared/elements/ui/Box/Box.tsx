@@ -8,12 +8,11 @@ import {
   ReactNode,
 } from 'react';
 
-export type Padding = '4' | '8' | '16' | '24' | '32';
-export type Margin = '4' | '8' | '16' | '24' | '32' | 'auto';
+import { Margin, Padding } from '../../../types/uiTypes/uiTypes';
 
 const cnBox = cn('Box');
 
-export type BoxProps<T extends ElementType = 'div'> = {
+export type BoxProps<T extends ElementType> = {
   className?: string;
   children?: ReactNode;
   as?: T;

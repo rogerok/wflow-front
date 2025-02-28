@@ -1,0 +1,55 @@
+@use "sass:math";
+@use "sass:map";
+
+$grid-breakpoints: (
+        xs: $xs-breakpoint,
+        sm: $sm-breakpoint,
+        md: $md-breakpoint,
+        lg: $lg-breakpoint,
+        xl: $xl-breakpoint,
+);
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px
+);
+$grid-columns: 12;
+
+
+.Col {
+  position: relative;
+  width: 100%;
+
+
+  @for $i from 1 through $grid-columns {
+    &_size_#{$i} {
+      flex: 0 0 math.percentage($i / $grid-columns);
+      max-width: math.percentage($i / $grid-columns);
+    }
+  }
+
+  @for $i from 0 through ($grid-columns - 1) {
+    &_offset_#{$i} {
+      @if $i == 0 {
+        margin-left: 0;
+      } @else {
+        margin-left: math.percentage($i / $grid-columns);
+      }
+    }
+  }
+
+  @each $breakpoint in map.keys($grid-breakpoints) {
+    $infix: $breakpoint;
+
+    @media (min-width: map.get($grid-breakpoints, $breakpoint)) {
+      @for $i from 1 through $grid-columns {
+        &_#{$infix}_#{$i} {
+          flex: 0 0 math.percentage($i / $grid-columns);
+          max-width: math.percentage($i / $grid-columns);
+        }
+      }
+    }
+  }
+}
+

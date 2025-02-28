@@ -1,0 +1,75 @@
+.Row {
+  display: flex;
+  flex-wrap: wrap;
+
+  &_spacing {
+    @for $i from 0 through 5 {
+      &_#{$i} {
+        margin-right: -#{$i * 4px};
+        margin-left: -#{$i * 4px};
+
+        > .Col {
+          padding-right: #{$i * 4px};
+          padding-left: #{$i * 4px};
+        }
+      }
+    }
+  }
+
+  &_vSpacing {
+    @for $i from 0 through 5 {
+      &_#{$i} {
+        row-gap: #{$i * 4px};
+
+        > .Col {
+          padding-top: #{$i * 4px};
+          padding-bottom: #{$i * 4px};
+        }
+      }
+    }
+  }
+
+  &_align {
+    &_start {
+      align-items: flex-start;
+    }
+
+    &_center {
+      align-items: center;
+    }
+
+    &_end {
+      align-items: flex-end;
+    }
+
+    &_stretch {
+      align-items: stretch;
+    }
+  }
+
+  &_justify {
+    &_start {
+      justify-content: flex-start;
+    }
+
+    &_center {
+      justify-content: center;
+    }
+
+    &_end {
+      justify-content: flex-end;
+    }
+
+    &_between {
+      justify-content: space-between;
+    }
+
+    &_around {
+      justify-content: space-around;
+    }
+
+    &_evenly {
+      justify-content: space-evenly;
+    }
+  }
+}
