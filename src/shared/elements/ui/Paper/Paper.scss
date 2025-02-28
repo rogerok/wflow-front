@@ -1,0 +1,23 @@
+.Paper {
+
+  @for $i from 1 through 6 {
+    &_elevation_#{$i} {
+      --shadow-offset-top: #{-0.05 * $i}rem;
+      --shadow-offset-bottom: #{0.05 * $i}rem;
+      --shadow-blur-mid: #{0.3 * $i}rem;
+      --shadow-blur-main: #{0.6 * $i}rem;
+      --shadow-opacity-top: #{0.05 * $i};
+      --shadow-opacity-mid: #{0.1 * $i};
+      --shadow-opacity-main: #{0.15 * $i};
+      
+      box-shadow: var(--shadow-#{$i});
+
+    }
+  }
+
+  @for $i from 1 through 6 {
+    &_rounded_#{$i} {
+      border-radius: #{0.4 * $i}rem;
+    }
+  }
+}

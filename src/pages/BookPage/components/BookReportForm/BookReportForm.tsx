@@ -4,7 +4,7 @@ import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
 import { useGlobalStore } from '@shared/stores';
 import { GoalReportForm } from '@widgets/GoalReportForm';
 import { observer } from 'mobx-react-lite';
-import { FC, useContext, useEffect } from 'react';
+import { FC, useContext } from 'react';
 
 import { BookContext } from '../../model/context/BookContext';
 
@@ -27,12 +27,11 @@ export const BookReportForm: FC<BookReportFormProps> = observer((props) => {
     handleOpen();
   };
 
-  useEffect(() => {
-    return () => {
-      bookFacade?.abortFormSubmit();
-      bookFacade?.destroyReportForm();
-    };
-  }, [bookFacade]);
+  const onClose = (): void => {
+    bookFacade?.abortFormSubmit();
+    bookFacade?.destroyReportForm();
+    handleClose();
+  };
 
   const handleSubmit = async (): Promise<void> => {
     await bookFacade?.submitReport(goal);
@@ -45,7 +44,7 @@ export const BookReportForm: FC<BookReportFormProps> = observer((props) => {
       </Button>
       <Modal
         fullScreen={isScreenDownMd}
-        onClose={handleClose}
+        onClose={onClose}
         open={open}
         title={`Создать отчёт для ${goal.title}`}
       >

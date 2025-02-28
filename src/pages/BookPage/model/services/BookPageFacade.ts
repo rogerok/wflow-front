@@ -6,6 +6,7 @@ import {
 import { ReportCreateFormDefaultValues } from '@shared/const';
 import { GoalsService, ReportCreateService } from '@shared/services';
 import { makeAutoObservable } from 'mobx';
+import { makeLoggable } from 'mobx-log';
 
 import { BookService } from './BookService';
 
@@ -22,6 +23,7 @@ export class BookPageFacade {
         autoBind: true,
       },
     );
+    makeLoggable(this);
   }
 
   get isLoading(): boolean {
