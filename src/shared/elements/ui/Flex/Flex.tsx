@@ -3,24 +3,25 @@ import './Flex.scss';
 import { cn } from '@bem-react/classname';
 import { ComponentProps, ElementType, ReactElement, ReactNode } from 'react';
 
+import {
+  Alignment,
+  FlexDirection,
+  FlexGap,
+  FlexWrap,
+  Justify,
+} from '../../../types/uiTypes/uiTypes';
 import { Box } from '../Box/Box';
 
 const cnFlex = cn('Flex');
 
-export type FlexJustify = 'start' | 'center' | 'end' | 'between';
-export type FlexAlign = 'start' | 'center' | 'end';
-export type FlexDirection = 'row' | 'column';
-export type FlexWrap = 'wrap' | 'nowrap';
-export type FlexGap = '4' | '8' | '16' | '24' | '32';
-
 export type FlexProps<T extends ElementType = 'div'> = ComponentProps<
   typeof Box<T>
 > & {
-  align?: FlexAlign;
+  align?: Alignment;
   children?: ReactNode;
   className?: string;
   direction?: FlexDirection;
-  flexJustify?: FlexJustify;
+  flexJustify?: Justify;
   fullWidth?: boolean;
   fullHeight?: boolean;
   gap?: FlexGap;

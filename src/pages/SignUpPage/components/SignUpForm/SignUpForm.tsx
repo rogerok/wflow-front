@@ -7,7 +7,7 @@ import {
   FormComponent,
   TextInput,
 } from '@shared/elements/components';
-import { Button, HStack, Paper, Typography, VStack } from '@shared/elements/ui';
+import { Button, Col, Grid, Paper, Row, Typography } from '@shared/elements/ui';
 import { FC, useEffect, useState } from 'react';
 
 import { SignUpService } from '../../model/services/SignUpService';
@@ -29,92 +29,136 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
   }, [service]);
 
   return (
-    <Paper
-      className={cnSignUpForm(undefined, [props.className])}
-      elevation={3}
-      rounded={3}
-      py={'32'}
-      px={'32'}
-    >
-      <FormComponent<UserCreateRequestType>
-        onSubmit={service.submitForm}
-        form={service.userForm}
+    <Grid className={cnSignUpForm('Inner')}>
+      <Paper
+        className={cnSignUpForm(undefined, [props.className])}
+        elevation={3}
+        rounded={3}
+        py={'32'}
+        px={'16'}
+        fullWidth
       >
-        <VStack className={cnSignUpForm('Inner')} gap={'16'}>
+        <FormComponent<UserCreateRequestType>
+          onSubmit={service.submitForm}
+          form={service.userForm}
+        >
           <Typography>Данные</Typography>
-          <HStack gap={'16'}>
-            <TextInput field={userForm.fields.firstName} placeholder={'Имя'} />
-            <TextInput
-              field={userForm.fields.lastName}
-              placeholder={'Фамилия'}
-            />
-            <TextInput
-              field={userForm.fields.middleName}
-              placeholder={'Отчество'}
-            />
-            <DatePickerInput
-              field={userForm.fields.bornDate}
-              placeholderText={'Дата рождения'}
-              showMonthDropdown
-              showYearDropdown
-            />
-          </HStack>
-          <HStack gap={'16'}>
-            <TextInput field={userForm.fields.email} placeholder={'Почта'} />
-            <TextInput
-              field={userForm.fields.password}
-              placeholder={'Пароль'}
-            />
-            <TextInput
-              field={userForm.fields.passwordConfirm}
-              placeholder={'Подтвердите пароль'}
-            />
-          </HStack>
+          <Row spacing={2} vSpacing={1}>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.firstName}
+                placeholder={'Имя'}
+                fullWidth
+              />
+            </Col>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.lastName}
+                placeholder={'Фамилия'}
+                fullWidth
+              />
+            </Col>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.middleName}
+                placeholder={'Отчество'}
+                fullWidth
+              />
+            </Col>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <DatePickerInput
+                field={userForm.fields.bornDate}
+                placeholderText={'Дата рождения'}
+                showMonthDropdown
+                showYearDropdown
+                fullWidth
+              />
+            </Col>
+          </Row>
+
+          <Row spacing={2} vSpacing={1}>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.email}
+                placeholder={'Почта'}
+                fullWidth
+              />
+            </Col>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.password}
+                placeholder={'Пароль'}
+                fullWidth
+              />
+            </Col>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.passwordConfirm}
+                placeholder={'Подтвердите пароль'}
+                fullWidth
+              />
+            </Col>
+          </Row>
 
           <Typography>Псевдоним</Typography>
-          <HStack gap={'16'}>
-            <TextInput
-              field={userForm.fields.pseudonym.fields.firstName}
-              placeholder={'Имя'}
-            />
-            <TextInput
-              field={userForm.fields.pseudonym.fields.lastName}
-              placeholder={'Фамилия'}
-            />
-            <TextInput
-              field={userForm.fields.pseudonym.fields.lastName}
-              placeholder={'Отчество'}
-            />
-          </HStack>
-          <Typography>Социальные сети</Typography>
 
-          <HStack gap={'16'}>
-            <TextInput
-              field={userForm.fields.socialLinks.fields.instagram}
-              placeholder={'Инстаграм'}
-            />
-            <TextInput
-              field={userForm.fields.socialLinks.fields.telegram}
-              placeholder={'Телеграм'}
-            />
-            <TextInput
-              field={userForm.fields.socialLinks.fields.tiktok}
-              placeholder={'ТикТок'}
-            />
-            <TextInput
-              field={userForm.fields.socialLinks.fields.vk}
-              placeholder={'ВК'}
-            />
-          </HStack>
-        </VStack>
-        <Button
-          type={'submit'}
-          disabled={userForm.isSubmitting}
-          className={cnSignUpForm('Button')}
-        >
-          Отправить
-        </Button>
-      </FormComponent>
-    </Paper>
+          <Row spacing={2} vSpacing={1}>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.pseudonym.fields.firstName}
+                placeholder={'Имя'}
+                fullWidth
+              />
+            </Col>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.pseudonym.fields.lastName}
+                placeholder={'Фамилия'}
+                fullWidth
+              />
+            </Col>
+          </Row>
+
+          <Typography>Социальные сети</Typography>
+          <Row spacing={2} vSpacing={1}>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.socialLinks.fields.instagram}
+                placeholder={'Инстаграм'}
+                fullWidth
+              />
+            </Col>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.socialLinks.fields.telegram}
+                placeholder={'Телеграм'}
+                fullWidth
+              />
+            </Col>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.socialLinks.fields.tiktok}
+                placeholder={'ТикТок'}
+                fullWidth
+              />
+            </Col>
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <TextInput
+                field={userForm.fields.socialLinks.fields.vk}
+                placeholder={'Вк'}
+                fullWidth
+              />
+            </Col>
+          </Row>
+          <Button
+            type={'submit'}
+            disabled={userForm.isSubmitting}
+            className={cnSignUpForm('Button')}
+          >
+            Отправить
+          </Button>
+        </FormComponent>
+      </Paper>
+    </Grid>
   );
 };
