@@ -19,10 +19,8 @@ export class SignUpService {
       middleName: '',
       password: '',
       passwordConfirm: '',
-      pseudonym: {
-        firstName: '',
-        lastName: '',
-      },
+      pseudonymFirstName: '',
+      pseudonymLastName: '',
       socialLinks: {
         instagram: '',
         telegram: '',
@@ -54,15 +52,18 @@ export class SignUpService {
           password: formValues.password,
           passwordConfirm: formValues.passwordConfirm,
           pseudonym: {
-            firstName: convertEmptyStringToNull(formValues.pseudonym.firstName),
-            lastName: convertEmptyStringToNull(formValues.pseudonym.lastName),
+            firstName: convertEmptyStringToNull(formValues.pseudonymFirstName),
+            lastName: convertEmptyStringToNull(formValues.pseudonymLastName),
           },
           socialLinks: {
-            instagram: null,
-            telegram: null,
-            tiktok: null,
-            vk: null,
+            instagram: convertEmptyStringToNull(
+              formValues.socialLinks.instagram,
+            ),
+            telegram: convertEmptyStringToNull(formValues.socialLinks.telegram),
+            tiktok: convertEmptyStringToNull(formValues.socialLinks.tiktok),
+            vk: convertEmptyStringToNull(formValues.socialLinks.vk),
           },
+
           bornDate: null,
         },
 
