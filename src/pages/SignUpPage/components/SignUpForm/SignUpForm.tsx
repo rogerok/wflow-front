@@ -1,7 +1,6 @@
 import './styles/SignUpForm.scss';
 
 import { cn } from '@bem-react/classname';
-import { UserCreateRequestType } from '@shared/api';
 import {
   DatePickerInput,
   FormComponent,
@@ -11,6 +10,7 @@ import { Button, Col, Grid, Paper, Row, Typography } from '@shared/elements/ui';
 import { FC, useEffect, useState } from 'react';
 
 import { SignUpService } from '../../model/services/SignUpService';
+import { UserCreateFormType } from '../../model/types/userCreate';
 
 const cnSignUpForm = cn('SignUpForm');
 
@@ -38,7 +38,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
         px={'16'}
         fullWidth
       >
-        <FormComponent<UserCreateRequestType>
+        <FormComponent<UserCreateFormType>
           onSubmit={service.submitForm}
           form={service.userForm}
         >
@@ -105,14 +105,14 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
           <Row spacing={2} vSpacing={1}>
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
-                field={userForm.fields.pseudonym.fields.firstName}
+                field={userForm.fields.pseudonymFirstName}
                 placeholder={'Имя'}
                 fullWidth
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
-                field={userForm.fields.pseudonym.fields.lastName}
+                field={userForm.fields.pseudonymLastName}
                 placeholder={'Фамилия'}
                 fullWidth
               />

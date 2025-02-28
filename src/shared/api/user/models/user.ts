@@ -18,10 +18,10 @@ export const PseudonymSchema = z.object({
 });
 
 export const SocialSchema = z.object({
-  instagram: z.string().url().or(EmptyStringSchema).nullable(),
-  telegram: z.string().url().or(EmptyStringSchema).nullable(),
-  tiktok: z.string().url().or(EmptyStringSchema).nullable(),
-  vk: z.string().url().or(EmptyStringSchema).nullable(),
+  instagram: z.string().trim().url().or(EmptyStringSchema).nullable(),
+  telegram: z.string().trim().url().or(EmptyStringSchema).nullable(),
+  tiktok: z.string().trim().url().or(EmptyStringSchema).nullable(),
+  vk: z.string().trim().url().or(EmptyStringSchema).nullable(),
 });
 
 export const UserResponseSchema = z
@@ -40,12 +40,12 @@ export const UserResponseSchema = z
 export type UserResponseType = z.infer<typeof UserResponseSchema>;
 
 export const UserCreateRequestSchema = z.object({
-  email: EmailSchema,
-  firstName: NameSchema.min(2),
-  lastName: NameSchema.or(EmptyStringSchema).nullable(),
-  middleName: NameSchema.or(EmptyStringSchema).nullable(),
-  password: PasswordSchema,
-  passwordConfirm: PasswordSchema,
+  email: EmailSchema.trim(),
+  firstName: NameSchema.min(2).trim(),
+  lastName: NameSchema.trim().or(EmptyStringSchema).nullable(),
+  middleName: NameSchema.trim().or(EmptyStringSchema).nullable(),
+  password: PasswordSchema.trim(),
+  passwordConfirm: PasswordSchema.trim(),
   pseudonym: PseudonymSchema,
   socialLinks: SocialSchema,
   bornDate: z.string().nullable(),
