@@ -19,7 +19,6 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        //TODO: add to .env, get based on environment
         target: 'http://127.0.0.1:5000',
         changeOrigin: true,
       },
