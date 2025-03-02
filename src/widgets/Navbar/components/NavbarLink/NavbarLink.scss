@@ -1,14 +1,12 @@
 .NavbarLink {
-  font: var(--font-s);
+  font: var(--font-m);
   color: var(--basic-primary);
-
 
   &-Inner {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
     align-items: center;
-
 
     &_collapsed {
       flex-direction: row;
@@ -27,14 +25,29 @@
 
     padding: 0.8rem;
 
+    transition: var(--default-transition);
+
     &_active {
       border-radius: 100%;
       background: var(--bg-accent-1);
       transition: var(--default-transition);
       animation: active-bg 0.3s;
     }
-  }
 
+    @media (min-width: $md-breakpoint) {
+      &:hover {
+        box-shadow: unset;
+      }
+
+      &_collapsed {
+        border-radius: 50%;
+
+        &:hover {
+          box-shadow: var(--shadow-secondary);
+        }
+      }
+    }
+  }
 }
 
 @keyframes active-bg {

@@ -3,7 +3,6 @@
 import * as path from 'node:path';
 
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
@@ -17,7 +16,7 @@ export default defineConfig({
   cacheDir: './node_modules/.vite/wflow-front',
   server: {
     port: 4200,
-    host: 'localhost',
+    host: true,
     proxy: {
       '/api': {
         //TODO: add to .env, get based on environment
@@ -25,6 +24,7 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+    hmr: true,
   },
   preview: {
     port: 4300,
@@ -33,6 +33,7 @@ export default defineConfig({
   plugins: [
     circleDependency({
       outputFilePath: './circleDep',
+      circleImportThrowErr: false,
     }),
     react(),
     mkcert(),
@@ -51,7 +52,7 @@ export default defineConfig({
     checker({
       typescript: true,
     }),
-    nxViteTsPaths(),
+    // nxViteTsPaths(),
     nxCopyAssetsPlugin(['*.md']),
   ],
   // Uncomment this if you are using workers.
@@ -80,6 +81,9 @@ export default defineConfig({
   resolve: {
     alias: {
       src: path.resolve(__dirname, 'src'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@shared': path.resolve(__dirname, 'src/shared'),
+      '@widgets': path.resolve(__dirname, 'src/widgets'),
     },
   },
   // test: {

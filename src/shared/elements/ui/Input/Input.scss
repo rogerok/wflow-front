@@ -1,0 +1,102 @@
+.Input {
+
+  --icon-x-position: 3.4rem;
+
+  font: var(--font-s);
+  color: var(--basic-primary);
+
+  &_fullWidth {
+    width: 100%;
+  }
+
+  &-Inner {
+    position: relative;
+
+    &_fullWidth {
+      width: 100%;
+    }
+  }
+
+
+  &-AddonLeft {
+    position: absolute;
+    top: calc(50% + .3rem);
+    left: 0.8rem;
+    transform: translateY(-50%);
+  }
+
+  &-AddonRight {
+    position: absolute;
+    top: calc(50% + .3rem);
+    right: 0.8rem;
+    transform: translateY(-50%);
+  }
+
+  &_disabled {
+    color: var(--basic-secondary-1);
+  }
+
+  &-Label {
+    color: var(--basic-secondary-3);
+  }
+
+  &-Input {
+    padding: 1.6rem 3.4rem 1.6rem 1.6rem;
+    border: 0.1rem solid var(--bg-secondary);
+    border-radius: 1.4rem;
+
+    color: var(--basic-primary);
+
+    background: #bcbfd82b;
+    outline: transparent;
+    box-shadow: var(--shadow-clear);
+
+    &_error {
+      border-color: var(--alert);
+    }
+
+    &_pr {
+      padding-right: var(--icon-x-position)
+    }
+
+    &_pl {
+      padding-left: var(--icon-x-position)
+    }
+
+    &_fullWidth {
+      width: 100%;
+    }
+
+    &:active,
+    &:focus {
+      border-color: var(--brand-primary);
+    }
+
+    &:disabled {
+      border: none;
+      color: var(--basic-secondary-2);
+      background: var(--basic-secondary-5);
+      box-shadow: var(--shadow-primary);
+    }
+
+    @media (min-width: $md-breakpoint) {
+      &:not(:disabled,:focus):hover {
+        border-color: var(--brand-primary-light);
+      }
+
+    }
+  }
+
+  &-ErrorText {
+    color: var(--alert);
+  }
+
+
+  @media (min-width: $md-breakpoint) {
+    &-AddonLeft, &-AddonRight {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}

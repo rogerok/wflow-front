@@ -1,7 +1,8 @@
 import './NavbarLogoutButton.scss';
 
 import { cn } from '@bem-react/classname';
-import { Button, IconComponent, useGlobalStore } from '@shared';
+import { Button, IconComponent } from '@shared/elements/ui';
+import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
@@ -24,9 +25,11 @@ export const NavbarLogoutButton: FC<NavbarLogoutButtonProps> = observer(
         onClick={() => authController.logout()}
         addonLeft={
           <IconComponent
-            className={cnNavbarLogoutButton('Icon')}
+            className={cnNavbarLogoutButton('Icon', {
+              collapsed: navbar.isCollapsed,
+            })}
             name={'LogoutIcon'}
-            size={'sm'}
+            size={'md'}
             color={'basic-secondary-4'}
           />
         }

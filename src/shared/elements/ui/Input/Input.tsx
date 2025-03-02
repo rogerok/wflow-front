@@ -1,47 +1,86 @@
+import './Input.scss';
+
 import { cn } from '@bem-react/classname';
-import { observer } from 'mobx-react-lite';
-import { ChangeEvent, FC, InputHTMLAttributes } from 'react';
+import { ChangeEvent, FC, InputHTMLAttributes, memo, ReactNode } from 'react';
+
+import { Typography } from '../Typography/Typography';
+import { VStack } from '../VStack/VStack';
 
 const cnInput = cn('Input');
 
-type HTMLInputProps = Omit<
+export type HTMLInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'value' | 'onChange' | 'readOnly'
 >;
 
 interface InputProps extends HTMLInputProps {
-  onChange: (value: string) => void;
-  value: string;
+  value: string | number;
+  onChange?: (value: string | number) => void;
+  addonLeft?: ReactNode;
+  addonRight?: ReactNode;
   className?: string;
-  readOnly?: boolean;
   error?: string;
+  fullWidth?: boolean;
+  label?: string;
+  readOnly?: boolean;
 }
 
-export const Input: FC<InputProps> = observer((props) => {
+export const Input: FC<InputProps> = memo((props) => {
   const {
     className,
     type = 'text',
     value,
     name,
     onChange,
+    label,
+    fullWidth,
+    disabled,
+    error,
+    addonLeft,
+    addonRight,
     ...restProps
   } = props;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    onChange(e.target.value);
+    onChange?.(e.target.value);
   };
 
   return (
-    <>
-      <input
-        className={cnInput(undefined, [className])}
-        onChange={handleChange}
-        value={value}
-        name={name}
-        type={type}
-        {...restProps}
-      />
-      {props.error && <div className="error">{props.error}</div>}
-    </>
+    <VStack
+      className={cnInput(
+        { error: !!error, disabled: disabled, fullWidth: fullWidth },
+        [className],
+      )}
+      gap={'4'}
+    >
+      {label && (
+        <label htmlFor={name} className={cnInput('Label')}>
+          <Typography>{label}</Typography>
+        </label>
+      )}
+      <div className={cnInput('Inner', { fullWidth: fullWidth })}>
+        {addonLeft && <div className={cnInput('AddonLeft')}>{addonLeft}</div>}
+        <input
+          {...restProps}
+          id={name}
+          className={cnInput('Input', {
+            error: !!error,
+            fullWidth: fullWidth,
+            pl: !!addonLeft,
+            pr: !!addonRight,
+          })}
+          onChange={handleChange}
+          value={value}
+          disabled={disabled}
+          name={name}
+          type={type}
+        />
+        {addonRight && (
+          <div className={cnInput('AddonRight')}>{addonRight}</div>
+        )}
+      </div>
+
+      {error && <Typography variant={'warn'}>{error}</Typography>}
+    </VStack>
   );
 });

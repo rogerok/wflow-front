@@ -5,5 +5,19 @@
 			"src/shared/lib/form/factory/helpers.ts",
 			"src/shared/lib/form/fields/ListField.ts"
 		]
+	],
+	"src/shared/services/auth/authService.ts": [
+		[
+			"src/shared/services/auth/authService.ts",
+			"src/shared/stores/global/GlobalStore.ts",
+			"src/shared/stores/index.ts"
+		]
+	],
+	"src/shared/services/user/userService.ts": [
+		[
+			"src/shared/services/user/userService.ts",
+			"src/shared/stores/global/GlobalStore.ts",
+			"src/shared/stores/index.ts"
+		]
 	]
 }

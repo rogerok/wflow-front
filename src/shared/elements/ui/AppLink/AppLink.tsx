@@ -1,29 +1,32 @@
 import './AppLink.scss';
 
 import { cn } from '@bem-react/classname';
-import { Link } from '@tanstack/react-router';
-import { ComponentProps, FC, memo } from 'react';
+import { createLink, LinkComponent } from '@tanstack/react-router';
+import { AnchorHTMLAttributes, forwardRef, ReactNode } from 'react';
 
 const cnAppLink = cn('AppLink');
 type AppLinkVariant = 'primary' | 'secondary' | 'outline';
 
-type AppLinkProps = {
+interface AppLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   className?: string;
   variant?: AppLinkVariant;
-} & ComponentProps<typeof Link>;
+  children: ReactNode;
+}
 
-export const AppLink: FC<AppLinkProps> = memo((props) => {
+const Link = forwardRef<HTMLAnchorElement, AppLinkProps>((props, ref) => {
   const { variant = 'primary', className } = props;
 
   return (
-    <Link
+    <a
+      ref={ref}
       {...props}
-      className={cnAppLink(
-        {
-          [variant]: true,
-        },
-        [className]
-      )}
+      className={cnAppLink({ [variant]: true }, [className])}
     />
   );
 });
+
+const CreatedLink = createLink(Link);
+
+export const AppLink: LinkComponent<typeof Link> = (props) => {
+  return <CreatedLink {...props} />;
+};

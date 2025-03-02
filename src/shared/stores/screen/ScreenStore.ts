@@ -13,16 +13,23 @@ const BreakpointsInPxConstant = {
 export type BreakpointsInPxType = ObjectValues<typeof BreakpointsInPxConstant>;
 
 export class ScreenStore {
+  currentWidth: number = window.innerWidth;
+
   constructor() {
     makeAutoObservable(this);
+    window.addEventListener('resize', this.handleResize);
   }
 
+  handleResize = (): void => {
+    this.currentWidth = window.innerWidth;
+  };
+
   isWidthMatchMinByValue = (value: BreakpointsInPxType): boolean => {
-    return window.matchMedia(`(min-width: ${value}px)`).matches;
+    return this.currentWidth >= value;
   };
 
   isWidthMatchMaxByValue = (value: BreakpointsInPxType): boolean => {
-    return window.matchMedia(`(max-width: ${value}px)`).matches;
+    return this.currentWidth <= value;
   };
 
   get upXs(): boolean {

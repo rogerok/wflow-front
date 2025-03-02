@@ -1,26 +1,24 @@
-import { convertEmptyStringToNull, FormStore, RequestStore } from '@shared';
+import { createUserRequest } from '@shared/api';
+import { convertEmptyStringToNull, FormStore } from '@shared/lib';
+import { RequestStore } from '@shared/stores';
 import { makeAutoObservable } from 'mobx';
 
-import { createUserRequest } from '../api/signUpApi';
-import {
-  UserCreateRequestSchema,
-  UserCreateRequestType,
-} from '../types/userCreate';
+import { UserCreateFormSchema, UserCreateFormType } from '../types/userCreate';
 
 export class SignUpService {
   private abortController: AbortController | null = null;
   createUserRequest = new RequestStore(createUserRequest);
 
-  userForm = new FormStore<UserCreateRequestType>({
-    schema: UserCreateRequestSchema,
+  userForm = new FormStore<UserCreateFormType>({
+    schema: UserCreateFormSchema,
     defaultValues: {
       bornDate: '',
-      email: '123@gmails.com',
-      firstName: 'sdsdsdd',
+      email: '',
+      firstName: '',
       lastName: '',
       middleName: '',
-      password: 'Password1!',
-      passwordConfirm: 'Password1!',
+      password: '',
+      passwordConfirm: '',
       pseudonym: {
         firstName: '',
         lastName: '',
@@ -39,16 +37,14 @@ export class SignUpService {
   }
 
   abortRequest = (): void => {
-    if (this.abortController) {
-      this.abortController.abort();
-      this.abortController = null;
-    }
+    this.abortController?.abort();
+    this.abortController = null;
   };
 
   submitForm = async (): Promise<void> => {
     this.abortController = new AbortController();
 
-    await this.userForm.submit(async (formValues: UserCreateRequestType) => {
+    await this.userForm.submit(async (formValues: UserCreateFormType) => {
       await this.createUserRequest.call(
         {
           email: formValues.email,

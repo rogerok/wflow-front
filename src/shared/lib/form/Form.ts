@@ -73,12 +73,12 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
 
       if (this.errors.isSuccess) {
         await handleSubmit(this.getValues());
+        this.setIsSubmitted(true);
       }
     } catch (err: unknown) {
       this.submitError = err;
     } finally {
       this.setIsSubmitting(false);
-      this.setIsSubmitted(true);
     }
   }
 

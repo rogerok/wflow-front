@@ -1,34 +1,32 @@
 import { makeAutoObservable } from 'mobx';
 
-import { LOCAL_STORAGE_TOKEN_KEY } from '../../const/localStorage';
-import { routes } from '../../const/router';
+import { TokenSchema, TokenType } from '../../api';
+import { LOCAL_STORAGE_TOKEN_KEY, routes } from '../../const';
 import {
   getLocalStorageItem,
   removeLocalStorageItem,
   setLocalStorageItem,
-} from '../../lib/utils/localStorage';
-import { TokenSchema, TokenType } from '../../types/auth';
-import { UseRouterType } from '../../types/router';
+} from '../../lib';
+import { RouterType } from '../../types';
 import { UserService } from '../user/userService';
 import { AuthService } from './authService';
 
 export class AuthController {
   authService: AuthService;
   userService: UserService;
-  router: UseRouterType;
+  router: RouterType;
   token: string | unknown | null = null;
 
   constructor(
     authService: AuthService,
     userService: UserService,
-    router: UseRouterType,
+    router: RouterType,
   ) {
     this.authService = authService;
     this.userService = userService;
     this.router = router;
 
     makeAutoObservable(this, {}, { autoBind: true });
-    this.token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
   }
 
   private isTokenValid(data: unknown): data is TokenType {
@@ -78,8 +76,8 @@ export class AuthController {
 
         await this.userService.fetchUser(parsedToken.sub);
 
-        if (this.userService.getUserRequestStore.result.data) {
-          window.history.pushState({}, '', routes.main());
+        if (this.userService.userData) {
+          this.router.navigate({ to: routes.main() });
         }
       }
     }
@@ -87,6 +85,7 @@ export class AuthController {
 
   restoreSession = async (): Promise<void> => {
     const token = getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY);
+
     if (typeof token === 'string') {
       const parsedToken = this.parseJwt(token);
 
@@ -96,13 +95,27 @@ export class AuthController {
     }
   };
 
-  trackLocalStorageToken = (e: StorageEvent): void => {
+  trackLocalStorageToken = async (e: StorageEvent): Promise<void> => {
     if (e.key === LOCAL_STORAGE_TOKEN_KEY && !e.newValue) {
       this.userService.clearUserData();
       this.router.navigate({
-        to: routes.main(),
+        to: '/',
         replace: true,
       });
+
+      await this.router.invalidate();
+    }
+  };
+
+  handleTokenRemoval = async (): Promise<void> => {
+    if (!getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY)) {
+      this.userService.clearUserData();
+      this.router.navigate({
+        to: '/',
+        replace: true,
+      });
+
+      await this.router.invalidate();
     }
   };
 }

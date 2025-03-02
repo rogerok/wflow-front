@@ -1,0 +1,75 @@
+.Modal {
+  $parent: &;
+
+
+  position: fixed;
+  z-index: var(--modal-z-index);
+  inset: 0;
+
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font: var(--font-m);
+
+  &-ModalOverlay {
+    z-index: 11;
+  }
+
+  &-Content {
+    z-index: var(--modal-z-index);
+
+    overflow: auto;
+
+    width: 60%;
+    max-height: 100%;
+    padding: 0 1.6rem 4rem;
+    border-radius: 1.6rem;
+
+    background: var(--bg-accent-1);
+
+    &_fullScreen {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+    }
+
+    &:not(&_fullScreen) {
+      #{$parent}-Content_size_xs {
+        width: 20%;
+      }
+
+      #{$parent}-Content_size_sm {
+        width: 40%;
+      }
+
+      #{$parent}-Content_size_md {
+        width: 60%;
+      }
+
+      #{$parent}-Content_size_lg {
+        width: 80%;
+      }
+    }
+
+  }
+
+  &-CloseButton {
+    margin-left: auto;
+    border-radius: 1rem;
+    background: var(--bg-secondary);
+    @media (min-width: $md-breakpoint) {
+      transition: var(--default-transition);
+
+      &:hover {
+        cursor: pointer;
+        background: var(--bg-accent-1);
+      }
+    }
+  }
+
+  &-Title {
+    padding-right: 1.6rem;
+  }
+}

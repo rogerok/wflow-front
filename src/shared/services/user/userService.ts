@@ -1,9 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { getUserById, getUsers } from '../../api/user/userApi';
-import { RolesConstant } from '../../const/roles';
-import { RequestStore } from '../../stores/request/RequestStore';
-import { RolesType, UserResponseType } from '../../types/user';
+import { getUserById, getUsers, RolesType, UserResponseType } from '../../api';
+import { RolesConstant } from '../../const';
+import { RequestStore } from '../../stores';
 
 export class UserService {
   private abortController: AbortController | null = null;
@@ -27,24 +26,13 @@ export class UserService {
     this._role = RolesConstant.Visitor;
   };
 
-  abortRequest = (): void => {
-    if (this.abortController) {
-      this.abortController.abort();
-      this.abortController = null;
-    }
-  };
-
   fetchUser = async (uuid: string): Promise<void> => {
     this.abortController = new AbortController();
 
-    const result = await this.getUserRequestStore.call(
-      uuid,
-      this.abortController,
-    );
+    const result = await this.getUserRequestStore.call(uuid);
 
     runInAction(() => {
       this.setUserData(result.data);
-      //TODO: add real data
       this._role = RolesConstant.Admin;
     });
   };

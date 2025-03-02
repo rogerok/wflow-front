@@ -1,0 +1,67 @@
+.TextArea {
+  font: var(--font-s);
+  color: var(--basic-primary);
+
+
+  &_fullWidth {
+    width: 100%;
+  }
+
+  &_disabled {
+    color: var(--basic-secondary-1);
+  }
+
+
+  &-Input {
+    resize: none;
+
+    padding: 1.6rem;
+    border: 0.1rem solid var(--bg-secondary);
+    border-radius: 1.4rem;
+
+    color: var(--basic-primary);
+
+    background: #bcbfd82b;
+    outline: transparent;
+    box-shadow: var(--shadow-clear);
+
+    &_resizable {
+      resize: both;
+    }
+
+
+    &_error {
+      border-color: var(--alert);
+    }
+
+    &_fullWidth {
+      width: 100%;
+    }
+
+    &:active,
+    &:focus {
+      border-color: var(--brand-primary);
+    }
+
+    &:disabled {
+      border: none;
+      color: var(--basic-secondary-2);
+      background: var(--basic-secondary-5);
+      box-shadow: var(--shadow-primary);
+    }
+
+    @media (min-width: $md-breakpoint) {
+      &:not(:disabled,:focus):hover {
+        border-color: var(--brand-primary-light);
+      }
+
+    }
+
+  }
+
+  &-ErrorText {
+    color: var(--alert);
+  }
+
+
+}

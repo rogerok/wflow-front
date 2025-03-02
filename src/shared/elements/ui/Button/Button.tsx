@@ -1,53 +1,62 @@
 import './Button.scss';
 
 import { cn } from '@bem-react/classname';
-import { ButtonHTMLAttributes, FC, memo, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, ElementType, memo, ReactNode } from 'react';
 
 const cnButton = cn('Button');
 
-type ButtonVariantsType = 'filled' | 'outlined' | 'clear';
+type ButtonVariantsType = 'filled' | 'outlined' | 'clear' | 'warn';
 
 type ButtonSizesType = 'sm' | 'md';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export type ButtonProps<T extends ElementType> = {
+  addonLeft?: ReactNode;
+  addonRight?: ReactNode;
+  as?: T;
   className?: string;
+  disabled?: boolean;
   fullWidth?: boolean;
   size?: ButtonSizesType;
   variant?: ButtonVariantsType;
-  disabled?: boolean;
-  addonLeft?: ReactNode;
-  addonRight?: ReactNode;
-}
+} & ComponentPropsWithoutRef<T>;
 
-export const Button: FC<ButtonProps> = memo((props) => {
-  const {
-    className,
-    disabled,
-    fullWidth,
-    size = 'sm',
-    variant = 'filled',
-    addonLeft,
-    addonRight,
-    ...otherProps
-  } = props;
+export const Button = memo(
+  <T extends ElementType = 'button'>(props: ButtonProps<T>): ReactNode => {
+    const {
+      addonLeft,
+      addonRight,
+      as,
+      className,
+      disabled,
+      fullWidth,
+      size = 'sm',
+      type = 'button',
+      variant = 'filled',
+      ...otherProps
+    } = props;
 
-  const mods = {
-    size: size,
-    variant: variant,
-    fullWidth: fullWidth,
-    disabled: disabled,
-  };
+    const mods = {
+      size: size,
+      variant: variant,
+      fullWidth: fullWidth,
+      disabled: disabled,
+    };
 
-  return (
-    <button
-      type={'button'}
-      {...otherProps}
-      disabled={disabled}
-      className={cnButton(mods, [className])}
-    >
-      <div className={cnButton('AddonLeft')}>{addonLeft}</div>
-      {props.children}
-      <div className={cnButton('AddonRight')}>{addonRight}</div>
-    </button>
-  );
-});
+    const Component = as || 'button';
+
+    return (
+      <Component
+        {...(as === 'button' ? { type: type } : {})}
+        {...otherProps}
+        disabled={disabled}
+        className={cnButton(mods, [className])}
+      >
+        {addonLeft && <div className={cnButton('AddonLeft')}>{addonLeft}</div>}
+        <span className={cnButton('Content')}>{props.children}</span>
+        {addonRight && (
+          <div className={cnButton('AddonRight')}>{addonRight}</div>
+        )}
+      </Component>
+    );
+  },
+);

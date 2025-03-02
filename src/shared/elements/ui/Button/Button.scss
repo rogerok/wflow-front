@@ -1,8 +1,22 @@
 .Button {
+  $parent: &;
+
+
   display: flex;
   gap: 0.4rem;
+  align-items: center;
+  justify-content: space-between;
+
+  width: fit-content;
   border-radius: var(--border-rad-1);
+
+  font: var(--font-m);
   font-weight: 600;
+  text-decoration: none;
+
+  &-Content {
+    margin: 0 auto;
+  }
 
   &_variant {
     &_clear {
@@ -12,7 +26,7 @@
 
       color: var(--basic-primary);
 
-      background: none
+      background: none;
     }
 
     &_filled {
@@ -20,11 +34,21 @@
       color: var(--basic-accent);
       background: var(--brand-primary);
 
-      &:disabled {
+      #{$parent}_disabled {
         color: var(--basic-accent);
-        background: var(--basic-secondary-4)
+        background: var(--basic-secondary-4);
       }
+    }
 
+    &_warn {
+      border: none;
+      color: var(--basic-accent);
+      background: var(--alert);
+
+      #{$parent}_disabled {
+        color: var(--basic-accent);
+        background: var(--basic-secondary-4);
+      }
     }
 
     &_outlined {
@@ -32,7 +56,7 @@
       color: var(--brand-primary);
       background: var(--basic-accent);
 
-      &:disabled {
+      #{$parent}_disabled {
         border: var(--border-style-1) var(--basic-secondary-4);
         color: var(--basic-secondary-4);
       }
@@ -41,8 +65,6 @@
 
   &_size {
     &_sm {
-      font: var(--font-s);
-
       &:not(.Button_variant_clear) {
         padding: 0.8rem 1.6rem;
       }
@@ -67,28 +89,41 @@
     opacity: 0.5;
   }
 
-
-  &-AddonLeft, &-AddonRight {
+  &-AddonLeft,
+  &-AddonRight {
     display: flex;
   }
 
-
   @media (hover: hover) {
-    &:not(:disabled):hover {
+    &:not(#{$parent}_disabled):hover {
       cursor: pointer;
+      box-shadow: var(--shadow-primary);
       transition: var(--default-transition);
     }
 
     &_variant {
-      &_filled:not(:disabled):hover {
+      &_filled:not(#{$parent}_disabled):hover {
         color: var(--brand-primary);
         background: var(--basic-accent);
+        box-shadow: var(--shadow-primary);
       }
 
-      &_outlined:not(:disabled):hover {
+      &_warn:not(#{$parent}_disabled):hover {
+        color: var(--brand-primary);
+        background: var(--brand-accent-1);
+        box-shadow: var(--shadow-primary);
+      }
+
+      &_outlined:not(#{$parent}_disabled):hover {
         border: 0.1rem solid var(--basic-accent);
         color: var(--basic-accent);
         background: var(--brand-primary);
+        box-shadow: var(--shadow-secondary);
+      }
+
+      &_clear:not(#{$parent}_disabled):hover {
+        color: var(--brand-primary-light);
+        box-shadow: var(--shadow-clear);
       }
     }
   }

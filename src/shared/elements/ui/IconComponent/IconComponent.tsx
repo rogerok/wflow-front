@@ -1,10 +1,16 @@
 import './IconComponent.scss';
 
 import { cn } from '@bem-react/classname';
-import React, { createElement, CSSProperties, FC, SVGProps } from 'react';
+import React, {
+  createElement,
+  CSSProperties,
+  FC,
+  MouseEvent,
+  SVGProps,
+} from 'react';
 
 import * as Icons from '../../../assets';
-import { CssVarsMapType } from '../../../stores/theme/types';
+import { CssVarsMapType } from '../../../types/theme';
 
 const cnIconComponent = cn('IconComponent');
 
@@ -79,12 +85,17 @@ export const IconComponent: FC<IconProps> = (props) => {
     className: cnIconComponent(undefined, [className]),
   });
 
-  if (props.onClick) {
+  const handleClick = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    onClick?.();
+  };
+
+  if (onClick) {
     return (
       <button
         data-testid={dataTestId}
         className={cnIconComponent(undefined, [className, 'IconButton'])}
-        onClick={onClick}
+        onClick={handleClick}
         style={{ width: sizes.width, height: sizes.height }}
       >
         {Icon}

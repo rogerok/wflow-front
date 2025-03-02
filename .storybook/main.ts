@@ -1,11 +1,14 @@
+import * as path from 'node:path';
+
 import type { StorybookConfig } from '@storybook/react-vite';
+import { mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
   stories: [
-    '../src/app/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
-    '../src/shared/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
-    '../src/widgets/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
-    '../src/pages/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
+    '../src/app/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../src/shared/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../src/widgets/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../src/pages/**/*.stories.@(js|jsx|ts|tsx|mdx)',
   ],
   addons: [
     '@storybook/addon-essentials',
@@ -26,7 +29,19 @@ const config: StorybookConfig = {
   docs: {},
 
   typescript: {
-    reactDocgen: 'react-docgen-typescript',
+    reactDocgen: 'react-docgen',
+  },
+
+  async viteFinal(config) {
+    return mergeConfig(config, {
+      resolve: {
+        alias: {
+          '@pages': path.resolve(__dirname, '../src/pages'),
+          '@shared': path.resolve(__dirname, '../src/shared'),
+          '@widgets': path.resolve(__dirname, '../src/widgets'),
+        },
+      },
+    });
   },
 };
 

@@ -18,14 +18,14 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pages": [
-        "./src/pages/index.ts"
+      "@pages/*": [
+        "./src/pages/*"
       ],
-      "@shared": [
-        "./src/shared/index.ts"
+      "@shared/*": [
+        "./src/shared/*"
       ],
-      "@widgets": [
-        "./src/widgets/index.ts"
+      "@widgets/*": [
+        "./src/widgets/*"
       ]
     }
   },

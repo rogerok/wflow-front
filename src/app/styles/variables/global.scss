@@ -1,38 +1,42 @@
 :root {
-  --font-family: 'Overpass';
+  --font-family: 'Noto Sans';
 
   --font-size-xs: 1.2rem;
   --font-line-xs: 1.5;
-  --font-xxs: var(--font-size-xs) / var(--font-line-xs) var(--font-family);
+  --font-xs: var(--font-size-xs) / var(--font-line-xs) var(--font-family);
 
   --font-size-s: 1.4rem;
   --font-line-s: 1.5;
-  --font-xs: var(--font-size-s) / var(--font-line-s) var(--font-family);
+  --font-s: var(--font-size-s) / var(--font-line-s) var(--font-family);
 
   --font-size-m: 1.6rem;
   --font-line-m: 1.5;
-  --font-s: var(--font-size-m) / var(--font-line-m) var(--font-family);
+  --font-m: var(--font-size-m) / var(--font-line-m) var(--font-family);
 
   --font-size-l: 2rem;
   --font-line-l: 1.3;
-  --font-m: var(--font-size-l) / var(--font-line-l) var(--font-family);
+  --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family);
 
   --font-size-xl: 3rem;
   --font-line-xl: 1.3;
-  --font-l: var(--font-size-xl) / var(--font-line-xl) var(--font-family);
+  --font-xl: var(--font-size-xl) / var(--font-line-xl) var(--font-family);
 
   --navbar-height: 10.4rem;
   --navbar-collapsed-height: 5rem;
 
-  --navbar-z-index: 3;
-
+  --navbar-z-index: 10;
+  --popup-z-index: 3;
+  --overlay-z-index: 5;
+  --modal-z-index: 15;
   --header-height: 8rem;
-
-  --overlay-z-index: 2;
 
   --default-transition: all 0.2s ease-in-out;
 
   --border-style-1: 0.1rem solid;
 
   --border-rad-1: 2rem;
+
+  --box-shadow-1: 0 0.4rem 1.2rem;
+  --box-shadow-2: 0 0.4rem 1.4rem;
+  --box-shadow-3: inset 0 0 1rem;
 }
