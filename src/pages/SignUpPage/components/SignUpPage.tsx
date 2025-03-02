@@ -1,53 +1,28 @@
-import { cn } from '@bem-react/classname';
-import { UserCreateRequestType } from '@shared/api';
-import { FormComponent, TextInput } from '@shared/elements/components';
-import { Button, Page, VStack } from '@shared/elements/ui';
-import { observer } from 'mobx-react-lite';
-import { FC, useEffect, useState } from 'react';
+import './SignUpPage.scss';
 
-import { SignUpService } from '../model/services/SignUpService';
+import { cn } from '@bem-react/classname';
+import { Page, PageTitle, Typography } from '@shared/elements/ui';
+import { observer } from 'mobx-react-lite';
+import { FC } from 'react';
+
+import { SignUpForm } from './SignUpForm/SignUpForm';
 
 const cnSignUpPage = cn('SignUpPage');
 
-interface SignUpPageProps {
-  className?: string;
-}
-
-export const SignUpPage: FC<SignUpPageProps> = observer((props) => {
-  const [service] = useState(() => new SignUpService());
-  const { userForm } = service;
-
-  useEffect(() => {
-    return () => {
-      service.abortRequest();
-    };
-  }, [service]);
-
+export const SignUpPage: FC = observer(() => {
   return (
-    <Page>
-      <FormComponent<UserCreateRequestType>
-        className={cnSignUpPage(undefined, [props.className])}
-        onSubmit={service.submitForm}
-        form={service.userForm}
+    <Page className={cnSignUpPage()}>
+      <PageTitle title={'Регистрация'} />
+      <Typography
+        align={'center'}
+        variant={'accent'}
+        as={'h1'}
+        size={'xl'}
+        weight={'bold'}
       >
-        <VStack gap={'8'}>
-          Регистрация
-          <TextInput
-            field={userForm.fields.firstName}
-            placeholder={'Имя'}
-            required
-          />
-          <TextInput field={userForm.fields.email} placeholder={'Почта'} />
-          <TextInput field={userForm.fields.password} placeholder={'Пароль'} />
-          <TextInput
-            field={userForm.fields.passwordConfirm}
-            placeholder={'Подтвердите пароль'}
-          />
-          <Button type={'submit'} disabled={userForm.isSubmitting}>
-            Отправить
-          </Button>
-        </VStack>
-      </FormComponent>
+        Регистрация
+      </Typography>
+      <SignUpForm />
     </Page>
   );
 });

@@ -31,6 +31,7 @@ export const FormComponent = observer(
     return (
       <FormStoreProvider form={form}>
         <form
+          noValidate
           onSubmit={handleSubmit}
           className={cnFormComponent(undefined, [className])}
         >

@@ -1,11 +1,11 @@
-import React, { ElementType, FC, ReactElement } from 'react';
+import React, { ElementType, ReactElement } from 'react';
 
 import { Flex, FlexProps } from '../Flex/Flex';
 
-//TODO: remove direction prop
+type HStackProps<T extends ElementType = 'div'> = FlexProps<T>;
 
-type HStackProps = FlexProps<ElementType>;
-
-export const HStack: FC<HStackProps> = (props): ReactElement => {
+export const HStack = <T extends ElementType = 'div'>(
+  props: HStackProps<T>,
+): ReactElement => {
   return <Flex {...props} direction={'row'} />;
 };

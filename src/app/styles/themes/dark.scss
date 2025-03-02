@@ -30,4 +30,14 @@
   --shadow-primary: var(--box-shadow-1) rgb(160 118 91 / 30%);
   --shadow-secondary: var(--box-shadow-2) rgb(96 72 54 / 30%);
   --shadow-clear: var(--box-shadow-3) rgb(160 118 91 / 20%);
+
+
+  --shadow-1: 0 -0.1rem 0.5rem rgb(160 118 91 / 10%), 0 0.1rem 0.3rem rgb(160 118 91 / 15%), 0 0.2rem 0.6rem rgb(160 118 91 / 20%);
+  --shadow-2: 0 -0.2rem 0.6rem rgb(160 118 91 / 12%), 0 0.2rem 0.4rem rgb(160 118 91 / 18%), 0 0.4rem 0.8rem rgb(160 118 91 / 25%);
+  --shadow-3: 0 -0.3rem 0.7rem rgb(160 118 91 / 14%), 0 0.3rem 0.6rem rgb(160 118 91 / 20%), 0 0.6rem 1rem rgb(160 118 91 / 28%);
+  --shadow-4: 0 -0.4rem 0.8rem rgb(160 118 91 / 16%), 0 0.4rem 0.8rem rgb(160 118 91 / 25%), 0 0.8rem 1.2rem rgb(160 118 91 / 32%);
+  --shadow-5: 0 -0.5rem 1rem rgb(160 118 91 / 18%), 0 0.5rem 1rem rgb(160 118 91 / 28%), 0 1rem 1.5rem rgb(160 118 91 / 38%);
+  --shadow-6: 0 -0.6rem 1.2rem rgb(160 118 91 / 20%), 0 0.6rem 1.2rem rgb(160 118 91 / 30%), 0 1.2rem 1.8rem rgb(160 118 91 / 42%);
+
+
 }

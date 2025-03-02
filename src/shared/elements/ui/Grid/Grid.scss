@@ -1,0 +1,334 @@
+@use "sass:map";
+@use "sass:math";
+
+
+$grid-columns: 12;
+$grid-breakpoints: (
+        xs: $xs-breakpoint,
+        sm: $sm-breakpoint,
+        md: $md-breakpoint,
+        lg: $lg-breakpoint,
+        xl: $xl-breakpoint,
+);
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px
+);
+
+.Grid {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @each $breakpoint, $container-max-width in $container-max-widths {
+    @media (min-width: map.get($grid-breakpoints, $breakpoint)) {
+      max-width: $container-max-width;
+    }
+  }
+
+}
+
+
+.Grid_py {
+  &_4 {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  &_8 {
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+
+  &_16 {
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+  }
+
+  &_24 {
+    padding-top: 2.4rem;
+    padding-bottom: 2.4rem;
+  }
+
+  &_32 {
+    padding-top: 3.2rem;
+    padding-bottom: 3.2rem;
+  }
+}
+
+.Grid_px {
+  &_4 {
+    padding-right: 0.4rem;
+    padding-left: 0.4rem;
+  }
+
+  &_8 {
+    padding-right: 0.8rem;
+    padding-left: 0.8rem;
+  }
+
+  &_16 {
+    padding-right: 1.6rem;
+    padding-left: 1.6rem;
+  }
+
+  &_24 {
+    padding-right: 2.4rem;
+    padding-left: 2.4rem;
+  }
+
+  &_32 {
+    padding-right: 3.2rem;
+    padding-left: 3.2rem;
+  }
+}
+
+
+.Grid_pt {
+  &_4 {
+    padding-top: 0.4rem;
+  }
+
+  &_8 {
+    padding-top: 0.8rem;
+  }
+
+  &_16 {
+    padding-top: 1.6rem;
+  }
+
+  &_24 {
+    padding-top: 2.4rem;
+  }
+
+  &_32 {
+    padding-top: 3.2rem;
+  }
+}
+
+.Grid_pr {
+  &_4 {
+    padding-right: 0.4rem;
+  }
+
+  &_8 {
+    padding-right: 0.8rem;
+  }
+
+  &_16 {
+    padding-right: 1.6rem;
+  }
+
+  &_24 {
+    padding-right: 2.4rem;
+  }
+
+  &_32 {
+    padding-right: 3.2rem;
+  }
+}
+
+.Grid_pb {
+  &_4 {
+    padding-bottom: 0.4rem;
+  }
+
+  &_8 {
+    padding-bottom: 0.8rem;
+  }
+
+  &_16 {
+    padding-bottom: 1.6rem;
+  }
+
+  &_24 {
+    padding-bottom: 2.4rem;
+  }
+
+  &_32 {
+    padding-bottom: 3.2rem;
+  }
+}
+
+.Grid_pl {
+  &_4 {
+    padding-left: 0.4rem;
+  }
+
+  &_8 {
+    padding-left: 0.8rem;
+  }
+
+  &_16 {
+    padding-left: 1.6rem;
+  }
+
+  &_24 {
+    padding-left: 2.4rem;
+  }
+
+  &_32 {
+    padding-left: 3.2rem;
+  }
+}
+
+
+.Grid_my {
+  &_4 {
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  &_8 {
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  &_16 {
+    margin-top: 1.6rem;
+    margin-bottom: 1.6rem;
+  }
+
+  &_24 {
+    margin-top: 2.4rem;
+    margin-bottom: 2.4rem;
+  }
+
+  &_32 {
+    margin-top: 3.2rem;
+    margin-bottom: 3.2rem;
+  }
+}
+
+.Grid_mx {
+  &_4 {
+    margin-right: 0.4rem;
+    margin-left: 0.4rem;
+  }
+
+  &_8 {
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
+  }
+
+  &_16 {
+    margin-right: 1.6rem;
+    margin-left: 1.6rem;
+  }
+
+  &_24 {
+    margin-right: 2.4rem;
+    margin-left: 2.4rem;
+  }
+
+  &_32 {
+    margin-right: 3.2rem;
+    margin-left: 3.2rem;
+  }
+}
+
+.Grid_mt {
+  &_4 {
+    margin-top: 0.4rem;
+  }
+
+  &_8 {
+    margin-top: 0.8rem;
+  }
+
+  &_16 {
+    margin-top: 1.6rem;
+  }
+
+  &_24 {
+    margin-top: 2.4rem;
+  }
+
+  &_32 {
+    margin-top: 3.2rem;
+  }
+
+  &_auto {
+    margin-top: auto;
+  }
+}
+
+.Grid_mr {
+  &_4 {
+    margin-right: 0.4rem;
+  }
+
+  &_8 {
+    margin-right: 0.8rem;
+  }
+
+  &_16 {
+    margin-right: 1.6rem;
+  }
+
+  &_24 {
+    margin-right: 2.4rem;
+  }
+
+  &_32 {
+    margin-right: 3.2rem;
+  }
+
+  &_auto {
+    margin-right: auto;
+  }
+}
+
+.Grid_mb {
+  &_4 {
+    margin-bottom: 0.4rem;
+  }
+
+  &_8 {
+    margin-bottom: 0.8rem;
+  }
+
+  &_16 {
+    margin-bottom: 1.6rem;
+  }
+
+  &_24 {
+    margin-bottom: 2.4rem;
+  }
+
+  &_32 {
+    margin-bottom: 3.2rem;
+  }
+
+  &_auto {
+    margin-bottom: auto;
+  }
+}
+
+.Grid_ml {
+  &_4 {
+    margin-left: 0.4rem;
+  }
+
+  &_8 {
+    margin-left: 0.8rem;
+  }
+
+  &_16 {
+    margin-left: 1.6rem;
+  }
+
+  &_24 {
+    margin-left: 2.4rem;
+  }
+
+  &_32 {
+    margin-left: 3.2rem;
+  }
+
+  &_auto {
+    margin-left: auto;
+  }
+}
