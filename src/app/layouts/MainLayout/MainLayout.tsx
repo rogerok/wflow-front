@@ -3,8 +3,8 @@ import './MainLayout.scss';
 import { cn } from '@bem-react/classname';
 import { Outlet } from '@tanstack/react-router';
 import { Header } from '@widgets/Header';
-import { Navbar } from '@widgets/Navbar';
 import { FC } from 'react';
+import { Navbar } from '@widgets/Navbar';
 
 const cnMainLayout = cn('MainLayout');
 
