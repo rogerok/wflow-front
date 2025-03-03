@@ -6,6 +6,7 @@ export { Card } from './Card/Card';
 export { CardContent } from './Card/CardContent/CardContent';
 export { CardHeader } from './Card/CardHeader/CardHeader';
 export { DatePicker } from './Datepicker/DatePicker';
+export { ErrorComponent } from './ErrorComponent/ErrorComponent';
 export { Flex } from './Flex/Flex';
 export { Col } from './Grid/Col';
 export { Grid } from './Grid/Grid';

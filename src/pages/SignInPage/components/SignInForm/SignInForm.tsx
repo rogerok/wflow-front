@@ -49,6 +49,7 @@ export const SignInForm: FC<SignInFormProps> = observer((props) => {
             placeholder={'Пароль'}
             type={'password'}
             fullWidth
+            autoComplete={'on'}
           />
         </VStack>
         <Button

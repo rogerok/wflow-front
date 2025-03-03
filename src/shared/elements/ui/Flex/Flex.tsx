@@ -22,8 +22,6 @@ export type FlexProps<T extends ElementType = 'div'> = ComponentProps<
   className?: string;
   direction?: FlexDirection;
   flexJustify?: Justify;
-  fullWidth?: boolean;
-  fullHeight?: boolean;
   gap?: FlexGap;
   wrap?: FlexWrap;
   as?: T;
