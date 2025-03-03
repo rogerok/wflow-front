@@ -1,6 +1,7 @@
 import './styles/SignUpForm.scss';
 
 import { cn } from '@bem-react/classname';
+import { UiTextConstant } from '@shared/const';
 import {
   DatePickerInput,
   FormComponent,
@@ -155,7 +156,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
             disabled={userForm.isSubmitting}
             className={cnSignUpForm('Button')}
           >
-            Отправить
+            {UiTextConstant.post()}
           </Button>
         </FormComponent>
       </Paper>

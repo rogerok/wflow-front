@@ -1,6 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { BookResponseType } from '@shared/api';
-import { routes } from '@shared/const';
+import { routes, UiTextConstant } from '@shared/const';
 import {
   Button,
   ButtonLink,
@@ -62,7 +62,7 @@ export const BooksListItem: FC<BooksListItemProps> = observer((props) => {
             <BooksCreateReportForm bookId={book.id} />
           </Modal>
           <Button fullWidth variant={'outlined'} disabled>
-            Редактировать
+            {UiTextConstant.edit()}
           </Button>
         </VStack>
       </VStack>

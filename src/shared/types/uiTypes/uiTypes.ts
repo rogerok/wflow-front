@@ -27,4 +27,4 @@ export type Justify =
 
 export type FlexDirection = 'row' | 'column';
 export type FlexWrap = 'wrap' | 'nowrap';
-export type FlexGap = '4' | '8' | '16' | '24' | '32';
+export type FlexGap = '4' | '8' | '16' | '24' | '32' | '64';

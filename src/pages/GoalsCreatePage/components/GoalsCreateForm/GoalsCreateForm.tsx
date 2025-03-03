@@ -1,4 +1,5 @@
 import { cn } from '@bem-react/classname';
+import { UiTextConstant } from '@shared/const';
 import {
   BooksAutocomplete,
   DatePickerInput,
@@ -67,7 +68,7 @@ export const GoalsCreateForm: FC<GoalsCreateFormProps> = observer((props) => {
           fullWidth
         />
         <Button type={'submit'} disabled={service.form.isSubmitting}>
-          Отправить
+          {UiTextConstant.post()}
         </Button>
       </VStack>
     </FormComponent>

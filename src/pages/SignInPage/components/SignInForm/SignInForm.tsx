@@ -1,8 +1,11 @@
+import './SignInForm.scss';
+
 import { cn } from '@bem-react/classname';
 import { AuthRequestType } from '@shared/api';
 import { FormComponent, TextInput } from '@shared/elements/components';
-import { Button, VStack } from '@shared/elements/ui';
+import { Button, Paper, VStack } from '@shared/elements/ui';
 import { useGlobalStore } from '@shared/stores';
+import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
 const cnSignInForm = cn('SignInForm');
@@ -11,23 +14,50 @@ interface SignInFormProps {
   className?: string;
 }
 
-export const SignInForm: FC<SignInFormProps> = (props) => {
-  const { authController } = useGlobalStore();
+export const SignInForm: FC<SignInFormProps> = observer((props) => {
+  const { authController, screen } = useGlobalStore();
   const {
     authService: { authForm },
   } = authController;
 
   return (
-    <FormComponent<AuthRequestType>
+    <Paper
       className={cnSignInForm(undefined, [props.className])}
-      onSubmit={authController.authenticate}
-      form={authForm}
+      elevation={3}
+      rounded={3}
+      py={'32'}
+      px={'16'}
+      fullWidth
     >
-      <VStack gap={'8'}>
-        <TextInput field={authForm.fields.email} placeholder={'Email'} />
-        <TextInput field={authForm.fields.password} placeholder={'Пароль'} />
-        <Button type={'submit'}>Войти</Button>
-      </VStack>
-    </FormComponent>
+      <FormComponent<AuthRequestType>
+        onSubmit={authController.authenticate}
+        form={authForm}
+      >
+        <VStack
+          className={cnSignInForm('Fields')}
+          gap={'16'}
+          flexJustify={'center'}
+          align={'center'}
+        >
+          <TextInput
+            field={authForm.fields.email}
+            placeholder={'Email'}
+            fullWidth
+          />
+          <TextInput
+            field={authForm.fields.password}
+            placeholder={'Пароль'}
+            fullWidth
+          />
+        </VStack>
+        <Button
+          className={cnSignInForm('Button')}
+          type={'submit'}
+          fullWidth={screen.downMd}
+        >
+          Войти
+        </Button>
+      </FormComponent>
+    </Paper>
   );
-};
+});

@@ -1,6 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { GoalResponseType } from '@shared/api';
-import { routes } from '@shared/const';
+import { routes, UiTextConstant } from '@shared/const';
 import { Button, ButtonLink, Flex } from '@shared/elements/ui';
 import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
@@ -31,7 +31,7 @@ export const GoalsCardActions: FC<GoalsCardActionsProps> = observer((props) => {
     >
       <GoalsPageReportForm goal={goal} />
       <Button fullWidth={isScreenDownMd} disabled>
-        Редактировать цель
+        {UiTextConstant.edit('цель')}
       </Button>
       <ButtonLink
         to={routes.reports()}
