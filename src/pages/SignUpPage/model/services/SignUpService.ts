@@ -1,13 +1,15 @@
 import { createUserRequest } from '@shared/api';
-import { convertEmptyStringToNull, FormStore } from '@shared/lib';
+import { AppRouter, convertEmptyStringToNull, FormStore } from '@shared/lib';
 import { RequestStore } from '@shared/stores';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import { UserCreateFormSchema, UserCreateFormType } from '../types/userCreate';
 
 export class SignUpService {
   private abortController: AbortController | null = null;
-  createUserRequest = new RequestStore(createUserRequest);
+  createUserRequest = new RequestStore(createUserRequest, {
+    success: 'Регистрация прошла успешно',
+  });
 
   userForm = new FormStore<UserCreateFormType>({
     schema: UserCreateFormSchema,
@@ -43,7 +45,7 @@ export class SignUpService {
     this.abortController = new AbortController();
 
     await this.userForm.submit(async (formValues: UserCreateFormType) => {
-      await this.createUserRequest.call(
+      const resp = await this.createUserRequest.call(
         {
           email: formValues.email,
           firstName: formValues.firstName,
@@ -69,6 +71,14 @@ export class SignUpService {
 
         this.abortController,
       );
+
+      runInAction(() => {
+        if (resp.status === 'success') {
+          AppRouter.router?.navigate({
+            to: '/signIn',
+          });
+        }
+      });
     });
   };
 }

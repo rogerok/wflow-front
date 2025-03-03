@@ -1,5 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { BookFormRequestType } from '@shared/api';
+import { UiTextConstant } from '@shared/const';
 import {
   FormComponent,
   FormTextArea,
@@ -38,7 +39,7 @@ export const BooksCreateForm: FC<BooksCreateFormProps> = observer((props) => {
           field={service.form.fields.description}
         />
         <Button type={'submit'} disabled={service.form.isSubmitting}>
-          Отправить
+          {UiTextConstant.post()}
         </Button>
       </VStack>
     </FormComponent>

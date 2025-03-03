@@ -6,7 +6,7 @@
     'content'
     'navbar';
   grid-template-rows:
-    auto calc(100vh - var(--navbar-height) - var(--header-height))
+    auto calc(100svh - var(--navbar-height) - var(--header-height))
     var(--navbar-height);
 
   padding: 0 2.4rem;
@@ -25,7 +25,6 @@
     }
   }
 
-
   &-Content {
     grid-area: content;
     height: 100vh;
@@ -38,8 +37,8 @@
   @media (min-width: $md-breakpoint) {
     grid-gap: 2.4rem;
     grid-template:
-    'header header header' var(--header-height)
-    'navbar content content' calc(100vh - var(--header-height))
-    / minmax(8rem, 20rem) auto;
+      'header header header' var(--header-height)
+      'navbar content content' calc(100vh - var(--header-height))
+      / minmax(8rem, 20rem) auto;
   }
 }

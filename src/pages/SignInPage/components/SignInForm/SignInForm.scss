@@ -1,0 +1,15 @@
+.SignInForm {
+  &-Fields {
+    width: 100%;
+    margin: 0 auto;
+
+    @media (min-width: $md-breakpoint) {
+      width: 50%;
+    }
+  }
+
+  &-Button {
+    margin-top: 3.2rem;
+    margin-left: auto;
+  }
+}

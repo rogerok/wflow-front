@@ -1,4 +1,5 @@
 import { cn } from '@bem-react/classname';
+import { UiTextConstant } from '@shared/const';
 import { Page, PageTitle } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
@@ -14,7 +15,7 @@ interface BooksCreatePageProps {
 export const BooksCreatePage: FC<BooksCreatePageProps> = observer((props) => {
   return (
     <Page className={cnBooksCreatePage(undefined, [props.className])}>
-      <PageTitle title={'Добавить книгу'} />
+      <PageTitle title={UiTextConstant.add('книгу')} />
       <BooksCreateForm />
     </Page>
   );

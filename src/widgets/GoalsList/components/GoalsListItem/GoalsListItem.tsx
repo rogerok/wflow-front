@@ -2,6 +2,7 @@ import './GoalsListItem.scss';
 
 import { cn } from '@bem-react/classname';
 import { GoalResponseType } from '@shared/api';
+import { UiTextConstant } from '@shared/const';
 import {
   Button,
   Card,
@@ -57,7 +58,7 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
           size={'sm'}
           disabled
         >
-          Удалить
+          {UiTextConstant.delete()}
         </Button>
         <HStack flexJustify={'between'} mt={'16'} as={'p'} gap={'8'}>
           <Typography variant={'light'}>

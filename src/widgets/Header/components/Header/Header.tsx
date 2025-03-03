@@ -1,7 +1,7 @@
 import './Header.scss';
 
 import { cn } from '@bem-react/classname';
-import { Flex, IconComponent } from '@shared/elements/ui';
+import { AppLink, Flex, IconComponent, Typography } from '@shared/elements/ui';
 import { FC } from 'react';
 
 import { ThemeSwitcher } from '../ThemeSwitcher/components/ThemeSwitcher';
@@ -20,7 +20,13 @@ export const Header: FC<HeaderProps> = (props) => {
       direction={'row'}
       flexJustify={'between'}
     >
-      <IconComponent name={'LogoIcon'} width={40} height={40} />
+      <AppLink className={cnHeader('Link')} to={'/'}>
+        <IconComponent name={'LogoIcon'} width={40} height={40} />
+        <Typography variant={'accent'} size={'l'} weight={'bold'}>
+          Word Flow
+        </Typography>
+      </AppLink>
+
       <ThemeSwitcher />
     </Flex>
   );

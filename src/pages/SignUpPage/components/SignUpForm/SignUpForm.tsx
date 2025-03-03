@@ -1,6 +1,7 @@
 import './styles/SignUpForm.scss';
 
 import { cn } from '@bem-react/classname';
+import { UiTextConstant } from '@shared/const';
 import {
   DatePickerInput,
   FormComponent,
@@ -89,6 +90,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
                 field={userForm.fields.password}
                 placeholder={'Пароль'}
                 fullWidth
+                type={'password'}
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
@@ -96,6 +98,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
                 field={userForm.fields.passwordConfirm}
                 placeholder={'Подтвердите пароль'}
                 fullWidth
+                type={'password'}
               />
             </Col>
           </Row>
@@ -155,7 +158,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
             disabled={userForm.isSubmitting}
             className={cnSignUpForm('Button')}
           >
-            Отправить
+            {UiTextConstant.post()}
           </Button>
         </FormComponent>
       </Paper>

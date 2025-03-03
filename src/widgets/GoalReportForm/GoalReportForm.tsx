@@ -1,5 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { ReportCreateRequestType } from '@shared/api';
+import { UiTextConstant } from '@shared/const';
 import { FormComponent } from '@shared/elements/components/Form/FormComponent';
 import { Button } from '@shared/elements/ui';
 import { FormStore } from '@shared/lib';
@@ -27,7 +28,7 @@ export const GoalReportForm: FC<GoalReportFormProps> = observer((props) => {
     >
       <GoalReportFormFields />
       <Button type={'submit'} disabled={reportForm.isSubmitting}>
-        Отправить
+        {UiTextConstant.post()}
       </Button>
     </FormComponent>
   );

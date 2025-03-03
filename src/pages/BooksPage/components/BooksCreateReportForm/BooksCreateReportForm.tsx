@@ -1,5 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { ReportCreateRequestType } from '@shared/api';
+import { UiTextConstant } from '@shared/const';
 import { ReportCreateFormDefaultValues } from '@shared/const/reports/reportsConstants';
 import {
   FormComponent,
@@ -58,7 +59,7 @@ export const BooksCreateReportForm: FC<BookCreateReportFormProps> = observer(
           />
         </VStack>
         <Button type={'submit'} disabled={form.isSubmitting}>
-          Отправить
+          {UiTextConstant.post()}
         </Button>
       </FormComponent>
     );

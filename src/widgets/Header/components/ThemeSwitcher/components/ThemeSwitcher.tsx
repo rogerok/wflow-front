@@ -15,7 +15,6 @@ export const ThemeSwitcher: FC<ThemeSwitcherProps> = observer((props) => {
 
   return (
     <IconComponent
-      dataTestId={'ThemeSwitcher'}
       className={cnThemeSwitcher(undefined, [props.className])}
       name={theme.isDark ? 'MoonIcon' : 'SunIcon'}
       size={'md'}

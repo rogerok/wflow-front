@@ -10,3 +10,13 @@ export const UiTextConstant = {
   post: (entity = '') => concatenateWords('Отправить', entity),
   save: (entity = '') => concatenateWords('Сохранить', entity),
 } as const;
+
+export const NotificationText = {
+  success: () => 'Успешно',
+  error: () => 'Ошибка',
+  authRequired: () => 'Требуется авторизация',
+  notFound: () => 'Не найдено',
+  serverError: () => 'Ошибка сервера',
+  badRequest: () => 'Что-то пошло не так. Попробуйте обновить страницу.',
+  connectionError: () => 'Ошибка. Проверьте соединение с интернетом.',
+};
