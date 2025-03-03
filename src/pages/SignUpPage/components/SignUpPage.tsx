@@ -2,14 +2,13 @@ import './SignUpPage.scss';
 
 import { cn } from '@bem-react/classname';
 import { Page, PageTitle, Typography } from '@shared/elements/ui';
-import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
 import { SignUpForm } from './SignUpForm/SignUpForm';
 
 const cnSignUpPage = cn('SignUpPage');
 
-export const SignUpPage: FC = observer(() => {
+export const SignUpPage: FC = () => {
   return (
     <Page className={cnSignUpPage()}>
       <PageTitle title={'Регистрация'} />
@@ -25,4 +24,4 @@ export const SignUpPage: FC = observer(() => {
       <SignUpForm />
     </Page>
   );
-});
+};

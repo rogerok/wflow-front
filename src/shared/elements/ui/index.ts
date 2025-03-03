@@ -18,5 +18,6 @@ export { Page } from './Page/Page';
 export { PageTitle } from './PageTitle/PageTitle';
 export { Paper } from './Paper/Paper';
 export { ProgressBar } from './ProgressBar/ProgressBar';
+export { Toast } from './Toast/Toast';
 export { Typography } from './Typography/Typography';
 export { VStack } from './VStack/VStack';

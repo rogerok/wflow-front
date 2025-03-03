@@ -4,6 +4,7 @@ export * from './reports/reportsConstants';
 export * from './requestConstants';
 export * from './roles';
 export * from './router';
+export * from './text/uiText';
+export * from './text/validationMessages';
 export * from './themeConstants';
-export * from './uiText';
 export * from './validationSchemas';

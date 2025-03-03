@@ -14,6 +14,8 @@ export type NavbarLinksType = {
   to: string;
 
   roles: RolesType[];
+
+  disabled: boolean;
 };
 
 export const NavbarLinks: NavbarLinksType[] = [
@@ -35,45 +37,48 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Главная',
     roles: [RolesConstant.Admin, RolesConstant.Visitor, RolesConstant.User],
+    disabled: false,
   }),
 
   linkOptions({
     to: routes.signUp(),
     inActive: (
       <IconComponent
-        name={'SettingsIcon'}
+        name={'SignUpIcon'}
         size={'sm'}
         color={'basic-secondary-4'}
       />
     ),
     active: (
       <IconComponent
-        name={'SettingsIconFilled'}
+        name={'SignUpIconFilled'}
         size={'sm'}
         color={'brand-primary'}
       />
     ),
     label: 'Регистрация',
     roles: [RolesConstant.Visitor],
+    disabled: false,
   }),
   linkOptions({
     to: routes.signIn(),
     inActive: (
       <IconComponent
-        name={'SettingsIcon'}
+        name={'LoginIcon'}
         size={'sm'}
         color={'basic-secondary-4'}
       />
     ),
     active: (
       <IconComponent
-        name={'SettingsIconFilled'}
+        name={'LoginIconFilled'}
         size={'sm'}
         color={'brand-primary'}
       />
     ),
     label: 'Войти',
     roles: [RolesConstant.Visitor],
+    disabled: false,
   }),
   linkOptions({
     to: routes.books(),
@@ -93,6 +98,7 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Книги',
     roles: [RolesConstant.User, RolesConstant.Admin],
+    disabled: false,
   }),
   linkOptions({
     to: routes.reports(),
@@ -112,6 +118,7 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Отчёты',
     roles: [RolesConstant.User, RolesConstant.Admin],
+    disabled: import.meta.env.PROD && true,
   }),
   linkOptions({
     to: routes.goals(),
@@ -131,6 +138,7 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Цели',
     roles: [RolesConstant.User, RolesConstant.Admin],
+    disabled: false,
   }),
   linkOptions({
     to: routes.statistic(),
@@ -150,6 +158,7 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Статистика',
     roles: [RolesConstant.Admin, RolesConstant.User],
+    disabled: import.meta.env.PROD && true,
   }),
   linkOptions({
     to: routes.settings(),
@@ -169,6 +178,7 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Настройки',
     roles: [RolesConstant.Admin, RolesConstant.User],
+    disabled: import.meta.env.PROD && true,
   }),
   linkOptions({
     to: routes.profile(),
@@ -188,5 +198,6 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Профиль',
     roles: [RolesConstant.Admin, RolesConstant.User],
+    disabled: import.meta.env.PROD && true,
   }),
 ];

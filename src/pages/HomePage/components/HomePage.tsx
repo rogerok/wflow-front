@@ -1,14 +1,7 @@
 import { cn } from '@bem-react/classname';
-import {
-  Autocomplete,
-  DatePickerInput,
-  DateTimePickerInput,
-} from '@shared/elements/components';
-import { Page } from '@shared/elements/ui';
-import { FormStore } from '@shared/lib';
+import { Page, Typography } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
-import { FC, useState } from 'react';
-import { z } from 'zod';
+import { FC } from 'react';
 
 const cnHomePage = cn('HomePage');
 
@@ -16,47 +9,18 @@ interface HomePageProps {
   className?: string;
 }
 
-type Options = {
-  id: string;
-  label: string;
-  otherLabel: string;
-};
-
-const options: Options[] = [
-  { id: '1', label: 'Label 1', otherLabel: ' other Label 1' },
-  { id: '2', label: 'Label 2', otherLabel: ' other Label 2' },
-  {
-    id: '3',
-    label: 'Label 3',
-    otherLabel: ' other Label 3',
-  },
-  { id: '4', label: 'Label 4', otherLabel: ' other Label 4' },
-  { id: '5', label: 'Label 5', otherLabel: ' other Label 5' },
-];
-
 export const HomePage: FC<HomePageProps> = observer((props) => {
-  const [form] = useState(
-    () =>
-      new FormStore({
-        defaultValues: {
-          name: '',
-        },
-        schema: z.object({
-          name: z.string(),
-        }),
-      }),
-  );
-
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
-      <DatePickerInput field={form.fields.name} />
-      <DateTimePickerInput field={form.fields.name} />
-      <Autocomplete<Options>
-        options={options}
-        field={form.fields.name}
-        labelField={'label'}
-        uniqueIdentifier={'id'}
-      />
+      <Typography
+        weight={'bold'}
+        size={'xl'}
+        align={'center'}
+        fullWidth
+        as={'h1'}
+      >
+        Word Flow — дневник автора
+      </Typography>
     </Page>
   );
 });

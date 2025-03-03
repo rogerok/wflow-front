@@ -1,7 +1,7 @@
 import './Paper.scss';
 
 import { cn } from '@bem-react/classname';
-import { ComponentProps, ElementType, FC, ReactNode } from 'react';
+import { ComponentProps, ElementType, ReactElement, ReactNode } from 'react';
 
 import { Box } from '../Box/Box';
 
@@ -10,7 +10,7 @@ const cnPaper = cn('Paper');
 type PaperElevation = 1 | 2 | 3 | 4 | 5 | 6;
 type PaperRounded = 1 | 2 | 3 | 4 | 5 | 6;
 
-export type PaperProps<T extends ElementType = 'div'> = ComponentProps<
+export type PaperProps<T extends ElementType> = ComponentProps<
   typeof Box<T>
 > & {
   className?: string;
@@ -19,7 +19,9 @@ export type PaperProps<T extends ElementType = 'div'> = ComponentProps<
   rounded?: PaperRounded;
 };
 
-export const Paper: FC<PaperProps> = (props) => {
+export const Paper = <T extends ElementType = 'div'>(
+  props: PaperProps<T>,
+): ReactElement => {
   const { className, children, elevation, rounded } = props;
 
   return (

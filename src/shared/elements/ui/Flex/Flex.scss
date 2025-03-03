@@ -24,7 +24,6 @@
   &_end {
     align-items: end;
   }
-
 }
 
 .Flex_justify {
@@ -74,6 +73,10 @@
 
   &_32 {
     gap: 3.2rem;
+  }
+
+  &_64 {
+    gap: 6.4rem;
   }
 }
 

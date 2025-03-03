@@ -13,5 +13,11 @@
     outline: none;
 
     transition: var(--default-transition);
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--brand-primary);
+      }
+    }
   }
 }

@@ -42,7 +42,8 @@ export const Navbar: FC<NavbarProps> = observer((props) => {
         <NavbarToggleButton className={cnNavbar('ToggleButton')} />
         {NavbarLinks.map(
           (link) =>
-            link.roles.includes(userService.role) && (
+            link.roles.includes(userService.role) &&
+            !link.disabled && (
               <NavbarLink
                 className={cnNavbar('Link')}
                 key={link.to}

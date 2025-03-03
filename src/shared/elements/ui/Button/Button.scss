@@ -1,7 +1,6 @@
 .Button {
   $parent: &;
 
-
   display: flex;
   gap: 0.4rem;
   align-items: center;
@@ -13,6 +12,8 @@
   font: var(--font-m);
   font-weight: 600;
   text-decoration: none;
+
+  transition: var(--default-transition);
 
   &-Content {
     margin: 0 auto;
@@ -98,13 +99,11 @@
     &:not(#{$parent}_disabled):hover {
       cursor: pointer;
       box-shadow: var(--shadow-primary);
-      transition: var(--default-transition);
     }
 
     &_variant {
       &_filled:not(#{$parent}_disabled):hover {
-        color: var(--brand-primary);
-        background: var(--basic-accent);
+        background: var(--brand-accent-2);
         box-shadow: var(--shadow-primary);
       }
 

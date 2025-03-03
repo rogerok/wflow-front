@@ -14,7 +14,9 @@ export class BooksCreateService {
     },
   });
 
-  submitFormRequest = new RequestStore(createBookRequest);
+  submitFormRequest = new RequestStore(createBookRequest, {
+    success: 'Книга создана',
+  });
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });

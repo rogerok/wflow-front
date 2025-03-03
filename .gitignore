@@ -40,6 +40,8 @@ vite.config.*.timestamp*
 storybook-static
 
 
+.env.development
+.env.production
 .env
 vitest.config.*.timestamp*
 

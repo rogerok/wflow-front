@@ -1,5 +1,7 @@
+import { NotificationText } from '@shared/const';
 import { AxiosError, AxiosResponse, CanceledError } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
+import { toast } from 'react-toastify';
 
 const RequestStatusesConstant = {
   Idle: 'idle',
@@ -54,6 +56,37 @@ export class RequestStore<T, Args extends any[] = []> {
     );
   }
 
+  showErrorToast(err: unknown): void {
+    if (!navigator.onLine) {
+      toast.error(NotificationText.connectionError);
+      return;
+    }
+
+    const errorMsg = this.messages?.error;
+
+    if (errorMsg) {
+      toast.error(errorMsg);
+    } else if (err instanceof AxiosError) {
+      let errorMsg = NotificationText.error();
+
+      if (err.response?.status === 401) {
+        errorMsg = NotificationText.authRequired();
+      } else if (err.response?.status === 404) {
+        errorMsg = NotificationText.notFound();
+      } else if (err.response?.status === 500) {
+        errorMsg = NotificationText.serverError();
+      }
+
+      toast.error(errorMsg);
+    }
+  }
+
+  showSuccessToast(): void {
+    if (this.messages?.success) {
+      toast.success(this.messages.success);
+    }
+  }
+
   call = async (...args: Args): Promise<ExecutionResult<T>> => {
     this.result = {
       status: 'loading',
@@ -67,6 +100,7 @@ export class RequestStore<T, Args extends any[] = []> {
           data: result.data,
           status: 'success',
         };
+        this.showSuccessToast();
       });
     } catch (err: unknown) {
       runInAction(() => {
@@ -81,6 +115,7 @@ export class RequestStore<T, Args extends any[] = []> {
             error: err,
             status: 'error',
           };
+          this.showErrorToast(err);
         }
       });
     }

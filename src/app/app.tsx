@@ -6,9 +6,9 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { observer } from 'mobx-react-lite';
 import React, { FC, ReactElement, useEffect } from 'react';
 import { routeTree } from '../routeTree.gen';
-import { z } from 'zod';
-import { PageTitle } from '@shared/elements/ui';
+import { PageTitle, Toast } from '@shared/elements/ui';
 import { GlobalStoreContextProvider, useGlobalStore } from '@shared/stores';
+import { AppRouter, setZodErrorMap } from '@shared/lib';
 
 export const router = createRouter({
   routeTree,
@@ -30,13 +30,8 @@ declare global {
   }
 }
 
-z.setErrorMap((error, ctx) => {
-  let errorMessage = ctx.defaultError;
-  console.error(error, ctx);
-  return {
-    message: errorMessage,
-  };
-});
+setZodErrorMap();
+AppRouter.init(router);
 
 const cnApp = cn('App');
 
@@ -71,6 +66,7 @@ const InnerApp: FC = observer(() => {
           authController: authController,
         }}
       />
+      <Toast />
     </div>
   );
 });
