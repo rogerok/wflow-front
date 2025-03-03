@@ -2,6 +2,7 @@ import { createRootRouteWithContext } from '@tanstack/react-router';
 import React from 'react';
 import { AuthController } from '@shared/services';
 import { MainLayout } from '../layouts/MainLayout/MainLayout';
+import { NotFoundPage } from '@pages/NotFoundPage';
 
 interface RouterContext {
   isAuth: boolean;
@@ -15,4 +16,5 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       await context.authController?.restoreSession();
     }
   },
+  notFoundComponent: () => <NotFoundPage />,
 });
