@@ -83,6 +83,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
                 field={userForm.fields.email}
                 placeholder={'Почта'}
                 fullWidth
+                autoComplete={'email'}
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
@@ -91,6 +92,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
                 placeholder={'Пароль'}
                 fullWidth
                 type={'password'}
+                autoComplete={'new-password'}
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
@@ -99,6 +101,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
                 placeholder={'Подтвердите пароль'}
                 fullWidth
                 type={'password'}
+                autoComplete={'new-password'}
               />
             </Col>
           </Row>
