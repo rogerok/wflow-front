@@ -7,7 +7,7 @@ import App from './app/app';
 
 if (typeof window !== 'undefined') {
   scan({
-    enabled: true,
+    enabled: import.meta.env.DEV,
     showToolbar: false,
   });
 }
@@ -15,6 +15,7 @@ if (typeof window !== 'undefined') {
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+
 root.render(
   <StrictMode>
     <App />

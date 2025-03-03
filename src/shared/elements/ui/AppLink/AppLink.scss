@@ -5,9 +5,10 @@
   &_primary {
     color: var(--basic-primary);
 
-    &:hover {
-      color: var(--brand-primary);
+    @media (hover: hover) {
+      &:hover {
+        color: var(--brand-primary);
+      }
     }
   }
-
 }

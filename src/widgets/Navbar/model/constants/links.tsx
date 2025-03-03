@@ -41,14 +41,14 @@ export const NavbarLinks: NavbarLinksType[] = [
     to: routes.signUp(),
     inActive: (
       <IconComponent
-        name={'SettingsIcon'}
+        name={'SignUpIcon'}
         size={'sm'}
         color={'basic-secondary-4'}
       />
     ),
     active: (
       <IconComponent
-        name={'SettingsIconFilled'}
+        name={'SignUpIconFilled'}
         size={'sm'}
         color={'brand-primary'}
       />
@@ -60,14 +60,14 @@ export const NavbarLinks: NavbarLinksType[] = [
     to: routes.signIn(),
     inActive: (
       <IconComponent
-        name={'SettingsIcon'}
+        name={'LoginIcon'}
         size={'sm'}
         color={'basic-secondary-4'}
       />
     ),
     active: (
       <IconComponent
-        name={'SettingsIconFilled'}
+        name={'LoginIconFilled'}
         size={'sm'}
         color={'brand-primary'}
       />

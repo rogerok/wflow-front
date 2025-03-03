@@ -6,4 +6,11 @@
   width: 100%;
   height: var(--header-height);
   padding-top: 1.6rem;
+
+  &-Link {
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
+    justify-content: center;
+  }
 }

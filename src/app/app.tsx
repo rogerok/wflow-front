@@ -9,6 +9,7 @@ import { routeTree } from '../routeTree.gen';
 import { z } from 'zod';
 import { PageTitle } from '@shared/elements/ui';
 import { GlobalStoreContextProvider, useGlobalStore } from '@shared/stores';
+import { AppRouter } from '@shared/lib';
 
 export const router = createRouter({
   routeTree,
@@ -39,6 +40,7 @@ z.setErrorMap((error, ctx) => {
 });
 
 const cnApp = cn('App');
+AppRouter.init(router);
 
 const InnerApp: FC = observer(() => {
   const { theme, authController, userService } = useGlobalStore();
