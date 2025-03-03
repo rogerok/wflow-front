@@ -13,7 +13,9 @@ export class ReportCreateService {
 
   form: FormStore<ReportCreateRequestType>;
 
-  create = new RequestStore(reportCreateRequest);
+  create = new RequestStore(reportCreateRequest, {
+    success: 'Отчёт создан',
+  });
 
   abortController: AbortController | null = null;
 

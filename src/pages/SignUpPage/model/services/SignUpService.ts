@@ -7,7 +7,9 @@ import { UserCreateFormSchema, UserCreateFormType } from '../types/userCreate';
 
 export class SignUpService {
   private abortController: AbortController | null = null;
-  createUserRequest = new RequestStore(createUserRequest);
+  createUserRequest = new RequestStore(createUserRequest, {
+    success: 'Регистрация прошла успешно',
+  });
 
   userForm = new FormStore<UserCreateFormType>({
     schema: UserCreateFormSchema,
@@ -72,7 +74,7 @@ export class SignUpService {
 
       runInAction(() => {
         if (resp.status === 'success') {
-          AppRouter.router.navigate({
+          AppRouter.router?.navigate({
             to: '/signIn',
           });
         }

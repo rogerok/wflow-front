@@ -90,6 +90,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
                 field={userForm.fields.password}
                 placeholder={'Пароль'}
                 fullWidth
+                type={'password'}
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
@@ -97,6 +98,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
                 field={userForm.fields.passwordConfirm}
                 placeholder={'Подтвердите пароль'}
                 fullWidth
+                type={'password'}
               />
             </Col>
           </Row>

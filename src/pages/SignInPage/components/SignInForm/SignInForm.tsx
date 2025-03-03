@@ -47,6 +47,7 @@ export const SignInForm: FC<SignInFormProps> = observer((props) => {
           <TextInput
             field={authForm.fields.password}
             placeholder={'Пароль'}
+            type={'password'}
             fullWidth
           />
         </VStack>

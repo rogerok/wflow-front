@@ -9,7 +9,9 @@ import { GoalCreateFormSchema, GoalCreateFormType } from '../types/createGoal';
 export class GoalsCreateService {
   private abortController: AbortController | null = null;
 
-  createRequest = new RequestStore(createGoalRequest);
+  createRequest = new RequestStore(createGoalRequest, {
+    success: 'Цель создана',
+  });
 
   form = new FormStore<GoalCreateFormType>({
     schema: GoalCreateFormSchema,
