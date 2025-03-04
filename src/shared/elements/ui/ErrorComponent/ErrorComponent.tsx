@@ -4,6 +4,7 @@ import { cn } from '@bem-react/classname';
 import { useNavigate } from '@tanstack/react-router';
 import { FC } from 'react';
 
+import { routes } from '../../../const/router';
 import { Button } from '../Button/Button';
 import { Typography } from '../Typography/Typography';
 import { VStack } from '../VStack/VStack';
@@ -21,7 +22,7 @@ export const ErrorComponent: FC<ErrorComponentProps> = (props) => {
     props.reset();
 
     navigate({
-      to: '/',
+      to: routes.main(),
     });
   };
 

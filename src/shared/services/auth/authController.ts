@@ -78,6 +78,7 @@ export class AuthController {
 
         if (this.userService.userData) {
           this.router.navigate({ to: routes.main() });
+          this.authService.clearForm();
         }
       }
     }
@@ -99,7 +100,7 @@ export class AuthController {
     if (e.key === LOCAL_STORAGE_TOKEN_KEY && !e.newValue) {
       this.userService.clearUserData();
       this.router.navigate({
-        to: '/',
+        to: routes.main(),
         replace: true,
       });
 
@@ -111,7 +112,7 @@ export class AuthController {
     if (!getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY)) {
       this.userService.clearUserData();
       this.router.navigate({
-        to: '/',
+        to: routes.main(),
         replace: true,
       });
 

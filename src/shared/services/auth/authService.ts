@@ -18,7 +18,9 @@ export class AuthService {
     },
   });
 
-  authRequest = new RequestStore(authRequest);
+  authRequest = new RequestStore(authRequest, {
+    error: 'Неправильная почта или пароль',
+  });
   logoutRequest = new RequestStore(logoutRequest);
 
   constructor() {
@@ -27,8 +29,8 @@ export class AuthService {
 
   login = async (onSubmit?: () => Promise<void>): Promise<void> => {
     await this.authForm.submit(async (formValues: AuthRequestType) => {
-      await this.authRequest.call(formValues);
-      if (onSubmit) {
+      const resp = await this.authRequest.call(formValues);
+      if (resp.status === 'success' && onSubmit) {
         await onSubmit();
       }
     });
@@ -36,5 +38,9 @@ export class AuthService {
 
   logout = async (): Promise<void> => {
     await this.logoutRequest.call();
+  };
+
+  clearForm = (): void => {
+    this.authForm.reset();
   };
 }
