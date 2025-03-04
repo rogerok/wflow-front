@@ -24,6 +24,7 @@
   &_end {
     align-items: end;
   }
+
 }
 
 .Flex_justify {
@@ -78,12 +79,4 @@
   &_64 {
     gap: 6.4rem;
   }
-}
-
-.Flex_fullWidth {
-  width: 100%;
-}
-
-.Flex_fullHeight {
-  height: 100%;
 }
