@@ -63,8 +63,9 @@
         #{$parent}-Link {
           visibility: visible;
           opacity: 1;
-          transition: opacity 0.3s ease-in-out,
-          visibility 0s linear 0s;
+          transition:
+            opacity 0.3s ease-in-out,
+            visibility 0s linear 0s;
         }
       }
     }
@@ -83,7 +84,6 @@
       min-height: calc(100% - var(--header-height));
       padding: 2.4rem;
       border-radius: 3.2rem;
-
 
       &_collapsed {
         align-items: center;
