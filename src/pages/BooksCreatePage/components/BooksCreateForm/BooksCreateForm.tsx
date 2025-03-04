@@ -36,6 +36,7 @@ export const BooksCreateForm: FC<BooksCreateFormProps> = observer((props) => {
         <FormTextArea
           label={'Описание'}
           fullWidth
+          rows={20}
           field={service.form.fields.description}
         />
         <Button type={'submit'} disabled={service.form.isSubmitting}>
