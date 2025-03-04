@@ -5,7 +5,7 @@ import {
   ReportCreateRequestSchema,
   ReportCreateRequestType,
 } from '../../api';
-import { convertEmptyStringToNull, FormStore } from '../../lib';
+import { FormStore } from '../../lib';
 import { RequestStore } from '../../stores';
 
 export class ReportCreateService {
@@ -40,10 +40,8 @@ export class ReportCreateService {
     await this.form.submit(async (formValues: ReportCreateRequestType) => {
       const resp = await this.create.call(
         {
-          description: convertEmptyStringToNull(formValues.description),
           goalId: formValues.goalId,
           wordsAmount: Number(formValues.wordsAmount),
-          title: formValues.title,
           bookId: formValues.bookId,
         },
         this.abortController,
