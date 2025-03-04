@@ -75,11 +75,11 @@ $api.interceptors.response.use(
         getRequestKey(originalRequest.method, originalRequest.url),
       );
     }
-
     if (
       error.response &&
       error.response.status === HttpStatusCode.Unauthorized &&
-      !originalRequest?._isRetry
+      !originalRequest?._isRetry &&
+      error.config.url !== '/auth'
     ) {
       if (originalRequest) {
         originalRequest._isRetry = true;
