@@ -23,12 +23,6 @@ export const GoalReportFormFields: FC<GoalReportFormFieldsProps> = observer(
         gap={'24'}
         mb={'16'}
       >
-        <TextInput label={'Название'} field={form.fields.title} fullWidth />
-        <TextInput
-          label={'Описание'}
-          field={form.fields.description}
-          fullWidth
-        />
         <TextInput
           label={'Количество слов'}
           field={form.fields.wordsAmount}
