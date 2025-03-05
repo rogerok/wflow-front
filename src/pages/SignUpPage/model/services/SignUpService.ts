@@ -1,6 +1,7 @@
 import { createUserRequest } from '@shared/api';
 import { AppRouter, convertEmptyStringToNull, FormStore } from '@shared/lib';
 import { RequestStore } from '@shared/stores';
+import { formatISO, startOfDay } from 'date-fns';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { UserCreateFormSchema, UserCreateFormType } from '../types/userCreate';
@@ -66,7 +67,9 @@ export class SignUpService {
             vk: convertEmptyStringToNull(formValues.socialLinks.vk),
           },
 
-          bornDate: null,
+          bornDate: formValues.bornDate
+            ? formatISO(startOfDay(formValues.bornDate))
+            : null,
         },
 
         this.abortController,

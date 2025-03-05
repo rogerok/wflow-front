@@ -18,10 +18,10 @@ export const PseudonymSchema = z.object({
 });
 
 export const SocialSchema = z.object({
-  instagram: z.string().trim().url().or(EmptyStringSchema).nullable(),
-  telegram: z.string().trim().url().or(EmptyStringSchema).nullable(),
-  tiktok: z.string().trim().url().or(EmptyStringSchema).nullable(),
-  vk: z.string().trim().url().or(EmptyStringSchema).nullable(),
+  instagram: z.string().trim().or(EmptyStringSchema).nullable(),
+  telegram: z.string().trim().or(EmptyStringSchema).nullable(),
+  tiktok: z.string().trim().or(EmptyStringSchema).nullable(),
+  vk: z.string().trim().or(EmptyStringSchema).nullable(),
 });
 
 export const UserResponseSchema = z

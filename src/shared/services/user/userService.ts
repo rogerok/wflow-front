@@ -32,7 +32,8 @@ export class UserService {
 
     runInAction(() => {
       this.setUserData(result.data);
-      this._role = RolesConstant.Admin;
+      // TODO: create rba
+      this._role = RolesConstant.User;
     });
   };
 
