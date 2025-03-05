@@ -9,7 +9,7 @@ export const UserCreateFormSchema = UserCreateRequestSchema.merge(
 )
   .omit({ pseudonym: true })
   .refine((data) => data.password === data.passwordConfirm, {
-    message: 'Password and passwordConfirm must match',
+    message: 'Пароли должны совпадать',
     path: ['passwordConfirm'],
   });
 

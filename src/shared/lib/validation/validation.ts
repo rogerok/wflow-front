@@ -44,6 +44,8 @@ export const setZodErrorMap = (): void =>
   z.setErrorMap((error, ctx) => {
     let errorMessage = ctx.defaultError;
 
+    console.log(error);
+
     switch (error.code) {
       case z.ZodIssueCode.custom:
         errorMessage = ValidationMessages.invalidData();
