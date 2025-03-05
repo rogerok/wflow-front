@@ -47,7 +47,7 @@ export class SignUpService {
     await this.userForm.submit(async (formValues: UserCreateFormType) => {
       const resp = await this.createUserRequest.call(
         {
-          email: formValues.email,
+          email: formValues.email.toLowerCase(),
           firstName: formValues.firstName,
           lastName: convertEmptyStringToNull(formValues.lastName),
           middleName: convertEmptyStringToNull(formValues.middleName),

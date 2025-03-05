@@ -29,7 +29,10 @@ export class AuthService {
 
   login = async (onSubmit?: () => Promise<void>): Promise<void> => {
     await this.authForm.submit(async (formValues: AuthRequestType) => {
-      const resp = await this.authRequest.call(formValues);
+      const resp = await this.authRequest.call({
+        email: formValues.email.toLowerCase(),
+        password: formValues.password,
+      });
       if (resp.status === 'success' && onSubmit) {
         await onSubmit();
       }
