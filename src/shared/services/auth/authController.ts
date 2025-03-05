@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import { TokenSchema, TokenType } from '../../api';
 import { LOCAL_STORAGE_TOKEN_KEY, routes } from '../../const';
@@ -92,31 +92,33 @@ export class AuthController {
 
       if (this.isTokenValid(parsedToken)) {
         await this.userService.fetchUser(parsedToken.sub);
+
+        runInAction(() => {
+          if (!this.userService.userData) {
+            this.invalidateSession();
+          }
+        });
       }
     }
   };
 
-  trackLocalStorageToken = async (e: StorageEvent): Promise<void> => {
-    if (e.key === LOCAL_STORAGE_TOKEN_KEY && !e.newValue) {
-      this.userService.clearUserData();
-      this.router.navigate({
-        to: routes.main(),
-        replace: true,
-      });
+  invalidateSession = (): void => {
+    this.userService.clearUserData();
+    this.router.navigate({
+      to: routes.main(),
+      replace: true,
+    });
+  };
 
-      await this.router.invalidate();
+  trackLocalStorageToken = (e: StorageEvent): void => {
+    if (e.key === LOCAL_STORAGE_TOKEN_KEY && !e.newValue) {
+      this.invalidateSession();
     }
   };
 
-  handleTokenRemoval = async (): Promise<void> => {
+  handleTokenRemoval = (): void => {
     if (!getLocalStorageItem(LOCAL_STORAGE_TOKEN_KEY)) {
-      this.userService.clearUserData();
-      this.router.navigate({
-        to: routes.main(),
-        replace: true,
-      });
-
-      await this.router.invalidate();
+      this.invalidateSession();
     }
   };
 }
