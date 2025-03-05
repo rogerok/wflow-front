@@ -1,13 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { getUserById, getUsers, RolesType, UserResponseType } from '../../api';
+import { getUserById, RolesType, UserResponseType } from '../../api';
 import { RolesConstant } from '../../const';
 import { RequestStore } from '../../stores';
 
 export class UserService {
   private abortController: AbortController | null = null;
   getUserRequestStore = new RequestStore(getUserById);
-  getUsersRequest = new RequestStore(getUsers);
 
   userData: UserResponseType | null = null;
 
@@ -35,10 +34,6 @@ export class UserService {
       this.setUserData(result.data);
       this._role = RolesConstant.Admin;
     });
-  };
-
-  fetchUsers = async (): Promise<void> => {
-    await this.getUsersRequest.call();
   };
 
   get isAuth(): boolean {
