@@ -1,4 +1,4 @@
-import { FormStore } from '@shared/lib';
+import { convertEmptyStringToNull, FormStore } from '@shared/lib';
 import { RequestStore } from '@shared/stores';
 import { endOfDay, formatISO } from 'date-fns';
 import { makeAutoObservable, runInAction } from 'mobx';
@@ -47,7 +47,7 @@ export class GoalsCreateService {
       const resp = await this.createRequest.call(
         {
           bookId: values.bookId,
-          description: values.description,
+          description: convertEmptyStringToNull(values.description),
           endDate: formatISO(endOfDay(values.endDate)),
           goalWords: Number(values.goalWords),
           startDate: formatISO(endOfDay(values.startDate)),
