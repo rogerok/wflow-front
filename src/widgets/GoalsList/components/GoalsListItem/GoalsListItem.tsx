@@ -1,7 +1,6 @@
 import './GoalsListItem.scss';
 
 import { cn } from '@bem-react/classname';
-import { GoalResponseType } from '@shared/api';
 import { UiTextConstant } from '@shared/const';
 import {
   Button,
@@ -12,43 +11,54 @@ import {
   Typography,
   VStack,
 } from '@shared/elements/ui';
-import { formatDate } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
 import { FC, ReactNode } from 'react';
+
+import { GoalModel } from '../../models/Goal';
 
 const cnGoalsListItem = cn('GoalsListItem');
 
 interface GoalsListItemProps {
-  data: GoalResponseType;
+  goal: GoalModel;
   className?: string;
   actions?: ReactNode;
 }
 
 export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
-  const { className, data, actions } = props;
+  const { className, goal, actions } = props;
 
   return (
     <Card className={cnGoalsListItem(undefined, [className])} as={'li'}>
-      <CardHeader title={data.title} />
+      <CardHeader title={goal.data.title} />
       <VStack gap={'16'}>
-        <Typography as={'p'}>{data.description}</Typography>
+        <Typography as={'p'}>{goal.data.description}</Typography>
         <VStack fullWidth>
           <Typography>
-            Чтобы успеть в срок, вам стоит писать около{' '}
-            {Math.round(data.wordsPerDay)} слов ежедневно.
+            Чтобы успеть в срок, вам стоит писать около {goal.wordsPerDay} слов
+            ежедневно.
           </Typography>
+
+          {!goal.data.isExpired &&
+            !goal.data.isFinished &&
+            goal.lastDays > 0 && (
+              <Typography>
+                До окончания цели осталось дней {goal.lastDays}
+              </Typography>
+            )}
 
           <Typography variant={'accent'} weight={'semibold'}>
             Текущий прогресс
           </Typography>
           <HStack gap={'16'} flexJustify={'between'} mt={'8'}>
-            <Typography weight={'semibold'}>{data.writtenWords}</Typography>
-            <Typography weight={'semibold'}>{data.goalWords}</Typography>
+            <Typography weight={'semibold'}>
+              {goal.data.writtenWords}
+            </Typography>
+            <Typography weight={'semibold'}>{goal.data.goalWords}</Typography>
           </HStack>
           <ProgressBar
             className={cnGoalsListItem('ProgressBar')}
-            value={data.writtenWords}
-            max={data.goalWords}
+            value={goal.data.writtenWords}
+            max={goal.data.goalWords}
           />
         </VStack>
         {actions}
@@ -62,13 +72,13 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
         </Button>
         <HStack flexJustify={'between'} mt={'16'} as={'p'} gap={'8'}>
           <Typography variant={'light'}>
-            Создано: {formatDate(data.createdAt, true)}
+            Создано: {goal.formattedCreatedDate}
           </Typography>
           <Typography variant={'light'}>
-            Начало: {formatDate(data.startDate, true)}
+            Начало: {goal.formattedStartDate}
           </Typography>
           <Typography variant={'light'}>
-            Дедлайн: {formatDate(data.endDate, true)}
+            Дедлайн: {goal.formattedEndDate}
           </Typography>
         </HStack>
       </VStack>
