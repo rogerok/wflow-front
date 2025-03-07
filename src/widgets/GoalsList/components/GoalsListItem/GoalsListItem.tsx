@@ -33,19 +33,15 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
       <VStack gap={'16'}>
         <Typography as={'p'}>{goal.data.description}</Typography>
         <VStack fullWidth>
-          <Typography>
-            Чтобы успеть в срок, вам стоит писать около {goal.wordsPerDay} слов
-            ежедневно.
-          </Typography>
-
-          {!goal.data.isExpired &&
-            !goal.data.isFinished &&
-            goal.lastDays > 0 && (
-              <Typography>
-                До окончания цели осталось дней {goal.lastDays}
-              </Typography>
-            )}
-
+          {!goal.data.isFinished && !goal.data.isExpired && (
+            <Typography>
+              Чтобы успеть в срок, вам стоит писать около {goal.wordsPerDay}{' '}
+              слов ежедневно.
+            </Typography>
+          )}
+          {goal.localizedRemainingDays && (
+            <Typography>{goal.localizedRemainingDays}</Typography>
+          )}
           <Typography variant={'accent'} weight={'semibold'}>
             Текущий прогресс
           </Typography>
