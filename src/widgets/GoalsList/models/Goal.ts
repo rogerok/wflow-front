@@ -13,10 +13,6 @@ export class GoalModel {
     return Math.round(this.data.wordsPerDay);
   }
 
-  get lastDays(): number {
-    return differenceInCalendarDays(new Date(this.data.endDate), new Date());
-  }
-
   dateFormatter(date: string): string {
     return formatDate(date, true);
   }
@@ -31,5 +27,22 @@ export class GoalModel {
 
   get formattedEndDate(): string {
     return this.dateFormatter(this.data.endDate);
+  }
+
+  get daysRemaining(): number {
+    return differenceInCalendarDays(this.data.endDate, new Date());
+  }
+
+  get localizedRemainingDays(): string | null {
+    if (this.data.isExpired || this.data.isFinished) {
+      return null;
+    }
+
+    if (this.daysRemaining <= 0) {
+      return 'Срок истек';
+    }
+
+    const rtf = new Intl.RelativeTimeFormat('ru', { numeric: 'auto' });
+    return `До окончания цели ${rtf.format(this.daysRemaining, 'day').replace('через ', '')}`;
   }
 }
