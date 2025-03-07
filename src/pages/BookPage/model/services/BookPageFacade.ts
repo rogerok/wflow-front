@@ -48,7 +48,7 @@ export class BookPageFacade {
   fetchBookData = async (bookId: string): Promise<void> => {
     await Promise.all([
       this.bookService.getById(bookId),
-      this.goalsService.list(),
+      this.goalsService.list({ ...this.goalsService.requestParams, bookId }),
     ]);
   };
 
