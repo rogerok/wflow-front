@@ -5,6 +5,7 @@ import { GoalResponseType, GoalsListResponseType } from '@shared/api';
 import { observer } from 'mobx-react-lite';
 import { FC, ReactNode } from 'react';
 
+import { GoalModel } from '../../models/Goal';
 import { GoalsListItem } from '../GoalsListItem/GoalsListItem';
 
 const cnGoalsList = cn('GoalsList');
@@ -22,7 +23,7 @@ export const GoalsList: FC<GoalsListProps> = observer((props) => {
     <ul className={cnGoalsList(undefined, [className])}>
       {data.map((item) => (
         <GoalsListItem
-          data={item}
+          goal={new GoalModel(item)}
           key={item.id}
           actions={actions ? actions(item) : null}
         />
