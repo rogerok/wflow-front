@@ -1,9 +1,9 @@
 import './Modal.scss';
 
 import { cn } from '@bem-react/classname';
-import { FC, ReactNode, useEffect, useRef } from 'react';
+import { FC, MouseEvent, ReactNode, useRef } from 'react';
 
-import { handleClickOutside, useKeyDown } from '../../../lib';
+import { useKeyDown } from '../../../lib';
 import { HStack } from '../HStack/HStack';
 import { IconComponent } from '../IconComponent/IconComponent';
 import { Overlay } from '../Overlay/Overlay';
@@ -46,32 +46,37 @@ export const Modal: FC<ModalProps> = (props) => {
     callBack: handleClose,
   });
 
-  useEffect(() => {
-    const outsideClickListener = handleClickOutside({
-      callback: () => onClose?.(),
-      ref: ref,
-    });
+  // useEffect(() => {
+  //   const outsideClickListener = handleClickOutside({
+  //     callback: () => onClose?.(),
+  //     ref: ref,
+  //   });
+  //
+  //   document.addEventListener('mousedown', outsideClickListener);
+  //   document.addEventListener('touchend', outsideClickListener);
+  //
+  //   return () => {
+  //     document.removeEventListener('mousedown', outsideClickListener);
+  //     document.removeEventListener('touchend', outsideClickListener);
+  //   };
+  // }, [onClose]);
 
-    document.addEventListener('mousedown', outsideClickListener);
-    document.addEventListener('touchend', outsideClickListener);
-
-    return () => {
-      document.removeEventListener('mousedown', outsideClickListener);
-      document.removeEventListener('touchend', outsideClickListener);
-    };
-  }, [onClose]);
+  const handlePressContent = (e: MouseEvent<HTMLDivElement>): void => {
+    e.stopPropagation();
+  };
 
   return (
     open && (
       <Portal container={document.body.querySelector('.App') ?? document.body}>
         <div className={cnModal(undefined, [className])}>
-          <Overlay className={cnModal('ModalOverlay')} />
+          <Overlay className={cnModal('ModalOverlay')} onClick={handleClose} />
           <div
             className={cnModal('Content', {
               fullScreen: fullScreen,
               size: size,
             })}
             ref={ref}
+            onClick={handlePressContent}
           >
             <HStack pt={'16'} pb={'16'} flexJustify={'between'} wrap={'nowrap'}>
               {title && (
