@@ -1,7 +1,4 @@
-import './RadialStatistic.scss';
-
 import { cn } from '@bem-react/classname';
-import { CssVarsMapType } from '@shared/types';
 import { FC } from 'react';
 import {
   Legend,
@@ -10,6 +7,8 @@ import {
   RadialBarChart,
   ResponsiveContainer,
 } from 'recharts';
+
+import { CssVarsMapType } from '../../../types/theme';
 
 const cnRadialStatistic = cn('RadialStatistic');
 

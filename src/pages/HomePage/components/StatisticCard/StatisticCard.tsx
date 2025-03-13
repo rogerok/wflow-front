@@ -21,11 +21,18 @@ export const StatisticCard: FC<StatisticCardProps> = (props) => {
       px={'16'}
       py={'16'}
     >
-      <VStack as={'p'} gap={'8'} align={'center'}>
+      <VStack
+        as={'p'}
+        gap={'8'}
+        align={'center'}
+        flexJustify={'between'}
+        fullHeight
+      >
         <Typography weight={'semibold'}>{title}</Typography>
-        <Typography variant={'accent'} size={'l'}>
-          {value}
+        <Typography variant={'accent'} size={'xl'}>
+          {typeof value === 'string' ? value : Math.round(value)}
         </Typography>
+
         <Typography variant={'light'}>{subtitle}</Typography>
       </VStack>
     </Paper>

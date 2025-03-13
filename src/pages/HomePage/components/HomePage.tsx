@@ -1,13 +1,13 @@
 import { cn } from '@bem-react/classname';
 import { CssColorsVarsConstant } from '@shared/const';
-import { Col, Grid, Page, Paper, Row, Typography } from '@shared/elements/ui';
+import { Col, Grid, Page, Row, Typography, VStack } from '@shared/elements/ui';
 import { formatDate } from '@shared/lib';
 import { Quotes } from '@widgets/Quotes';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
+import { StatisticCardRadial } from '../components/StatisticCard/StatisticCardRadial';
 import { HomePageService } from '../models/services/HomePageService';
-import { RadialStatistic } from './RadialStatistic';
 import { StatisticCard } from './StatisticCard/StatisticCard';
 
 const cnHomePage = cn('HomePage');
@@ -28,27 +28,19 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
   return (
     data && (
       <Page className={cnHomePage(undefined, [props.className])}>
-        <Typography
-          weight={'bold'}
-          size={'xl'}
-          align={'center'}
-          fullWidth
-          as={'h1'}
-        >
-          Word Flow — дневник автора
-        </Typography>
-        <Quotes />
-        <Grid>
-          <Typography
-            as={'h2'}
-            align={'center'}
-            weight={'semibold'}
-            size={'xl'}
-          >
+        <VStack as={'header'} gap={'32'} align={'center'}>
+          <Typography weight={'bold'} size={'xl'} as={'h1'}>
+            Word Flow — дневник автора
+          </Typography>
+          <Quotes />
+          <Typography as={'h2'} weight={'semibold'} size={'xl'}>
             Ваши результаты
           </Typography>
+        </VStack>
+
+        <Grid mt={'32'}>
           <Row spacing={3} vSpacing={3}>
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Общее количество слов'}
                 value={data.totalWords}
@@ -57,7 +49,7 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
                 }
               />
             </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Максимальное количество слов в день'}
                 value={data.maxWordsInDay}
@@ -66,7 +58,7 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
                 }
               />
             </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Среднее количество слов в день'}
                 value={data.averageWordsPerDay}
@@ -75,14 +67,15 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
                 }
               />
             </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
-                title={'Среднее количество слов в отчете'}
+                title={'Среднее количество слов в отчёте'}
                 value={data.averageWordsPerReport}
-                subtitle={'Среднее количество слов в каждом отчете.'}
+                subtitle={'Среднее количество слов в каждом отчёте.'}
               />
             </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
+
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Общее количество книг'}
                 value={data.totalBooks}
@@ -91,46 +84,84 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
                 }
               />
             </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Общее количество целей'}
                 value={data.totalGoals}
                 subtitle={'Количество поставленных целей для написания текста.'}
               />
             </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
-              <Paper elevation={3} rounded={3} py={'16'} px={'16'}>
-                <Typography align={'center'} fullWidth>
-                  Процент выполнения целей
-                </Typography>
-                <RadialStatistic
-                  name={'Процент выполнения целей'}
-                  value={data.goalCompletionRate}
-                  fill={CssColorsVarsConstant.Alert}
-                />
-                <Typography align={'center'} fullWidth>
-                  Процент выполненных целей от общего числа.
-                </Typography>
-              </Paper>
-            </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
+
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Завершенные цели'}
                 value={data.completedGoals}
                 subtitle={'Количество целей, которые вы успешно завершили.'}
               />
             </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
-              <StatisticCard
-                title={'Общее количество отчетов'}
-                value={data.totalReports}
+
+            <Col sm={12} md={6} lg={4}>
+              <StatisticCardRadial
+                title={'Процент прогресса по цели'}
+                value={data.goalCompletionRate}
+                fill={CssColorsVarsConstant.BrandPrimaryLight}
                 subtitle={
-                  'Общее количество отчетов о проделанной работе за все время.'
+                  'Процент выполнения общей цели, с учетом написанных и оставшихся слов.'
                 }
               />
             </Col>
 
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col sm={12} md={6} lg={4}>
+              <StatisticCardRadial
+                title={'Процент выполнения целей'}
+                value={data.goalCompletionRate}
+                fill={CssColorsVarsConstant.BrandSecondary}
+                subtitle={'Процент выполненных целей от общего числа.'}
+              />
+            </Col>
+
+            <Col sm={12} md={6} lg={4}>
+              <StatisticCardRadial
+                title={'Процент выполнения просроченных целей'}
+                value={data.expiredGoalsCompletionRate}
+                fill={CssColorsVarsConstant.BrandSecondaryLight}
+                subtitle={'Процент завершенных целей, которые уже просрочены.'}
+              />
+            </Col>
+
+            <Col sm={12} md={6} lg={4}>
+              <StatisticCardRadial
+                title={'Процент перевыполненных целей'}
+                value={data.overachievementRate}
+                fill={CssColorsVarsConstant.BrandAccent1}
+                subtitle={
+                  'Процент целей, которые вы завершили, написав больше слов, чем требовалось.'
+                }
+              />
+            </Col>
+
+            <Col sm={12} md={6} lg={4}>
+              <StatisticCard
+                title={'Общее количество отчётов'}
+                value={data.totalReports}
+                subtitle={
+                  'Общее количество отчётов о проделанной работе за все время.'
+                }
+              />
+            </Col>
+
+            <Col sm={12} md={6} lg={4}>
+              <StatisticCardRadial
+                title={' Процент отчётов выше среднего'}
+                value={data.aboveAverageReportsRate}
+                fill={CssColorsVarsConstant.BrandAccent2}
+                subtitle={
+                  'Процент отчётов, в которых вы написали больше слов, чем в среднем по всем отчётам.'
+                }
+              />
+            </Col>
+
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Среднее количество дней для завершения'}
                 value={data.averageDaysToComplete}
@@ -139,7 +170,7 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
                 }
               />
             </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Самый продуктивный день'}
                 value={formatDate(data.mostProductiveDay)}
@@ -149,7 +180,7 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
               />
             </Col>
 
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Текущая серия дней'}
                 value={data.currentStreak}
@@ -158,7 +189,7 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
                 }
               />
             </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Самая длинная серия дней'}
                 value={data.longestStreak}
@@ -167,7 +198,7 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
                 }
               />
             </Col>
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col sm={12} md={6} lg={4}>
               <StatisticCard
                 title={'Общее количество дней с активностью'}
                 value={data.totalDaysWithActivity}
@@ -176,66 +207,17 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
                 }
               />
             </Col>
+            <Col sm={12} md={6} lg={4}>
+              <StatisticCardRadial
+                title={'Процент регулярности активности'}
+                value={data.activityConsistencyRate}
+                fill={CssColorsVarsConstant.BrandAccent3}
+                subtitle={
+                  'Этот показатель показывает, как часто вы были активны относительно общего времени с начала работы.'
+                }
+              />
+            </Col>
           </Row>
-
-          <Paper elevation={3} rounded={3} py={'16'}>
-            <RadialStatistic
-              name={'Процент регулярности активности'}
-              value={data.activityConsistencyRate}
-              fill={CssColorsVarsConstant.Alert}
-            />
-            <Typography align={'center'} fullWidth>
-              Этот показатель показывает, как часто вы были активны относительно
-              общего времени с начала работы.
-            </Typography>
-          </Paper>
-
-          <Paper elevation={3} rounded={3} py={'16'}>
-            <RadialStatistic
-              name={'Процент прогресса по цели'}
-              value={data.goalCompletionRate}
-              fill={CssColorsVarsConstant.Alert}
-            />
-            <Typography align={'center'} fullWidth>
-              Процент выполнения общей цели, с учетом написанных и оставшихся
-              слов.
-            </Typography>
-          </Paper>
-
-          <Paper elevation={3} rounded={3} py={'16'}>
-            <RadialStatistic
-              name={'Процент выполнения просроченных целей'}
-              value={data.expiredGoalsCompletionRate}
-              fill={CssColorsVarsConstant.Alert}
-            />
-            <Typography align={'center'} fullWidth>
-              Процент завершенных целей, которые уже просрочены.
-            </Typography>
-          </Paper>
-
-          <Paper elevation={3} rounded={3} py={'16'}>
-            <RadialStatistic
-              name={'Процент перевыполненных целей'}
-              value={data.overachievementRate}
-              fill={CssColorsVarsConstant.Alert}
-            />
-            <Typography align={'center'} fullWidth>
-              Процент целей, которые вы завершили, написав больше слов, чем
-              требовалось.
-            </Typography>
-          </Paper>
-
-          <Paper elevation={3} rounded={3} py={'16'}>
-            <RadialStatistic
-              name={' Процент отчетов выше среднего'}
-              value={data.aboveAverageReportsRate}
-              fill={CssColorsVarsConstant.Alert}
-            />
-            <Typography align={'center'} fullWidth>
-              Процент отчетов, в которых вы написали больше слов, чем в среднем
-              по всем отчетам.
-            </Typography>
-          </Paper>
         </Grid>
       </Page>
     )
