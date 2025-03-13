@@ -20,7 +20,11 @@ export const Quotes: FC<QuotesProps> = observer((props) => {
 
   return (
     request.result.status === 'success' && (
-      <Typography as={'p'} className={cnQuotes(undefined, [props.className])}>
+      <Typography
+        className={cnQuotes(undefined, [props.className])}
+        as={'p'}
+        size={'l'}
+      >
         {request.result.data?.text}
       </Typography>
     )
