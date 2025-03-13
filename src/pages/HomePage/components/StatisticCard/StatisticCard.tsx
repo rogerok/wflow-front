@@ -20,6 +20,7 @@ export const StatisticCard: FC<StatisticCardProps> = (props) => {
       rounded={3}
       px={'16'}
       py={'16'}
+      fullWidth
     >
       <VStack
         as={'p'}

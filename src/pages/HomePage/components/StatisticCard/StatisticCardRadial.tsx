@@ -16,11 +16,12 @@ export const StatisticCardRadial: FC<StatisticCardRadialProps> = (props) => {
 
   return (
     <Paper
+      className={cnStatisticCardRadial(undefined, [className])}
       elevation={3}
       rounded={3}
       px={'16'}
       py={'16'}
-      className={cnStatisticCardRadial(undefined, [className])}
+      fullWidth
     >
       <Typography weight={'semibold'}>{title}</Typography>{' '}
       <RadialStatistic value={value} fill={fill} />
