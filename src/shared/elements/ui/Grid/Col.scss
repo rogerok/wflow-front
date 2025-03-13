@@ -18,8 +18,9 @@ $grid-columns: 12;
 
 .Col {
   position: relative;
+  display: flex;
+  justify-content: stretch;
   width: 100%;
-
   @for $i from 1 through $grid-columns {
     &_size_#{$i} {
       flex: 0 0 math.percentage(calc($i / $grid-columns));
