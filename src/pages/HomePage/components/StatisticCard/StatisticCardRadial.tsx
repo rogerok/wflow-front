@@ -1,5 +1,10 @@
 import { cn } from '@bem-react/classname';
-import { Paper, RadialStatistic, Typography } from '@shared/elements/ui';
+import {
+  Paper,
+  RadialStatistic,
+  Typography,
+  VStack,
+} from '@shared/elements/ui';
 import { ComponentProps, FC } from 'react';
 
 const cnStatisticCardRadial = cn('StatisticCardRadial');
@@ -23,9 +28,11 @@ export const StatisticCardRadial: FC<StatisticCardRadialProps> = (props) => {
       py={'16'}
       fullWidth
     >
-      <Typography weight={'semibold'}>{title}</Typography>{' '}
-      <RadialStatistic value={value} fill={fill} />
-      <Typography variant={'light'}>{subtitle}</Typography>
+      <VStack align={'center'}>
+        <Typography weight={'semibold'}>{title}</Typography>
+        <RadialStatistic value={value} fill={fill} />
+        <Typography variant={'light'}>{subtitle}</Typography>
+      </VStack>
     </Paper>
   );
 };
