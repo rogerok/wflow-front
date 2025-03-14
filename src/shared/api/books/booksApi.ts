@@ -11,7 +11,7 @@ export const getBooksList = (
   });
 };
 
-export const bookById = (
+export const getBookById = (
   id: string,
   abortController: AbortController | null,
 ): Promise<AxiosResponse<BookResponseType>> => {
