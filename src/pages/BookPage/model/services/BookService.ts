@@ -1,8 +1,6 @@
-import { BookResponseType } from '@shared/api';
+import { bookById, BookResponseType } from '@shared/api';
 import { RequestStore } from '@shared/stores';
 import { makeAutoObservable, runInAction } from 'mobx';
-
-import { bookById } from '../../api/bookApi';
 
 export class BookService {
   private abortController: AbortController | null = null;

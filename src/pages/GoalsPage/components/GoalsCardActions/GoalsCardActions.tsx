@@ -34,10 +34,10 @@ export const GoalsCardActions: FC<GoalsCardActionsProps> = observer((props) => {
         {UiTextConstant.edit('цель')}
       </Button>
       <ButtonLink
-        to={routes.reports()}
+        to={routes.goal()}
+        params={{ goalId: goal.id }}
         variant={'outlined'}
         fullWidth={isScreenDownMd}
-        disabled
       >
         Подробности
       </ButtonLink>
