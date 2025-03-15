@@ -30,7 +30,7 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
   return (
     <Card className={cnGoalsListItem(undefined, [className])} as={'li'}>
       <CardHeader title={goal.data.title} />
-      <VStack gap={'16'}>
+      <VStack gap={'16'} fullHeight>
         <Typography as={'p'}>{goal.data.description}</Typography>
         <VStack fullWidth>
           {!goal.data.isFinished && !goal.data.isExpired && (
@@ -42,6 +42,7 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
           {goal.localizedRemainingDays && (
             <Typography>{goal.localizedRemainingDays}</Typography>
           )}
+
           <Typography variant={'accent'} weight={'semibold'}>
             Текущий прогресс
           </Typography>
@@ -66,7 +67,13 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
         >
           {UiTextConstant.delete()}
         </Button>
-        <HStack flexJustify={'between'} mt={'16'} as={'p'} gap={'8'}>
+        <HStack
+          flexJustify={'between'}
+          as={'p'}
+          gap={'8'}
+          mt={'auto'}
+          pb={'16'}
+        >
           <Typography variant={'light'}>
             Создано: {goal.formattedCreatedDate}
           </Typography>
