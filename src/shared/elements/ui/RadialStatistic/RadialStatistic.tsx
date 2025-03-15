@@ -30,7 +30,7 @@ export const RadialStatistic: FC<RadialStatisticProps> = (props) => {
       <RadialBarChart
         innerRadius={'80%'}
         outerRadius={'100%'}
-        data={[{ value: value.toFixed(1), fill: `var(--${fill})` }]}
+        data={[{ value: Math.round(value), fill: `var(--${fill})` }]}
         startAngle={90}
         endAngle={-270}
       >

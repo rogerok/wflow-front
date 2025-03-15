@@ -6,7 +6,7 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { observer } from 'mobx-react-lite';
 import React, { FC, ReactElement, useEffect } from 'react';
 import { routeTree } from '../routeTree.gen';
-import { Toast } from '@shared/elements/ui';
+import { Loader, Toast } from '@shared/elements/ui';
 import { GlobalStoreContextProvider, useGlobalStore } from '@shared/stores';
 import { AppRouter, setZodErrorMap } from '@shared/lib';
 
@@ -16,6 +16,7 @@ export const router = createRouter({
     isAuth: false,
     authController: undefined,
   },
+  defaultPendingComponent: () => <Loader fullPage />,
 });
 
 declare module '@tanstack/react-router' {

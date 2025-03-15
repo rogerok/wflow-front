@@ -13,6 +13,7 @@ export { Grid } from './Grid/Grid';
 export { Row } from './Grid/Row';
 export { HStack } from './HStack/HStack';
 export { IconComponent } from './IconComponent/IconComponent';
+export { Loader } from './Loader/Loader';
 export { Modal } from './Modal/Modal';
 export { Overlay } from './Overlay/Overlay';
 export { Page } from './Page/Page';

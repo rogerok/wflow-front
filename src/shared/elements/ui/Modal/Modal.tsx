@@ -2,10 +2,9 @@ import './Modal.scss';
 
 import { cn } from '@bem-react/classname';
 import { FC, MouseEvent, ReactNode, useRef } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 import { useKeyDown } from '../../../lib';
-import { HStack } from '../HStack/HStack';
-import { IconComponent } from '../IconComponent/IconComponent';
 import { Overlay } from '../Overlay/Overlay';
 import { Portal } from '../Portal/Portal';
 import { Typography } from '../Typography/Typography';
@@ -46,30 +45,22 @@ export const Modal: FC<ModalProps> = (props) => {
     callBack: handleClose,
   });
 
-  // useEffect(() => {
-  //   const outsideClickListener = handleClickOutside({
-  //     callback: () => onClose?.(),
-  //     ref: ref,
-  //   });
-  //
-  //   document.addEventListener('mousedown', outsideClickListener);
-  //   document.addEventListener('touchend', outsideClickListener);
-  //
-  //   return () => {
-  //     document.removeEventListener('mousedown', outsideClickListener);
-  //     document.removeEventListener('touchend', outsideClickListener);
-  //   };
-  // }, [onClose]);
-
   const handlePressContent = (e: MouseEvent<HTMLDivElement>): void => {
     e.stopPropagation();
   };
 
   return (
-    open && (
-      <Portal container={document.body.querySelector('.App') ?? document.body}>
+    <Portal container={document.body.querySelector('.App') ?? document.body}>
+      <CSSTransition
+        in={open}
+        timeout={300}
+        classNames="Modal-Transition"
+        unmountOnExit
+        nodeRef={ref}
+      >
         <div className={cnModal(undefined, [className])}>
           <Overlay className={cnModal('ModalOverlay')} onClick={handleClose} />
+
           <div
             className={cnModal('Content', {
               fullScreen: fullScreen,
@@ -78,29 +69,21 @@ export const Modal: FC<ModalProps> = (props) => {
             ref={ref}
             onClick={handlePressContent}
           >
-            <HStack pt={'16'} pb={'16'} flexJustify={'between'} wrap={'nowrap'}>
-              {title && (
-                <Typography
-                  className={cnModal('Title')}
-                  as={'h4'}
-                  variant={'accent'}
-                  size={'l'}
-                  weight={'semibold'}
-                >
-                  {title}
-                </Typography>
-              )}
-              <IconComponent
-                className={cnModal('CloseButton')}
-                name={'CloseIcon'}
-                size={'lg'}
-                onClick={handleClose}
-              />
-            </HStack>
+            {title && (
+              <Typography
+                className={cnModal('Title')}
+                as={'h4'}
+                variant={'accent'}
+                size={'l'}
+                weight={'semibold'}
+              >
+                {title}
+              </Typography>
+            )}
             {children}
           </div>
         </div>
-      </Portal>
-    )
+      </CSSTransition>
+    </Portal>
   );
 };

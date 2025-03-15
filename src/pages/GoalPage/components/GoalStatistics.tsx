@@ -102,7 +102,7 @@ export const GoalStatistics: FC<GoalStatisticsProps> = observer((props) => {
                 </Typography>
                 <RadialStatistic
                   fill={CssColorsVarsConstant.BrandPrimaryLight}
-                  value={Number(statistics.percentageComplete.toFixed(1))}
+                  value={Math.round(statistics.percentageComplete)}
                 />
               </HStack>
             </Paper>
