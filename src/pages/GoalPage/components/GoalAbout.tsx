@@ -1,5 +1,5 @@
 import { cn } from '@bem-react/classname';
-import { HStack, IconComponent, Typography, VStack } from '@shared/elements/ui';
+import { HStack, IconComponent, Typography } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
@@ -16,18 +16,17 @@ export const GoalAbout: FC<GoalAboutProps> = observer((props) => {
   const goal = service.goal;
 
   return (
-    <VStack
+    <HStack
       className={cnGoalAbout(undefined, [props.className])}
-      as={'section'}
+      as={'header'}
+      align={'center'}
       gap={'32'}
+      flexJustify={'center'}
     >
-      <HStack as={'header'} align={'center'} gap={'32'} mx={'auto'}>
-        <Typography as={'h1'} size={'xl'} weight={'bold'}>
-          {goal?.title}
-        </Typography>
-        <IconComponent name={'GoalIcon'} size={'lg'} />
-      </HStack>
-      <Typography fullWidth>{goal?.description}</Typography>
-    </VStack>
+      <Typography as={'h1'} size={'xl'} weight={'bold'}>
+        {goal?.title}
+      </Typography>
+      <IconComponent name={'GoalIcon'} size={'lg'} />
+    </HStack>
   );
 });
