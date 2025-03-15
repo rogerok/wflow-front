@@ -1,5 +1,5 @@
 import { cn } from '@bem-react/classname';
-import { Page, PageTitle } from '@shared/elements/ui';
+import { Page, PageSeo } from '@shared/elements/ui';
 import { FC } from 'react';
 
 import { GoalsCreateForm } from './GoalsCreateForm/GoalsCreateForm';
@@ -13,7 +13,7 @@ interface GoalsCreatePageProps {
 export const GoalsCreatePage: FC<GoalsCreatePageProps> = (props) => {
   return (
     <Page className={cnGoalsCreatePage(undefined, [props.className])}>
-      <PageTitle title={'Добавить цель'} />
+      <PageSeo title={'Добавить цель'} />
       <GoalsCreateForm />
     </Page>
   );

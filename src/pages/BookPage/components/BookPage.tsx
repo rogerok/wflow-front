@@ -6,7 +6,7 @@ import {
   HStack,
   IconComponent,
   Page,
-  PageTitle,
+  PageSeo,
   Typography,
   VStack,
 } from '@shared/elements/ui';
@@ -46,7 +46,11 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
     <div>Loading...</div>
   ) : (
     <Page className={cnBookPage(undefined, [props.className])}>
-      <PageTitle title={`Книга ${bookFacade.bookData?.name ?? ''}`} />
+      <PageSeo
+        title={`Книга ${bookFacade.bookData?.name ?? ''}`}
+        type={'Книга'}
+        description={bookFacade.bookData?.description}
+      />
       <VStack gap={'8'} align={'center'}>
         <IconComponent name={'BookIconFilled'} size={'md'} />
         <Typography

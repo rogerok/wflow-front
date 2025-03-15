@@ -6,7 +6,7 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { observer } from 'mobx-react-lite';
 import React, { FC, ReactElement, useEffect } from 'react';
 import { routeTree } from '../routeTree.gen';
-import { PageTitle, Toast } from '@shared/elements/ui';
+import { Toast } from '@shared/elements/ui';
 import { GlobalStoreContextProvider, useGlobalStore } from '@shared/stores';
 import { AppRouter, setZodErrorMap } from '@shared/lib';
 
@@ -58,7 +58,6 @@ const InnerApp: FC = observer(() => {
 
   return (
     <div className={cnApp(undefined, [theme.current])}>
-      <PageTitle title={'Word Flow - Дневник автора'} />
       <RouterProvider
         router={router}
         context={{

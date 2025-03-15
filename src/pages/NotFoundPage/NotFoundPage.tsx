@@ -2,7 +2,7 @@ import { cn } from '@bem-react/classname';
 import {
   ButtonLink,
   Page,
-  PageTitle,
+  PageSeo,
   Typography,
   VStack,
 } from '@shared/elements/ui';
@@ -17,7 +17,7 @@ interface NotFoundPageProps {
 export const NotFoundPage: FC<NotFoundPageProps> = (props) => {
   return (
     <Page className={cnNotFoundPage(undefined, [props.className])}>
-      <PageTitle title={'Страница не найдена'} />
+      <PageSeo title={'Страница не найдена'} />
       <VStack as={'p'} flexJustify={'center'} align={'center'} gap={'64'}>
         <Typography as={'h1'} size={'xl'} align={'center'}>
           Страница не найдена
