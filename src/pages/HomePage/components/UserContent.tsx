@@ -108,7 +108,7 @@ export const UserContent: FC<UserContentProps> = observer((props) => {
               value={data.goalCompletionRate}
               fill={CssColorsVarsConstant.BrandPrimaryLight}
               subtitle={
-                'Процент выполнения общей цели, с учетом написанных и оставшихся слов.'
+                'Процент завершенных целей из общего числа установленных целей.'
               }
             />
           </Col>
