@@ -6,9 +6,9 @@ import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
-import { HomePageService } from '../models/services/HomePageService';
-import { StatisticCardRadial } from './StatisticCard//StatisticCardRadial';
+import { HomePageService } from '../model/services/HomePageService';
 import { StatisticCard } from './StatisticCard/StatisticCard';
+import { StatisticCardRadial } from './StatisticCard/StatisticCardRadial';
 
 const cnUserContent = cn('UserContent');
 

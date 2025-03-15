@@ -1,5 +1,5 @@
 import { cn } from '@bem-react/classname';
-import { FC } from 'react';
+import { ComponentProps, FC } from 'react';
 import {
   Legend,
   PolarAngleAxis,
@@ -13,13 +13,14 @@ import { CssVarsMapType } from '../../../types/theme';
 const cnRadialStatistic = cn('RadialStatistic');
 
 interface RadialStatisticProps {
-  className?: string;
   fill: CssVarsMapType;
   value: number;
+  className?: string;
+  domain?: ComponentProps<typeof PolarAngleAxis>['domain'];
 }
 
 export const RadialStatistic: FC<RadialStatisticProps> = (props) => {
-  const { fill, className, value } = props;
+  const { fill, className, value, domain = [0, 100] } = props;
 
   return (
     <ResponsiveContainer
@@ -29,18 +30,13 @@ export const RadialStatistic: FC<RadialStatisticProps> = (props) => {
       <RadialBarChart
         innerRadius={'80%'}
         outerRadius={'100%'}
-        data={[{ value: Math.round(value), fill: `var(--${fill})` }]}
+        data={[{ value: value.toFixed(1), fill: `var(--${fill})` }]}
         startAngle={90}
         endAngle={-270}
       >
-        <Legend
-          align={'center'}
-          verticalAlign={'top'}
-          iconSize={0}
-          className={cnRadialStatistic('Legend')}
-        />
+        <Legend align={'center'} verticalAlign={'top'} iconSize={0} />
 
-        <PolarAngleAxis tick={false} domain={[0, 100]} type="number" />
+        <PolarAngleAxis tick={false} domain={domain} type="number" />
         <RadialBar
           label={{
             fill: `var(--${fill})`,

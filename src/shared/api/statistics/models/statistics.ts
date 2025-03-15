@@ -45,16 +45,18 @@ export type StatisticsUserResponseType = z.infer<
 >;
 
 export const StatisticsGoalResponseSchema = z.object({
-  goalId: z.string().uuid(),
+  averageWordsPerReport: z.number(),
+  averageWordsPerDay: z.number(),
   bookId: z.string().uuid(),
-  totalWordsWritten: z.number(),
-  percentageComplete: z.number(),
-  remainingWords: z.number(),
   dailyWordsRequired: z.number(),
   daysElapsed: z.number(),
   daysRemaining: z.number(),
-  averageWordsPerDay: z.number(),
+  estimatedEndDate: z.string(),
+  goalId: z.string().uuid(),
+  percentageComplete: z.number(),
+  remainingWords: z.number(),
   reportsCount: z.number(),
+  totalWordsWritten: z.number(),
   trendComparedToTarget: z.number(),
 });
 

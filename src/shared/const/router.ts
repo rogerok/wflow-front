@@ -9,6 +9,7 @@ export const routes = {
   bookDetails: () => '/books/$bookId',
   booksCreate: () => '/books/create',
   goals: () => '/goals',
+  goal: () => '/goals/$goalId',
   goalsCreate: () => '/goals/create',
   reports: () => '/reports',
 } as const;

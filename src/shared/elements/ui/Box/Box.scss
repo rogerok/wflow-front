@@ -175,6 +175,10 @@
     margin-top: 3.2rem;
     margin-bottom: 3.2rem;
   }
+
+  &_auto {
+    margin: auto 0;
+  }
 }
 
 .Box_mx {
@@ -201,6 +205,10 @@
   &_32 {
     margin-right: 3.2rem;
     margin-left: 3.2rem;
+  }
+
+  &_auto {
+    margin: 0 auto;
   }
 }
 

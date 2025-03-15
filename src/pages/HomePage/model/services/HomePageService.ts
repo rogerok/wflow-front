@@ -1,9 +1,9 @@
-import { getUserStatistics, StatisticsUserResponseType } from '@shared/api';
+import { getStatisticsUser, StatisticsUserResponseType } from '@shared/api';
 import { RequestStore } from '@shared/stores';
 import { makeAutoObservable } from 'mobx';
 
 export class HomePageService {
-  staticsRequest = new RequestStore(getUserStatistics);
+  staticsRequest = new RequestStore(getStatisticsUser);
   private abortController: AbortController | null = null;
 
   constructor() {

@@ -1,7 +1,11 @@
 import { AxiosResponse } from 'axios';
 
 import { $api } from '../api';
-import { GoalRequestType, GoalsListResponseType } from './models/goals';
+import {
+  GoalRequestType,
+  GoalResponseType,
+  GoalsListResponseType,
+} from './models/goals';
 
 export const getGoalsList = (
   params: GoalRequestType,
@@ -10,5 +14,14 @@ export const getGoalsList = (
   return $api.get('/private/goals', {
     signal: abortController?.signal,
     params: params,
+  });
+};
+
+export const getGoalById = (
+  id: string,
+  abortController: AbortController | null,
+): Promise<AxiosResponse<GoalResponseType>> => {
+  return $api.get<GoalResponseType>(`/private/goals/${id}`, {
+    signal: abortController?.signal,
   });
 };

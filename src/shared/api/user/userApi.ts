@@ -10,10 +10,6 @@ export const getUserById = (
   return $api.get<UserResponseType>(`/private/users/${id}`);
 };
 
-export const getUsers = (): Promise<AxiosResponse<UserResponseType[]>> => {
-  return $api.get('/private/users');
-};
-
 export const createUserRequest = (
   data: UserCreateRequestType,
   controller: AbortController | null,

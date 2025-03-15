@@ -35,7 +35,7 @@ export const BookGoalCardActions: FC<BookGoalCardActionsProps> = observer(
           {UiTextConstant.edit('цель')}
         </Button>
         <ButtonLink
-          to={routes.reports()}
+          to={routes.goal()}
           variant={'outlined'}
           fullWidth={isScreenDownMd}
           disabled
