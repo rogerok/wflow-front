@@ -2,7 +2,7 @@ import './GoalsPage.scss';
 
 import { cn } from '@bem-react/classname';
 import { routes } from '@shared/const';
-import { ButtonLink, Page, PageTitle } from '@shared/elements/ui';
+import { ButtonLink, Page, PageSeo } from '@shared/elements/ui';
 import { GoalsList } from '@widgets/GoalsList';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
@@ -30,7 +30,7 @@ export const GoalsPage: FC<GoalsPageProps> = observer((props) => {
 
   return (
     <Page className={cnGoalsPage(undefined, [props.className])}>
-      <PageTitle title={'Мои цели'} />
+      <PageSeo title={'Мои цели'} />
       <ButtonLink to={routes.goalsCreate()}>Добавить цель</ButtonLink>
       <GoalsContext value={facade}>
         <GoalsList
