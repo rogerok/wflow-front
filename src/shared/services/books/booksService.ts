@@ -17,6 +17,10 @@ export class BooksService {
     this.abortController = null;
   };
 
+  get isLoading(): boolean {
+    return this.requestStore.isLoading;
+  }
+
   list = async (): Promise<void> => {
     this.abortRequest();
 

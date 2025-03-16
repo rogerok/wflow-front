@@ -27,7 +27,7 @@ export const GoalsCardActions: FC<GoalsCardActionsProps> = observer((props) => {
       className={cnGoalsCardActions(undefined, [className])}
       gap={'16'}
       direction={screen.downLg ? 'column' : 'row'}
-      mt={'16'}
+      my={'16'}
     >
       <GoalsPageReportForm goal={goal} />
       <Button fullWidth={isScreenDownMd} disabled>

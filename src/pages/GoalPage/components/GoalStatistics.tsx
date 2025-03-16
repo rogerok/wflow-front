@@ -2,11 +2,13 @@ import { cn } from '@bem-react/classname';
 import { CssColorsVarsConstant } from '@shared/const';
 import {
   Col,
+  ElementRepeater,
   Grid,
   HStack,
   Paper,
   RadialStatistic,
   Row,
+  Skeleton,
   Typography,
   VStack,
 } from '@shared/elements/ui';
@@ -22,11 +24,50 @@ interface GoalStatisticsProps {
   className?: string;
 }
 
+const GoalStatisticsSkeleton: FC = () => {
+  return (
+    <Grid>
+      <Row spacing={3} vSpacing={3}>
+        <Col sm={12}>
+          <Paper elevation={3} rounded={3} px={'16'} py={'16'} fullWidth>
+            <VStack gap={'16'} pb={'16'}>
+              <Skeleton count={3} />
+            </VStack>
+          </Paper>
+        </Col>
+        <ElementRepeater count={2}>
+          <Col sm={12} md={6}>
+            <Paper elevation={3} rounded={3} px={'16'} py={'16'} fullWidth>
+              <HStack gap={'32'}>
+                <Skeleton />
+                <Skeleton variant={'circle'} width={10} height={10} />
+              </HStack>
+            </Paper>
+          </Col>
+        </ElementRepeater>
+
+        <Col sm={12}>
+          <Paper elevation={3} rounded={3} px={'16'} py={'16'} fullWidth>
+            <HStack gap={'16'} flexJustify={'center'}>
+              <Skeleton />
+              <Skeleton variant={'circle'} width={10} height={10} />
+            </HStack>
+          </Paper>
+        </Col>
+      </Row>
+    </Grid>
+  );
+};
+
 export const GoalStatistics: FC<GoalStatisticsProps> = observer((props) => {
   const service = useGoalService();
 
   const statistics = service.statistics;
   const goal = service.goal;
+
+  if (service.isLoading) {
+    return <GoalStatisticsSkeleton />;
+  }
 
   return (
     statistics &&

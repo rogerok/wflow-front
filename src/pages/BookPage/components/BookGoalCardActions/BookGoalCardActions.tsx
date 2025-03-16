@@ -38,7 +38,6 @@ export const BookGoalCardActions: FC<BookGoalCardActionsProps> = observer(
           to={routes.goal()}
           variant={'outlined'}
           fullWidth={isScreenDownMd}
-          disabled
         >
           Подробности
         </ButtonLink>

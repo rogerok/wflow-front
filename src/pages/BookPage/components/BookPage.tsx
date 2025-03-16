@@ -3,10 +3,13 @@ import './BookPage.scss';
 import { cn } from '@bem-react/classname';
 import { GoalResponseType } from '@shared/api';
 import {
+  Card,
+  ElementRepeater,
   HStack,
   IconComponent,
   Page,
   PageSeo,
+  Skeleton,
   Typography,
   VStack,
 } from '@shared/elements/ui';
@@ -27,6 +30,25 @@ interface BookPageProps {
 
 const route = getRouteApi('/_protected/books/$bookId');
 
+const GoalsListSkeleton: FC = () => {
+  return (
+    <div className={cnBookPage('GoalsList')}>
+      <ElementRepeater count={6}>
+        <Card>
+          <VStack fullHeight>
+            <VStack gap={'16'}>
+              <Skeleton count={3} />
+            </VStack>
+            <HStack flexJustify={'between'} as={'p'} gap={'32'} py={'16'}>
+              <Skeleton count={3} />
+            </HStack>
+          </VStack>
+        </Card>
+      </ElementRepeater>
+    </div>
+  );
+};
+
 export const BookPage: FC<BookPageProps> = observer((props) => {
   const [bookFacade] = useState(() => new BookPageFacade());
 
@@ -42,9 +64,7 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
     };
   }, [bookFacade, param.bookId]);
 
-  return isLoading ? (
-    <div>Loading...</div>
-  ) : (
+  return (
     <Page className={cnBookPage(undefined, [props.className])}>
       <PageSeo
         title={`Книга ${bookFacade.bookData?.name ?? ''}`}
@@ -77,15 +97,19 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
           </Typography>
           <IconComponent name={'GoalIcon'} size={'md'} />
         </HStack>
-        <BookContext value={bookFacade}>
-          <GoalsList
-            className={cnBookPage('GoalsList')}
-            data={bookFacade.goalsData}
-            actions={(goal: GoalResponseType) => (
-              <BookGoalCardActions goal={goal} />
-            )}
-          />
-        </BookContext>
+        {isLoading ? (
+          <GoalsListSkeleton />
+        ) : (
+          <BookContext value={bookFacade}>
+            <GoalsList
+              className={cnBookPage('GoalsList')}
+              data={bookFacade.goalsData}
+              actions={(goal: GoalResponseType) => (
+                <BookGoalCardActions goal={goal} />
+              )}
+            />
+          </BookContext>
+        )}
       </VStack>
     </Page>
   );

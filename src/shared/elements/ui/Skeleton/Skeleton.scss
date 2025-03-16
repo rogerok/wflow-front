@@ -1,0 +1,76 @@
+.Skeleton {
+  position: relative;
+
+  overflow: hidden;
+  display: inline-flex;
+
+  width: 100%;
+  height: 1.6rem;
+  border-radius: 0.4rem;
+
+  background: var(--bg-accent-4);
+
+  @for $i from 1 through 6 {
+    &_rounded_#{$i} {
+      border-radius: #{0.4 * $i}rem;
+    }
+  }
+
+  &_variant {
+    &_circle {
+      border-radius: 50%;
+    }
+  }
+
+  &_animation {
+    &_pulse {
+      animation: skeleton-pulse 1.5s ease-in-out 0.5s infinite;
+    }
+
+    &_wave {
+      &::after {
+        content: '';
+
+        position: absolute;
+        inset: 0;
+
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgb(255 255 255 / 40%),
+          transparent
+        );
+
+        animation: skeleton-wave 1.6s linear 0.5s infinite;
+      }
+    }
+
+    &_none {
+      animation: none;
+    }
+  }
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes skeleton-wave {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}

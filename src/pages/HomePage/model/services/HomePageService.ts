@@ -15,6 +15,10 @@ export class HomePageService {
     this.abortController = null;
   };
 
+  get isLoading(): boolean {
+    return this.staticsRequest.isLoading;
+  }
+
   fetchStatistics = async (): Promise<void> => {
     this.abortController = new AbortController();
 

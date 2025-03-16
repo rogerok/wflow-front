@@ -33,6 +33,10 @@ export class GoalsPageFacade {
     return this.goalsService.data;
   }
 
+  get isLoading(): boolean {
+    return this.goalsService.goalsListRequest.isLoading;
+  }
+
   get reportForm(): ReportCreateService | null {
     return this.report;
   }

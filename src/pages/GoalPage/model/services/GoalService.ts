@@ -36,9 +36,14 @@ export class GoalService {
     return this.goalStatistics.result.data;
   }
 
-  loadData = (goalId: string): void => {
+  get isLoading(): boolean {
+    return this.goalRequest.isLoading || this.goalStatistics.isLoading;
+  }
+
+  loadData = async (goalId: string): Promise<void> => {
     this.abortController = new AbortController();
-    Promise.all([
+
+    await Promise.all([
       this.goalRequest.call(goalId, this.abortController),
       this.goalStatistics.call(goalId, this.abortController),
     ]);

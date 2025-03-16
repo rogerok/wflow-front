@@ -28,7 +28,7 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
     <Page className={cnBooksPage(undefined, [props.className])}>
       <PageSeo title={'Мои книги'} />
       <ButtonLink to={routes.booksCreate()}>Добавить книгу</ButtonLink>
-      <BooksList data={service.data} />
+      <BooksList data={service.data} isLoading={service.isLoading} />
     </Page>
   );
 });
