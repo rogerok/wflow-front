@@ -1,6 +1,16 @@
 import { cn } from '@bem-react/classname';
 import { CssColorsVarsConstant } from '@shared/const';
-import { Box, Col, Grid, Row, Typography } from '@shared/elements/ui';
+import {
+  Box,
+  Col,
+  ElementRepeater,
+  Grid,
+  Paper,
+  Row,
+  Skeleton,
+  Typography,
+  VStack,
+} from '@shared/elements/ui';
 import { formatDate } from '@shared/lib';
 import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
@@ -15,6 +25,28 @@ const cnUserContent = cn('UserContent');
 interface UserContentProps {
   className?: string;
 }
+
+const UserContentSkeleton: FC = () => {
+  return (
+    <Row spacing={3} vSpacing={3}>
+      <ElementRepeater count={9}>
+        <Col sm={12} md={6} lg={4}>
+          <Paper elevation={3} rounded={3} px={'16'} py={'16'} fullWidth>
+            <VStack
+              as={'p'}
+              gap={'32'}
+              align={'center'}
+              flexJustify={'between'}
+              fullHeight
+            >
+              <Skeleton count={3} />
+            </VStack>
+          </Paper>
+        </Col>
+      </ElementRepeater>
+    </Row>
+  );
+};
 
 export const UserContent: FC<UserContentProps> = observer((props) => {
   const { userService } = useGlobalStore();
@@ -32,20 +64,28 @@ export const UserContent: FC<UserContentProps> = observer((props) => {
     };
   }, [service, userService.isAuth]);
 
+  const header = (
+    <Box as={'header'} mb={'32'}>
+      <Typography as={'h2'} weight={'semibold'} size={'xl'} align={'center'}>
+        Ваши результаты
+      </Typography>
+    </Box>
+  );
+
+  if (service.isLoading) {
+    return (
+      <Grid className={cnUserContent(undefined, [props.className])} mt={'32'}>
+        {header}
+        <UserContentSkeleton />
+      </Grid>
+    );
+  }
+
   return (
     userService.isAuth &&
     data && (
       <Grid className={cnUserContent(undefined, [props.className])} mt={'32'}>
-        <Box as={'header'} mb={'32'}>
-          <Typography
-            as={'h2'}
-            weight={'semibold'}
-            size={'xl'}
-            align={'center'}
-          >
-            Ваши результаты
-          </Typography>
-        </Box>
+        {header}
 
         <Row spacing={3} vSpacing={3}>
           <Col sm={12} md={6} lg={4}>
