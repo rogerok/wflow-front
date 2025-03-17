@@ -16,6 +16,7 @@ export { HStack } from './HStack/HStack';
 export { IconComponent } from './IconComponent/IconComponent';
 export { Loader } from './Loader/Loader';
 export { Modal } from './Modal/Modal';
+export { NotFoundLabel } from './NotFoundLabel/NotFoundLabel';
 export { Overlay } from './Overlay/Overlay';
 export { Page } from './Page/Page';
 export { PageSeo } from './PageSeo/PageSeo';

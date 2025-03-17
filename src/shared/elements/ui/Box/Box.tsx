@@ -2,10 +2,11 @@ import './Box.scss';
 
 import { cn } from '@bem-react/classname';
 import {
-  ComponentPropsWithoutRef,
+  ComponentPropsWithRef,
   ElementType,
   ReactElement,
   ReactNode,
+  RefObject,
 } from 'react';
 
 import { Margin, Padding } from '../../../types/uiTypes/uiTypes';
@@ -30,7 +31,8 @@ export type BoxProps<T extends ElementType> = {
   ml?: Margin;
   fullWidth?: boolean;
   fullHeight?: boolean;
-} & ComponentPropsWithoutRef<T>;
+  ref?: RefObject<T | null>;
+} & ComponentPropsWithRef<T>;
 
 export const Box = <T extends ElementType = 'div'>(
   props: BoxProps<T>,
@@ -53,12 +55,14 @@ export const Box = <T extends ElementType = 'div'>(
     as,
     fullWidth,
     fullHeight,
+    ref = null,
   } = props;
 
   const Component = as || 'div';
 
   return (
     <Component
+      ref={ref}
       className={cnBox(
         {
           py: py,

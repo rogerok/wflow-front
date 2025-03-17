@@ -1,7 +1,8 @@
-import { NotificationText } from '@shared/const';
 import { AxiosError, AxiosResponse, CanceledError } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { toast } from 'react-toastify';
+
+import { NotificationText } from '../../const/text/uiText';
 
 const RequestStatusesConstant = {
   Idle: 'idle',
@@ -25,9 +26,13 @@ type LoadingResult = {
   status: typeof RequestStatusesConstant.Loading;
 };
 
-type Result<T> = SuccessResult<T> | IdleResult | ErrorResult | LoadingResult;
-type ExecutionResult<T> = SuccessResult<T> | ErrorResult;
-type RequestFn<T, Args extends any[]> = (
+export type Result<T> =
+  | SuccessResult<T>
+  | IdleResult
+  | ErrorResult
+  | LoadingResult;
+export type ExecutionResult<T> = SuccessResult<T> | ErrorResult;
+export type RequestFn<T, Args extends any[]> = (
   ...args: Args
 ) => Promise<AxiosResponse<T>>;
 

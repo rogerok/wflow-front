@@ -7,8 +7,10 @@ import {
   ElementRepeater,
   HStack,
   IconComponent,
+  NotFoundLabel,
   Page,
   PageSeo,
+  Pagination,
   Skeleton,
   Typography,
   VStack,
@@ -16,7 +18,7 @@ import {
 import { getRouteApi } from '@tanstack/react-router';
 import { GoalsList } from '@widgets/GoalsList';
 import { observer } from 'mobx-react-lite';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 import { BookContext } from '../model/context/BookContext';
 import { BookPageFacade } from '../model/services/BookPageFacade';
@@ -39,7 +41,7 @@ const GoalsListSkeleton: FC = () => {
             <VStack gap={'16'}>
               <Skeleton count={3} />
             </VStack>
-            <HStack flexJustify={'between'} as={'p'} gap={'32'} py={'16'}>
+            <HStack flexJustify={'between'} gap={'32'} py={'16'}>
               <Skeleton count={3} />
             </HStack>
           </VStack>
@@ -51,6 +53,7 @@ const GoalsListSkeleton: FC = () => {
 
 export const BookPage: FC<BookPageProps> = observer((props) => {
   const [bookFacade] = useState(() => new BookPageFacade());
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const param = route.useParams();
 
@@ -71,7 +74,7 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
         type={'Книга'}
         description={bookFacade.bookData?.description}
       />
-      <VStack gap={'8'} align={'center'}>
+      <VStack gap={'8'} align={'center'} ref={ref}>
         <IconComponent name={'BookIconFilled'} size={'md'} />
         <Typography
           size={'xl'}
@@ -99,7 +102,7 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
         </HStack>
         {isLoading ? (
           <GoalsListSkeleton />
-        ) : (
+        ) : bookFacade.goalsData.length ? (
           <BookContext value={bookFacade}>
             <GoalsList
               className={cnBookPage('GoalsList')}
@@ -109,7 +112,11 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
               )}
             />
           </BookContext>
+        ) : (
+          <NotFoundLabel />
         )}
+
+        <Pagination service={bookFacade.goalsRequest} ref={ref} />
       </VStack>
     </Page>
   );

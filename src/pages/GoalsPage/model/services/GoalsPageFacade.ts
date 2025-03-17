@@ -1,6 +1,11 @@
-import { GoalResponseType, GoalsListResponseType } from '@shared/api';
+import {
+  GoalRequestType,
+  GoalResponseType,
+  GoalsListResponseType,
+} from '@shared/api';
 import { ReportCreateFormDefaultValues } from '@shared/const';
 import { GoalsService, ReportCreateService } from '@shared/services';
+import { QueryFilterRequestStore } from '@shared/stores';
 import { makeAutoObservable } from 'mobx';
 
 export class GoalsPageFacade {
@@ -34,7 +39,7 @@ export class GoalsPageFacade {
   }
 
   get isLoading(): boolean {
-    return this.goalsService.goalsListRequest.isLoading;
+    return this.goalsService.request.isLoading;
   }
 
   get reportForm(): ReportCreateService | null {
@@ -45,24 +50,11 @@ export class GoalsPageFacade {
     await this.goalsService.list();
   };
 
-  nextPage = async (): Promise<void> => {
-    await this.goalsService.nextPage();
-  };
-
-  prevPage = async (): Promise<void> => {
-    await this.goalsService.prevPage();
-  };
-
-  get total(): number {
-    return this.goalsService.data.length;
-  }
-
-  get currentPage(): number {
-    return this.goalsService.params.page;
-  }
-
-  get perPage(): number {
-    return this.goalsService.params.perPage;
+  get request(): QueryFilterRequestStore<
+    GoalRequestType,
+    GoalsListResponseType
+  > {
+    return this.goalsService.request;
   }
 
   submitReport = async (goal: GoalResponseType): Promise<void> => {

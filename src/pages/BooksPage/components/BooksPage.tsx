@@ -1,6 +1,12 @@
 import { cn } from '@bem-react/classname';
 import { routes } from '@shared/const';
-import { ButtonLink, Page, PageSeo } from '@shared/elements/ui';
+import {
+  ButtonLink,
+  NotFoundLabel,
+  Page,
+  PageSeo,
+  Pagination,
+} from '@shared/elements/ui';
 import { BooksService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
@@ -28,14 +34,12 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
     <Page className={cnBooksPage(undefined, [props.className])}>
       <PageSeo title={'Мои книги'} />
       <ButtonLink to={routes.booksCreate()}>Добавить книгу</ButtonLink>
-      <BooksList data={service.data} isLoading={service.isLoading} />
-      {/*<Pagination*/}
-      {/*  page={service.currentPage}*/}
-      {/*  perPage={service.perPage}*/}
-      {/*  total={s}*/}
-      {/*  nextPage={}*/}
-      {/*  prevPage={}*/}
-      {/*/>*/}
+      {service.data.length ? (
+        <BooksList data={service.data} isLoading={service.isLoading} />
+      ) : (
+        <NotFoundLabel />
+      )}
+      <Pagination service={service.request} />
     </Page>
   );
 });

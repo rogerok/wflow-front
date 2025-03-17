@@ -7,6 +7,7 @@ import {
   Card,
   ElementRepeater,
   HStack,
+  NotFoundLabel,
   Page,
   PageSeo,
   Pagination,
@@ -67,7 +68,7 @@ export const GoalsPage: FC<GoalsPageProps> = observer((props) => {
 
       {facade.isLoading ? (
         <GoalsListSkeleton />
-      ) : (
+      ) : facade.goals.length ? (
         <GoalsContext value={facade}>
           <GoalsList
             className={cnGoalsPage('List')}
@@ -75,15 +76,13 @@ export const GoalsPage: FC<GoalsPageProps> = observer((props) => {
             actions={(goal) => <GoalsCardActions goal={goal} />}
           />
         </GoalsContext>
+      ) : (
+        <NotFoundLabel />
       )}
 
       <Pagination
         className={cnGoalsPage('Pagination')}
-        page={facade.currentPage}
-        nextPage={facade.nextPage}
-        prevPage={facade.prevPage}
-        total={facade.total}
-        perPage={facade.perPage}
+        service={facade.request}
       />
     </Page>
   );

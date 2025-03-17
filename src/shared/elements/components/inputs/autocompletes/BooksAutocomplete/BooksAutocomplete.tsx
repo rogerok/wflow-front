@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { ComponentProps, FC, useEffect, useState } from 'react';
 
 import { BookResponseType } from '../../../../../api';
+import { OrderByRequestConstant } from '../../../../../const';
 import { TextField } from '../../../../../lib';
 import { BooksService } from '../../../../../services';
 import { Autocomplete } from '../../Autocomplete/Autocomplete';
@@ -20,7 +21,14 @@ type BooksAutocompleteProps = {
 export const BooksAutocomplete: FC<BooksAutocompleteProps> = observer(
   (props) => {
     const { className, field, ...restProps } = props;
-    const [service] = useState(() => new BooksService());
+    const [service] = useState(
+      () =>
+        new BooksService({
+          page: 1,
+          perPage: 0,
+          orderById: OrderByRequestConstant.CreatedAtDesc,
+        }),
+    );
     const { abortRequest, list, data } = service;
 
     useEffect(() => {
