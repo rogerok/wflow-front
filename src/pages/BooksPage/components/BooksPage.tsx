@@ -29,6 +29,13 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
       <PageSeo title={'Мои книги'} />
       <ButtonLink to={routes.booksCreate()}>Добавить книгу</ButtonLink>
       <BooksList data={service.data} isLoading={service.isLoading} />
+      {/*<Pagination*/}
+      {/*  page={service.currentPage}*/}
+      {/*  perPage={service.perPage}*/}
+      {/*  total={s}*/}
+      {/*  nextPage={}*/}
+      {/*  prevPage={}*/}
+      {/*/>*/}
     </Page>
   );
 });

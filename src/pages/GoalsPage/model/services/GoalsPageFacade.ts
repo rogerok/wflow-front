@@ -45,6 +45,26 @@ export class GoalsPageFacade {
     await this.goalsService.list();
   };
 
+  nextPage = async (): Promise<void> => {
+    await this.goalsService.nextPage();
+  };
+
+  prevPage = async (): Promise<void> => {
+    await this.goalsService.prevPage();
+  };
+
+  get total(): number {
+    return this.goalsService.data.length;
+  }
+
+  get currentPage(): number {
+    return this.goalsService.params.page;
+  }
+
+  get perPage(): number {
+    return this.goalsService.params.perPage;
+  }
+
   submitReport = async (goal: GoalResponseType): Promise<void> => {
     await this.report?.submit();
 

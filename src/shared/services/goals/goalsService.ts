@@ -10,10 +10,10 @@ import { OrderByRequestConstant } from '../../const';
 import { RequestStore } from '../../stores';
 
 export class GoalsService {
-  requestParams: GoalRequestType = {
+  params: GoalRequestType = {
     bookId: null,
     page: 1,
-    perPage: 0,
+    perPage: 6,
     orderById: OrderByRequestConstant.CreatedAtDesc,
   };
 
@@ -25,7 +25,7 @@ export class GoalsService {
 
   constructor(requestParams?: GoalRequestType) {
     if (requestParams) {
-      this.requestParams = requestParams;
+      this.params = requestParams;
     }
 
     makeAutoObservable(
@@ -46,7 +46,7 @@ export class GoalsService {
     this.abortController = new AbortController();
 
     const resp = await this.goalsListRequest.call(
-      { ...this.requestParams, ...params },
+      { ...this.params, ...params },
       this.abortController,
     );
 
@@ -55,6 +55,18 @@ export class GoalsService {
         this.data = resp.data;
       }
     });
+  };
+
+  nextPage = async (): Promise<void> => {
+    this.params.page++;
+
+    await this.list();
+  };
+
+  prevPage = async (): Promise<void> => {
+    this.params.page--;
+
+    await this.list();
   };
 
   updateItemStats = (

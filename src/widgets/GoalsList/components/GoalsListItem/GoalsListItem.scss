@@ -11,4 +11,9 @@
       margin-top: 0;
     }
   }
+
+  &-Card {
+    display: flex;
+    flex-direction: column;
+  }
 }

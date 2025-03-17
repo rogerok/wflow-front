@@ -19,6 +19,7 @@ export { Modal } from './Modal/Modal';
 export { Overlay } from './Overlay/Overlay';
 export { Page } from './Page/Page';
 export { PageSeo } from './PageSeo/PageSeo';
+export { Pagination } from './Pagination/Pagination';
 export { Paper } from './Paper/Paper';
 export { ProgressBar } from './ProgressBar/ProgressBar';
 export { RadialStatistic } from './RadialStatistic/RadialStatistic';

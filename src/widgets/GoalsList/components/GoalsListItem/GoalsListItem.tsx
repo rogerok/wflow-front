@@ -28,9 +28,9 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
   const { className, goal, actions } = props;
 
   return (
-    <Card className={cnGoalsListItem(undefined, [className])} as={'li'}>
-      <CardHeader title={goal.data.title} />
-      <VStack fullHeight>
+    <VStack className={cnGoalsListItem(undefined, [className])} as={'li'}>
+      <Card className={cnGoalsListItem('Card')}>
+        <CardHeader title={goal.data.title} />
         <Typography as={'p'}>{goal.data.description}</Typography>
         <VStack fullWidth mt={'auto'}>
           {!goal.data.isFinished && !goal.data.isExpired && (
@@ -46,7 +46,7 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
           <Typography variant={'accent'} weight={'semibold'}>
             Текущий прогресс
           </Typography>
-          <HStack mt={'8'}>
+          <HStack mt={'8'} flexJustify={'between'}>
             <Typography weight={'semibold'}>
               {goal.data.writtenWords}
             </Typography>
@@ -78,7 +78,7 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
             Дедлайн: {goal.formattedEndDate}
           </Typography>
         </HStack>
-      </VStack>
-    </Card>
+      </Card>
+    </VStack>
   );
 });
