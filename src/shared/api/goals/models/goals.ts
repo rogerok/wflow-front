@@ -33,8 +33,8 @@ export const GoalRequestSchema = z
     bookId: z.string().uuid().catch('').nullable(),
     orderById: OrderByCreatedAtRequestSchema.catch('createdAt desc'),
   })
-  .merge(PaginationRequestSchema)
-  .partial();
+  .merge(PaginationRequestSchema);
+
 export type GoalRequestType = z.infer<typeof GoalRequestSchema>;
 
 export const GoalCreateRequestSchema = z.object({

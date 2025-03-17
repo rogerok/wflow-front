@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+import {
+  OrderByCreatedAtRequestSchema,
+  PaginationRequestSchema,
+} from '../../models/requests';
+
 export const BookResponseSchema = z
   .object({
     createdAt: z.string(),
@@ -21,3 +26,11 @@ export const BookFormRequestSchema = z.object({
 });
 
 export type BookFormRequestType = z.infer<typeof BookFormRequestSchema>;
+
+export const BooksRequestSchema = z
+  .object({
+    orderById: OrderByCreatedAtRequestSchema.catch('createdAt desc'),
+  })
+  .merge(PaginationRequestSchema);
+
+export type BooksRequestType = z.infer<typeof BooksRequestSchema>;

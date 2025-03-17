@@ -1,10 +1,12 @@
 import {
   BookResponseType,
+  GoalRequestType,
   GoalResponseType,
   GoalsListResponseType,
 } from '@shared/api';
 import { ReportCreateFormDefaultValues } from '@shared/const';
 import { GoalsService, ReportCreateService } from '@shared/services';
+import { QueryFilterRequestStore } from '@shared/stores';
 import { makeAutoObservable } from 'mobx';
 import { makeLoggable } from 'mobx-log';
 
@@ -29,7 +31,7 @@ export class BookPageFacade {
   get isLoading(): boolean {
     return (
       this.bookService.bookByIdRequest.isLoading ||
-      this.goalsService.goalsListRequest.isLoading
+      this.goalsService.request.isLoading
     );
   }
 
@@ -41,6 +43,13 @@ export class BookPageFacade {
     return this.goalsService.data;
   }
 
+  get goalsRequest(): QueryFilterRequestStore<
+    GoalRequestType,
+    GoalsListResponseType
+  > {
+    return this.goalsService.request;
+  }
+
   get reportForm(): ReportCreateService | null {
     return this.report;
   }
@@ -48,7 +57,7 @@ export class BookPageFacade {
   fetchBookData = async (bookId: string): Promise<void> => {
     await Promise.all([
       this.bookService.getById(bookId),
-      this.goalsService.list({ ...this.goalsService.requestParams, bookId }),
+      this.goalsService.list({ ...this.goalsService.params, bookId }),
     ]);
   };
 

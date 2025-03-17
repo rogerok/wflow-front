@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
 import {
   getGoalsList,
@@ -7,25 +7,21 @@ import {
   GoalsListResponseType,
 } from '../../api';
 import { OrderByRequestConstant } from '../../const';
-import { RequestStore } from '../../stores';
+import { QueryFilterRequestStore } from '../../stores';
 
 export class GoalsService {
-  requestParams: GoalRequestType = {
+  params: GoalRequestType = {
     bookId: null,
     page: 1,
-    perPage: 0,
+    perPage: 6,
     orderById: OrderByRequestConstant.CreatedAtDesc,
   };
 
-  private abortController: AbortController | null = null;
-
-  data: GoalsListResponseType = [];
-
-  goalsListRequest = new RequestStore(getGoalsList);
+  request = new QueryFilterRequestStore(getGoalsList, this.params);
 
   constructor(requestParams?: GoalRequestType) {
     if (requestParams) {
-      this.requestParams = requestParams;
+      this.params = requestParams;
     }
 
     makeAutoObservable(
@@ -38,24 +34,16 @@ export class GoalsService {
   }
 
   abortRequest = (): void => {
-    this.abortController?.abort();
-    this.abortController = null;
+    this.request.abortRequest();
   };
 
   list = async (params?: GoalRequestType): Promise<void> => {
-    this.abortController = new AbortController();
-
-    const resp = await this.goalsListRequest.call(
-      { ...this.requestParams, ...params },
-      this.abortController,
-    );
-
-    runInAction(() => {
-      if (resp.status === 'success') {
-        this.data = resp.data;
-      }
-    });
+    await this.request.call(params);
   };
+
+  get data(): GoalsListResponseType {
+    return this.request.store.result.data ?? [];
+  }
 
   updateItemStats = (
     goal: GoalResponseType,

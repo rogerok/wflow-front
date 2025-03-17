@@ -1,37 +1,42 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
-import { BooksListResponseType, getBooksList } from '../../api';
-import { RequestStore } from '../../stores';
+import {
+  BooksListResponseType,
+  BooksRequestType,
+  getBooksList,
+} from '../../api';
+import { OrderByRequestConstant } from '../../const';
+import { QueryFilterRequestStore } from '../../stores/request/QueryFilterRequestStore';
 
 export class BooksService {
-  requestStore = new RequestStore(getBooksList);
-  data: BooksListResponseType = [];
-  private abortController: AbortController | null = null;
+  params: BooksRequestType = {
+    page: 1,
+    perPage: 6,
+    orderById: OrderByRequestConstant.CreatedAtDesc,
+  };
 
-  constructor() {
+  request = new QueryFilterRequestStore(getBooksList, this.params);
+
+  constructor(params?: BooksRequestType) {
+    if (params) {
+      this.params = params;
+    }
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
   abortRequest = (): void => {
-    this.abortController?.abort();
-    this.abortController = null;
+    this.request.abortRequest();
   };
 
   get isLoading(): boolean {
-    return this.requestStore.isLoading;
+    return this.request.isLoading;
   }
 
-  list = async (): Promise<void> => {
-    this.abortRequest();
-
-    this.abortController = new AbortController();
-
-    const resp = await this.requestStore.call(this.abortController);
-
-    runInAction(() => {
-      if (resp.data) {
-        this.data = resp.data;
-      }
-    });
+  list = async (params?: BooksRequestType): Promise<void> => {
+    await this.request.call(params);
   };
+
+  get data(): BooksListResponseType {
+    return this.request.store.result.data ?? [];
+  }
 }

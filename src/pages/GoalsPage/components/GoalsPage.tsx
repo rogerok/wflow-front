@@ -7,8 +7,10 @@ import {
   Card,
   ElementRepeater,
   HStack,
+  NotFoundLabel,
   Page,
   PageSeo,
+  Pagination,
   Skeleton,
   VStack,
 } from '@shared/elements/ui';
@@ -38,7 +40,7 @@ const GoalsListSkeleton: FC = observer(() => {
             <VStack gap={'16'}>
               <Skeleton count={3} />
             </VStack>
-            <HStack flexJustify={'between'} as={'p'} gap={'8'} py={'16'}>
+            <HStack flexJustify={'between'} gap={'8'} py={'16'}>
               <Skeleton count={3} width={screen.downMd ? '100%' : '33%'} />
             </HStack>
           </VStack>
@@ -66,7 +68,7 @@ export const GoalsPage: FC<GoalsPageProps> = observer((props) => {
 
       {facade.isLoading ? (
         <GoalsListSkeleton />
-      ) : (
+      ) : facade.goals.length ? (
         <GoalsContext value={facade}>
           <GoalsList
             className={cnGoalsPage('List')}
@@ -74,7 +76,14 @@ export const GoalsPage: FC<GoalsPageProps> = observer((props) => {
             actions={(goal) => <GoalsCardActions goal={goal} />}
           />
         </GoalsContext>
+      ) : (
+        <NotFoundLabel />
       )}
+
+      <Pagination
+        className={cnGoalsPage('Pagination')}
+        service={facade.request}
+      />
     </Page>
   );
 });

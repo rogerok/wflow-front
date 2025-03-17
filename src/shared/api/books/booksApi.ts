@@ -1,13 +1,19 @@
 import { AxiosResponse } from 'axios';
 
 import { $api } from '../api';
-import { BookResponseType, BooksListResponseType } from './models/books';
+import {
+  BookResponseType,
+  BooksListResponseType,
+  BooksRequestType,
+} from './models/books';
 
 export const getBooksList = (
+  params: BooksRequestType,
   abortController: AbortController | null,
 ): Promise<AxiosResponse<BooksListResponseType>> => {
   return $api.get<BooksListResponseType>('/private/books', {
     signal: abortController?.signal,
+    params,
   });
 };
 
