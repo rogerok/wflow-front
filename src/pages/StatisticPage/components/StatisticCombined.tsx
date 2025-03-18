@@ -46,7 +46,7 @@ const CustomTooltip: FC<CustomTooltipProps> = ({ active, payload }) => {
             Среднее кол-во слов в день: {data.avgWordsPerDay}
           </Typography>
           <Typography size={'sm'}>
-            Необходимое кол-во слов в день: {data.dailyRequired}
+            Необходимое кол-во слов в день: {Math.round(data.dailyRequired)}
           </Typography>
           <Typography size={'sm'}>
             Выполнено: {Math.round(data.completionPercent)}%
