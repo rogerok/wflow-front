@@ -75,4 +75,18 @@
   --toastify-color-progress-success: var(--brand-primary);
   --toastify-color-progress-warning: var(--brand-accent-3);
   --toastify-color-progress-error: var(--alert);
+
+  --graph-line-primary: #ff7f50;
+  --graph-line-secondary: #4fa3d1;
+  --graph-brush: #4682b4;
+  --graph-line-trend: #9b30b0;
+  --graph-line-target: #32cd32;
+  --graph-grid: rgb(255 255 255 / 20%);
+  --graph-background: #2e2e2e;
+  --tooltip-background: rgb(0 0 0 / 75%);
+  --tooltip-text: #fff;
+  --axis-line: #ccc;
+  --active-dot: #ff6347;
+  --line-dot: #ff1493;
+  --graph-bar-color: #6495ed;
 }

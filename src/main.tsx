@@ -8,7 +8,7 @@ import App from './app/app';
 if (typeof window !== 'undefined') {
   scan({
     enabled: import.meta.env.DEV,
-    showToolbar: false,
+    showToolbar: true,
   });
 }
 

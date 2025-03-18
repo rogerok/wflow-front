@@ -80,4 +80,18 @@
   --toastify-color-progress-success: var(--brand-primary);
   --toastify-color-progress-warning: var(--brand-accent-3);
   --toastify-color-progress-error: var(--alert);
+
+  --graph-line-primary: #ff4500; /* Яркий оранжевый */
+  --graph-line-secondary: #4682b4; /* Синий */
+  --graph-line-trend: #800080;
+  --graph-brush: #87ceeb;
+  --graph-line-target: #228b22;
+  --graph-grid: rgb(0 0 0 / 10%);
+  --graph-background: #f8f8f8;
+  --tooltip-text: #333;
+  --axis-line: #333;
+  --active-dot: #ff6347;
+
+  --line-dot: #dc143c;
+  --graph-bar-color: #4169e1;
 }
