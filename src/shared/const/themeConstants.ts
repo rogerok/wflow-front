@@ -32,4 +32,19 @@ export const CssColorsVarsConstant = {
   BgAccent3: 'bg-accent-3',
   BgAccent4: 'bg-accent-4',
   BgAccent5: 'bg-accent-5',
+
+  // Custom colors for charts
+  ActiveDot: 'active-dot',
+  AxisLine: 'axis-line',
+  GraphBackground: 'graph-background',
+  GraphBarColor: 'graph-bar-color',
+  GraphBrush: 'graph-brush',
+  GraphGrid: 'graph-grid',
+  GraphLinePrimary: 'graph-line-primary',
+  GraphLineSecondary: 'graph-line-secondary',
+  GraphLineTarget: 'graph-line-target',
+  GraphLineTrend: 'graph-line-trend',
+  LineDot: 'line-dot',
+  ShadowColor: 'shadow-color',
+  TooltipBackground: 'tooltip-background',
 } as const;

@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 
 import { $api } from '../api';
 import {
+  StatisticChartResponseType,
   StatisticsGoalResponseType,
   StatisticsUserResponseType,
 } from './models/statistics';
@@ -24,4 +25,12 @@ export const getStatisticsGoal = (
       signal: abortController?.signal,
     },
   );
+};
+
+export const getStatisticsChart = (
+  abortController: AbortController | null,
+): Promise<AxiosResponse<StatisticChartResponseType>> => {
+  return $api.get<StatisticChartResponseType>('/private/statistics/user/full', {
+    signal: abortController?.signal,
+  });
 };

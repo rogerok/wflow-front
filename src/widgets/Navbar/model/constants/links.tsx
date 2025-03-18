@@ -118,7 +118,7 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Отчёты',
     roles: [RolesConstant.User, RolesConstant.Admin],
-    disabled: import.meta.env.PROD && true,
+    disabled: import.meta.env.PROD,
   }),
   linkOptions({
     to: routes.goals(),
@@ -158,7 +158,7 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Статистика',
     roles: [RolesConstant.Admin, RolesConstant.User],
-    disabled: import.meta.env.PROD && true,
+    disabled: false,
   }),
   linkOptions({
     to: routes.settings(),
@@ -178,7 +178,7 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Настройки',
     roles: [RolesConstant.Admin, RolesConstant.User],
-    disabled: import.meta.env.PROD && true,
+    disabled: import.meta.env.PROD,
   }),
   linkOptions({
     to: routes.profile(),
@@ -198,6 +198,6 @@ export const NavbarLinks: NavbarLinksType[] = [
     ),
     label: 'Профиль',
     roles: [RolesConstant.Admin, RolesConstant.User],
-    disabled: import.meta.env.PROD && true,
+    disabled: import.meta.env.PROD,
   }),
 ];

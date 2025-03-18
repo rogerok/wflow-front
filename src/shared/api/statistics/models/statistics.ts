@@ -63,3 +63,46 @@ export const StatisticsGoalResponseSchema = z.object({
 export type StatisticsGoalResponseType = z.infer<
   typeof StatisticsGoalResponseSchema
 >;
+
+export const CumulativeProgressSchema = z.object({
+  date: z.string(),
+  totalWords: z.number(),
+  targetTotalWords: z.number(),
+  completionPercent: z.number(),
+  goalTitle: z.string(),
+  bookName: z.string(),
+  bookId: z.string().uuid(),
+  goalId: z.string().uuid(),
+});
+
+export type CumulativeProgressType = z.infer<typeof CumulativeProgressSchema>;
+
+export const GoalCompletionSchema = z.object({
+  goalId: z.string().uuid(),
+  bookId: z.string().uuid(),
+  goalTitle: z.string(),
+  totalWordsWritten: z.number(),
+  percentageComplete: z.number(),
+  remainingWords: z.number(),
+  dailyWordsRequired: z.number(),
+  daysElapsed: z.number(),
+  daysRemaining: z.number(),
+  averageWordsPerDay: z.number(),
+  reportsCount: z.number(),
+  trendComparedToTarget: z.number(),
+  bookTitle: z.string(),
+  createdAt: z.string(),
+  isFinished: z.boolean(),
+  isExpired: z.boolean(),
+});
+
+export type GoalCompletionType = z.infer<typeof GoalCompletionSchema>;
+
+export const StatisticChartResponseSchema = z.object({
+  cumulativeProgress: z.array(CumulativeProgressSchema),
+  goalCompletion: z.array(GoalCompletionSchema),
+});
+
+export type StatisticChartResponseType = z.infer<
+  typeof StatisticChartResponseSchema
+>;

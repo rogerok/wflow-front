@@ -2,7 +2,13 @@ import './BooksList.scss';
 
 import { cn } from '@bem-react/classname';
 import { BooksListResponseType } from '@shared/api';
-import { Card, ElementRepeater, Skeleton, VStack } from '@shared/elements/ui';
+import {
+  Card,
+  ElementRepeater,
+  NotFoundLabel,
+  Skeleton,
+  VStack,
+} from '@shared/elements/ui';
 import { FC } from 'react';
 
 import { BooksListItem } from '../BooksListItem/BooksListItem';
@@ -34,7 +40,9 @@ export const BooksList: FC<BooksListProps> = (props) => {
     );
   }
 
-  return (
+  return !isLoading && !data.length ? (
+    <NotFoundLabel />
+  ) : (
     <ul className={cnBooksList(undefined, [className])}>
       {data.map((book) => (
         <BooksListItem book={book} key={book.id} />
