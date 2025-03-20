@@ -1,4 +1,3 @@
-import { cn } from '@bem-react/classname';
 import { deleteBook } from '@shared/api';
 import { UiTextConstant } from '@shared/const';
 import {
@@ -16,10 +15,7 @@ import { FC, useState } from 'react';
 
 import { useBooksContext } from '../../model/hooks/useBooksContext';
 
-const cnBooksDeleteButton = cn('BooksDeleteButton');
-
 interface BooksDeleteButtonProps {
-  className?: string;
   bookId: string;
   bookName: string;
 }
@@ -34,7 +30,7 @@ export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
     );
 
     const { open, handleOpen, handleClose } = useOpenClose();
-    const { bookId, bookName, className } = props;
+    const { bookId, bookName } = props;
     const { screen } = useGlobalStore();
 
     const booksService = useBooksContext();
@@ -49,7 +45,7 @@ export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
     };
 
     return (
-      <div className={cnBooksDeleteButton(undefined, [className])}>
+      <>
         <Button
           fullWidth
           variant={'warn'}
@@ -64,7 +60,7 @@ export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
           open={open}
           title={`Удалить книгу ${bookName}`}
         >
-          <VStack gap={'64'}>
+          <VStack gap={'64'} fullHeight>
             <VStack as={'p'} gap={'16'} flexJustify={'center'}>
               <Typography
                 variant={'warn'}
@@ -80,7 +76,7 @@ export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
               </Typography>
             </VStack>
 
-            <HStack flexJustify={'between'} gap={'32'}>
+            <HStack flexJustify={'between'} gap={'64'} mt={'auto'}>
               <Button
                 fullWidth={screen.downMd}
                 variant={'warn'}
@@ -100,7 +96,7 @@ export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
             </HStack>
           </VStack>
         </Modal>
-      </div>
+      </>
     );
   },
 );

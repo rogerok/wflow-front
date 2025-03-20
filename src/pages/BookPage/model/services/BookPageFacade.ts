@@ -5,12 +5,14 @@ import {
   GoalsListResponseType,
 } from '@shared/api';
 import { ReportCreateFormDefaultValues } from '@shared/const';
-import { GoalsService, ReportCreateService } from '@shared/services';
+import {
+  BookService,
+  GoalsService,
+  ReportCreateService,
+} from '@shared/services';
 import { QueryFilterRequestStore } from '@shared/stores';
 import { makeAutoObservable } from 'mobx';
 import { makeLoggable } from 'mobx-log';
-
-import { BookService } from './BookService';
 
 export class BookPageFacade {
   private readonly goalsService: GoalsService = new GoalsService();

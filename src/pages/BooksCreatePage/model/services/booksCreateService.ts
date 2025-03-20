@@ -1,9 +1,11 @@
-import { BookFormRequestSchema, BookFormRequestType } from '@shared/api';
+import {
+  BookFormRequestSchema,
+  BookFormRequestType,
+  createBookRequest,
+} from '@shared/api';
 import { convertEmptyStringToNull, FormStore } from '@shared/lib';
 import { RequestStore } from '@shared/stores';
 import { makeAutoObservable, runInAction } from 'mobx';
-
-import { createBookRequest } from '../../api/createBookApi';
 
 export class BooksCreateService {
   form = new FormStore<BookFormRequestType>({
