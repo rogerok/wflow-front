@@ -2,7 +2,6 @@ import { cn } from '@bem-react/classname';
 import { BookResponseType } from '@shared/api';
 import { routes, UiTextConstant } from '@shared/const';
 import {
-  Button,
   ButtonLink,
   Card,
   CardHeader,
@@ -40,9 +39,14 @@ export const BooksListItem: FC<BooksListItemProps> = observer((props) => {
           </ButtonLink>
 
           <BooksCreateReportForm bookId={book.id} bookName={book.name} />
-          <Button fullWidth variant={'outlined'} disabled>
+          <ButtonLink
+            fullWidth
+            variant={'outlined'}
+            to={routes.booksEdit()}
+            params={{ bookId: book.id }}
+          >
             {UiTextConstant.edit()}
-          </Button>
+          </ButtonLink>
           <BooksDeleteButton bookName={book.name} bookId={book.id} />
         </VStack>
       </VStack>
