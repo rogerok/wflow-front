@@ -2,20 +2,9 @@ import { cn } from '@bem-react/classname';
 import { CumulativeProgressType } from '@shared/api';
 import { CssColorsVarsConstant } from '@shared/const';
 import { Paper, Typography, VStack } from '@shared/elements/ui';
-import { formatDate } from '@shared/lib';
+import { formatDate, useRecharts } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
-import {
-  Brush,
-  CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
 
 import { useStatisticsService } from '../model/hooks/useStatisticsService';
 
@@ -54,12 +43,25 @@ const CustomTooltip: FC<CustomTooltipProps> = ({ active, payload }) => {
 export const StatisticCumulativeProgress: FC<StatisticCumulativeProgressProps> =
   observer((props) => {
     const service = useStatisticsService();
+    const Recharts = useRecharts();
+
+    const {
+      ResponsiveContainer,
+      LineChart,
+      CartesianGrid,
+      Brush,
+      XAxis,
+      YAxis,
+      Tooltip,
+      Legend,
+      Line,
+    } = Recharts;
 
     return (
       <div
         className={cnStatisticCumulativeProgress(undefined, [props.className])}
       >
-        <ResponsiveContainer width={'100%'} height={500} style={{}}>
+        <ResponsiveContainer width={'100%'} height={500}>
           <LineChart
             data={service.cumulativeProgress.map((point) => ({
               ...point,
@@ -80,7 +82,6 @@ export const StatisticCumulativeProgress: FC<StatisticCumulativeProgressProps> =
               dataKey={'date'}
               stroke={`var(--${CssColorsVarsConstant.AxisLine})`}
             />
-
             <YAxis
               fontSize={'1rem'}
               dataKey={'targetTotalWords'}
