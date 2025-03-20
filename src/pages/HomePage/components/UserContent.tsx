@@ -13,7 +13,6 @@ import {
 } from '@shared/elements/ui';
 import { formatDate } from '@shared/lib';
 import { RechartsProvider } from '@shared/providers';
-import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
@@ -50,20 +49,17 @@ const UserContentSkeleton: FC = () => {
 };
 
 export const UserContent: FC<UserContentProps> = observer((props) => {
-  const { userService } = useGlobalStore();
   const [service] = useState(() => new HomePageService());
 
   const data = service.statisticsData;
 
   useEffect(() => {
-    if (userService.isAuth) {
-      service.fetchStatistics();
-    }
+    service.fetchStatistics();
 
     return () => {
       service.abortRequest();
     };
-  }, [service, userService.isAuth]);
+  }, [service]);
 
   const header = (
     <Box as={'header'} mb={'32'}>
@@ -84,7 +80,7 @@ export const UserContent: FC<UserContentProps> = observer((props) => {
 
   return (
     <RechartsProvider>
-      {userService.isAuth && data && (
+      {data && (
         <Grid className={cnUserContent(undefined, [props.className])} mt={'32'}>
           {header}
 

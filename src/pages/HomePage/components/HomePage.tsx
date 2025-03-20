@@ -1,5 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { Page, Typography, VStack } from '@shared/elements/ui';
+import { useGlobalStore } from '@shared/stores';
 import { Quotes } from '@widgets/Quotes';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
@@ -13,6 +14,8 @@ interface HomePageProps {
 }
 
 export const HomePage: FC<HomePageProps> = observer((props) => {
+  const { userService } = useGlobalStore();
+
   return (
     <Page className={cnHomePage(undefined, [props.className])}>
       <VStack as={'header'} gap={'32'} align={'center'}>
@@ -21,7 +24,7 @@ export const HomePage: FC<HomePageProps> = observer((props) => {
         </Typography>
         <Quotes />
       </VStack>
-      <UserContent />
+      {userService.isAuth && <UserContent />}
     </Page>
   );
 });
