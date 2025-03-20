@@ -5,6 +5,8 @@ import { FC, MouseEvent, ReactNode, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import { useKeyDown } from '../../../lib';
+import { HStack } from '../HStack/HStack';
+import { IconComponent } from '../IconComponent/IconComponent';
 import { Overlay } from '../Overlay/Overlay';
 import { Portal } from '../Portal/Portal';
 import { Typography } from '../Typography/Typography';
@@ -69,17 +71,27 @@ export const Modal: FC<ModalProps> = (props) => {
             ref={ref}
             onClick={handlePressContent}
           >
-            {title && (
-              <Typography
-                className={cnModal('Title')}
-                as={'h4'}
-                variant={'accent'}
-                size={'l'}
-                weight={'semibold'}
-              >
-                {title}
-              </Typography>
-            )}
+            <HStack align={'center'} flexJustify={'between'} wrap={'nowrap'}>
+              {title && (
+                <Typography
+                  className={cnModal('Title')}
+                  as={'h4'}
+                  variant={'accent'}
+                  size={'l'}
+                  weight={'semibold'}
+                >
+                  {title}
+                </Typography>
+              )}
+              <IconComponent
+                className={cnModal('CloseButton')}
+                name={'CloseIcon'}
+                size={'lg'}
+                onClick={handleClose}
+                color={'brand-accent-3'}
+              />
+            </HStack>
+
             {children}
           </div>
         </div>

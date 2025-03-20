@@ -25,3 +25,9 @@ export const getBookById = (
     signal: abortController?.signal,
   });
 };
+
+export const deleteBook = (
+  id: string,
+): Promise<AxiosResponse<BookResponseType>> => {
+  return $api.delete<BookResponseType>(`/private/books/delete/${id}`);
+};
