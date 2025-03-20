@@ -1,5 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { Loader, Page, PageSeo, VStack } from '@shared/elements/ui';
+import { RechartsProvider } from '@shared/providers';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
@@ -27,19 +28,21 @@ export const StatisticPage: FC<StatisticPageProps> = observer((props) => {
   }, [service]);
 
   return (
-    <StatisticContext value={service}>
-      <Page className={cnStatisticPage(undefined, [props.className])}>
-        <PageSeo title={'Статистика автора'} />
-        {service.isLoading ? (
-          <Loader />
-        ) : (
-          <VStack as={'section'} gap={'64'}>
-            <StatisticCumulativeProgress />
-            <StatisticGoalCompletion />
-            <StatisticCombined />
-          </VStack>
-        )}
-      </Page>
-    </StatisticContext>
+    <RechartsProvider>
+      <StatisticContext value={service}>
+        <Page className={cnStatisticPage(undefined, [props.className])}>
+          <PageSeo title={'Статистика автора'} />
+          {service.isLoading ? (
+            <Loader />
+          ) : (
+            <VStack as={'section'} gap={'64'}>
+              <StatisticCumulativeProgress />
+              <StatisticGoalCompletion />
+              <StatisticCombined />
+            </VStack>
+          )}
+        </Page>
+      </StatisticContext>
+    </RechartsProvider>
   );
 });
