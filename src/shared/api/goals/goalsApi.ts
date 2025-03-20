@@ -25,3 +25,9 @@ export const getGoalById = (
     signal: abortController?.signal,
   });
 };
+
+export const deleteGoal = (
+  id: string,
+): Promise<AxiosResponse<GoalResponseType>> => {
+  return $api.get<GoalResponseType>(`/private/goals/delete/${id}`);
+};

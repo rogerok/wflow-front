@@ -25,7 +25,7 @@ export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
     const [request] = useState(
       () =>
         new RequestStore(deleteBook, {
-          error: '',
+          error: 'Ошибка при удалении книги',
         }),
     );
 
@@ -71,8 +71,8 @@ export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
                 Внимание!
               </Typography>
               <Typography variant={'warn'} weight={'bold'} align={'center'}>
-                При удалении книги так же будут удалены все цели и отчёты этой
-                книги.
+                При удалении книги так же будут удалены все цели, отчёты
+                статистика этой книги.
               </Typography>
             </VStack>
 
