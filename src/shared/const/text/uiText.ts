@@ -9,6 +9,7 @@ export const UiTextConstant = {
   forward: () => 'Вперёд',
   post: (entity = '') => concatenateWords('Отправить ', entity),
   save: (entity = '') => concatenateWords('Сохранить ', entity),
+  cancel: (entity = '') => concatenateWords('Отмена ', entity),
 } as const;
 
 export const NotificationText = {

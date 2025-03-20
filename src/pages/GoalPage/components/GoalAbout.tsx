@@ -3,7 +3,7 @@ import { HStack, IconComponent, Typography } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
-import { useGoalService } from '../model/hooks/useGoalService';
+import { useGoalContext } from '../model/hooks/useGoalContext';
 
 const cnGoalAbout = cn('GoalAbout');
 
@@ -12,7 +12,7 @@ interface GoalAboutProps {
 }
 
 export const GoalAbout: FC<GoalAboutProps> = observer((props) => {
-  const service = useGoalService();
+  const service = useGoalContext();
   const goal = service.goal;
 
   return (

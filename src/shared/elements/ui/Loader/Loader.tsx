@@ -11,7 +11,6 @@ import { Spinner } from './Spinner/Spinner';
 const cnLoader = cn('Loader');
 
 interface LoaderProps {
-  isLoading?: boolean;
   variant?: 'spinner' | 'dots' | 'pulse';
   className?: string;
   message?: ReactNode;
@@ -21,7 +20,6 @@ interface LoaderProps {
 }
 
 export const Loader: FC<LoaderProps> = ({
-  isLoading,
   variant = 'spinner',
   className,
   message = 'Загрузка...',
@@ -32,14 +30,14 @@ export const Loader: FC<LoaderProps> = ({
   const nodeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (preventScroll && isLoading && fullPage) {
+    if (preventScroll && fullPage) {
       const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = 'hidden';
       return () => {
         document.body.style.overflow = originalStyle;
       };
     }
-  }, [preventScroll, isLoading, fullPage]);
+  }, [preventScroll, fullPage]);
 
   const renderLoader = (): ReactNode => {
     switch (variant) {

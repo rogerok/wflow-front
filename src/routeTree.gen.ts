@@ -38,6 +38,9 @@ const ProtectedBooksCreateLazyImport = createFileRoute(
 const ProtectedBooksBookIdLazyImport = createFileRoute(
   '/_protected/books/$bookId',
 )()
+const ProtectedBooksEditBookIdLazyImport = createFileRoute(
+  '/_protected/books/edit/$bookId',
+)()
 
 // Create/Update Routes
 
@@ -146,6 +149,17 @@ const ProtectedBooksBookIdLazyRoute = ProtectedBooksBookIdLazyImport.update({
   import('./app/routes/_protected/books/$bookId.lazy').then((d) => d.Route),
 )
 
+const ProtectedBooksEditBookIdLazyRoute =
+  ProtectedBooksEditBookIdLazyImport.update({
+    id: '/books/edit/$bookId',
+    path: '/books/edit/$bookId',
+    getParentRoute: () => ProtectedRoute,
+  } as any).lazy(() =>
+    import('./app/routes/_protected/books/edit.$bookId.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -248,6 +262,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedGoalsIndexLazyImport
       parentRoute: typeof ProtectedImport
     }
+    '/_protected/books/edit/$bookId': {
+      id: '/_protected/books/edit/$bookId'
+      path: '/books/edit/$bookId'
+      fullPath: '/books/edit/$bookId'
+      preLoaderRoute: typeof ProtectedBooksEditBookIdLazyImport
+      parentRoute: typeof ProtectedImport
+    }
   }
 }
 
@@ -264,6 +285,7 @@ interface ProtectedRouteChildren {
   ProtectedGoalsCreateLazyRoute: typeof ProtectedGoalsCreateLazyRoute
   ProtectedBooksIndexLazyRoute: typeof ProtectedBooksIndexLazyRoute
   ProtectedGoalsIndexLazyRoute: typeof ProtectedGoalsIndexLazyRoute
+  ProtectedBooksEditBookIdLazyRoute: typeof ProtectedBooksEditBookIdLazyRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
@@ -277,6 +299,7 @@ const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedGoalsCreateLazyRoute: ProtectedGoalsCreateLazyRoute,
   ProtectedBooksIndexLazyRoute: ProtectedBooksIndexLazyRoute,
   ProtectedGoalsIndexLazyRoute: ProtectedGoalsIndexLazyRoute,
+  ProtectedBooksEditBookIdLazyRoute: ProtectedBooksEditBookIdLazyRoute,
 }
 
 const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
@@ -298,6 +321,7 @@ export interface FileRoutesByFullPath {
   '/goals/create': typeof ProtectedGoalsCreateLazyRoute
   '/books': typeof ProtectedBooksIndexLazyRoute
   '/goals': typeof ProtectedGoalsIndexLazyRoute
+  '/books/edit/$bookId': typeof ProtectedBooksEditBookIdLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -315,6 +339,7 @@ export interface FileRoutesByTo {
   '/goals/create': typeof ProtectedGoalsCreateLazyRoute
   '/books': typeof ProtectedBooksIndexLazyRoute
   '/goals': typeof ProtectedGoalsIndexLazyRoute
+  '/books/edit/$bookId': typeof ProtectedBooksEditBookIdLazyRoute
 }
 
 export interface FileRoutesById {
@@ -333,6 +358,7 @@ export interface FileRoutesById {
   '/_protected/goals/create': typeof ProtectedGoalsCreateLazyRoute
   '/_protected/books/': typeof ProtectedBooksIndexLazyRoute
   '/_protected/goals/': typeof ProtectedGoalsIndexLazyRoute
+  '/_protected/books/edit/$bookId': typeof ProtectedBooksEditBookIdLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -352,6 +378,7 @@ export interface FileRouteTypes {
     | '/goals/create'
     | '/books'
     | '/goals'
+    | '/books/edit/$bookId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -368,6 +395,7 @@ export interface FileRouteTypes {
     | '/goals/create'
     | '/books'
     | '/goals'
+    | '/books/edit/$bookId'
   id:
     | '__root__'
     | '/'
@@ -384,6 +412,7 @@ export interface FileRouteTypes {
     | '/_protected/goals/create'
     | '/_protected/books/'
     | '/_protected/goals/'
+    | '/_protected/books/edit/$bookId'
   fileRoutesById: FileRoutesById
 }
 
@@ -432,7 +461,8 @@ export const routeTree = rootRoute
         "/_protected/goals/$goalId",
         "/_protected/goals/create",
         "/_protected/books/",
-        "/_protected/goals/"
+        "/_protected/goals/",
+        "/_protected/books/edit/$bookId"
       ]
     },
     "/(auth)/signIn": {
@@ -479,6 +509,10 @@ export const routeTree = rootRoute
     },
     "/_protected/goals/": {
       "filePath": "_protected/goals/index.lazy.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/books/edit/$bookId": {
+      "filePath": "_protected/books/edit.$bookId.lazy.tsx",
       "parent": "/_protected"
     }
   }

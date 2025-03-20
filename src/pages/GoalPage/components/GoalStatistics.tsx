@@ -16,7 +16,7 @@ import { formatDate } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
-import { useGoalService } from '../model/hooks/useGoalService';
+import { useGoalContext } from '../model/hooks/useGoalContext';
 
 const cnGoalStatistics = cn('GoalStatistics');
 
@@ -60,7 +60,7 @@ const GoalStatisticsSkeleton: FC = () => {
 };
 
 export const GoalStatistics: FC<GoalStatisticsProps> = observer((props) => {
-  const service = useGoalService();
+  const service = useGoalContext();
 
   const statistics = service.statistics;
   const goal = service.goal;

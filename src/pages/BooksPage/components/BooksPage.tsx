@@ -1,11 +1,12 @@
 import { cn } from '@bem-react/classname';
-import { routes } from '@shared/const';
+import { routes, UiTextConstant } from '@shared/const';
 import { ButtonLink, Page, PageSeo, Pagination } from '@shared/elements/ui';
 import { BooksService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
 import { BooksList } from '../components/BooksList/BooksList';
+import { BooksContext } from '../model/context/BooksContext';
 
 const cnBooksPage = cn('BooksPage');
 
@@ -25,11 +26,15 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
   }, [service]);
 
   return (
-    <Page className={cnBooksPage(undefined, [props.className])}>
-      <PageSeo title={'Мои книги'} />
-      <ButtonLink to={routes.booksCreate()}>Добавить книгу</ButtonLink>
-      <BooksList data={service.data} isLoading={service.isLoading} />
-      <Pagination service={service.request} />
-    </Page>
+    <BooksContext value={service}>
+      <Page className={cnBooksPage(undefined, [props.className])}>
+        <PageSeo title={'Мои книги'} />
+        <ButtonLink to={routes.booksCreate()}>
+          {UiTextConstant.add('книгу')}
+        </ButtonLink>
+        <BooksList data={service.data} isLoading={service.isLoading} />
+        <Pagination service={service.request} />
+      </Page>
+    </BooksContext>
   );
 });
