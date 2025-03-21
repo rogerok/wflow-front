@@ -5,8 +5,8 @@ import { BooksService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
-import { BooksList } from '../components/BooksList/BooksList';
 import { BooksContext } from '../model/context/BooksContext';
+import { BooksList } from './BooksList/BooksList';
 
 const cnBooksPage = cn('BooksPage');
 
