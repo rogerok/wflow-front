@@ -48,7 +48,7 @@ export const BooksCreateReportForm: FC<BookCreateReportFormProps> = observer(
           onClick={handleOpen}
           addonRight={<IconComponent name={'ReportIcon'} size={'sm'} />}
         >
-          Добавить отчёт
+          {UiTextConstant.add('отчёт')}
         </Button>
         <Modal
           className={cnBookCreateReportForm(undefined, [className])}

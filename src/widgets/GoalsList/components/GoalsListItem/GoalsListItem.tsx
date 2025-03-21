@@ -1,9 +1,7 @@
 import './GoalsListItem.scss';
 
 import { cn } from '@bem-react/classname';
-import { UiTextConstant } from '@shared/const';
 import {
-  Button,
   Card,
   CardHeader,
   HStack,
@@ -59,14 +57,6 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
           />
         </VStack>
         {actions}
-        <Button
-          className={cnGoalsListItem('DeleteButton')}
-          variant={'warn'}
-          size={'sm'}
-          disabled
-        >
-          {UiTextConstant.delete()}
-        </Button>
         <HStack flexJustify={'between'} as={'p'} gap={'8'} py={'16'}>
           <Typography variant={'light'}>
             Создано: {goal.formattedCreatedDate}

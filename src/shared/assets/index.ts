@@ -28,4 +28,5 @@ export { default as StatisticIconFilled } from './icons/menu/statistic-fill.svg'
 export { default as TimerIcon } from './icons/menu/timer.svg';
 export { default as TimerIconFilled } from './icons/menu/timer-fill.svg';
 export { default as MoonIcon } from './icons/moon.svg';
+export { default as PenIcon } from './icons/pen.svg';
 export { default as SunIcon } from './icons/sun.svg';

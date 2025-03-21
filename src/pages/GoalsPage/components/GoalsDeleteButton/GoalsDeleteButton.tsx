@@ -1,6 +1,7 @@
-import { deleteBook } from '@shared/api';
+import { cn } from '@bem-react/classname';
 import { UiTextConstant } from '@shared/const';
 import {
+  Box,
   Button,
   HStack,
   IconComponent,
@@ -9,56 +10,44 @@ import {
   VStack,
 } from '@shared/elements/ui';
 import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
-import { RequestStore, useGlobalStore } from '@shared/stores';
+import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { useBooksContext } from '../../model/hooks/useBooksContext';
+import { useGoalsContext } from '../../model/hooks/useGoalsContext';
 
-interface BooksDeleteButtonProps {
-  bookId: string;
-  bookName: string;
+const cnGoalsDeleteButton = cn('GoalsDeleteButton');
+
+interface GoalsDeleteButtonProps {
+  className?: string;
+  goalId: string;
+  goalTitle: string;
 }
 
-export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
+export const GoalsDeleteButton: FC<GoalsDeleteButtonProps> = observer(
   (props) => {
-    const [request] = useState(
-      () =>
-        new RequestStore(deleteBook, {
-          error: 'Ошибка при удалении книги',
-        }),
-    );
-
+    const facade = useGoalsContext();
     const { open, handleOpen, handleClose } = useOpenClose();
-    const { bookId, bookName } = props;
+    const { goalId, goalTitle } = props;
     const { screen } = useGlobalStore();
 
-    const booksService = useBooksContext();
-
-    const handleDelete = async (): Promise<void> => {
-      await request.call(bookId);
-
-      if (request.result.status === 'success') {
-        await booksService.list();
-        handleClose();
-      }
-    };
-
     return (
-      <>
+      <Box
+        ml={'auto'}
+        className={cnGoalsDeleteButton(undefined, [props.className])}
+      >
         <Button
-          fullWidth
           variant={'warn'}
           onClick={handleOpen}
           addonRight={<IconComponent name={'BinIcon'} size={'sm'} />}
         >
-          Удалить книгу
+          Удалить
         </Button>
         <Modal
           fullScreen={screen.downMd}
           onClose={handleClose}
           open={open}
-          title={`Удалить книгу ${bookName}`}
+          title={UiTextConstant.delete(`цель ${goalTitle}`)}
         >
           <VStack gap={'64'} fullHeight>
             <VStack as={'p'} gap={'16'} flexJustify={'center'}>
@@ -71,8 +60,8 @@ export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
                 Внимание!
               </Typography>
               <Typography variant={'warn'} weight={'bold'} align={'center'}>
-                При удалении книги так же будут удалены все цели, отчёты
-                статистика этой книги.
+                При удалении цели так же будут удалены все отчёты, статистика
+                этой цели.
               </Typography>
             </VStack>
 
@@ -80,15 +69,15 @@ export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
               <Button
                 fullWidth={screen.downMd}
                 variant={'warn'}
-                disabled={request.isLoading}
-                onClick={handleDelete}
+                disabled={facade.isLoading}
+                onClick={() => facade.deleteGoal(goalId)}
                 addonRight={<IconComponent name={'BinIcon'} size={'sm'} />}
               >
-                {UiTextConstant.delete('книгу')}
+                {UiTextConstant.delete('цель')}
               </Button>
               <Button
                 fullWidth={screen.downMd}
-                disabled={request.isLoading || booksService.isLoading}
+                disabled={facade.isLoading || facade.isDeleting}
                 onClick={handleClose}
               >
                 {UiTextConstant.cancel()}
@@ -96,7 +85,7 @@ export const BooksDeleteButton: FC<BooksDeleteButtonProps> = observer(
             </HStack>
           </VStack>
         </Modal>
-      </>
+      </Box>
     );
   },
 );

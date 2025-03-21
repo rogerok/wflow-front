@@ -1,6 +1,6 @@
 import { cn } from '@bem-react/classname';
 import { ReportCreateRequestType } from '@shared/api';
-import { TextInput } from '@shared/elements/components/inputs/TextInput/TextInput';
+import { TextInput } from '@shared/elements/components';
 import { VStack } from '@shared/elements/ui';
 import { useFormStore } from '@shared/lib';
 import { observer } from 'mobx-react-lite';

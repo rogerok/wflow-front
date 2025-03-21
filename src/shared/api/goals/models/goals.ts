@@ -45,3 +45,15 @@ export const GoalCreateRequestSchema = z.object({
   startDate: z.string(),
   title: z.string().min(2).max(255),
 });
+
+export type GoalCreateRequestType = z.infer<typeof GoalCreateRequestSchema>;
+
+export const GoalEditRequestSchema = z.object({
+  description: z.string().max(255).nullable(),
+  endDate: z.string(),
+  goalWords: z.number().min(2),
+  startDate: z.string(),
+  title: z.string().max(255),
+});
+
+export type GoalEditRequestType = z.infer<typeof GoalEditRequestSchema>;

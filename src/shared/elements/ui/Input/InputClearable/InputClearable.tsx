@@ -15,13 +15,14 @@ interface InputClearableProps
 const cnInputClearable = cn('InputClearable');
 
 export const InputClearable: FC<InputClearableProps> = (props) => {
-  const { handleClear, className, value, ...restProps } = props;
+  const { handleClear, className, value, disabled, ...restProps } = props;
 
   const addonRight = (
     <IconComponent
       className={cnInputClearable('Button', { hidden: !value })}
       name={'ClearCircle'}
       size={'sm'}
+      disabled={disabled}
       onClick={handleClear}
     />
   );

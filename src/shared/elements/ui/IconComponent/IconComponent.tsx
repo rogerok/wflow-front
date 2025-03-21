@@ -38,6 +38,7 @@ interface IconComponentBaseProps
   onClick?: () => void;
   dataTestId?: string;
   color?: CssVarsMapType;
+  disabled?: boolean;
 }
 
 interface IconComponentWithSizeProps extends IconComponentBaseProps {
@@ -64,6 +65,7 @@ export const IconComponent: FC<IconProps> = (props) => {
     width,
     height,
     color,
+    disabled,
     ...restProps
   } = props;
 
@@ -96,6 +98,7 @@ export const IconComponent: FC<IconProps> = (props) => {
         data-testid={dataTestId}
         className={cnIconComponent(undefined, [className, 'IconButton'])}
         onClick={handleClick}
+        disabled={disabled}
         style={{ width: sizes.width, height: sizes.height }}
       >
         {Icon}
