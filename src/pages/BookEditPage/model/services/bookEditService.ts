@@ -9,7 +9,7 @@ import { BookService } from '@shared/services';
 import { RequestStore } from '@shared/stores';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-export class BookEditFacade {
+export class BookEditService {
   bookId: string;
 
   form = new FormStore<BookFormRequestType>({

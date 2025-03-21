@@ -18,7 +18,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
-import { BookEditFacade } from './model/services/bookEditFacade';
+import { BookEditService } from './model/services/bookEditService';
 
 const cnBookEditPage = cn('BookEditPage');
 
@@ -30,29 +30,29 @@ const route = getRouteApi('/_protected/books/edit/$bookId');
 
 export const BookEditPage: FC<BookEditPageProps> = observer((props) => {
   const params = route.useParams().bookId;
-  const [facade] = useState(() => new BookEditFacade(params));
+  const [service] = useState(() => new BookEditService(params));
 
   useEffect(() => {
-    facade.init();
-  }, [facade]);
+    service.init();
+  }, [service]);
 
   return (
     <Page className={cnBookEditPage(undefined, [props.className])}>
       <PageSeo
-        title={facade.book?.name}
-        description={facade.book?.description}
+        title={service.book?.name}
+        description={service.book?.description}
       />
       <ButtonLink to={routes.books()}>Назад</ButtonLink>
-      {facade.loading ? (
+      {service.loading ? (
         <Loader />
       ) : (
         <FormComponent<BookFormRequestType>
-          form={facade.form}
-          onSubmit={facade.submitForm}
+          form={service.form}
+          onSubmit={service.submitForm}
         >
           <VStack gap={'16'}>
             <TextInput
-              field={facade.form.fields.name}
+              field={service.form.fields.name}
               label={'Название книги'}
               fullWidth
             />
@@ -60,9 +60,9 @@ export const BookEditPage: FC<BookEditPageProps> = observer((props) => {
               label={'Описание'}
               fullWidth
               rows={20}
-              field={facade.form.fields.description}
+              field={service.form.fields.description}
             />
-            <Button type={'submit'} disabled={facade.submitting}>
+            <Button type={'submit'} disabled={service.submitting}>
               {UiTextConstant.post()}
             </Button>
           </VStack>

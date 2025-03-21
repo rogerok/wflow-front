@@ -1,7 +1,7 @@
 import { cn } from '@bem-react/classname';
 import { GoalResponseType } from '@shared/api';
 import { routes, UiTextConstant } from '@shared/const';
-import { Button, ButtonLink, Flex, VStack } from '@shared/elements/ui';
+import { ButtonLink, Flex, VStack } from '@shared/elements/ui';
 import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
@@ -32,9 +32,15 @@ export const GoalsCardActions: FC<GoalsCardActionsProps> = observer((props) => {
         my={'16'}
       >
         <GoalsPageReportForm goal={goal} />
-        <Button fullWidth={isScreenDownMd} disabled>
+        <ButtonLink
+          fullWidth={isScreenDownMd}
+          to={routes.goalsEdit()}
+          params={{
+            goalId: goal.id,
+          }}
+        >
           {UiTextConstant.edit()}
-        </Button>
+        </ButtonLink>
         <ButtonLink
           to={routes.goal()}
           params={{ goalId: goal.id }}
