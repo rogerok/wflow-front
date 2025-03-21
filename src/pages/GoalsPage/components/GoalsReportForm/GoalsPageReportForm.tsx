@@ -1,4 +1,5 @@
 import { GoalResponseType } from '@shared/api';
+import { UiTextConstant } from '@shared/const';
 import { Button, Modal } from '@shared/elements/ui';
 import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
 import { useGlobalStore } from '@shared/stores';
@@ -44,7 +45,7 @@ export const GoalsPageReportForm: FC<GoalsReportFormProps> = observer(
     return (
       <>
         <Button onClick={handleFormOpen} fullWidth={isScreenDownMd}>
-          Добавить отчёт
+          {UiTextConstant.add('отчёт')}
         </Button>
         <Modal
           fullScreen={isScreenDownMd}

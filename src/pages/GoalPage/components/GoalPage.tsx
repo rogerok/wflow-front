@@ -1,5 +1,7 @@
 import { cn } from '@bem-react/classname';
+import { routes } from '@shared/const';
 import {
+  ButtonLink,
   HStack,
   IconComponent,
   Page,
@@ -38,6 +40,7 @@ export const GoalPage: FC<GoalPageProps> = observer((props) => {
 
   return (
     <Page className={cnGoalPage(undefined, [props.className])}>
+      <ButtonLink to={routes.goals()}>Назад</ButtonLink>
       <PageSeo title={goal?.title} />
       <GoalContext value={service}>
         <HStack

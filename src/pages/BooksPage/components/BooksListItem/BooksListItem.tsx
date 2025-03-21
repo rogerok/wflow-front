@@ -44,6 +44,7 @@ export const BooksListItem: FC<BooksListItemProps> = observer((props) => {
             variant={'outlined'}
             to={routes.booksEdit()}
             params={{ bookId: book.id }}
+            addonRight={<IconComponent name={'PenIcon'} size={'sm'} />}
           >
             {UiTextConstant.edit()}
           </ButtonLink>

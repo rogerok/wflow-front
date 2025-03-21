@@ -81,6 +81,10 @@ export class GoalsPageFacade {
     this.report?.abortRequest();
   };
 
+  get isDeleting(): boolean {
+    return this.deleteGoalRequest.isLoading;
+  }
+
   deleteGoal = async (goalId: string): Promise<void> => {
     const resp = await this.deleteGoalRequest.call(goalId);
     if (resp.status === 'success') {

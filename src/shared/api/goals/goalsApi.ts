@@ -29,5 +29,5 @@ export const getGoalById = (
 export const deleteGoal = (
   id: string,
 ): Promise<AxiosResponse<GoalResponseType>> => {
-  return $api.get<GoalResponseType>(`/private/goals/delete/${id}`);
+  return $api.delete<GoalResponseType>(`/private/goals/delete/${id}`);
 };
