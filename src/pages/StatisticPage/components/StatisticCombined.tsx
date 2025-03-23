@@ -1,21 +1,9 @@
 import { cn } from '@bem-react/classname';
 import { CssColorsVarsConstant } from '@shared/const';
 import { Paper, Typography, VStack } from '@shared/elements/ui';
+import { useRecharts } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
-import {
-  Area,
-  Bar,
-  Brush,
-  CartesianGrid,
-  ComposedChart,
-  Legend,
-  Line,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
 
 import { useStatisticsService } from '../model/hooks/useStatisticsService';
 import { StatisticsCombinedChartType } from '../model/types/statisticsType';
@@ -46,7 +34,7 @@ const CustomTooltip: FC<CustomTooltipProps> = ({ active, payload }) => {
             Среднее кол-во слов в день: {data.avgWordsPerDay}
           </Typography>
           <Typography size={'sm'}>
-            Необходимое кол-во слов в день: {data.dailyRequired}
+            Необходимое кол-во слов в день: {Math.round(data.dailyRequired)}
           </Typography>
           <Typography size={'sm'}>
             Выполнено: {Math.round(data.completionPercent)}%
@@ -61,6 +49,21 @@ const CustomTooltip: FC<CustomTooltipProps> = ({ active, payload }) => {
 export const StatisticCombined: FC<StatisticCombinedProps> = observer(
   (props) => {
     const service = useStatisticsService();
+    const Recharts = useRecharts();
+
+    const {
+      ResponsiveContainer,
+      ComposedChart,
+      CartesianGrid,
+      XAxis,
+      Brush,
+      YAxis,
+      Tooltip,
+      Legend,
+      Area,
+      Line,
+      Bar,
+    } = Recharts;
 
     return (
       <ResponsiveContainer

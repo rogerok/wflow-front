@@ -1,16 +1,18 @@
 import {
+  deleteGoal,
   GoalRequestType,
   GoalResponseType,
   GoalsListResponseType,
 } from '@shared/api';
 import { ReportCreateFormDefaultValues } from '@shared/const';
 import { GoalsService, ReportCreateService } from '@shared/services';
-import { QueryFilterRequestStore } from '@shared/stores';
+import { QueryFilterRequestStore, RequestStore } from '@shared/stores';
 import { makeAutoObservable } from 'mobx';
 
 export class GoalsPageFacade {
   private readonly goalsService: GoalsService = new GoalsService();
   private report: ReportCreateService | null = null;
+  private deleteGoalRequest = new RequestStore(deleteGoal);
 
   constructor() {
     makeAutoObservable(
@@ -77,5 +79,16 @@ export class GoalsPageFacade {
 
   abortFormSubmit = (): void => {
     this.report?.abortRequest();
+  };
+
+  get isDeleting(): boolean {
+    return this.deleteGoalRequest.isLoading;
+  }
+
+  deleteGoal = async (goalId: string): Promise<void> => {
+    const resp = await this.deleteGoalRequest.call(goalId);
+    if (resp.status === 'success') {
+      await this.fetchData();
+    }
   };
 }

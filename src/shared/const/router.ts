@@ -8,8 +8,10 @@ export const routes = {
   books: () => '/books',
   bookDetails: () => '/books/$bookId',
   booksCreate: () => '/books/create',
+  booksEdit: () => '/books/edit/$bookId',
   goals: () => '/goals',
   goal: () => '/goals/$goalId',
   goalsCreate: () => '/goals/create',
+  goalsEdit: () => '/goals/edit/$goalId',
   reports: () => '/reports',
 } as const;

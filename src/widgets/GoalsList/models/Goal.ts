@@ -1,6 +1,6 @@
 import { GoalResponseType } from '@shared/api';
 import { formatDate } from '@shared/lib';
-import { differenceInCalendarDays } from 'date-fns';
+import { differenceInCalendarDays, isBefore } from 'date-fns';
 
 export class GoalModel {
   data: GoalResponseType;
@@ -14,7 +14,7 @@ export class GoalModel {
   }
 
   dateFormatter(date: string): string {
-    return formatDate(date, true);
+    return formatDate(date);
   }
 
   get formattedCreatedDate(): string {
@@ -30,7 +30,7 @@ export class GoalModel {
   }
 
   get daysRemaining(): number {
-    return differenceInCalendarDays(this.data.endDate, new Date());
+    return differenceInCalendarDays(this.data.endDate, this.data.startDate) + 1;
   }
 
   get localizedRemainingDays(): string | null {
@@ -40,6 +40,10 @@ export class GoalModel {
 
     if (this.daysRemaining <= 0) {
       return 'Срок истек';
+    }
+
+    if (isBefore(new Date(), this.data.startDate)) {
+      return 'Цель ещё не начата';
     }
 
     const rtf = new Intl.RelativeTimeFormat('ru', { numeric: 'auto' });

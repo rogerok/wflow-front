@@ -10,7 +10,7 @@ import { Button, VStack } from '@shared/elements/ui';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
-import { BooksCreateService } from '../../model/services/BooksCreateService';
+import { BooksCreateService } from '../../model/services/booksCreateService';
 
 const cnBooksCreateForm = cn('BooksCreateForm');
 

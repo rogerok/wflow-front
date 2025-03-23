@@ -28,3 +28,6 @@ export type Justify =
 export type FlexDirection = 'row' | 'column';
 export type FlexWrap = 'wrap' | 'nowrap';
 export type FlexGap = '4' | '8' | '16' | '24' | '32' | '64';
+
+export type RechartsType = typeof import('recharts');
+export type RechartsModules = RechartsType | null;

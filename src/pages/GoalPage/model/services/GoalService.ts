@@ -12,8 +12,11 @@ export class GoalService {
 
   goalRequest = new RequestStore(getGoalById);
   goalStatistics = new RequestStore(getStatisticsGoal);
+  id: string;
 
-  constructor() {
+  constructor(id: string) {
+    this.id = id;
+
     makeAutoObservable(
       this,
       {},
@@ -40,12 +43,12 @@ export class GoalService {
     return this.goalRequest.isLoading || this.goalStatistics.isLoading;
   }
 
-  loadData = async (goalId: string): Promise<void> => {
+  loadData = async (): Promise<void> => {
     this.abortController = new AbortController();
 
     await Promise.all([
-      this.goalRequest.call(goalId, this.abortController),
-      this.goalStatistics.call(goalId, this.abortController),
+      this.goalRequest.call(this.id, this.abortController),
+      this.goalStatistics.call(this.id, this.abortController),
     ]);
   };
 }

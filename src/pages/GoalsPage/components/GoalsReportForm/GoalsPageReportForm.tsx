@@ -1,12 +1,13 @@
 import { GoalResponseType } from '@shared/api';
+import { UiTextConstant } from '@shared/const';
 import { Button, Modal } from '@shared/elements/ui';
 import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
 import { useGlobalStore } from '@shared/stores';
 import { GoalReportForm } from '@widgets/GoalReportForm';
 import { observer } from 'mobx-react-lite';
-import { FC, useContext, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
-import { GoalsContext } from '../../model/context/GoalsContext';
+import { useGoalsContext } from '../../model/hooks/useGoalsContext';
 
 interface GoalsReportFormProps {
   className?: string;
@@ -20,7 +21,7 @@ export const GoalsPageReportForm: FC<GoalsReportFormProps> = observer(
     const { screen } = useGlobalStore();
     const isScreenDownMd = screen.downMd;
 
-    const goalFacade = useContext(GoalsContext);
+    const goalFacade = useGoalsContext();
     const report = goalFacade?.reportForm;
 
     const { open, handleOpen, handleClose } = useOpenClose();
@@ -44,7 +45,7 @@ export const GoalsPageReportForm: FC<GoalsReportFormProps> = observer(
     return (
       <>
         <Button onClick={handleFormOpen} fullWidth={isScreenDownMd}>
-          Добавить отчёт
+          {UiTextConstant.add('отчёт')}
         </Button>
         <Modal
           fullScreen={isScreenDownMd}

@@ -1,13 +1,7 @@
 import { cn } from '@bem-react/classname';
-import { ComponentProps, FC } from 'react';
-import {
-  Legend,
-  PolarAngleAxis,
-  RadialBar,
-  RadialBarChart,
-  ResponsiveContainer,
-} from 'recharts';
+import { FC } from 'react';
 
+import { useRecharts } from '../../../lib';
 import { CssVarsMapType } from '../../../types/theme';
 
 const cnRadialStatistic = cn('RadialStatistic');
@@ -16,11 +10,21 @@ interface RadialStatisticProps {
   fill: CssVarsMapType;
   value: number;
   className?: string;
-  domain?: ComponentProps<typeof PolarAngleAxis>['domain'];
+  domain?: string[] | number[];
 }
 
 export const RadialStatistic: FC<RadialStatisticProps> = (props) => {
   const { fill, className, value, domain = [0, 100] } = props;
+
+  const Recharts = useRecharts();
+
+  const {
+    ResponsiveContainer,
+    RadialBarChart,
+    Legend,
+    PolarAngleAxis,
+    RadialBar,
+  } = Recharts;
 
   return (
     <ResponsiveContainer

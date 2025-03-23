@@ -1,5 +1,7 @@
 import { cn } from '@bem-react/classname';
+import { routes } from '@shared/const';
 import {
+  ButtonLink,
   HStack,
   IconComponent,
   Page,
@@ -23,21 +25,22 @@ interface GoalPageProps {
 const route = getRouteApi('/_protected/goals/$goalId');
 
 export const GoalPage: FC<GoalPageProps> = observer((props) => {
-  const [service] = useState(() => new GoalService());
-  const params = route.useParams();
+  const goalId = route.useParams().goalId;
+  const [service] = useState(() => new GoalService(goalId));
 
   const goal = service.goal;
 
   useEffect(() => {
-    service.loadData(params.goalId);
+    service.loadData();
 
     return () => {
       service.abortRequest();
     };
-  }, [params.goalId, service]);
+  }, [service]);
 
   return (
     <Page className={cnGoalPage(undefined, [props.className])}>
+      <ButtonLink to={routes.goals()}>Назад</ButtonLink>
       <PageSeo title={goal?.title} />
       <GoalContext value={service}>
         <HStack

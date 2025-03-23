@@ -7,8 +7,10 @@ import {
   GoalsAutocomplete,
   TextInput,
 } from '@shared/elements/components';
-import { Button, VStack } from '@shared/elements/ui';
+import { Button, IconComponent, Modal, VStack } from '@shared/elements/ui';
+import { useOpenClose } from '@shared/lib/hooks/useOpenClose';
 import { ReportCreateService } from '@shared/services';
+import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
@@ -17,11 +19,17 @@ const cnBookCreateReportForm = cn('BooksCreateReportForm');
 interface BookCreateReportFormProps {
   className?: string;
   bookId: string;
+  bookName: string;
 }
 
 export const BooksCreateReportForm: FC<BookCreateReportFormProps> = observer(
   (props) => {
-    const { bookId, className } = props;
+    const { bookId, bookName, className } = props;
+    const { screen } = useGlobalStore();
+
+    const isScreenDownMd = screen.downMd;
+
+    const { open, handleOpen, handleClose } = useOpenClose();
 
     const [service] = useState(
       () =>
@@ -34,29 +42,45 @@ export const BooksCreateReportForm: FC<BookCreateReportFormProps> = observer(
     const { form } = service;
 
     return (
-      <FormComponent<ReportCreateRequestType>
-        onSubmit={service.submit}
-        form={service.form}
-        className={cnBookCreateReportForm(undefined, [className])}
-      >
-        <VStack fullWidth gap={'24'} mb={'24'}>
-          <GoalsAutocomplete
-            field={form.fields.goalId}
-            label={'Цель'}
-            bookId={form.fields.bookId.value}
-          />
-
-          <TextInput
-            label={'Количество слов'}
-            field={form.fields.wordsAmount}
-            type={'number'}
-            fullWidth
-          />
-        </VStack>
-        <Button type={'submit'} disabled={form.isSubmitting}>
-          {UiTextConstant.post()}
+      <>
+        <Button
+          fullWidth
+          onClick={handleOpen}
+          addonRight={<IconComponent name={'ReportIcon'} size={'sm'} />}
+        >
+          {UiTextConstant.add('отчёт')}
         </Button>
-      </FormComponent>
+        <Modal
+          className={cnBookCreateReportForm(undefined, [className])}
+          fullScreen={isScreenDownMd}
+          onClose={handleClose}
+          open={open}
+          title={`Создать отчёт для ${bookName}`}
+        >
+          <FormComponent<ReportCreateRequestType>
+            onSubmit={service.submit}
+            form={service.form}
+          >
+            <VStack fullWidth gap={'24'} mb={'24'}>
+              <GoalsAutocomplete
+                field={form.fields.goalId}
+                label={'Цель'}
+                bookId={form.fields.bookId.value}
+              />
+
+              <TextInput
+                label={'Количество слов'}
+                field={form.fields.wordsAmount}
+                type={'number'}
+                fullWidth
+              />
+            </VStack>
+            <Button type={'submit'} disabled={form.isSubmitting}>
+              {UiTextConstant.post()}
+            </Button>
+          </FormComponent>
+        </Modal>
+      </>
     );
   },
 );

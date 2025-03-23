@@ -1,15 +1,14 @@
+import { createGoal } from '@shared/api';
 import { convertEmptyStringToNull, FormStore } from '@shared/lib';
 import { RequestStore } from '@shared/stores';
-import { endOfDay, formatISO } from 'date-fns';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { createGoalRequest } from '../../api/createGoal';
 import { GoalCreateFormSchema, GoalCreateFormType } from '../types/createGoal';
 
 export class GoalsCreateService {
   private abortController: AbortController | null = null;
 
-  createRequest = new RequestStore(createGoalRequest, {
+  createRequest = new RequestStore(createGoal, {
     success: 'Цель создана',
   });
 
@@ -48,9 +47,9 @@ export class GoalsCreateService {
         {
           bookId: values.bookId,
           description: convertEmptyStringToNull(values.description),
-          endDate: formatISO(endOfDay(values.endDate)),
+          endDate: values.endDate,
           goalWords: Number(values.goalWords),
-          startDate: formatISO(endOfDay(values.startDate)),
+          startDate: values.startDate,
           title: values.title,
         },
         this.abortController,

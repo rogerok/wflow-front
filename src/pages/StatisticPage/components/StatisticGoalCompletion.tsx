@@ -2,21 +2,9 @@ import { cn } from '@bem-react/classname';
 import { GoalCompletionType } from '@shared/api';
 import { CssColorsVarsConstant } from '@shared/const';
 import { Paper, Typography, VStack } from '@shared/elements/ui';
+import { useRecharts } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
-import {
-  Bar,
-  Brush,
-  CartesianGrid,
-  ComposedChart,
-  Legend,
-  Line,
-  ResponsiveContainer,
-  Scatter,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
 
 import { useStatisticsService } from '../model/hooks/useStatisticsService';
 
@@ -68,6 +56,21 @@ const CustomTooltip: FC<CustomTooltipProps> = ({ active, payload }) => {
 export const StatisticGoalCompletion: FC<StatisticGoalCompletionProps> =
   observer((props) => {
     const service = useStatisticsService();
+    const Recharts = useRecharts();
+
+    const {
+      ResponsiveContainer,
+      ComposedChart,
+      CartesianGrid,
+      XAxis,
+      YAxis,
+      Brush,
+      Tooltip,
+      Legend,
+      Bar,
+      Scatter,
+      Line,
+    } = Recharts;
 
     return (
       <div className={cnStatisticGoalCompletion(undefined, [props.className])}>
@@ -77,7 +80,6 @@ export const StatisticGoalCompletion: FC<StatisticGoalCompletionProps> =
               strokeDasharray={'3 3'}
               stroke={`var(--${CssColorsVarsConstant.GraphGrid})`}
             />
-
             <XAxis
               fontSize={'1rem'}
               dataKey={'goalTitle'}
@@ -92,9 +94,7 @@ export const StatisticGoalCompletion: FC<StatisticGoalCompletionProps> =
               fontSize={'1rem'}
               stroke={`var(--${CssColorsVarsConstant.AxisLine})`}
             />
-
             <Tooltip content={<CustomTooltip />} />
-
             <Legend verticalAlign={'top'} align={'center'} />
 
             {/*  Percentage Complete as the bar chart */}

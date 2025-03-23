@@ -30,6 +30,7 @@ export interface DatePickerProps {
   selectedDate?: Date | null;
   withPortal?: ReactDatePickerProps['withPortal'];
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 export const DatePicker: FC<DatePickerProps> = memo((props) => {
@@ -41,6 +42,7 @@ export const DatePicker: FC<DatePickerProps> = memo((props) => {
     customInput,
     selectedDate,
     fullWidth,
+    disabled,
     ...restProps
   } = props;
 
@@ -58,6 +60,7 @@ export const DatePicker: FC<DatePickerProps> = memo((props) => {
         onChange={handleChange}
         selected={selectedDate}
         locale={'ru'}
+        disabled={disabled}
         timeIntervals={timeIntervals}
         scrollableYearDropdown
         customInput={customInput}
