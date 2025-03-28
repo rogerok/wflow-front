@@ -1,7 +1,7 @@
 import { cn } from '@bem-react/classname';
 import { FC } from 'react';
 
-import { useRecharts } from '../../../lib';
+import { useRechartsContext } from '../../../lib';
 import { CssVarsMapType } from '../../../types/theme';
 
 const cnRadialStatistic = cn('RadialStatistic');
@@ -16,7 +16,7 @@ interface RadialStatisticProps {
 export const RadialStatistic: FC<RadialStatisticProps> = (props) => {
   const { fill, className, value, domain = [0, 100] } = props;
 
-  const Recharts = useRecharts();
+  const Recharts = useRechartsContext();
 
   const {
     ResponsiveContainer,
