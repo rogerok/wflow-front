@@ -30,4 +30,25 @@ describe('useOpenClose hook', () => {
 
     expect(result.current.open).toBe(false);
   });
+
+  it('should toggle to true  when toggleOpen is called', () => {
+    const { result } = renderHook(() => useOpenClose());
+
+    act(() => {
+      result.current.toggleOpen();
+    });
+
+    expect(result.current.open).toBe(true);
+  });
+
+  it('should toggle to false  when toggleOpen is called', () => {
+    const { result } = renderHook(() => useOpenClose());
+
+    act(() => {
+      result.current.handleOpen();
+      result.current.toggleOpen();
+    });
+
+    expect(result.current.open).toBe(false);
+  });
 });
