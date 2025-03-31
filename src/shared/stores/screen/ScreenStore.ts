@@ -52,10 +52,6 @@ export class ScreenStore {
     return this.isWidthMatchMinByValue(BreakpointsInPxConstant.Xl);
   }
 
-  get downXs(): boolean {
-    return this.isWidthMatchMaxByValue(BreakpointsInPxConstant.Xs);
-  }
-
   get downSm(): boolean {
     return this.isWidthMatchMaxByValue(BreakpointsInPxConstant.Sm);
   }
