@@ -3,7 +3,7 @@ import { beforeEach, describe } from 'vitest';
 
 import { RequestStore } from './RequestStore';
 
-const mockedAxios = vi.mocked(axios, true);
+vi.mock('axios');
 
 vi.mock('react-toastify', () => ({
   toast: {
@@ -20,7 +20,7 @@ describe('request store test', () => {
   let store: RequestStore<MockData, any[]>;
 
   beforeEach(() => {
-    vi.resetAllMocks();
+    vi.clearAllMocks();
   });
 
   it('request - success', () => {
