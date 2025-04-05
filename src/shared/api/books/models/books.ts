@@ -29,7 +29,7 @@ export type BookFormRequestType = z.infer<typeof BookFormRequestSchema>;
 
 export const BooksRequestSchema = z
   .object({
-    orderById: OrderByCreatedAtRequestSchema.catch('createdAt desc'),
+    orderBy: OrderByCreatedAtRequestSchema.catch('createdAt desc'),
   })
   .merge(PaginationRequestSchema);
 

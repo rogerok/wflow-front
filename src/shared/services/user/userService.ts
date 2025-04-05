@@ -5,7 +5,6 @@ import { RolesConstant } from '../../const';
 import { RequestStore } from '../../stores';
 
 export class UserService {
-  private abortController: AbortController | null = null;
   getUserRequestStore = new RequestStore(getUserById);
 
   userData: UserResponseType | null = null;
@@ -26,8 +25,6 @@ export class UserService {
   };
 
   fetchUser = async (uuid: string): Promise<void> => {
-    this.abortController = new AbortController();
-
     const result = await this.getUserRequestStore.call(uuid);
 
     runInAction(() => {

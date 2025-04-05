@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { when } from 'mobx';
 import { toast } from 'react-toastify';
-import { beforeEach, describe } from 'vitest';
 
 import { RequestStore } from './RequestStore';
 
 type MockData = {
   user: string;
 };
+
 const mockData: MockData = {
   user: 'John Doe',
 };
@@ -28,11 +28,10 @@ describe('request store test', () => {
   });
 
   it('request - success', async () => {
-    mockedAxios.get.mockReturnValue(Promise.resolve({ data: mockData }));
-
     const store = new RequestStore<MockData>(() => mockedAxios.get(''), {
       success: 'success',
     });
+    mockedAxios.get.mockReturnValue(Promise.resolve({ data: mockData }));
 
     expect(store.result).toEqual({ data: null, status: 'idle' });
 

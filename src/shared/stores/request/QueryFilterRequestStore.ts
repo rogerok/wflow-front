@@ -3,10 +3,10 @@ import { makeLoggable } from 'mobx-log';
 
 import { RequestFn, RequestStore } from './RequestStore';
 
-interface PaginationParams {
+export interface PaginationParams {
   page: number;
   perPage: number;
-  orderById: string;
+  orderBy: string;
 }
 
 export class QueryFilterRequestStore<
@@ -25,10 +25,10 @@ export class QueryFilterRequestStore<
     makeLoggable(this);
   }
 
-  abortRequest = (): void => {
+  abortRequest(): void {
     this.abortController?.abort();
     this.abortController = null;
-  };
+  }
 
   get isLoading(): boolean {
     return this.store.isLoading;
@@ -63,10 +63,10 @@ export class QueryFilterRequestStore<
     await this.call();
   };
 
-  call = async (params?: Partial<RequestType>): Promise<void> => {
+  async call(params?: Partial<RequestType>): Promise<void> {
     this.abortRequest();
     this.abortController = new AbortController();
 
     this.store.call({ ...this.params, ...params }, this.abortController);
-  };
+  }
 }

@@ -12,7 +12,7 @@ export class BooksService {
   params: BooksRequestType = {
     page: 1,
     perPage: 6,
-    orderById: OrderByRequestConstant.CreatedAtDesc,
+    orderBy: OrderByRequestConstant.CreatedAtDesc,
   };
 
   request = new QueryFilterRequestStore(getBooksList, this.params);
