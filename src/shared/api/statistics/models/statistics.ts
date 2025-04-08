@@ -24,7 +24,7 @@ export const StatisticsUserResponseSchema = z.object({
   // MaxWordsInDay - максимальное количество слов, написанных пользователем за один день
   maxWordsInDay: z.number(),
   // MostProductiveDay - самый продуктивный день, когда пользователь написал наибольшее количество слов
-  mostProductiveDay: z.string(),
+  mostProductiveDay: z.string().nullable(),
   // OverachievementRate - процент целей, по которым пользователь написал больше слов, чем было запланировано
   overachievementRate: z.number(),
   // TotalBooks - общее количество книг, связанных с пользователем

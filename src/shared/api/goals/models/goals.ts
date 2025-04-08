@@ -31,7 +31,7 @@ export type GoalsListResponseType = z.infer<typeof GoalsListResponseSchema>;
 export const GoalRequestSchema = z
   .object({
     bookId: z.string().uuid().catch('').nullable(),
-    orderById: OrderByCreatedAtRequestSchema.catch('createdAt desc'),
+    orderBy: OrderByCreatedAtRequestSchema.catch('createdAt desc'),
   })
   .merge(PaginationRequestSchema);
 

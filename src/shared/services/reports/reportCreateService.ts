@@ -9,8 +9,6 @@ import { FormStore } from '../../lib';
 import { RequestStore } from '../../stores';
 
 export class ReportCreateService {
-  createFormDefaultValues: ReportCreateRequestType;
-
   form: FormStore<ReportCreateRequestType>;
 
   create = new RequestStore(reportCreateRequest, {
@@ -20,7 +18,6 @@ export class ReportCreateService {
   abortController: AbortController | null = null;
 
   constructor(formValues: ReportCreateRequestType) {
-    this.createFormDefaultValues = formValues;
     this.form = new FormStore<ReportCreateRequestType>({
       schema: ReportCreateRequestSchema,
       defaultValues: formValues,
@@ -49,7 +46,7 @@ export class ReportCreateService {
 
       runInAction(() => {
         if (resp.status === 'success') {
-          this.form.reset(this.createFormDefaultValues);
+          this.form.reset();
         }
       });
     });

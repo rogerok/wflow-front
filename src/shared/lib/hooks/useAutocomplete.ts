@@ -14,7 +14,7 @@ type useAutocompleteReturnType<T extends IOptionType> = {
   onClear: () => void;
 };
 
-type useAutocompleteArgs<T extends IOptionType> = {
+export type useAutocompleteArgs<T extends IOptionType> = {
   field: TextField<string | number>;
   options: T[];
   uniqueIdentifier: keyof T;

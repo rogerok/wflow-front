@@ -36,7 +36,7 @@ AppRouter.init(router);
 
 const cnApp = cn('App');
 
-const InnerApp: FC = observer(() => {
+export const InnerApp: FC = observer(() => {
   const { theme, authController, userService } = useGlobalStore();
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const InnerApp: FC = observer(() => {
   }, []);
 
   return (
-    <div className={cnApp(undefined, [theme.current])}>
+    <div data-testid={'App'} className={cnApp(undefined, [theme.current])}>
       <RouterProvider
         router={router}
         context={{

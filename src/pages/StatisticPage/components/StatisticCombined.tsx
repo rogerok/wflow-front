@@ -1,7 +1,7 @@
 import { cn } from '@bem-react/classname';
 import { CssColorsVarsConstant } from '@shared/const';
 import { Paper, Typography, VStack } from '@shared/elements/ui';
-import { useRecharts } from '@shared/lib';
+import { useRechartsContext } from '@shared/lib';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 
@@ -49,7 +49,7 @@ const CustomTooltip: FC<CustomTooltipProps> = ({ active, payload }) => {
 export const StatisticCombined: FC<StatisticCombinedProps> = observer(
   (props) => {
     const service = useStatisticsService();
-    const Recharts = useRecharts();
+    const Recharts = useRechartsContext();
 
     const {
       ResponsiveContainer,

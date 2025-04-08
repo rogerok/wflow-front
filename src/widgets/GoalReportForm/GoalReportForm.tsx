@@ -27,7 +27,11 @@ export const GoalReportForm: FC<GoalReportFormProps> = observer((props) => {
       form={reportForm}
     >
       <GoalReportFormFields />
-      <Button type={'submit'} disabled={reportForm.isSubmitting}>
+      <Button
+        dataTestId={'GoalReportFormSubmitButton'}
+        type={'submit'}
+        disabled={reportForm.isSubmitting}
+      >
         {UiTextConstant.post()}
       </Button>
     </FormComponent>

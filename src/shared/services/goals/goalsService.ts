@@ -14,7 +14,7 @@ export class GoalsService {
     bookId: null,
     page: 1,
     perPage: 6,
-    orderById: OrderByRequestConstant.CreatedAtDesc,
+    orderBy: OrderByRequestConstant.CreatedAtDesc,
   };
 
   request = new QueryFilterRequestStore(getGoalsList, this.params);
