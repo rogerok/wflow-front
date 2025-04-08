@@ -23,6 +23,7 @@ export const NavbarLogoutButton: FC<NavbarLogoutButtonProps> = observer(
         className={cnNavbarLogoutButton(undefined, [props.className])}
         variant={'clear'}
         onClick={() => authController.logout()}
+        dataTestId={'NavbarLogoutButton'}
         addonLeft={
           <IconComponent
             className={cnNavbarLogoutButton('Icon', {

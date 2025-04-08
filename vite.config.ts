@@ -104,6 +104,7 @@ export default defineConfig(({ mode }) => {
       include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
       reporters: ['default'],
       coverage: { reportsDirectory: './coverage/wflow-front', provider: 'v8' },
+      setupFiles: 'src/shared/tests/setup.ts',
     },
   };
 });

@@ -18,6 +18,7 @@ export type ButtonProps<T extends ElementType> = {
   fullWidth?: boolean;
   size?: ButtonSizesType;
   variant?: ButtonVariantsType;
+  dataTestId?: string;
 } & ComponentPropsWithoutRef<T>;
 
 export const Button = memo(
@@ -32,6 +33,7 @@ export const Button = memo(
       size = 'sm',
       type = 'button',
       variant = 'filled',
+      dataTestId = 'button',
       ...otherProps
     } = props;
 
@@ -48,6 +50,7 @@ export const Button = memo(
       <Component
         {...(as === 'button' ? { type: type } : {})}
         {...otherProps}
+        data-testid={dataTestId}
         disabled={disabled}
         className={cnButton(mods, [className])}
       >

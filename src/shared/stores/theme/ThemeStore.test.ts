@@ -7,10 +7,6 @@ describe('ThemeStore test', () => {
   let themeStore: ThemeStore;
 
   beforeEach(() => {
-    vi.stubGlobal('localStorage', {
-      getItem: vi.fn(() => ThemeConstant.Dark),
-      setItem: vi.fn(),
-    });
     vi.stubGlobal(
       'matchMedia',
       vi.fn().mockImplementation((query) => ({

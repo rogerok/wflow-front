@@ -20,6 +20,7 @@ type TypographyProps<T extends ElementType> = {
   align?: TypographyAlign;
   fullWidth?: boolean;
   wordBreak?: boolean;
+  dataTestId?: string;
 } & ComponentPropsWithoutRef<T>;
 
 export const Typography = memo(
@@ -34,6 +35,7 @@ export const Typography = memo(
       align = 'left',
       wordBreak = true,
       fullWidth,
+      dataTestId,
       ...restProps
     } = props;
 
@@ -49,7 +51,11 @@ export const Typography = memo(
     const Component = as || 'span';
 
     return (
-      <Component className={cnTypography(mods, [className])} {...restProps}>
+      <Component
+        className={cnTypography(mods, [className])}
+        data-testid={dataTestId}
+        {...restProps}
+      >
         {children}
       </Component>
     );

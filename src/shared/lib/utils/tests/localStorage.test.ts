@@ -18,7 +18,7 @@ describe('localStorage utilities', () => {
   });
 
   it('should retrieve items from localStorage', () => {
-    vi.spyOn(Storage.prototype, 'getItem').mockReturnValue(stringify);
+    vi.spyOn(localStorage, 'getItem').mockReturnValue(stringify);
 
     const result = getLocalStorageItem(key);
 
@@ -27,7 +27,7 @@ describe('localStorage utilities', () => {
   });
 
   it('should return null if localStorage item does not exists', () => {
-    vi.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
+    vi.spyOn(localStorage, 'getItem').mockReturnValue(null);
 
     const result = getLocalStorageItem(key);
 
@@ -45,34 +45,25 @@ describe('localStorage utilities', () => {
   });
 
   it('should set localStorage item to localStorage', () => {
-    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
-
     setLocalStorageItem(key, mockedObj);
 
-    expect(setItemSpy).toHaveBeenCalledWith(key, stringify);
+    expect(localStorage.setItem).toHaveBeenCalledWith(key, stringify);
   });
 
   it('should handle errors when saving to localStorage', () => {
-    const setItemSpy = vi
-      .spyOn(Storage.prototype, 'setItem')
-      .mockImplementation(() => {
-        throw new Error('storage error');
-      });
-
     expect(() => setLocalStorageItem(key, mockedObj)).not.toThrow();
-    expect(setItemSpy).toHaveBeenCalled();
+    expect(localStorage.setItem).toHaveBeenCalled();
   });
 
   it('should remove item from localStorage', () => {
-    const removeSpyOn = vi.spyOn(Storage.prototype, 'removeItem');
     removeLocalStorageItem(key);
 
-    expect(removeSpyOn).toHaveBeenCalledWith(key);
+    expect(localStorage.removeItem).toHaveBeenCalledWith(key);
   });
 
   it('should handle error when removing from localStorage', () => {
     const removeSpyOn = vi
-      .spyOn(Storage.prototype, 'removeItem')
+      .spyOn(localStorage, 'removeItem')
       .mockImplementation(() => {
         throw new Error('storage error');
       });
