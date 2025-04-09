@@ -95,13 +95,22 @@ export const GoalStatistics: FC<GoalStatisticsProps> = observer((props) => {
                     Среднее количество слов за отчёт :{' '}
                     <Typography>{statistics.averageWordsPerReport} </Typography>
                   </Typography>
-
-                  <Typography as={'p'} weight={'semibold'}>
-                    Если вы продолжите в том же темпе, то закончите цель{' '}
-                    <Typography>
-                      {formatDate(statistics.estimatedEndDate)}{' '}
+                  {!goal.isExpired && !goal.isFinished && (
+                    <Typography as={'p'} weight={'semibold'}>
+                      Если вы продолжите в том же темпе, то закончите цель{' '}
+                      <Typography>
+                        {statistics.estimatedEndDate
+                          ? formatDate(statistics.estimatedEndDate)
+                          : 'Недостаточно данных для расчёта'}{' '}
+                      </Typography>
                     </Typography>
-                  </Typography>
+                  )}
+                  {goal.isExpired && !goal.isFinished && (
+                    <Typography>Время истекло</Typography>
+                  )}
+                  {!goal.isExpired && goal.isFinished && (
+                    <Typography>Время истекло</Typography>
+                  )}
                 </VStack>
               </Paper>
             </Col>

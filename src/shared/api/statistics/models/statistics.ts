@@ -51,7 +51,7 @@ export const StatisticsGoalResponseSchema = z.object({
   dailyWordsRequired: z.number(),
   daysElapsed: z.number(),
   daysRemaining: z.number(),
-  estimatedEndDate: z.string(),
+  estimatedEndDate: z.string().nullable(),
   goalId: z.string().uuid(),
   percentageComplete: z.number(),
   remainingWords: z.number(),
