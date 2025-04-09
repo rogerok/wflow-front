@@ -38,6 +38,7 @@ export const Input: FC<InputProps> = memo((props) => {
     error,
     addonLeft,
     addonRight,
+    required,
     ...restProps
   } = props;
 
@@ -56,6 +57,7 @@ export const Input: FC<InputProps> = memo((props) => {
       {label && (
         <label htmlFor={name} className={cnInput('Label')}>
           <Typography>{label}</Typography>
+          {required && <Typography variant={'warn'}> *</Typography>}
         </label>
       )}
       <div className={cnInput('Inner', { fullWidth: fullWidth })}>
