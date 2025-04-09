@@ -2,10 +2,12 @@ import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
 
 import { workspaceRoot } from '@nx/devkit';
+import { fileURLToPath } from 'url';
 
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env['BASE_URL'] || 'http://localhost:4300';
 
+const __filename = fileURLToPath(import.meta.url);
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -47,23 +49,23 @@ export default defineConfig({
     },
 
     // Uncomment for mobile browsers support
-    /* {
+    {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] },
     },
     {
       name: 'Mobile Safari',
       use: { ...devices['iPhone 12'] },
-    }, */
+    },
 
     // Uncomment for branded browsers
-    /* {
+    {
       name: 'Microsoft Edge',
       use: { ...devices['Desktop Edge'], channel: 'msedge' },
     },
     {
       name: 'Google Chrome',
       use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    } */
+    },
   ],
 });

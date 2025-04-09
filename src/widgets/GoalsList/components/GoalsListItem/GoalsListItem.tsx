@@ -27,7 +27,15 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
 
   return (
     <VStack className={cnGoalsListItem(undefined, [className])} as={'li'}>
-      <Card className={cnGoalsListItem('Card')}>
+      <Card
+        className={cnGoalsListItem('Card', {
+          status: goal.data.isFinished
+            ? 'finished'
+            : goal.data.isExpired
+              ? 'expired'
+              : false,
+        })}
+      >
         <CardHeader title={goal.data.title} />
         <Typography as={'p'}>{goal.data.description}</Typography>
         <VStack fullWidth mt={'auto'}>

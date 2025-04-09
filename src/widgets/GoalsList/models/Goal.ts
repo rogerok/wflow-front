@@ -30,7 +30,7 @@ export class GoalModel {
   }
 
   get daysRemaining(): number {
-    return differenceInCalendarDays(this.data.endDate, this.data.startDate) + 1;
+    return differenceInCalendarDays(this.data.endDate, new Date()) + 1;
   }
 
   get localizedRemainingDays(): string | null {
