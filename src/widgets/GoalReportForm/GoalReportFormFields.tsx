@@ -28,6 +28,7 @@ export const GoalReportFormFields: FC<GoalReportFormFieldsProps> = observer(
           field={form.fields.wordsAmount}
           type={'number'}
           fullWidth
+          required
         />
       </VStack>
     );

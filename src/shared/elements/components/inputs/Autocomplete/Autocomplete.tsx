@@ -24,6 +24,7 @@ type AutocompleteProps<T extends IOptionType> = {
   ref?: Ref<HTMLDivElement>;
   uniqueIdentifier?: keyof T;
   isLoading?: boolean;
+  required?: boolean;
 } & HTMLInputProps;
 
 export const Autocomplete = observer(
@@ -38,6 +39,7 @@ export const Autocomplete = observer(
       uniqueIdentifier = 'id',
       fullWidth,
       label,
+      required,
     } = props;
 
     const {
@@ -92,6 +94,7 @@ export const Autocomplete = observer(
               fullWidth
               label={label}
               error={field.error}
+              required={required}
             />
           }
           isLoading={isLoading}

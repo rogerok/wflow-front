@@ -3,6 +3,7 @@ import './TextArea.scss';
 import { cn } from '@bem-react/classname';
 import { ChangeEvent, FC, TextareaHTMLAttributes } from 'react';
 
+import { Typography } from '../Typography/Typography';
 import { VStack } from '../VStack/VStack';
 
 const cnTextArea = cn('TextArea');
@@ -21,6 +22,7 @@ interface TextAreaProps extends HTMLTextAreaProps {
   label?: string;
   readonly?: boolean;
   resizable?: boolean;
+  required?: boolean;
 }
 
 export const TextArea: FC<TextAreaProps> = (props) => {
@@ -35,6 +37,7 @@ export const TextArea: FC<TextAreaProps> = (props) => {
     name,
     disabled,
     resizable = false,
+    required,
     ...restProps
   } = props;
 
@@ -52,7 +55,8 @@ export const TextArea: FC<TextAreaProps> = (props) => {
     >
       {label && (
         <label htmlFor={name} className={cnTextArea('Label')}>
-          {label}
+          <Typography>{label}</Typography>
+          {required && <Typography variant={'warn'}> *</Typography>}
         </label>
       )}
       <textarea

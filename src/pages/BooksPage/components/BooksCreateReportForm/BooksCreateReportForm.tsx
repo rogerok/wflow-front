@@ -66,6 +66,7 @@ export const BooksCreateReportForm: FC<BookCreateReportFormProps> = observer(
                 field={form.fields.goalId}
                 label={'Цель'}
                 bookId={form.fields.bookId.value}
+                required
               />
 
               <TextInput
@@ -73,6 +74,7 @@ export const BooksCreateReportForm: FC<BookCreateReportFormProps> = observer(
                 field={form.fields.wordsAmount}
                 type={'number'}
                 fullWidth
+                required
               />
             </VStack>
             <Button type={'submit'} disabled={form.isSubmitting}>

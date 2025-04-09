@@ -31,6 +31,7 @@ export interface DatePickerProps {
   withPortal?: ReactDatePickerProps['withPortal'];
   fullWidth?: boolean;
   disabled?: boolean;
+  required?: boolean;
 }
 
 export const DatePicker: FC<DatePickerProps> = memo((props) => {
