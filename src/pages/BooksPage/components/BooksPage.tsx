@@ -34,7 +34,7 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
         <ButtonLink to={routes.booksCreate()}>
           {UiTextConstant.add('книгу')}
         </ButtonLink>
-        <SortMenu items={BooksSortOptions} />
+        <SortMenu options={BooksSortOptions} />
         <BooksList data={service.data} isLoading={service.isLoading} />
         <Pagination service={service.request} />
       </Page>
