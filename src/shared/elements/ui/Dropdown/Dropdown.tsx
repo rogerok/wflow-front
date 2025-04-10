@@ -12,7 +12,7 @@ import { Typography } from '../Typography/Typography';
 
 const cnDropdown = cn('Dropdown');
 
-type DropdownProps<T extends IOptionType> = Omit<
+type DropdownProps<T extends Record<string, unknown>> = Omit<
   ComponentProps<typeof Popup>,
   | 'className'
   | 'withPortal'
@@ -78,7 +78,7 @@ export const Dropdown = <T extends IOptionType>(
               addonRight={
                 <IconComponent
                   className={cnDropdown('ArrowIcon', {
-                    open: open,
+                    closed: !open,
                   })}
                   name={'ArrowSm'}
                   size={'md'}
@@ -103,9 +103,9 @@ export const Dropdown = <T extends IOptionType>(
           {options.length ? (
             <ul className={cnDropdown('List')}>
               {!props.isLoading ? (
-                options.map((option) => (
+                options.map((option, idx) => (
                   <li
-                    key={option.id}
+                    key={idx}
                     onClick={() => onItemClick?.(option)}
                     className={cnDropdown('ListItem', {
                       selected:

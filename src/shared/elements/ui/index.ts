@@ -15,6 +15,7 @@ export { Row } from './Grid/Row';
 export { HStack } from './HStack/HStack';
 export { IconComponent } from './IconComponent/IconComponent';
 export { Loader } from './Loader/Loader';
+export { Menu } from './Menu/Menu';
 export { Modal } from './Modal/Modal';
 export { NotFoundLabel } from './NotFoundLabel/NotFoundLabel';
 export { Overlay } from './Overlay/Overlay';

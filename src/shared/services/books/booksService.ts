@@ -8,19 +8,18 @@ import {
 import { OrderByRequestConstant } from '../../const';
 import { QueryFilterRequestStore } from '../../stores/request/QueryFilterRequestStore';
 
+const defaultParams: BooksRequestType = {
+  page: 1,
+  perPage: 6,
+  orderBy: OrderByRequestConstant.CreatedAtDesc,
+};
+
 export class BooksService {
-  params: BooksRequestType = {
-    page: 1,
-    perPage: 6,
-    orderBy: OrderByRequestConstant.CreatedAtDesc,
-  };
+  request;
 
-  request = new QueryFilterRequestStore(getBooksList, this.params);
+  constructor(params = defaultParams) {
+    this.request = new QueryFilterRequestStore(getBooksList, params);
 
-  constructor(params?: BooksRequestType) {
-    if (params) {
-      this.params = params;
-    }
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
@@ -32,7 +31,7 @@ export class BooksService {
     return this.request.isLoading;
   }
 
-  list = async (params?: BooksRequestType): Promise<void> => {
+  list = async (params?: Partial<BooksRequestType>): Promise<void> => {
     await this.request.call(params);
   };
 
