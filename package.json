@@ -6,11 +6,11 @@
     "preinstall": "npx only-allow pnpm",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test",
+    "test": "VITE_API_URL=123 nx test",
     "typecheck": "tsc",
-    "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "lint-fsd": "npx steiger ./src"
   },
+
   "type": "module",
   "private": true,
   "engines": {
@@ -86,7 +86,9 @@
     "eslint-plugin-react": "^7.37.3",
     "eslint-plugin-react-hooks": "5.1.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "husky": ">=7",
     "jsdom": "~26.0.0",
+    "lint-staged": ">=10",
     "mobx-log": "^2.2.3",
     "nx": "20.0.12",
     "prettier": "^3.4.2",
@@ -113,5 +115,10 @@
   },
   "nx": {
     "includedScripts": []
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --cache --fix",
+    "*.{css,scss}": "stylelint --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
