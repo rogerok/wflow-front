@@ -29,3 +29,5 @@ jobs:
       - run: npm install -g pnpm
       - uses: nrwl/nx-set-shas@v4
       - run: npx nx affected -t lint test build e2e
+        env:
+          VITE_API_URL: http://localhost:3000
