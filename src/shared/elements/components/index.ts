@@ -6,4 +6,3 @@ export { DatePickerInput } from './inputs/DatePickerInput/DatePickerInput';
 export { DateTimePickerInput } from './inputs/DateTimePickerInput/DateTimePickerInput';
 export { FormTextArea } from './inputs/FormTextArea/FormTextArea';
 export { TextInput } from './inputs/TextInput/TextInput';
-export { SortMenu } from './SortMenu/SortMenu';

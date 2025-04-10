@@ -10,3 +10,7 @@ export const PaginationRequestSchema = z.object({
 export const OrderByCreatedAtRequestSchema = z.nativeEnum(
   OrderByRequestConstant,
 );
+
+export type OrderByCreatedAtRequestType = z.infer<
+  typeof OrderByCreatedAtRequestSchema
+>;

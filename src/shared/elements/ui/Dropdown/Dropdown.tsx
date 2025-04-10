@@ -78,7 +78,7 @@ export const Dropdown = <T extends IOptionType>(
               addonRight={
                 <IconComponent
                   className={cnDropdown('ArrowIcon', {
-                    open: open,
+                    closed: !open,
                   })}
                   name={'ArrowSm'}
                   size={'md'}

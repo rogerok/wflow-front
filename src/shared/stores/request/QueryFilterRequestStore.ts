@@ -63,10 +63,14 @@ export class QueryFilterRequestStore<
     await this.call();
   };
 
+  setParams = (params?: Partial<RequestType>): void => {
+    this.params = { ...this.params, ...params };
+  };
+
   async call(params?: Partial<RequestType>): Promise<void> {
     this.abortRequest();
     this.abortController = new AbortController();
-
-    this.store.call({ ...this.params, ...params }, this.abortController);
+    this.setParams(params);
+    this.store.call(this.params, this.abortController);
   }
 }
