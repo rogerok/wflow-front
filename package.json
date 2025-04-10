@@ -8,7 +8,6 @@
     "build": "nx build",
     "test": "nx test",
     "typecheck": "tsc",
-    "lint": "eslint src --report-unused-disable-directives",
     "lint-fsd": "npx steiger ./src"
   },
 

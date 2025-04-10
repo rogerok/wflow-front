@@ -8,6 +8,8 @@ import {
 import { OrderByRequestConstant } from '../../const';
 import { QueryFilterRequestStore } from '../../stores/request/QueryFilterRequestStore';
 
+console.log('husky test');
+
 export class BooksService {
   params: BooksRequestType = {
     page: 1,
