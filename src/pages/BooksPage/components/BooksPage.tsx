@@ -1,10 +1,12 @@
 import { cn } from '@bem-react/classname';
 import { routes, UiTextConstant } from '@shared/const';
+import { SortMenu } from '@shared/elements/components';
 import { ButtonLink, Page, PageSeo, Pagination } from '@shared/elements/ui';
 import { BooksService } from '@shared/services';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
+import { BooksSortOptions } from '../model/constants/constants';
 import { BooksContext } from '../model/context/BooksContext';
 import { BooksList } from './BooksList/BooksList';
 
@@ -32,6 +34,7 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
         <ButtonLink to={routes.booksCreate()}>
           {UiTextConstant.add('книгу')}
         </ButtonLink>
+        <SortMenu items={BooksSortOptions} />
         <BooksList data={service.data} isLoading={service.isLoading} />
         <Pagination service={service.request} />
       </Page>
