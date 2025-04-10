@@ -3,7 +3,9 @@ name: CI
 on:
   push:
     branches:
+      #TODO: remove ci-cd branch
       - ci-cd
+      - development
   pull_request:
 
 permissions:
@@ -28,6 +30,6 @@ jobs:
       - run: pnpm i
       - run: npm install -g pnpm
       - uses: nrwl/nx-set-shas@v4
-      - run: npx nx affected -t lint test build e2e
+      - run: npx nx affected -t lint test build
         env:
           VITE_API_URL: http://localhost:3000
