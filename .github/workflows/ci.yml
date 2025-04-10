@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+      - run: npm install -g pnpm
       - run: pnpm ci --legacy-peer-deps
       - run: npx playwright install --with-deps
       - uses: nrwl/nx-set-shas@v4
