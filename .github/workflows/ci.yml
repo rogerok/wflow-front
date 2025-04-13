@@ -3,8 +3,6 @@ name: CI
 on:
   push:
     branches:
-      #TODO: remove ci-cd branch
-      - ci-cd
       - development
   pull_request:
 
@@ -13,23 +11,30 @@ permissions:
   contents: read
 
 jobs:
-  main:
+  build:
     runs-on: ubuntu-latest
+    env:
+      VITE_API_URL: http://localhost:3000
+    strategy:
+      matrix:
+        node-version: [20.16.0]
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
-      - uses: actions/setup-node@v4
+      - name: Use Node.js ${{ matrix.node-version}}
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-      - run: pnpm i
-      - run: npm install -g pnpm
-      - uses: nrwl/nx-set-shas@v4
-      - run: npx nx affected -t lint test build
-        env:
-          VITE_API_URL: http://localhost:3000
+      - name: Install deps
+        run: pnpm i
+      - name: linting
+        run: pnpm lint
+      - name: Tests
+        run: pnpm test --verbose
+      - name: Build
+        run: pnpm build
+
