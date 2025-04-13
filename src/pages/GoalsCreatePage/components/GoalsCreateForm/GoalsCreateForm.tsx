@@ -42,14 +42,25 @@ export const GoalsCreateForm: FC<GoalsCreateFormProps> = observer((props) => {
       form={service.form}
     >
       <VStack gap={'16'} fullWidth>
-        <TextInput field={fields.title} fullWidth label={'Название цели'} />
+        <TextInput
+          field={fields.title}
+          fullWidth
+          label={'Название цели'}
+          required
+        />
         <FormTextArea field={fields.description} fullWidth label={'Описание'} />
-        <BooksAutocomplete label={'Книга'} field={fields.bookId} fullWidth />
+        <BooksAutocomplete
+          label={'Книга'}
+          field={fields.bookId}
+          fullWidth
+          required
+        />
         <TextInput
           label={'Количество слов'}
           type={'number'}
           field={fields.goalWords}
           fullWidth
+          required
         />
         <DatePickerInput
           label={'Дата начала'}
@@ -58,6 +69,7 @@ export const GoalsCreateForm: FC<GoalsCreateFormProps> = observer((props) => {
           showMonthDropdown
           showYearDropdown
           fullWidth
+          required
         />
         <DatePickerInput
           label={'Дата завершения'}
@@ -66,6 +78,7 @@ export const GoalsCreateForm: FC<GoalsCreateFormProps> = observer((props) => {
           showMonthDropdown
           showYearDropdown
           fullWidth
+          required
         />
         <Button type={'submit'} disabled={service.form.isSubmitting}>
           {UiTextConstant.post()}

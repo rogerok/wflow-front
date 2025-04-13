@@ -32,6 +32,7 @@ export const BooksCreateForm: FC<BooksCreateFormProps> = observer((props) => {
           field={service.form.fields.name}
           label={'Название книги'}
           fullWidth
+          required
         />
         <FormTextArea
           label={'Описание'}

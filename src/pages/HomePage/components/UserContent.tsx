@@ -215,15 +215,17 @@ export const UserContent: FC<UserContentProps> = observer((props) => {
                 }
               />
             </Col>
-            <Col sm={12} md={6} lg={4}>
-              <StatisticCard
-                title={'Самый продуктивный день'}
-                value={formatDate(data.mostProductiveDay)}
-                subtitle={
-                  'Дата, когда вы написали наибольшее количество слов за день.'
-                }
-              />
-            </Col>
+            {data.mostProductiveDay && (
+              <Col sm={12} md={6} lg={4}>
+                <StatisticCard
+                  title={'Самый продуктивный день'}
+                  value={formatDate(data.mostProductiveDay)}
+                  subtitle={
+                    'Дата, когда вы написали наибольшее количество слов за день.'
+                  }
+                />
+              </Col>
+            )}
 
             <Col sm={12} md={6} lg={4}>
               <StatisticCard

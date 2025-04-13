@@ -24,6 +24,7 @@ export const Quotes: FC<QuotesProps> = observer((props) => {
         className={cnQuotes(undefined, [props.className])}
         as={'p'}
         size={'l'}
+        dataTestId={'Quotes'}
       >
         {request.result.data?.text}
       </Typography>

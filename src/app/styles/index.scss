@@ -25,17 +25,14 @@ html {
   background: var(--bg-primary);
 }
 
-/* width */
 ::-webkit-scrollbar {
   width: 0.8rem;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: var(--basic-secondary-1);
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 2.5rem;
   background: var(--basic-secondary-4);

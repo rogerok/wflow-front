@@ -8,18 +8,20 @@ const cnAppLink = cn('AppLink');
 type AppLinkVariant = 'primary' | 'secondary' | 'outline';
 
 interface AppLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  children: ReactNode;
   className?: string;
   variant?: AppLinkVariant;
-  children: ReactNode;
+  dataTestId?: string;
 }
 
 const Link = forwardRef<HTMLAnchorElement, AppLinkProps>((props, ref) => {
-  const { variant = 'primary', className } = props;
+  const { dataTestId = 'link', variant = 'primary', className } = props;
 
   return (
     <a
-      ref={ref}
       {...props}
+      ref={ref}
+      data-testid={dataTestId}
       className={cnAppLink({ [variant]: true }, [className])}
     />
   );

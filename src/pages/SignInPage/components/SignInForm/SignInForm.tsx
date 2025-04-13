@@ -41,15 +41,17 @@ export const SignInForm: FC<SignInFormProps> = observer((props) => {
         >
           <TextInput
             field={authForm.fields.email}
-            placeholder={'Email'}
+            label={'Почта'}
             fullWidth
+            required
           />
           <TextInput
             field={authForm.fields.password}
-            placeholder={'Пароль'}
+            label={'Пароль'}
             type={'password'}
             fullWidth
             autoComplete={'on'}
+            required
           />
         </VStack>
         <Button

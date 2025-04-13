@@ -26,7 +26,7 @@ export const BooksAutocomplete: FC<BooksAutocompleteProps> = observer(
         new BooksService({
           page: 1,
           perPage: 0,
-          orderById: OrderByRequestConstant.CreatedAtDesc,
+          orderBy: OrderByRequestConstant.CreatedAtDesc,
         }),
     );
     const { abortRequest, list, data } = service;

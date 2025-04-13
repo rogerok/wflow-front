@@ -16,7 +16,11 @@ const cnAutocomplete = cn('Autocomplete');
 
 type HTMLInputProps = Omit<ComponentProps<typeof Input>, 'value' | 'onChange'>;
 
-type AutocompleteProps<T extends IOptionType> = {
+export interface AutocompleteOptionType extends IOptionType {
+  id: string | number;
+}
+
+type AutocompleteProps<T extends AutocompleteOptionType> = {
   field: TextField<string | number>;
   labelField: keyof T;
   options: T[];
@@ -24,10 +28,13 @@ type AutocompleteProps<T extends IOptionType> = {
   ref?: Ref<HTMLDivElement>;
   uniqueIdentifier?: keyof T;
   isLoading?: boolean;
+  required?: boolean;
 } & HTMLInputProps;
 
 export const Autocomplete = observer(
-  <T extends IOptionType>(props: AutocompleteProps<T>): ReactNode => {
+  <T extends AutocompleteOptionType>(
+    props: AutocompleteProps<T>,
+  ): ReactNode => {
     const {
       className,
       field,
@@ -38,6 +45,7 @@ export const Autocomplete = observer(
       uniqueIdentifier = 'id',
       fullWidth,
       label,
+      required,
     } = props;
 
     const {
@@ -92,6 +100,7 @@ export const Autocomplete = observer(
               fullWidth
               label={label}
               error={field.error}
+              required={required}
             />
           }
           isLoading={isLoading}

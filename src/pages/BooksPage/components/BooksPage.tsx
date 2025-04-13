@@ -7,6 +7,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { BooksContext } from '../model/context/BooksContext';
 import { BooksList } from './BooksList/BooksList';
+import { BooksSortMenu } from './BooksSortMenu/BooksSortMenu';
 
 const cnBooksPage = cn('BooksPage');
 
@@ -32,6 +33,7 @@ export const BooksPage: FC<BooksPageProps> = observer((props) => {
         <ButtonLink to={routes.booksCreate()}>
           {UiTextConstant.add('книгу')}
         </ButtonLink>
+        <BooksSortMenu />
         <BooksList data={service.data} isLoading={service.isLoading} />
         <Pagination service={service.request} />
       </Page>

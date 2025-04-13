@@ -48,28 +48,29 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.firstName}
-                placeholder={'Имя'}
+                label={'Имя'}
                 fullWidth
+                required
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.lastName}
-                placeholder={'Фамилия'}
+                label={'Фамилия'}
                 fullWidth
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.middleName}
-                placeholder={'Отчество'}
+                label={'Отчество'}
                 fullWidth
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
               <DatePickerInput
                 field={userForm.fields.bornDate}
-                placeholderText={'Дата рождения'}
+                label={'Дата рождения'}
                 showMonthDropdown
                 showYearDropdown
                 fullWidth
@@ -81,7 +82,7 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.email}
-                placeholder={'Почта'}
+                label={'Почта'}
                 fullWidth
                 autoComplete={'email'}
               />
@@ -89,8 +90,9 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.password}
-                placeholder={'Пароль'}
+                label={'Пароль'}
                 fullWidth
+                required
                 type={'password'}
                 autoComplete={'new-password'}
               />
@@ -98,8 +100,9 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.passwordConfirm}
-                placeholder={'Подтвердите пароль'}
+                label={'Подтвердите пароль'}
                 fullWidth
+                required
                 type={'password'}
                 autoComplete={'new-password'}
               />
@@ -112,14 +115,14 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.pseudonymFirstName}
-                placeholder={'Имя'}
+                label={'Имя'}
                 fullWidth
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.pseudonymLastName}
-                placeholder={'Фамилия'}
+                label={'Фамилия'}
                 fullWidth
               />
             </Col>
@@ -130,28 +133,28 @@ export const SignUpForm: FC<SignUpFormProps> = (props) => {
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.socialLinks.fields.instagram}
-                placeholder={'Инстаграм'}
+                label={'Инстаграм'}
                 fullWidth
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.socialLinks.fields.telegram}
-                placeholder={'Телеграм'}
+                label={'Телеграм'}
                 fullWidth
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.socialLinks.fields.tiktok}
-                placeholder={'ТикТок'}
+                label={'ТикТок'}
                 fullWidth
               />
             </Col>
             <Col sm={12} md={6} lg={4} xl={3}>
               <TextInput
                 field={userForm.fields.socialLinks.fields.vk}
-                placeholder={'Вк'}
+                label={'Вк'}
                 fullWidth
               />
             </Col>

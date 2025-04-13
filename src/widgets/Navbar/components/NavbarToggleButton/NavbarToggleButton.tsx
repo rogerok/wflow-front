@@ -21,6 +21,7 @@ export const NavbarToggleButton: FC<NavbarToggleButtonProps> = observer(
         className={cNavbarToggleButton({ expanded: !navbar.isCollapsed }, [
           props.className,
         ])}
+        dataTestId={'NavbarToggleButton'}
         name={navbar.isCollapsed ? 'DoubleArrowRight' : 'DoubleArrowLeft'}
         onClick={navbar.toggle}
         color={navbar.isCollapsed ? 'basic-secondary-4' : 'brand-primary'}

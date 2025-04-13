@@ -32,7 +32,7 @@ export class UiBaseStore<T> implements IUiBaseStore<T> {
 
     if (this.validateState(storedState)) {
       this.setState(storedState);
-    } else {
+
       this.saveStateToStorage();
     }
   }

@@ -7,7 +7,7 @@ import { FC, memo } from 'react';
 import { NavbarLinksType } from '../../model/constants/links';
 import { NavbarLabel } from '../NavbarLabel/NavbarLabel';
 
-const cnNavbarLabel = cn('NavbarLink');
+const cnNavbarLink = cn('NavbarLink');
 
 interface NavbarLabelProps {
   collapsed: boolean;
@@ -21,18 +21,18 @@ export const NavbarLink: FC<NavbarLabelProps> = memo((props) => {
 
   return (
     <AppLink
-      className={cnNavbarLabel(undefined, [className])}
+      className={cnNavbarLink(undefined, [className])}
       to={link.to}
       onClick={onClick}
     >
       {({ isActive }) => (
         <div
-          className={cnNavbarLabel('Inner', {
+          className={cnNavbarLink('Inner', {
             collapsed: collapsed,
           })}
         >
           <div
-            className={cnNavbarLabel('Icon', {
+            className={cnNavbarLink('Icon', {
               active: isActive,
               collapsed: collapsed,
             })}

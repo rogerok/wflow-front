@@ -21,6 +21,7 @@ interface DatePickerInputProps
   label?: string;
   fullWidth?: boolean;
   disabled?: boolean;
+  required?: boolean;
 }
 
 export const DatePickerInput: FC<DatePickerInputProps> = observer((props) => {
@@ -31,6 +32,7 @@ export const DatePickerInput: FC<DatePickerInputProps> = observer((props) => {
     label,
     fullWidth,
     disabled,
+    required,
     ...restProps
   } = props;
   const { setValue, value, error, name } = field;
@@ -67,12 +69,14 @@ export const DatePickerInput: FC<DatePickerInputProps> = observer((props) => {
       error={error}
       name={name}
       disabled={disabled}
+      required={required}
     />
   );
 
   return (
     <DatePicker
       {...restProps}
+      required={required}
       disabled={disabled}
       fullWidth={fullWidth}
       className={cnDatePickerInput(undefined, [className])}

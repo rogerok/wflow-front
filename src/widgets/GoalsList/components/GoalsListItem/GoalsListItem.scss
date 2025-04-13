@@ -15,5 +15,15 @@
   &-Card {
     display: flex;
     flex-direction: column;
+
+    &_status {
+      &_expired {
+        border-color: var(--alert)
+      }
+
+      &_finished {
+        border-color: var(--success)
+      }
+    }
   }
 }
