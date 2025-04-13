@@ -31,14 +31,12 @@ jobs:
           cache: 'pnpm'
       - name: Install deps
         run: pnpm i
-      - run: pnpm ci
       - uses: nrwl/nx-set-shas@v4
       - name: linting
         run: pnpm lint
       - name: Tests
         env:
           VITE_API_URL: http://localhost:3000
-          CI: false
         run: pnpm test
       - name: Build
         run: pnpm build
