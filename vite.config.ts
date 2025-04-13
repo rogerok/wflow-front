@@ -98,7 +98,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     test: {
-      watch: !process.env.CI,
+      watch: true,
       globals: true,
       environment: 'jsdom',
       include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
