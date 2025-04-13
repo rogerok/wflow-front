@@ -27,9 +27,10 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
-      - run: pnpm i
       - run: npm install -g pnpm
-      - uses: nrwl/nx-set-shas@v4
-      - run: npx nx affected -t lint test build
+      - run: pnpm i
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm build
         env:
           VITE_API_URL: http://localhost:3000
