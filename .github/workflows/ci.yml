@@ -14,9 +14,6 @@ permissions:
 
 jobs:
   build:
-    env:
-      VITE_API_URL: http://localhost:3000
-      CI: false
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -37,6 +34,9 @@ jobs:
       - name: linting
         run: pnpm lint
       - name: Tests
+        env:
+          VITE_API_URL: http://localhost:3000
+          CI: false
         run: pnpm test
       - name: Build
         run: pnpm build
