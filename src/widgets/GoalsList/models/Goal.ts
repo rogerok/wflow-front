@@ -9,23 +9,23 @@ export class GoalModel {
     this.data = data;
   }
 
-  get wordsPerDay(): number {
-    return Math.round(this.data.wordsPerDay);
-  }
-
   dateFormatter(date: string): string {
     return formatDate(date);
   }
 
-  get formattedCreatedDate(): string {
+  get wordsPerDay(): number {
+    return Math.round(this.data.wordsPerDay);
+  }
+
+  get createdDate(): string {
     return this.dateFormatter(this.data.createdAt);
   }
 
-  get formattedStartDate(): string {
+  get startDate(): string {
     return this.dateFormatter(this.data.startDate);
   }
 
-  get formattedEndDate(): string {
+  get endDate(): string {
     return this.dateFormatter(this.data.endDate);
   }
 
@@ -33,20 +33,36 @@ export class GoalModel {
     return differenceInCalendarDays(this.data.endDate, new Date()) + 1;
   }
 
-  get localizedRemainingDays(): string | null {
-    if (this.data.isExpired || this.data.isFinished) {
+  get isExpiredOrFinished(): boolean {
+    return this.data.isExpired || this.data.isFinished;
+  }
+
+  get isTermExpired(): boolean {
+    return this.daysRemaining < 0;
+  }
+
+  get isNotStarted(): boolean {
+    return isBefore(new Date(), this.data.startDate);
+  }
+
+  get localizedRemainingDays(): string {
+    const rtf = new Intl.RelativeTimeFormat('ru', { numeric: 'auto' });
+    return rtf.format(this.daysRemaining, 'day');
+  }
+
+  get termLabel(): string | null {
+    if (this.isExpiredOrFinished) {
       return null;
     }
 
-    if (this.daysRemaining <= 0) {
+    if (this.isTermExpired) {
       return 'Срок истек';
     }
 
-    if (isBefore(new Date(), this.data.startDate)) {
+    if (this.isNotStarted) {
       return 'Цель ещё не начата';
     }
 
-    const rtf = new Intl.RelativeTimeFormat('ru', { numeric: 'auto' });
-    return `До окончания цели ${rtf.format(this.daysRemaining, 'day').replace('через ', '')}`;
+    return `До окончания цели ${this.localizedRemainingDays.replace('через ', '')}`;
   }
 }
