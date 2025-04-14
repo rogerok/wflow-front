@@ -46,3 +46,4 @@ storybook-static
 vitest.config.*.timestamp*
 
 circleDep
+.eslintcache
