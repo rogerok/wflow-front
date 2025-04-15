@@ -5,7 +5,10 @@
 
   width: 100%;
   height: var(--header-height);
-  padding-top: 1.6rem;
+  padding: 0 2.4rem;
+  border-radius: 0 0 1.6rem 1.6rem;
+
+  box-shadow: var(--shadow-3);
 
   &-Link {
     display: flex;
