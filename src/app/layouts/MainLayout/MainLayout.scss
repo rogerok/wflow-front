@@ -1,5 +1,4 @@
 .MainLayout {
-  overflow-y: auto;
   display: grid;
   grid-template-areas:
     'header'
@@ -9,7 +8,6 @@
     auto calc(100svh - var(--navbar-height) - var(--header-height))
     var(--navbar-height);
 
-  padding: 0 2.4rem;
 
   &-Navbar {
     position: fixed;
@@ -20,14 +18,23 @@
 
     grid-area: navbar;
 
+
     @media (min-width: $md-breakpoint) {
       position: relative;
+      margin-top: 2.4rem;
     }
   }
 
   &-Content {
+    overflow-y: auto;
     grid-area: content;
     height: 100vh;
+    padding: 1.6rem;
+
+    @media (min-width: $md-breakpoint) {
+      padding: 2.4rem 2.4rem 2.4rem 0;
+
+    }
   }
 
   &-Header {
@@ -35,7 +42,7 @@
   }
 
   @media (min-width: $md-breakpoint) {
-    grid-gap: 2.4rem;
+    grid-column-gap: 2.4rem;
     grid-template:
       'header header header' var(--header-height)
       'navbar content content' calc(100vh - var(--header-height))

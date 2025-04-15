@@ -45,9 +45,7 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
               слов ежедневно.
             </Typography>
           )}
-          {goal.localizedRemainingDays && (
-            <Typography>{goal.localizedRemainingDays}</Typography>
-          )}
+          {goal.termLabel && <Typography>{goal.termLabel}</Typography>}
 
           <Typography variant={'accent'} weight={'semibold'}>
             Текущий прогресс
@@ -66,15 +64,9 @@ export const GoalsListItem: FC<GoalsListItemProps> = observer((props) => {
         </VStack>
         {actions}
         <HStack flexJustify={'between'} as={'p'} gap={'8'} py={'16'}>
-          <Typography variant={'light'}>
-            Создано: {goal.formattedCreatedDate}
-          </Typography>
-          <Typography variant={'light'}>
-            Начало: {goal.formattedStartDate}
-          </Typography>
-          <Typography variant={'light'}>
-            Дедлайн: {goal.formattedEndDate}
-          </Typography>
+          <Typography variant={'light'}>Создано: {goal.createdDate}</Typography>
+          <Typography variant={'light'}>Начало: {goal.startDate}</Typography>
+          <Typography variant={'light'}>Дедлайн: {goal.endDate}</Typography>
         </HStack>
       </Card>
     </VStack>
