@@ -1,5 +1,3 @@
-import './BooksSortMenu.scss';
-
 import { cn } from '@bem-react/classname';
 import { OrderByCreatedAtRequestType } from '@shared/api';
 import { Menu } from '@shared/elements/ui';
