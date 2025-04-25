@@ -1,5 +1,4 @@
 import { makeAutoObservable } from 'mobx';
-import { makeLoggable } from 'mobx-log';
 import { ZodSchema } from 'zod';
 
 import { fieldFactory } from './factory/FieldFactory';
@@ -16,7 +15,6 @@ type FormHandleSubmitType<TFormValues> = (values: TFormValues) => Promise<void>;
 interface FormStoreConstructor<TFormValues> {
   defaultValues: TFormValues;
   schema: ZodSchema;
-  // handleSubmit?: FormHandleSubmitType<TFormValues>;
 }
 
 function initializeFields<TFormValues>(defaultValues: TFormValues): {
@@ -49,8 +47,6 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
     this.fields = initializeFields(options.defaultValues);
 
     makeAutoObservable(this, {}, { autoBind: true });
-
-    makeLoggable(this);
   }
 
   get errors(): ValidationResult<TFormValues> {
@@ -70,6 +66,7 @@ export class FormStore<TFormValues extends Record<string | number, any>> {
       this.setIsSubmitting(true);
 
       this.validate();
+      console.log(this.errors);
 
       if (this.errors.isSuccess) {
         await handleSubmit(this.getValues());
