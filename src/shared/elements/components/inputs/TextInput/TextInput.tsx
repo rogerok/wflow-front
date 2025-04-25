@@ -30,6 +30,8 @@ export const TextInput: FC<TextInputProps> = observer((props) => {
     setValue(value);
   };
 
+  console.log(name);
+
   return (
     <Input
       className={cnTextInput(undefined, [className])}

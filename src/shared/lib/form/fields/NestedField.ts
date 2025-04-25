@@ -7,11 +7,15 @@ type NestedFieldType<T> = {
   [K in keyof T]: FieldType<T[K]>;
 };
 
-function createNestedFields<T>(value: T): NestedFieldType<T> {
+function createNestedFields<T>(
+  parentName: string,
+  value: T,
+): NestedFieldType<T> {
   const fields: NestedFieldType<T> = {} as NestedFieldType<T>;
 
   for (const key in value) {
-    fields[key] = fieldFactory.createField(key, value[key]);
+    console.log(key);
+    fields[key] = fieldFactory.createField(`${parentName}${key}`, value[key]);
   }
   return fields;
 }

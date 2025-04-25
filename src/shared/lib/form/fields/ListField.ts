@@ -10,9 +10,9 @@ export class ListField<T> implements BaseFieldType<T[]> {
     this._name = name;
     this._value = defaultValue;
     this._defaultValue = this._value;
-    this.fields = defaultValue.map((item, index) =>
-      fieldFactory.createField(`${name}[${index}]`, item),
-    );
+    this.fields = defaultValue.map((item, index) => {
+      return fieldFactory.createField(`${name}[${index}]`, item);
+    });
 
     makeAutoObservable(this, {}, { autoBind: true });
   }

@@ -13,7 +13,7 @@ export type FieldType<T> = T extends string | number
         ? NestedField<T>
         : never;
 
-export type BaseFieldType<T> = {
+export interface BaseFieldType<T> {
   _defaultValue: T;
   _disabled: boolean;
   _error: string | undefined;
@@ -34,4 +34,4 @@ export type BaseFieldType<T> = {
 
   touch(): void;
   unTouch(): void;
-};
+}
