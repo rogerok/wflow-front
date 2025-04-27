@@ -20,4 +20,10 @@ export const NotificationText = {
   serverError: () => 'Ошибка сервера',
   badRequest: () => 'Что-то пошло не так. Попробуйте обновить страницу.',
   connectionError: () => 'Ошибка. Проверьте соединение с интернетом.',
-};
+} as const;
+
+export const ApiErrorsText: Record<number, string> = {
+  401: NotificationText.authRequired(),
+  404: NotificationText.notFound(),
+  500: NotificationText.serverError(),
+} as const;
