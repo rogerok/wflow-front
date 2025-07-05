@@ -2,7 +2,7 @@ import { AxiosError, AxiosResponse, CanceledError } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { toast } from 'react-toastify';
 
-import { NotificationText } from '../../const/text/uiText';
+import { ApiErrorsText, NotificationText } from '../../const/text/uiText';
 
 const RequestStatusesConstant = {
   Idle: 'idle',
@@ -67,21 +67,13 @@ export class RequestStore<T, Args extends any[] = []> {
       return;
     }
 
-    const errorMsg = this.messages?.error;
-
-    if (errorMsg) {
-      toast.error(errorMsg);
+    if (this.messages?.error) {
+      toast.error(this.messages?.error);
     } else if (err instanceof AxiosError) {
-      let errorMsg = NotificationText.error();
-
-      if (err.response?.status === 401) {
-        errorMsg = NotificationText.authRequired();
-      } else if (err.response?.status === 404) {
-        errorMsg = NotificationText.notFound();
-      } else if (err.response?.status === 500) {
-        errorMsg = NotificationText.serverError();
-      }
-
+      const errorMsg =
+        err.response?.status && err.response?.status in ApiErrorsText
+          ? ApiErrorsText[err.response.status]
+          : NotificationText.error();
       toast.error(errorMsg);
     }
   }
