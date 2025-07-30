@@ -29,4 +29,4 @@ Also, you can clone backend of the project and run it locally.
 https://github.com/rogerok/wflow-backend
 ```
 
-[DeepWiki](https://deepwiki.com/rogerok/wflow-front/1-overview);
+[DeepWiki](https://deepwiki.com/rogerok/wflow-front/1-overview)

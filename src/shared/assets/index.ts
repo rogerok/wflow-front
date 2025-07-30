@@ -8,6 +8,8 @@ export { default as ClearCircle } from './icons/forms/clear-circle.svg';
 export { default as LogoIcon } from './icons/logo.svg';
 export { default as BookIcon } from './icons/menu/book.svg';
 export { default as BookIconFilled } from './icons/menu/book-filled.svg';
+export { default as FeedbackIcon } from './icons/menu/feedback.svg';
+export { default as FeedbackIconFilled } from './icons/menu/feedback-filled.svg';
 export { default as GoalIcon } from './icons/menu/goal.svg';
 export { default as GoalIconFilled } from './icons/menu/goal-filled.svg';
 export { default as HomeIcon } from './icons/menu/home.svg';
