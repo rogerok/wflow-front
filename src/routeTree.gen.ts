@@ -15,6 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './app/routes/__root'
 import { Route as ProtectedImport } from './app/routes/_protected'
 import { Route as IndexImport } from './app/routes/index'
+import { Route as FeedbackIndexImport } from './app/routes/feedback/index'
 import { Route as authSignInImport } from './app/routes/(auth)/signIn'
 
 // Create Virtual Routes
@@ -55,6 +56,12 @@ const ProtectedRoute = ProtectedImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FeedbackIndexRoute = FeedbackIndexImport.update({
+  id: '/feedback/',
+  path: '/feedback/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -234,6 +241,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedStatisticLazyImport
       parentRoute: typeof ProtectedImport
     }
+    '/feedback/': {
+      id: '/feedback/'
+      path: '/feedback'
+      fullPath: '/feedback'
+      preLoaderRoute: typeof FeedbackIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/_protected/books/$bookId': {
       id: '/_protected/books/$bookId'
       path: '/books/$bookId'
@@ -338,6 +352,7 @@ export interface FileRoutesByFullPath {
   '/reports': typeof ProtectedReportsLazyRoute
   '/settings': typeof ProtectedSettingsLazyRoute
   '/statistic': typeof ProtectedStatisticLazyRoute
+  '/feedback': typeof FeedbackIndexRoute
   '/books/$bookId': typeof ProtectedBooksBookIdLazyRoute
   '/books/create': typeof ProtectedBooksCreateLazyRoute
   '/goals/$goalId': typeof ProtectedGoalsGoalIdLazyRoute
@@ -357,6 +372,7 @@ export interface FileRoutesByTo {
   '/reports': typeof ProtectedReportsLazyRoute
   '/settings': typeof ProtectedSettingsLazyRoute
   '/statistic': typeof ProtectedStatisticLazyRoute
+  '/feedback': typeof FeedbackIndexRoute
   '/books/$bookId': typeof ProtectedBooksBookIdLazyRoute
   '/books/create': typeof ProtectedBooksCreateLazyRoute
   '/goals/$goalId': typeof ProtectedGoalsGoalIdLazyRoute
@@ -377,6 +393,7 @@ export interface FileRoutesById {
   '/_protected/reports': typeof ProtectedReportsLazyRoute
   '/_protected/settings': typeof ProtectedSettingsLazyRoute
   '/_protected/statistic': typeof ProtectedStatisticLazyRoute
+  '/feedback/': typeof FeedbackIndexRoute
   '/_protected/books/$bookId': typeof ProtectedBooksBookIdLazyRoute
   '/_protected/books/create': typeof ProtectedBooksCreateLazyRoute
   '/_protected/goals/$goalId': typeof ProtectedGoalsGoalIdLazyRoute
@@ -398,6 +415,7 @@ export interface FileRouteTypes {
     | '/reports'
     | '/settings'
     | '/statistic'
+    | '/feedback'
     | '/books/$bookId'
     | '/books/create'
     | '/goals/$goalId'
@@ -416,6 +434,7 @@ export interface FileRouteTypes {
     | '/reports'
     | '/settings'
     | '/statistic'
+    | '/feedback'
     | '/books/$bookId'
     | '/books/create'
     | '/goals/$goalId'
@@ -434,6 +453,7 @@ export interface FileRouteTypes {
     | '/_protected/reports'
     | '/_protected/settings'
     | '/_protected/statistic'
+    | '/feedback/'
     | '/_protected/books/$bookId'
     | '/_protected/books/create'
     | '/_protected/goals/$goalId'
@@ -450,6 +470,7 @@ export interface RootRouteChildren {
   ProtectedRoute: typeof ProtectedRouteWithChildren
   authSignInRoute: typeof authSignInRoute
   authSignUpLazyRoute: typeof authSignUpLazyRoute
+  FeedbackIndexRoute: typeof FeedbackIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -457,6 +478,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProtectedRoute: ProtectedRouteWithChildren,
   authSignInRoute: authSignInRoute,
   authSignUpLazyRoute: authSignUpLazyRoute,
+  FeedbackIndexRoute: FeedbackIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -472,7 +494,8 @@ export const routeTree = rootRoute
         "/",
         "/_protected",
         "/(auth)/signIn",
-        "/(auth)/signUp"
+        "/(auth)/signUp",
+        "/feedback/"
       ]
     },
     "/": {
@@ -516,6 +539,9 @@ export const routeTree = rootRoute
     "/_protected/statistic": {
       "filePath": "_protected/statistic.lazy.tsx",
       "parent": "/_protected"
+    },
+    "/feedback/": {
+      "filePath": "feedback/index.tsx"
     },
     "/_protected/books/$bookId": {
       "filePath": "_protected/books/$bookId.lazy.tsx",

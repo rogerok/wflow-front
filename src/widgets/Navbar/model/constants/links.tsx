@@ -200,4 +200,24 @@ export const NavbarLinks: NavbarLinksType[] = [
     roles: [RolesConstant.Admin, RolesConstant.User],
     disabled: import.meta.env.PROD,
   }),
+  linkOptions({
+    to: routes.feedback(),
+    inActive: (
+      <IconComponent
+        name={'FeedbackIcon'}
+        size={'sm'}
+        color={'basic-secondary-4'}
+      />
+    ),
+    active: (
+      <IconComponent
+        name={'FeedbackIconFilled'}
+        size={'sm'}
+        color={'brand-primary'}
+      />
+    ),
+    label: 'Обратная связь',
+    roles: [RolesConstant.Admin, RolesConstant.Visitor, RolesConstant.User],
+    disabled: false,
+  }),
 ];
