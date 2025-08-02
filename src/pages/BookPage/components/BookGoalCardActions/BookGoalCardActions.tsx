@@ -36,6 +36,7 @@ export const BookGoalCardActions: FC<BookGoalCardActionsProps> = observer(
         </Button>
         <ButtonLink
           to={routes.goal()}
+          params={{ goalId: goal.id }}
           variant={'outlined'}
           fullWidth={isScreenDownMd}
         >

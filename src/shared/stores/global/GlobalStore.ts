@@ -50,4 +50,8 @@ export class GlobalStore {
   get authController(): AuthController {
     return this._authController;
   }
+
+  get router(): RouterType {
+    return this._router;
+  }
 }
