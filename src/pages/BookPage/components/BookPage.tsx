@@ -2,7 +2,9 @@ import './BookPage.scss';
 
 import { cn } from '@bem-react/classname';
 import { GoalResponseType } from '@shared/api';
+import { routes } from '@shared/const';
 import {
+  ButtonLink,
   Card,
   ElementRepeater,
   HStack,
@@ -113,7 +115,12 @@ export const BookPage: FC<BookPageProps> = observer((props) => {
             />
           </BookContext>
         ) : (
-          <NotFoundLabel />
+          <VStack align={'center'} flexJustify={'center'} mt={'32'}>
+            <ButtonLink to={routes.goalsCreate()}>
+              Создать первую цель
+            </ButtonLink>
+            <NotFoundLabel />
+          </VStack>
         )}
 
         <Pagination service={bookFacade.goalsRequest} ref={ref} />

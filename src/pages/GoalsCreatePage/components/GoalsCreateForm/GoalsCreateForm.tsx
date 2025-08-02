@@ -8,6 +8,7 @@ import {
   TextInput,
 } from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
+import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
@@ -21,7 +22,9 @@ interface GoalsCreateFormProps {
 }
 
 export const GoalsCreateForm: FC<GoalsCreateFormProps> = observer((props) => {
-  const [service] = useState(() => new GoalsCreateService());
+  const { router } = useGlobalStore();
+
+  const [service] = useState(() => new GoalsCreateService(router));
 
   const {
     form: { fields },

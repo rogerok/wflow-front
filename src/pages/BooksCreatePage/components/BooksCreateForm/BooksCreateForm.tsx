@@ -7,6 +7,7 @@ import {
   TextInput,
 } from '@shared/elements/components';
 import { Button, VStack } from '@shared/elements/ui';
+import { useGlobalStore } from '@shared/stores';
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 
@@ -19,7 +20,9 @@ interface BooksCreateFormProps {
 }
 
 export const BooksCreateForm: FC<BooksCreateFormProps> = observer((props) => {
-  const [service] = useState(() => new BooksCreateService());
+  const { router } = useGlobalStore();
+
+  const [service] = useState(() => new BooksCreateService(router));
 
   return (
     <FormComponent<BookFormRequestType>

@@ -3,8 +3,10 @@ import {
   BookFormRequestType,
   createBookRequest,
 } from '@shared/api';
+import { routes } from '@shared/const';
 import { convertEmptyStringToNull, FormStore } from '@shared/lib';
 import { RequestStore } from '@shared/stores';
+import { RouterType } from '@shared/types';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 export class BooksCreateService {
@@ -20,7 +22,10 @@ export class BooksCreateService {
     success: 'Книга создана',
   });
 
-  constructor() {
+  router: RouterType;
+
+  constructor(router: RouterType) {
+    this.router = router;
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
@@ -33,7 +38,10 @@ export class BooksCreateService {
 
       runInAction(() => {
         if (resp.status === 'success') {
-          this.form.reset();
+          this.router.navigate({
+            to: routes.bookDetails(),
+            params: { bookId: resp.data.id },
+          });
         }
       });
     });

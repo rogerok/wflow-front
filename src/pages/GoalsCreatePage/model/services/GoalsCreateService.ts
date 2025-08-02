@@ -1,6 +1,8 @@
 import { createGoal } from '@shared/api';
+import { routes } from '@shared/const';
 import { convertEmptyStringToNull, FormStore } from '@shared/lib';
 import { RequestStore } from '@shared/stores';
+import { RouterType } from '@shared/types';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { GoalCreateFormSchema, GoalCreateFormType } from '../types/createGoal';
@@ -24,7 +26,11 @@ export class GoalsCreateService {
     },
   });
 
-  constructor() {
+  router: RouterType;
+
+  constructor(router: RouterType) {
+    this.router = router;
+
     makeAutoObservable(
       this,
       {},
@@ -57,7 +63,10 @@ export class GoalsCreateService {
 
       runInAction(() => {
         if (resp.status === 'success') {
-          this.form.reset();
+          this.router.navigate({
+            to: routes.goal(),
+            params: { goalId: resp.data.id },
+          });
         }
       });
     });
